@@ -9,6 +9,7 @@ App web instalable (PWA) para gestionar la cartera de clientes. Los datos se gua
 | `app/` | La aplicación. **Es lo único que se publica en internet** (no contiene datos de clientes). |
 | `ALTAS.xlsx` | Tu Excel original. La app nunca lo modifica. |
 | `Respaldo_inicial.json` | Tus 116 clientes ya cargados, con los ajustes indicados (ver abajo). **Contiene datos personales: no lo subas a internet.** |
+| `LEEME_NUBE.md`, `firestore.rules` | Guía y reglas para activar la nube (Firebase). |
 | `tools/`, `tests/`, `serve.js` | Herramientas de desarrollo y pruebas automáticas (`node --test tests/logic.test.mjs tests/excel.test.mjs`). |
 
 ## Poner la app en el iPhone

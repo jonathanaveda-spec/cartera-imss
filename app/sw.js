@@ -1,9 +1,9 @@
 // Service worker: deja la app disponible sin conexión. Los datos NO pasan por aquí (viven en IndexedDB).
-const VERSION = 'cartera-imss-v2';
+const VERSION = 'cartera-imss-v3';
 const ARCHIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'css/styles.css',
-  'js/main.js', 'js/ui.js', 'js/store.js', 'js/excel.js', 'js/logic.js',
-  'vendor/xlsx.full.min.js', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
+  'js/main.js', 'js/ui.js', 'js/store.js', 'js/excel.js', 'js/logic.js', 'js/nube.js', 'js/sincro.js', 'js/acceso.js', 'js/nube-config.js',
+  'vendor/xlsx.full.min.js', 'vendor/firebase.js', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png',
 ];
 
 self.addEventListener('install', (e) => {

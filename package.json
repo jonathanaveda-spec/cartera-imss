@@ -1,0 +1,14 @@
+{
+  "name": "cartera-imss",
+  "private": true,
+  "description": "Herramientas de desarrollo de Cartera IMSS (la app está en app/)",
+  "scripts": {
+    "test": "node --test tests/logic.test.mjs tests/sincro.test.mjs",
+    "build:firebase": "esbuild tools/firebase-entrada.js --bundle --format=esm --minify --outfile=app/vendor/firebase.js",
+    "servir": "node serve.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "firebase": "^11.0.0"
+  }
+}
