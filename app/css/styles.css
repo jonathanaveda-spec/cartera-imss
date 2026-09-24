@@ -265,3 +265,13 @@ tr.fila.est-baja td { opacity: .72; }
 .toasts { position: fixed; left: 0; right: 0; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 90; display: flex; flex-direction: column; align-items: center; gap: 8px; pointer-events: none; padding: 0 16px; }
 .toast { background: #111827; color: #fff; padding: 12px 16px; border-radius: 10px; box-shadow: 0 6px 20px rgba(0, 0, 0, .3); max-width: 480px; animation: sube .2s ease-out; }
 .toast.mal { background: var(--peligro); }
+
+/* ---------- Acceso (nube) ---------- */
+.acceso { position: fixed; inset: 0; z-index: 100; background: var(--fondo); display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; }
+.acceso-caja { width: 100%; max-width: 380px; background: var(--tarjeta); border-radius: 16px; box-shadow: var(--sombra); padding: 24px 20px; text-align: center; }
+.acceso-caja h1 { font-size: 1.4rem; color: var(--marca); margin-bottom: 6px; }
+.acceso-caja h2 { font-size: 1.05rem; margin: 10px 0 6px; }
+.acceso-caja label { text-align: left; }
+.acceso-texto { color: var(--suave); margin: 6px 0 16px; }
+.girar { width: 34px; height: 34px; margin: 8px auto 0; border: 4px solid var(--linea); border-top-color: var(--marca); border-radius: 50%; animation: gira .9s linear infinite; }
+@keyframes gira { to { transform: rotate(360deg); } }

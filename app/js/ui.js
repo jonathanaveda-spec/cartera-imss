@@ -2,6 +2,7 @@
 import * as L from './logic.js';
 import * as S from './store.js';
 import * as E from './excel.js';
+import * as N from './nube.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -120,6 +121,11 @@ function lsSet(k, v) { try { localStorage.setItem(k, v); } catch { /* opcional *
 
 function renderAvisos(cnt) {
   const a = [];
+  if (N.nubeActiva && N.estado.error) {
+    a.push(`<div class="banner mal"><p><b>No se pudo sincronizar con la nube:</b> ${esc(N.estado.error)}. Tus cambios siguen guardados en este dispositivo.</p></div>`);
+  } else if (N.nubeActiva && !navigator.onLine) {
+    a.push(`<div class="banner info"><p><b>Sin conexión.</b> Puedes seguir trabajando: los cambios se enviarán a la nube cuando vuelva internet.</p></div>`);
+  }
   if (S.estadoAlmacen.motor === 'ninguno') {
     a.push(`<div class="banner mal"><p><b>Atención:</b> este navegador no permite guardar datos. Lo que captures se perderá al cerrar. Abre la app desde Safari y agrégala a la pantalla de inicio.</p></div>`);
   }
@@ -133,7 +139,7 @@ function renderAvisos(cnt) {
   }
   const ult = S.db.config.ultimoRespaldo;
   if (cnt.total && (!ult || Date.now() - ult > 30 * 86400000)) {
-    a.push(`<div class="banner"><p><b>Haz un respaldo.</b> ${ult ? 'Tu último respaldo fue el ' + L.fmtFecha(L.hoyISO(new Date(ult))) + '.' : 'Aún no has exportado tus datos.'} Tus datos viven solo en este teléfono.</p>
+    a.push(`<div class="banner"><p><b>Haz un respaldo.</b> ${ult ? 'Tu último respaldo fue el ' + L.fmtFecha(L.hoyISO(new Date(ult))) + '.' : 'Aún no has exportado tus datos.'} ${N.nubeActiva ? 'Tus datos están en la nube, pero un respaldo propio nunca sobra.' : 'Tus datos viven solo en este teléfono.'}</p>
       <button class="btn chico" data-accion="exportar">Exportar a Excel</button></div>`);
   }
   $('#avisos').innerHTML = a.join('');
@@ -491,6 +497,7 @@ export function abrirMenu() {
       op('asistente', '🗓️', 'Configurar pagos iniciales', 'Asigna periodicidad y próxima fecha a los clientes que aún no la tienen.'),
       op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
       op('config', '⚙️', 'Configuración', 'Días de aviso, campos nuevos y estado del almacenamiento.'),
+      ...(N.nubeActiva ? [op('cuenta', '☁️', 'Cuenta', `${esc(N.estado.usuario || '')} · datos sincronizados en la nube. Toca para cerrar sesión.`)] : []),
     ].join(''),
   });
   v.el.addEventListener('click', (e) => { if (e.target.closest('.opcion-menu')) v.cerrar(); });
@@ -685,6 +692,27 @@ export function abrirPapelera() {
   }));
 }
 
+// ---------- Cuenta (nube) ----------
+async function abrirCuenta() {
+  const ok = await confirmar({
+    titulo: 'Cerrar sesión',
+    mensaje: `Se cerrará la sesión de <b>${esc(N.estado.usuario || '')}</b> y se <b>borrarán los datos guardados en este dispositivo</b> (siguen a salvo en la nube). Para volver a verlos tendrás que iniciar sesión otra vez con internet.`,
+    ok: 'Cerrar sesión', peligro: true,
+  });
+  if (!ok) return;
+  await seguro(async () => { await N.salir(); location.reload(); });
+}
+
+/** Se llama cuando llegan cambios de otro dispositivo: refresca la lista y las fichas abiertas. */
+export function refrescarTodo() {
+  render();
+  for (const v of [...pila]) {
+    if (!v.detalleId) continue;
+    if (S.buscar(v.detalleId)) abrirDetalle(v.detalleId, v);
+    else v.cerrar();
+  }
+}
+
 // ---------- Configuración ----------
 export function abrirConfig() {
   const pintar = (v) => {
@@ -708,7 +736,7 @@ export function abrirConfig() {
             <label>Tipo<select name="tipo"><option value="texto">Texto</option><option value="numero">Número</option><option value="fecha">Fecha</option><option value="nota">Nota larga</option></select></label>
             <button class="btn completo" type="submit">Agregar campo</button></form></div>
         <div class="seccion"><h3>Almacenamiento</h3>
-          <p>${st.motor === 'indexeddb' ? '✅ Guardado en este dispositivo (IndexedDB).' : st.motor === 'localstorage' ? '⚠️ Guardado con método alterno (localStorage).' : '❌ Sin almacenamiento disponible.'}
+          <p>${N.nubeActiva ? '☁️ Sincronizado con la nube y con copia en este dispositivo.<br>' : ''}${st.motor === 'indexeddb' ? '✅ Guardado en este dispositivo (IndexedDB).' : st.motor === 'localstorage' ? '⚠️ Guardado con método alterno (localStorage).' : '❌ Sin almacenamiento disponible.'}
           ${st.persistente ? '<br>Protegido contra borrado automático.' : ''}</p>
           <p class="mini" style="margin-top:6px">${S.db.clientes.length} clientes · ${S.db.historial.length} eventos de historial. Haz respaldos periódicos desde el menú Datos.</p>
           <button class="btn" data-accion="previa" style="margin-top:10px">Deshacer último cambio grande (importar/restaurar/masivo)</button></div>`,
@@ -773,6 +801,7 @@ export function enlazarEventos() {
     asistente: abrirAsistente,
     papelera: abrirPapelera,
     config: abrirConfig,
+    cuenta: abrirCuenta,
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },

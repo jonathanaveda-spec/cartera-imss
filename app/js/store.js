@@ -42,6 +42,15 @@ async function idbGet(clave) {
     q.onerror = () => rej(q.error);
   });
 }
+async function idbDel(clave) {
+  const c = idb.conn || (idb.conn = await abrirIDB());
+  return new Promise((res, rej) => {
+    const t = c.transaction(STORE, 'readwrite');
+    t.objectStore(STORE).delete(clave);
+    t.oncomplete = () => res();
+    t.onerror = () => rej(t.error);
+  });
+}
 async function idbPut(clave, valor) {
   const c = idb.conn || (idb.conn = await abrirIDB());
   return new Promise((res, rej) => {
@@ -115,8 +124,18 @@ export async function iniciar() {
   return db;
 }
 
+// Ganchos que conecta la sincronización con la nube (si está activada): push = enviar cambios, remoto = refrescar pantalla.
+export const hooks = { push: null, remoto: null };
+
 let cola = Promise.resolve();
+/** Guarda en el dispositivo y, si hay nube, envía los cambios (la parte de la nube se dispara de inmediato). */
 export function guardar() {
+  try { hooks.push && hooks.push(); } catch (e) { console.error('Sincronización:', e); }
+  return guardarLocal();
+}
+
+/** Guarda solo en el dispositivo (IndexedDB + espejo en localStorage). */
+export function guardarLocal() {
   cola = cola.then(async () => {
     const copia = JSON.stringify(db);
     let ok = false;
@@ -142,7 +161,7 @@ export function guardar() {
   return cola;
 }
 
-async function copiaPrevia(motivo) {
+export async function copiaPrevia(motivo) {
   try {
     await idbPut('db_prev', { motivo, ts: Date.now(), datos: JSON.parse(JSON.stringify(db)) });
   } catch { /* opcional */ }
@@ -497,3 +516,18 @@ export async function restaurarCopiaPrevia() {
 }
 
 export { ultimoPago };
+
+// ---------- Nube ----------
+/** Aplica datos llegados de la nube (no se vuelven a enviar). `parte` puede traer clientes, papelera, historial, config, importaciones. */
+export async function aplicarRemoto(parte) {
+  Object.assign(db, parte);
+  migrar(db);
+  await guardarLocal();
+  hooks.remoto && hooks.remoto();
+}
+
+/** Borra la copia local (al cerrar sesión, para no dejar datos de clientes en un teléfono ajeno). */
+export async function borrarLocal() {
+  for (const k of ['db', 'db_prev']) { try { await idbDel(k); } catch { /* ignorar */ } }
+  try { localStorage.removeItem(LS_KEY); } catch { /* ignorar */ }
+}
