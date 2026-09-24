@@ -1,0 +1,12 @@
+# DATOS PRIVADOS DE CLIENTES: nunca deben subirse a GitHub
+ALTAS.xlsx
+*.xlsx
+Respaldo_inicial.json
+Respaldo_*.json
+Cartera_IMSS_*.xlsx
+# Scripts/pruebas que dependen de los datos reales (contienen nombres o leen el Excel)
+tools/crear-respaldo-inicial.mjs
+tests/excel.test.mjs
+# Local
+.claude/
+node_modules/

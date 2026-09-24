@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cartera IMSS</title>
+  <meta name="description" content="Gestión de clientes de seguros médicos y semanas cotizadas del IMSS">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cartera IMSS">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="barra">
+    <div class="barra-in">
+      <h1>Cartera IMSS</h1>
+      <div class="barra-acc">
+        <button class="btn primario" data-accion="nuevo" aria-label="Agregar cliente">＋ <span class="solo-ancho">Cliente</span></button>
+        <button class="btn" data-accion="menu" aria-label="Más opciones">☰ <span class="solo-ancho">Datos</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <div id="avisos"></div>
+
+    <section id="resumen" class="resumen" aria-label="Resumen general"></section>
+
+    <section class="herramientas" aria-label="Buscar y filtrar">
+      <div class="fila-busqueda">
+        <input id="q" type="search" placeholder="Buscar por nombre, CURP, NSS, celular…" autocomplete="off" enterkeyhint="search">
+        <button class="btn" id="btnFiltros" aria-expanded="false" aria-controls="filtros">Filtros <span id="nFiltros" class="pastilla" hidden></span></button>
+      </div>
+      <div id="filtros" class="filtros" hidden>
+        <label>Estado
+          <select id="fEstado">
+            <option value="todos">Todos</option>
+            <option value="AL_DIA">🟢 Al día</option>
+            <option value="POR_VENCER">🟡 Próximo a vencer</option>
+            <option value="MOROSO">🔴 Moroso / deudor</option>
+            <option value="BAJA">⚫ Dado de baja</option>
+            <option value="SIN_CONFIG">⚪ Sin configurar</option>
+          </select>
+        </label>
+        <label>Próximo pago desde <input type="date" id="fPDesde"></label>
+        <label>Próximo pago hasta <input type="date" id="fPHasta"></label>
+        <label>Fecha de inicio desde <input type="date" id="fIDesde"></label>
+        <label>Fecha de inicio hasta <input type="date" id="fIHasta"></label>
+        <label id="lblEtiqueta" hidden>Etiqueta <select id="fEtiqueta"></select></label>
+        <button class="btn" id="btnLimpiar" type="button">Quitar filtros</button>
+      </div>
+      <div class="fila-orden">
+        <label>Ordenar por
+          <select id="orden">
+            <option value="vencimiento">Vencimiento</option>
+            <option value="nombre">Nombre</option>
+            <option value="estado">Estado</option>
+            <option value="pago">Último pago</option>
+            <option value="inicio">Fecha de inicio</option>
+          </select>
+        </label>
+        <button class="btn" id="dir" type="button" aria-label="Cambiar dirección del orden" title="Cambiar dirección">↑ Ascendente</button>
+        <span id="conteo" class="conteo" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section id="lista" aria-label="Clientes"></section>
+  </main>
+
+  <div id="modales"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <noscript><p style="padding:24px">Esta aplicación necesita JavaScript.</p></noscript>
+  <script src="vendor/xlsx.full.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
