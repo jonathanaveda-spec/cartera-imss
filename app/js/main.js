@@ -63,6 +63,7 @@ async function arrancarNube() {
 async function arrancar() {
   await S.iniciar();
   enlazarEventos();
+  window.__cartera_ok = true; // señal para el botón de reparación de index.html
   registrarSW();
   if (N.nubeActiva) await arrancarNube();
   else arrancarLocal();
