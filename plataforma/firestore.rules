@@ -91,7 +91,7 @@ service cloud.firestore {
     }
 
     match /tickets/{id} {
-      allow create: if verificado() && conversacionNueva();
+      allow create: if (verificado() && conversacionNueva()) || esAdmin();   // soporte también puede iniciar una conversación
       allow read: if logueado() && (resource.data.uid == request.auth.uid || esAdmin());
       allow update: if esAdmin() || cambioDelAsesor();
       allow delete: if esAdmin();
@@ -107,6 +107,12 @@ service cloud.firestore {
               || (verificado() && request.resource.data.de == 'asesor' && duenoDelTicket(id)));
         allow delete: if esAdmin();
       }
+    }
+
+    // Pagos del Plan Pro: los registra el administrador; cada asesor solo ve los suyos.
+    match /pagos_plan/{id} {
+      allow read: if logueado() && (resource.data.uid == request.auth.uid || esAdmin());
+      allow write: if esAdmin();
     }
 
     // Registro de acciones del administrador (no se puede modificar ni borrar).

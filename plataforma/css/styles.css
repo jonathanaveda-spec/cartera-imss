@@ -302,3 +302,5 @@ tr.fila.est-baja td { opacity: .72; }
 .logo-acceso { display: block; margin: 0 auto 6px; border-radius: 24px; }
 .barra .pastilla { background: #f59e0b; color: #111827; font-weight: 700; }
 @media (max-width: 400px) { .barra h1 { font-size: 1rem; } .barra-acc { gap: 6px; } .barra .btn { padding: 0 12px; } }
+
+.btn-wa { background: #16a34a; border-color: #16a34a; color: #fff; }

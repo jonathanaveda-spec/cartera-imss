@@ -1,21 +1,35 @@
 // Lógica pura de planes y límites (sin Firebase ni DOM).
-//  - sistema: documento global { betaAbierta, limiteGratis, datosPago }
-//  - plan:    documento del asesor { tipo: 'pro' | 'gratis', vence: milisegundos | null }  (solo lo escribe el administrador)
+//  - sistema: documento global { betaAbierta, limiteGratis, diasPrueba, precios, medios, tasas }
+//  - plan:    documento del asesor { tipo: 'prueba' | 'pro' | 'gratis', vence: milisegundos | null } (solo lo escribe el administrador)
+//  - creado:  fecha de registro del asesor (milisegundos); sin documento de plan, la prueba gratis corre desde ahí.
 
 export const LIMITE_GRATIS_DEFECTO = 15;
+export const DIAS_PRUEBA_DEFECTO = 7;
 const DIA = 86400000;
+const diasHasta = (v, ahora) => (v == null ? null : Math.ceil((v - ahora) / DIA));
 
-export function planEfectivo({ plan, sistema } = {}, ahora = Date.now()) {
+export function planEfectivo({ plan, sistema, creado } = {}, ahora = Date.now()) {
   const limite = Number.isFinite(sistema?.limiteGratis) ? sistema.limiteGratis : LIMITE_GRATIS_DEFECTO;
+  const diasPrueba = Number.isFinite(sistema?.diasPrueba) ? sistema.diasPrueba : DIAS_PRUEBA_DEFECTO;
   const vence = plan?.vence ?? null;
-  if (plan?.tipo === 'pro' && (vence == null || vence > ahora)) {
-    return { tipo: 'pro', nombre: 'Plan Pro', ilimitado: true, limite: Infinity, vence, vencido: false,
-      diasRestantes: vence == null ? null : Math.ceil((vence - ahora) / DIA) };
-  }
-  if (sistema?.betaAbierta) {
-    return { tipo: 'beta', nombre: 'Beta gratuita', ilimitado: true, limite: Infinity, vence: null, vencido: false, diasRestantes: null };
-  }
-  return { tipo: 'gratis', nombre: 'Plan gratis', ilimitado: false, limite, vence, vencido: plan?.tipo === 'pro', diasRestantes: null };
+  const ilimitado = (tipo, nombre, v) => ({ tipo, nombre, ilimitado: true, limite: Infinity, vence: v, vencido: false, diasRestantes: diasHasta(v, ahora) });
+
+  if (plan?.tipo === 'pro' && (vence == null || vence > ahora)) return ilimitado('pro', 'Plan Pro', vence);
+  if (sistema?.betaAbierta) return ilimitado('beta', 'Beta gratuita', null);
+  if (plan?.tipo === 'prueba' && vence != null && vence > ahora) return ilimitado('prueba', 'Prueba gratis', vence);
+  // Sin plan asignado: prueba automática desde el registro.
+  const finPrueba = !plan?.tipo && creado != null ? creado + diasPrueba * DIA : null;
+  if (finPrueba != null && finPrueba > ahora) return ilimitado('prueba', 'Prueba gratis', finPrueba);
+
+  // Se acabó la prueba o el Pro (o el administrador lo dejó en gratis): plan gratis con límite.
+  const termino = plan?.tipo === 'pro' || plan?.tipo === 'prueba' ? plan.tipo : finPrueba != null ? 'prueba' : null;
+  return { tipo: 'gratis', nombre: 'Plan gratis', ilimitado: false, limite, vence: termino ? (vence ?? finPrueba) : null,
+    vencido: !!termino, termino, diasRestantes: null };
+}
+
+/** Con el plan vencido y más clientes que el límite gratis, la cartera queda en solo lectura (ver y exportar). */
+export function puedeEditar(planEf, clientes) {
+  return planEf.ilimitado || clientes <= planEf.limite;
 }
 
 /** ¿Se pueden agregar `nuevos` clientes teniendo `actuales`? Devuelve cuántos caben. */
@@ -29,7 +43,7 @@ export const TIPOS_TICKET = { problema: 'Algo no funciona', pregunta: 'Tengo una
 
 export const PAISES = { CO: 'Colombia', VE: 'Venezuela', MX: 'México', OTRO: 'Otro' };
 
-export const NOMBRE_TIPO = { ...TIPOS_TICKET, pago: 'Comprobante de pago' };
+export const NOMBRE_TIPO = { ...TIPOS_TICKET, pago: 'Comprobante de pago', aviso: 'Mensaje de soporte' };
 
 /** Medios de pago con los del país del asesor primero (se conserva el orden configurado dentro de cada grupo). */
 export function mediosOrdenados(medios = [], pais = '') {

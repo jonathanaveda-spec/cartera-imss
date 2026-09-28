@@ -299,6 +299,14 @@ export async function vaciarPapelera() {
   await guardar();
 }
 
+export async function anotarRecordatorio(id) {
+  const c = buscar(id);
+  c.ultimo_recordatorio = hoyISO();
+  c.actualizado = ahora();
+  log(c, 'recordatorio', 'Recordatorio de pago enviado por WhatsApp');
+  await guardar();
+}
+
 export async function darDeBaja(id, motivo = '') {
   const c = buscar(id);
   c.baja = true;

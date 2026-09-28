@@ -132,10 +132,16 @@ function renderAvisos(cnt) {
     a.push(`<div class="banner info"><p>💬 <b>Soporte te respondió.</b> Tienes ${N.soporte.noLeidos} ${N.soporte.noLeidos === 1 ? 'conversación' : 'conversaciones'} con respuesta nueva.</p><button class="btn chico primario" data-accion="ayuda">Ver respuesta</button></div>`);
   }
   const pe = N.estado.planEf;
-  if (pe && pe.tipo === 'pro' && pe.diasRestantes != null && pe.diasRestantes <= 5) {
+  const nCli = S.db.clientes.length;
+  const termino = pe.termino === 'pro' ? 'Tu Plan Pro venció' : 'Tu prueba gratis terminó';
+  if (pe.tipo === 'prueba' && pe.diasRestantes != null && pe.diasRestantes <= 3) {
+    a.push(`<div class="banner"><p>⏳ <b>Tu prueba gratis termina ${pe.diasRestantes <= 0 ? 'hoy' : `en ${pe.diasRestantes} día(s)`}.</b> Activa el Plan Pro para seguir sin interrupciones.</p><button class="btn chico primario" data-accion="plan">Ver planes</button></div>`);
+  } else if (pe.tipo === 'pro' && pe.diasRestantes != null && pe.diasRestantes <= 5) {
     a.push(`<div class="banner"><p>Tu Plan Pro vence en <b>${pe.diasRestantes} día(s)</b>.</p><button class="btn chico" data-accion="plan">Renovar</button></div>`);
-  } else if (pe && !pe.ilimitado && S.db.clientes.length >= pe.limite - 2) {
-    a.push(`<div class="banner"><p>${pe.vencido ? 'Tu Plan Pro venció. ' : ''}Usas <b>${S.db.clientes.length} de ${pe.limite}</b> clientes del plan gratis.</p><button class="btn chico" data-accion="plan">Ver planes</button></div>`);
+  } else if (!N.puedeEditarCartera()) {
+    a.push(`<div class="banner mal"><p><b>${termino}.</b> Puedes ver y exportar tus ${nCli} clientes, pero para registrar pagos, editar o agregar necesitas el Plan Pro.</p><button class="btn chico primario" data-accion="plan">Activar plan</button></div>`);
+  } else if (!pe.ilimitado && nCli >= pe.limite - 2) {
+    a.push(`<div class="banner"><p>${pe.vencido ? termino + '. ' : ''}Usas <b>${nCli} de ${pe.limite}</b> clientes del plan gratis.</p><button class="btn chico" data-accion="plan">Ver planes</button></div>`);
   }
   if (S.estadoAlmacen.motor === 'ninguno') {
     a.push(`<div class="banner mal"><p><b>Atención:</b> este navegador no permite guardar datos. Lo que captures se perderá al cerrar. Abre la app desde Safari y agrégala a la pantalla de inicio.</p></div>`);
@@ -233,6 +239,8 @@ function filaHTML({ c, e }) {
     : e.codigo === 'SIN_CONFIG'
       ? `<button class="btn chico" data-accion="editar" data-id="${c.id}">Fijar fecha</button>`
       : `<button class="btn chico primario" data-accion="pago" data-id="${c.id}">Registrar pago</button>`;
+  const wa = (e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER') && L.telefonoDe(c.celular)
+    ? `<button class="btn chico btn-wa" data-accion="recordar" data-id="${c.id}" aria-label="Recordar el pago por WhatsApp">💬 Recordar</button>` : '';
   return `<tr class="fila est-${e.clase}" data-id="${c.id}" tabindex="0" role="button" aria-label="Abrir ${esc(c.nombre)}">
     <td class="c-estado"><span class="insignia ${e.clase}">${e.icono} ${e.etiqueta}</span></td>
     <td class="c-nombre"><div class="nombre">${esc(c.nombre) || '<i>(sin nombre)</i>'}</div><div class="sub">${esc(c.curp)}</div></td>
@@ -241,7 +249,7 @@ function filaHTML({ c, e }) {
     <td class="solo-escritorio">${esc(c.periodicidad) || '—'}${L.textoDiaPago(c) ? `<div class="sub">${L.textoDiaPago(c)}</div>` : ''}</td>
     <td class="c-vence"><span class="lin-fecha">${conFecha ? L.fmtFecha(c.proximo_pago) : ''}</span> <span class="dias ${e.clase}">${L.textoDias(e)}</span></td>
     <td class="solo-escritorio">${up ? L.fmtFecha(up.fecha_pago) : '—'}</td>
-    <td class="c-acc"><div class="acciones">${boton}</div></td></tr>`;
+    <td class="c-acc"><div class="acciones">${wa}${boton}</div></td></tr>`;
 }
 
 // =====================================================================
@@ -265,13 +273,16 @@ export function abrirDetalle(id, ventanaExistente) {
       <div><span class="insignia ${e.clase}">${e.icono} ${e.etiqueta}</span>
         <div class="dias ${e.clase}" style="margin-top:6px">${L.textoDias(e)}</div></div>
       <div style="text-align:right"><div class="mini">Próximo pago</div><div class="grande">${c.proximo_pago ? L.fmtFecha(c.proximo_pago) : '—'}</div>
+        ${c.ultimo_recordatorio ? `<div class="mini">Último recordatorio: ${L.fmtFecha(c.ultimo_recordatorio)}</div>` : ''}
         <div class="mini">${esc(c.periodicidad) || 'Sin periodicidad'}${L.textoDiaPago(c) ? ' · <b>' + L.textoDiaPago(c) + '</b>' : ''}</div></div>
     </div>
     ${e.codigo === 'BAJA' ? `<div class="banner mal"><p>Dado de baja${c.baja_fecha ? ' el ' + L.fmtFecha(c.baja_fecha) : ''}${c.baja_motivo ? ': ' + esc(c.baja_motivo) : ''}. Si vuelve a cotizar, usa «Reactivar». Este estado tiene prioridad sobre las fechas de pago.</p></div>` : ''}
     <div class="seccion acc-fila">
       ${e.codigo === 'BAJA' ? '' : `<button class="btn primario" data-accion="pago" data-id="${id}">Registrar pago</button>`}
       <button class="btn" data-accion="editar" data-id="${id}">Editar</button>
-      ${tel ? `<a class="btn" href="tel:${tel}">Llamar</a><a class="btn" href="https://wa.me/52${tel}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
+      ${tel ? `<a class="btn" href="tel:${tel}">Llamar</a>${e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER'
+        ? `<button class="btn btn-wa" data-accion="recordar" data-id="${id}">💬 Recordar pago</button>`
+        : `<a class="btn" href="${L.enlaceWhatsApp(c.celular, '')}" target="_blank" rel="noopener">WhatsApp</a>`}` : ''}
       ${c.baja ? `<button class="btn" data-accion="reactivar" data-id="${id}">Reactivar</button>` : `<button class="btn" data-accion="baja" data-id="${id}">Dar de baja</button>`}
       <button class="btn peligro" data-accion="eliminar" data-id="${id}">Eliminar</button>
     </div>
@@ -776,6 +787,16 @@ function avisoLimite() {
   });
 }
 
+function avisoSoloLectura() {
+  const pe = N.estado.planEf;
+  ventana({
+    titulo: 'Activa tu plan para continuar',
+    cuerpo: `<p>${pe.termino === 'pro' ? 'Tu Plan Pro venció' : 'Tu prueba gratis terminó'}. Tus ${S.db.clientes.length} clientes siguen guardados y puedes verlos y exportarlos.</p>
+      <p style="margin-top:10px">Para registrar pagos, editar o agregar clientes, activa el Plan Pro.</p>`,
+    pie: '<button class="btn" data-cerrar type="button">Ahora no</button><button class="btn primario" data-accion="plan" data-cerrar>Ver planes</button>',
+  });
+}
+
 function abrirPlan() {
   const pe = N.estado.planEf;
   const sis = N.estado.sistema || {};
@@ -804,14 +825,24 @@ function abrirPlan() {
           <p class="mini" style="margin-top:6px">Lo revisamos y te confirmamos por Ayuda y soporte al activar tu plan.</p>
           <button class="btn primario" type="submit" style="margin-top:10px">Enviar comprobante</button></form>`
     : '<p class="mini">Pronto publicaremos los medios de pago. Escríbenos desde Ayuda y soporte.</p>'}`;
+  const infoPrueba = pe.tipo === 'prueba'
+    ? `<div class="banner info"><p>🎁 Estás en tu <b>prueba gratis</b>: ${pe.diasRestantes <= 0 ? 'termina hoy' : `te quedan ${pe.diasRestantes} día(s)`}. Puedes activar el Plan Pro cuando quieras.</p></div>` : '';
   const v = ventana({
     titulo: 'Mi plan',
     cuerpo: `<div class="seccion destacado"><div><div class="mini">Plan actual</div><div class="grande">${esc(pe.nombre)}</div>
         <div class="mini">${uso}</div></div>
         ${pe.vence ? `<div style="text-align:right"><div class="mini">Vence</div><b>${L.fmtFecha(L.hoyISO(new Date(pe.vence)))}</b></div>` : ''}</div>
       ${pe.vencido ? '<div class="banner mal"><p>Tu Plan Pro venció. Tus clientes siguen guardados; renueva para seguir agregando.</p></div>' : ''}
-      ${cobro}`,
+      ${infoPrueba}${cobro}
+      <div class="seccion"><h3>Mis pagos del plan</h3><div id="mis-pagos" class="mini">Cargando…</div></div>`,
   });
+  N.misPagosPlan().then((ps) => {
+    const el = v.q('#mis-pagos');
+    if (!el) return;
+    el.innerHTML = ps.length ? `<ul class="lista-simple">${ps.map((p) => `<li><b>${esc(p.monto)} ${esc(p.moneda || '')}</b> · ${esc(p.medio || '')}
+        <div class="mini">${p.registrado?.toMillis ? L.fmtFecha(L.hoyISO(new Date(p.registrado.toMillis()))) : ''}${p.hasta ? ` · plan hasta ${L.fmtFecha(L.hoyISO(new Date(p.hasta)))}` : ''}</div></li>`).join('')}</ul>`
+      : 'Aún no hay pagos registrados.';
+  }).catch(() => { const el = v.q('#mis-pagos'); if (el) el.textContent = 'No se pudo cargar (revisa tu conexión).'; });
   v.q('#f-pago-plan')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const f = e.target;
@@ -966,6 +997,12 @@ export function abrirConfig() {
           <label style="margin-top:12px">Periodicidad sugerida
             <select name="periodicidadDefecto">${Object.keys(L.PERIODICIDADES).map((p) => `<option ${cfg.periodicidadDefecto === p ? 'selected' : ''}>${p}</option>`).join('')}</select></label>
           <button class="btn primario" type="submit" style="margin-top:12px">Guardar</button></div></form>
+        <form id="f-plantillas" class="seccion"><h3>Mensajes de cobro por WhatsApp</h3>
+          <p class="mini" style="margin-bottom:8px">Se usan en el botón «Recordar». Puedes escribir {nombre}, {fecha} y {dias}.</p>
+          <label>Cuando está por vencer<textarea name="porVencer" rows="3">${esc(cfg.plantillasCobro?.porVencer || L.PLANTILLAS_COBRO.porVencer)}</textarea></label>
+          <label style="margin-top:10px">Cuando ya venció<textarea name="moroso" rows="3">${esc(cfg.plantillasCobro?.moroso || L.PLANTILLAS_COBRO.moroso)}</textarea></label>
+          <div class="acc-fila" style="margin-top:10px"><button class="btn primario" type="submit">Guardar mensajes</button>
+            <button class="btn" type="button" data-sugeridos>Usar los sugeridos</button></div></form>
         <div class="seccion"><h3>Campos personalizados</h3>
           <p class="mini" style="margin-bottom:8px">Agrega columnas nuevas a tus clientes sin afectar los datos existentes.</p>
           <ul class="lista-simple">${cfg.camposPersonalizados.map((x) => `<li style="display:flex;justify-content:space-between;gap:8px;align-items:center">
@@ -987,6 +1024,16 @@ export function abrirConfig() {
       await S.guardarConfig({ diasAviso: d, periodicidadDefecto: f.periodicidadDefecto.value });
       aviso('Configuración guardada'); render(); pintar(v);
     }); });
+    v.q('#f-plantillas').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
+      const f = e.target;
+      await S.guardarConfig({ plantillasCobro: { porVencer: f.porVencer.value.trim(), moroso: f.moroso.value.trim() } });
+      aviso('Mensajes guardados');
+    }); });
+    v.q('[data-sugeridos]').addEventListener('click', () => {
+      const f = v.q('#f-plantillas');
+      f.porVencer.value = L.PLANTILLAS_COBRO.porVencer;
+      f.moroso.value = L.PLANTILLAS_COBRO.moroso;
+    });
     v.q('#f-campo').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
       await S.agregarCampoPersonalizado(e.target.etiqueta.value, e.target.tipo.value);
       aviso('Campo agregado'); pintar(v);
@@ -1054,12 +1101,23 @@ export function enlazarEventos() {
     reactivar: (el) => seguro(async () => { await S.reactivar(el.dataset.id); aviso('Cliente reactivado'); render(); refrescarDetalleAbierto(el.dataset.id); }),
     eliminar: (el) => accionEliminar(el.dataset.id),
     anular: (el) => accionAnular(el.dataset.id),
+    recordar: (el) => {
+      const c = S.buscar(el.dataset.id);
+      const est = L.calcularEstado(c, L.hoyISO(), S.db.config.diasAviso);
+      const url = L.enlaceWhatsApp(c.celular, L.mensajeCobro(c, est, S.db.config.plantillasCobro));
+      if (!url) return aviso('Este cliente no tiene un celular válido', true);
+      window.open(url, '_blank', 'noopener');
+      S.anotarRecordatorio(c.id).then(() => { render(); refrescarDetalleAbierto(c.id); }).catch(() => {});
+    },
   };
+  // Con el plan vencido y más clientes que el límite gratis, la cartera queda en solo lectura.
+  const REQUIEREN_PLAN = new Set(['nuevo', 'editar', 'pago', 'baja', 'reactivar', 'eliminar', 'anular', 'importar', 'restaurar', 'asistente']);
 
   document.addEventListener('click', (e) => {
     const a = e.target.closest('[data-accion]');
     if (a && acciones[a.dataset.accion]) {
       if (a.tagName === 'A' && a.getAttribute('href') === '#') e.preventDefault();
+      if (REQUIEREN_PLAN.has(a.dataset.accion) && !N.puedeEditarCartera()) { avisoSoloLectura(); return; }
       acciones[a.dataset.accion](a);
       return;
     }
