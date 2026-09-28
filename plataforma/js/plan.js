@@ -56,3 +56,24 @@ export function mensajesDeConversacion(ticket, mensajes = []) {
   if (ticket?.respuesta) previos.push({ id: 'legado-2', de: 'soporte', texto: ticket.respuesta, creado: ticket.creado });
   return [...previos, ...mensajes];
 }
+
+// Moneda local de cada país y redondeo para mostrar un monto "limpio".
+const MONEDA_LOCAL = { CO: { moneda: 'COP', redondeo: 1000 }, MX: { moneda: 'MXN', redondeo: 5 } };
+
+/**
+ * Equivalente aproximado en la moneda del país del asesor, con la tasa (unidades por 1 USD) que fija el administrador.
+ * Devuelve '' si no aplica (precio no en USD, país sin moneda local configurada o sin tasa).
+ */
+export function equivalenteLocal(sistema = {}, pais = '') {
+  const loc = MONEDA_LOCAL[pais];
+  const tasa = Number(sistema.tasas?.[loc?.moneda]);
+  if (!loc || !(tasa > 0) || (sistema.moneda || 'USD') !== 'USD') return '';
+  const fmt = (usd) => {
+    const n = Math.ceil((Number(usd) * tasa) / loc.redondeo) * loc.redondeo;
+    return `${new Intl.NumberFormat('es-CO').format(n)} ${loc.moneda}`;
+  };
+  const p = [];
+  if (Number(sistema.precioMensual) > 0) p.push(`≈ ${fmt(sistema.precioMensual)} al mes`);
+  if (Number(sistema.precioAnual) > 0) p.push(`≈ ${fmt(sistema.precioAnual)} al año`);
+  return p.join(' · ');
+}

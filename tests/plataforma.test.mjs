@@ -55,3 +55,13 @@ test('conversación: tickets antiguos se muestran como primeros mensajes', () =>
   assert.deepEqual(r.map((x) => `${x.de}:${x.texto}`), ['asesor:hola', 'soporte:listo', 'asesor:gracias']);
   assert.equal(mensajesDeConversacion({}, []).length, 0);
 });
+
+import { equivalenteLocal } from '../plataforma/js/plan.js';
+test('equivalente en moneda local redondeado hacia arriba', () => {
+  const s = { precioMensual: 5, precioAnual: 50, moneda: 'USD', tasas: { COP: 3950, MXN: 18.3 } };
+  assert.equal(equivalenteLocal(s, 'CO'), '≈ 20.000 COP al mes · ≈ 198.000 COP al año');
+  assert.equal(equivalenteLocal(s, 'MX'), '≈ 95 MXN al mes · ≈ 915 MXN al año');
+  assert.equal(equivalenteLocal(s, 'VE'), '');
+  assert.equal(equivalenteLocal({ ...s, tasas: {} }, 'CO'), '');
+  assert.equal(equivalenteLocal({ ...s, moneda: 'COP' }, 'CO'), '');
+});
