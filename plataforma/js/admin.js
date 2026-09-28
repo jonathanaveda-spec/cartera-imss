@@ -304,7 +304,11 @@ function sistema() {
       <div class="seccion"><h3>Precio del Plan Pro</h3><div class="rejilla dos">
         <label>Mensual<input type="number" name="mensual" min="0" step="0.01" value="${esc(s.precioMensual ?? '')}"></label>
         <label>Anual<input type="number" name="anual" min="0" step="0.01" value="${esc(s.precioAnual ?? '')}"></label>
-        <label>Moneda<select name="moneda">${['USD', 'COP', 'MXN'].map((m) => `<option ${(s.moneda || 'USD') === m ? 'selected' : ''}>${m}</option>`).join('')}</select></label></div></div>
+        <label>Moneda<select name="moneda">${['USD', 'COP', 'MXN'].map((m) => `<option ${(s.moneda || 'USD') === m ? 'selected' : ''}>${m}</option>`).join('')}</select></label></div>
+        <p class="mini" style="margin:12px 0 6px">Tasa de cambio (cuántos pesos vale 1 USD). Sirve para mostrar a cada asesor el valor aproximado en su moneda. Actualízala cuando cambie.</p>
+        <div class="rejilla dos">
+          <label>1 USD en pesos colombianos (COP)<input type="number" name="tasaCOP" min="0" step="any" value="${esc(s.tasas?.COP ?? '')}"></label>
+          <label>1 USD en pesos mexicanos (MXN)<input type="number" name="tasaMXN" min="0" step="any" value="${esc(s.tasas?.MXN ?? '')}"></label></div></div>
       <div class="seccion"><h3>Medios de pago</h3>
         <p class="mini" style="margin-bottom:8px">Cada asesor ve primero los de su país.</p>
         <div id="medios"></div>
@@ -330,6 +334,7 @@ function sistema() {
         betaAbierta: f.beta.checked,
         limiteGratis: Math.max(1, parseInt(f.limite.value, 10) || LIMITE_GRATIS_DEFECTO),
         precioMensual: num(f.mensual.value), precioAnual: num(f.anual.value), moneda: f.moneda.value,
+        tasas: { COP: num(f.tasaCOP.value), MXN: num(f.tasaMXN.value) },
         medios: leerMedios().filter((m) => m.nombre && m.dato),
       };
       await F.setDoc(F.doc(fs, 'sistema', 'config'), nuevo);

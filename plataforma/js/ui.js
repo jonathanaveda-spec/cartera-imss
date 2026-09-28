@@ -4,7 +4,7 @@ import * as S from './store.js';
 import * as E from './excel.js';
 import * as N from './nube.js';
 import { MARCA } from './marca.js';
-import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion } from './plan.js';
+import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion, equivalenteLocal } from './plan.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -775,6 +775,7 @@ function abrirPlan() {
   const sis = N.estado.sistema || {};
   const medios = mediosOrdenados(sis.medios, N.estado.perfil?.pais || '');
   const precios = textoPrecios(sis);
+  const local = equivalenteLocal(sis, N.estado.perfil?.pais || '');
   const legado = (sis.datosPago || '').trim(); // formato anterior: texto libre
   const uso = pe.ilimitado ? `${S.db.clientes.length} clientes (sin límite)` : `${S.db.clientes.length} de ${pe.limite} clientes`;
   const listaMedios = medios.length
@@ -784,8 +785,10 @@ function abrirPlan() {
   const puedePagar = !!listaMedios;
   const cobro = pe.tipo === 'beta'
     ? `<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todo sin límite y sin costo. Te avisaremos antes de que empiecen los planes de pago.</p></div>
-       ${precios ? `<p class="mini">Precio del Plan Pro después de la beta: <b>${esc(precios)}</b>.</p>` : ''}`
+       ${precios ? `<p class="mini">Precio del Plan Pro después de la beta: <b>${esc(precios)}</b>${local ? ` (${esc(local)})` : ''}.</p>` : ''}`
     : `<div class="seccion"><h3>Plan Pro</h3>${precios ? `<div class="grande" style="font-size:1.2rem">${esc(precios)}</div>` : ''}
+        ${local ? `<div class="mini">${esc(local)} según la tasa de hoy</div>` : ''}
+        ${Number(sis.precioAnual) > 0 && Number(sis.precioMensual) > 0 && sis.precioAnual < sis.precioMensual * 12 ? `<div class="etq nuevo" style="margin-top:6px">Plan anual: ahorras ${Math.round(sis.precioMensual * 12 - sis.precioAnual)} ${esc(sis.moneda || 'USD')}</div>` : ''}
         <p class="mini" style="margin-top:4px">Clientes sin límite.</p></div>
       ${puedePagar ? `<div class="seccion"><h3>Cómo pagar</h3>${listaMedios}</div>
         <form id="f-pago-plan" class="seccion"><h3>Ya pagué</h3>
