@@ -18,9 +18,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Armar el sitio
+        # Raíz = app personal de Yamileth (sin cambios). /beta/ = plataforma multiusuario.
+        # Ninguna de las dos carpetas contiene datos de clientes.
+        run: |
+          mkdir -p _site/beta
+          cp -r app/. _site/
+          cp -r plataforma/. _site/beta/
+          rm -f _site/beta/firestore.rules _site/beta/LEEME_FIREBASE.md
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: app   # solo se publica la carpeta app/ (sin datos de clientes)
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

@@ -3,15 +3,32 @@ rules_version = '2';
 //  - Cada asesor solo puede leer y escribir su propia cartera (usuarios/{su uid}/...), y solo con el correo verificado.
 //  - El plan (planes/{uid}) y la configuración global (sistema/config) solo los cambia el administrador.
 //  - El administrador puede leer para soporte; cada vez que abre la cartera de alguien queda en admin_log.
-// PENDIENTE: reemplazar PEGA_AQUI_TU_UID por tu UID (Authentication → Users → "UID de usuario").
+// Administrador: UID de la cuenta de Jonathan (Authentication → Users). Para agregar otro, suma su UID a la lista.
 service cloud.firestore {
   match /databases/{database}/documents {
 
     function logueado() { return request.auth != null; }
     function verificado() { return logueado() && request.auth.token.email_verified == true; }
-    function esAdmin() { return verificado() && request.auth.uid in ['PEGA_AQUI_TU_UID']; }
+    function esAdmin() { return logueado() && request.auth.uid in ['45YfsHUZpoSf5mmYJOWBcPLyreA2']; }
     function esDueno(uid) { return logueado() && request.auth.uid == uid; }
     function soloCampos(permitidos) { return request.resource.data.keys().hasOnly(permitidos); }
+    function texto(v, max) { return v is string && v.size() <= max; }
+
+    // Datos del perfil con tipos y largos razonables.
+    function perfilValido() {
+      let d = request.resource.data;
+      return soloCampos(['nombre', 'correo', 'pais', 'telefono', 'creado', 'aceptoTerminos'])
+        && texto(d.nombre, 100) && texto(d.telefono, 30)
+        && d.pais in ['MX', 'CO', 'VE', 'OTRO', ''];
+    }
+
+    // Datos técnicos que acompañan un ticket: solo campos conocidos y de tamaño acotado.
+    function contextoValido(c) {
+      return c is map
+        && c.keys().hasOnly(['version', 'navegador', 'pantalla', 'enLinea', 'clientes', 'plan', 'ultimoError', 'errorSincro'])
+        && texto(c.get('navegador', ''), 400) && texto(c.get('ultimoError', ''), 400) && texto(c.get('errorSincro', ''), 400)
+        && texto(c.get('version', ''), 40) && texto(c.get('pantalla', ''), 20) && texto(c.get('plan', ''), 20);
+    }
 
     // Configuración global: beta abierta, límite del plan gratis, datos de pago.
     match /sistema/{doc} {
@@ -22,11 +39,10 @@ service cloud.firestore {
     // Perfil del asesor. Se puede crear antes de verificar el correo (se crea al registrarse).
     match /usuarios/{uid} {
       allow read: if esDueno(uid) || esAdmin();
-      allow create: if esDueno(uid)
-        && soloCampos(['nombre', 'correo', 'pais', 'telefono', 'creado', 'aceptoTerminos'])
-        && request.resource.data.correo == request.auth.token.email;
-      allow update: if esDueno(uid)
-        && soloCampos(['nombre', 'correo', 'pais', 'telefono', 'creado', 'aceptoTerminos'])
+      allow create: if esDueno(uid) && perfilValido()
+        && request.resource.data.correo == request.auth.token.email
+        && request.resource.data.creado == request.time;
+      allow update: if esDueno(uid) && perfilValido()
         && request.resource.data.correo == resource.data.correo
         && request.resource.data.creado == resource.data.creado;
       allow delete: if esDueno(uid);
@@ -52,7 +68,11 @@ service cloud.firestore {
         && request.resource.data.estado == 'abierto'
         && request.resource.data.respuesta == ''
         && request.resource.data.tipo in ['problema', 'pregunta', 'sugerencia', 'pago']
-        && request.resource.data.mensaje is string && request.resource.data.mensaje.size() <= 4000
+        && texto(request.resource.data.mensaje, 4000)
+        && request.resource.data.correo == request.auth.token.email
+        && texto(request.resource.data.nombre, 100)
+        && contextoValido(request.resource.data.contexto)
+        && request.resource.data.creado == request.time
         && soloCampos(['uid', 'correo', 'nombre', 'tipo', 'mensaje', 'contexto', 'estado', 'respuesta', 'creado']);
       allow read: if logueado() && (resource.data.uid == request.auth.uid || esAdmin());
       allow update, delete: if esAdmin();
@@ -60,7 +80,10 @@ service cloud.firestore {
 
     // Registro de acciones del administrador (no se puede modificar ni borrar).
     match /admin_log/{id} {
-      allow create, read: if esAdmin();
+      allow read: if esAdmin();
+      allow create: if esAdmin()
+        && request.resource.data.admin == request.auth.token.email
+        && request.resource.data.ts == request.time;
     }
   }
 }
