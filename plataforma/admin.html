@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panel de administración</title>
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .pestanas { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .pestanas .btn[aria-selected="true"] { background: var(--marca); border-color: var(--marca); color: #fff; }
+    .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
+    .kpi { background: var(--tarjeta); border-radius: var(--radio); box-shadow: var(--sombra); padding: 12px 14px; }
+    .kpi .num { font-size: 1.8rem; font-weight: 700; }
+    .kpi .rot { font-size: .82rem; color: var(--suave); font-weight: 600; }
+    .tabla-admin { width: 100%; font-size: .9rem; }
+    .tabla-admin td, .tabla-admin th { padding: 8px 10px; }
+    @media (max-width: 799px) {
+      .tabla-admin, .tabla-admin tbody, .tabla-admin tr, .tabla-admin td { display: block; }
+      .tabla-admin thead { display: none; }
+      .tabla-admin tr { background: var(--tarjeta); border-radius: var(--radio); box-shadow: var(--sombra); padding: 10px; margin-bottom: 10px; }
+      .tabla-admin td { border: 0; padding: 3px 0; }
+    }
+    pre.ctx { white-space: pre-wrap; font-size: .75rem; background: #f6f8fa; border-radius: 8px; padding: 8px; margin: 6px 0 0; }
+  </style>
+</head>
+<body>
+  <header class="barra"><div class="barra-in"><h1>Administración</h1>
+    <div class="barra-acc"><span id="quien" class="solo-ancho" style="align-self:center;font-size:.9rem"></span>
+      <button class="btn" id="salir" hidden>Salir</button></div></div></header>
+  <main class="contenedor">
+    <nav class="pestanas" id="pestanas" hidden>
+      <button class="btn" data-tab="resumen" aria-selected="true">Resumen</button>
+      <button class="btn" data-tab="asesores">Asesores</button>
+      <button class="btn" data-tab="tickets">Tickets</button>
+      <button class="btn" data-tab="sistema">Sistema</button>
+    </nav>
+    <section id="vista"></section>
+  </main>
+  <div id="acceso" class="acceso" hidden></div>
+  <div id="modales"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

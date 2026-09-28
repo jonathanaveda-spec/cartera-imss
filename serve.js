@@ -5,6 +5,15 @@ const tipos = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; ch
 http.createServer((req, res) => {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   if (p === '/') { res.writeHead(302, { Location: '/app/' }); return res.end(); }
+  // /demo/ = la plataforma con un Firebase SIMULADO (solo pruebas locales; nunca se publica).
+  if (p === '/demo') { res.writeHead(302, { Location: '/demo/' }); return res.end(); }
+  if (p.startsWith('/demo/')) {
+    const resto = p.slice('/demo'.length);
+    if (resto === '/sw.js') { res.writeHead(404); return res.end(); } // sin caché sin conexión en pruebas
+    if (resto === '/vendor/firebase.js') p = '/tests/fake-firebase.js';
+    else if (resto === '/js/nube-config.js') { res.writeHead(200, { 'Content-Type': 'text/javascript; charset=utf-8', 'Cache-Control': 'no-store' }); return res.end("export const firebaseConfig = { projectId: 'demo' };"); }
+    else p = '/plataforma' + resto;
+  }
   if (p.endsWith('/')) p += 'index.html';
   const f = path.join(raiz, p);
   if (!f.startsWith(raiz)) { res.writeHead(403); return res.end(); }
