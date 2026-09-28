@@ -19,13 +19,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Armar el sitio
-        # Raíz = app personal de Yamileth (sin cambios). /beta/ = plataforma multiusuario.
-        # Ninguna de las dos carpetas contiene datos de clientes.
+        # Ninguna carpeta publicada contiene datos de clientes.
+        #  - Repositorio carteraasesor (dominio carteraasesor.com): página en la raíz y la plataforma en /app/.
+        #  - Repositorio cartera-imss (github.io): app personal de Yamileth en la raíz y la plataforma en /beta/.
         run: |
-          mkdir -p _site/beta
-          cp -r app/. _site/
-          cp -r plataforma/. _site/beta/
-          rm -f _site/beta/firestore.rules _site/beta/LEEME_FIREBASE.md
+          if [ "${{ github.repository }}" = "jonathanaveda-spec/carteraasesor" ]; then
+            mkdir -p _site/app
+            cp -r sitio/. _site/
+            cp -r plataforma/. _site/app/
+            rm -f _site/app/firestore.rules _site/app/LEEME_FIREBASE.md
+            echo "carteraasesor.com" > _site/CNAME
+          else
+            mkdir -p _site/beta
+            cp -r app/. _site/
+            cp -r plataforma/. _site/beta/
+            rm -f _site/beta/firestore.rules _site/beta/LEEME_FIREBASE.md
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
