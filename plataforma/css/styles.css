@@ -304,3 +304,7 @@ tr.fila.est-baja td { opacity: .72; }
 @media (max-width: 400px) { .barra h1 { font-size: 1rem; } .barra-acc { gap: 6px; } .barra .btn { padding: 0 12px; } }
 
 .btn-wa { background: #16a34a; border-color: #16a34a; color: #fff; }
+
+.instalar-zona { margin: 4px 0 16px; padding: 12px; border-radius: 12px; background: var(--marca-tenue); border: 1px solid #bcd0fb; }
+.instalar-zona.destacar { box-shadow: 0 0 0 3px #93c5fd; }
+.instalar-zona .mini { margin-top: 6px; }
