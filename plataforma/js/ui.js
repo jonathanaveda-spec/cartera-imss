@@ -4,7 +4,7 @@ import * as S from './store.js';
 import * as E from './excel.js';
 import * as N from './nube.js';
 import { MARCA } from './marca.js';
-import { TIPOS_TICKET, PAISES } from './plan.js';
+import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion } from './plan.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -128,6 +128,9 @@ function renderAvisos(cnt) {
   } else if (N.nubeActiva && !navigator.onLine) {
     a.push(`<div class="banner info"><p><b>Sin conexión.</b> Puedes seguir trabajando: los cambios se enviarán a la nube cuando vuelva internet.</p></div>`);
   }
+  if (N.soporte.noLeidos) {
+    a.push(`<div class="banner info"><p>💬 <b>Soporte te respondió.</b> Tienes ${N.soporte.noLeidos} ${N.soporte.noLeidos === 1 ? 'conversación' : 'conversaciones'} con respuesta nueva.</p><button class="btn chico primario" data-accion="ayuda">Ver respuesta</button></div>`);
+  }
   const pe = N.estado.planEf;
   if (pe && pe.tipo === 'pro' && pe.diasRestantes != null && pe.diasRestantes <= 5) {
     a.push(`<div class="banner"><p>Tu Plan Pro vence en <b>${pe.diasRestantes} día(s)</b>.</p><button class="btn chico" data-accion="plan">Renovar</button></div>`);
@@ -165,6 +168,12 @@ function etiquetaOrden() {
 }
 
 export function render() {
+  const btnMenu = document.querySelector('.barra [data-accion="menu"]');
+  if (btnMenu) {
+    let p = btnMenu.querySelector('.punto');
+    if (N.soporte.noLeidos && !p) { p = document.createElement('span'); p.className = 'punto'; p.setAttribute('aria-label', 'Respuesta de soporte'); btnMenu.appendChild(p); }
+    if (!N.soporte.noLeidos && p) p.remove();
+  }
   const { hoy, aviso: dias } = ctx();
   const cnt = L.contarPorEstado(S.db.clientes, hoy, dias);
   renderResumen(cnt);
@@ -506,7 +515,7 @@ export function abrirMenu() {
       op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
       op('config', '⚙️', 'Configuración', 'Días de aviso, campos nuevos y estado del almacenamiento.'),
       op('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
-      op('ayuda', '💬', 'Ayuda y soporte', 'Preguntas frecuentes o escríbenos si algo no funciona.'),
+      op('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
       op('cuenta', '👤', 'Mi cuenta', `${esc(N.estado.usuario || '')} · cerrar sesión o eliminar cuenta.`),
     ].join(''),
   });
@@ -763,16 +772,29 @@ function avisoLimite() {
 
 function abrirPlan() {
   const pe = N.estado.planEf;
-  const pago = (N.estado.sistema.datosPago || '').trim();
+  const sis = N.estado.sistema || {};
+  const medios = mediosOrdenados(sis.medios, N.estado.perfil?.pais || '');
+  const precios = textoPrecios(sis);
+  const legado = (sis.datosPago || '').trim(); // formato anterior: texto libre
   const uso = pe.ilimitado ? `${S.db.clientes.length} clientes (sin límite)` : `${S.db.clientes.length} de ${pe.limite} clientes`;
+  const listaMedios = medios.length
+    ? `<ul class="lista-simple">${medios.map((m) => `<li><b>${esc(m.nombre)}</b> <span class="mini">· ${esc(PAISES[m.pais] || 'Cualquier país')}</span>
+        <div class="dato-pago">${esc(m.dato)}</div>${m.titular ? `<div class="mini">Titular: ${esc(m.titular)}</div>` : ''}</li>`).join('')}</ul>`
+    : (legado ? `<p style="white-space:pre-wrap">${esc(legado)}</p>` : '');
+  const puedePagar = !!listaMedios;
   const cobro = pe.tipo === 'beta'
-    ? '<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todo sin límite y sin costo. Te avisaremos antes de que empiecen los planes de pago.</p></div>'
-    : `<div class="seccion"><h3>Cómo pagar el Plan Pro</h3>
-        ${pago ? `<p style="white-space:pre-wrap">${esc(pago)}</p><p class="mini" style="margin-top:10px">Después de pagar, envía la referencia o número de transacción. Activamos tu plan en cuanto lo verifiquemos.</p>`
-    : '<p class="mini">Pronto publicaremos los medios de pago. Escríbenos desde Ayuda y soporte.</p>'}</div>
-      ${pago ? `<form id="f-pago-plan" class="seccion"><h3>Ya pagué</h3>
-        <label>Medio y referencia del pago<textarea name="mensaje" placeholder="Ej. Nequi, 25/09, referencia 123456, 5 USD" required></textarea></label>
-        <button class="btn primario" type="submit" style="margin-top:10px">Enviar comprobante</button></form>` : ''}`;
+    ? `<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todo sin límite y sin costo. Te avisaremos antes de que empiecen los planes de pago.</p></div>
+       ${precios ? `<p class="mini">Precio del Plan Pro después de la beta: <b>${esc(precios)}</b>.</p>` : ''}`
+    : `<div class="seccion"><h3>Plan Pro</h3>${precios ? `<div class="grande" style="font-size:1.2rem">${esc(precios)}</div>` : ''}
+        <p class="mini" style="margin-top:4px">Clientes sin límite.</p></div>
+      ${puedePagar ? `<div class="seccion"><h3>Cómo pagar</h3>${listaMedios}</div>
+        <form id="f-pago-plan" class="seccion"><h3>Ya pagué</h3>
+          ${medios.length ? `<label>Medio de pago<select name="medio">${medios.map((m, i) => `<option value="${i}">${esc(m.nombre)}</option>`).join('')}</select></label>` : ''}
+          <label style="margin-top:10px">Monto pagado<input name="monto" inputmode="decimal" maxlength="40" placeholder="Ej. 5 USD" required></label>
+          <label style="margin-top:10px">Referencia o número de transacción<input name="ref" maxlength="120" required></label>
+          <p class="mini" style="margin-top:6px">Lo revisamos y te confirmamos por Ayuda y soporte al activar tu plan.</p>
+          <button class="btn primario" type="submit" style="margin-top:10px">Enviar comprobante</button></form>`
+    : '<p class="mini">Pronto publicaremos los medios de pago. Escríbenos desde Ayuda y soporte.</p>'}`;
   const v = ventana({
     titulo: 'Mi plan',
     cuerpo: `<div class="seccion destacado"><div><div class="mini">Plan actual</div><div class="grande">${esc(pe.nombre)}</div>
@@ -783,22 +805,25 @@ function abrirPlan() {
   });
   v.q('#f-pago-plan')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const m = e.target.mensaje.value.trim();
-    if (!m) return aviso('Escribe la referencia del pago', true);
+    const f = e.target;
+    if (!f.monto.value.trim() || !f.ref.value.trim()) return aviso('Escribe el monto y la referencia', true);
+    const medio = medios[Number(f.medio?.value)]?.nombre || 'Otro';
+    const texto = `Pagué el Plan Pro.\nMedio: ${medio}\nMonto: ${f.monto.value.trim()}\nReferencia: ${f.ref.value.trim()}`;
     seguro(async () => {
-      await N.crearTicket({ tipo: 'pago', mensaje: m, contexto: contextoSoporte() });
+      const id = await N.crearConversacion({ tipo: 'pago', texto, contexto: contextoSoporte() });
       v.cerrar();
-      aviso('Recibimos tu comprobante. Te avisaremos al activar tu plan.');
+      aviso('Recibimos tu comprobante. Te confirmaremos por Ayuda y soporte.');
+      abrirConversacion(id, 'pago');
     });
   });
 }
 
-// ---------- Ayuda y soporte ----------
+// ---------- Ayuda y soporte (conversaciones) ----------
 let ultimoError = '';
 window.addEventListener('error', (e) => { ultimoError = String(e.message || '').slice(0, 300); });
 window.addEventListener('unhandledrejection', (e) => { ultimoError = String(e.reason?.message || e.reason || '').slice(0, 300); });
 
-/** Datos técnicos que acompañan un ticket. Nunca incluye datos de clientes. */
+/** Datos técnicos que acompañan una conversación. Nunca incluye datos de clientes. */
 function contextoSoporte() {
   return {
     version: MARCA.version, navegador: navigator.userAgent.slice(0, 300), pantalla: `${innerWidth}x${innerHeight}`,
@@ -816,42 +841,97 @@ const PREGUNTAS = [
   ['Cambié de teléfono, ¿pierdo mis datos?', 'No. Inicia sesión con tu mismo correo y tus clientes aparecen.'],
 ];
 
+const fechaTs = (t) => (t?.toMillis ? L.fmtFechaHora(t.toMillis()) : '');
+
+function listaConversaciones() {
+  if (!N.soporte.listo) return '<p class="mini">Cargando…</p>';
+  const ts = N.soporte.tickets;
+  if (!ts.length) return '<p class="mini">Aún no nos has escrito. Cuéntanos cualquier duda: te respondemos aquí mismo.</p>';
+  return `<ul class="lista-simple">${ts.map((t) => `<li><button type="button" class="conv" data-conv="${esc(t.id)}">
+      <span class="conv-tit">${t.noLeidoAsesor ? '<span class="punto" aria-label="Respuesta nueva"></span>' : ''}<b>${esc(NOMBRE_TIPO[t.tipo] || t.tipo)}</b>
+        <span class="etq ${t.estado === 'cerrado' ? 'gris' : 'ambar'}">${t.estado === 'cerrado' ? 'Resuelta' : 'Abierta'}</span>
+        ${t.noLeidoAsesor ? '<span class="etq nuevo">Respuesta nueva</span>' : ''}</span>
+      <span class="mini conv-ult">${t.ultimoDe === 'soporte' ? 'Soporte: ' : 'Tú: '}${esc(t.ultimoMensaje || t.asunto || t.respuesta || t.mensaje || '')}</span>
+      <span class="mini">${fechaTs(t.actualizado || t.creado)}</span></button></li>`).join('')}</ul>`;
+}
+
 function abrirAyuda() {
   const v = ventana({
     titulo: 'Ayuda y soporte', ancho: true,
-    cuerpo: `<div class="seccion"><h3>Preguntas frecuentes</h3><ul class="lista-simple">
-        ${PREGUNTAS.map(([p, r]) => `<li><details><summary><b>${esc(p)}</b></summary><p class="mini" style="margin-top:6px">${esc(r)}</p></details></li>`).join('')}</ul></div>
-      <form id="f-ticket" class="seccion"><h3>Escríbenos</h3>
-        <label>Tipo<select name="tipo">${Object.entries(TIPOS_TICKET).map(([k, t]) => `<option value="${k}">${esc(t)}</option>`).join('')}</select></label>
-        <label style="margin-top:10px">Cuéntanos qué pasó<textarea name="mensaje" required placeholder="Qué estabas haciendo y qué salió mal"></textarea></label>
+    cuerpo: `<div class="seccion"><h3>Tus conversaciones</h3><div id="convs"></div></div>
+      <form id="f-ticket" class="seccion"><h3>Escribir a soporte</h3>
+        <label>Tema<select name="tipo">${Object.entries(TIPOS_TICKET).map(([k, t]) => `<option value="${k}">${esc(t)}</option>`).join('')}</select></label>
+        <label style="margin-top:10px">Tu mensaje<textarea name="mensaje" maxlength="2000" required placeholder="Cuéntanos qué necesitas o qué pasó"></textarea></label>
         <p class="mini" style="margin-top:6px">Se envían también datos técnicos (versión, tipo de teléfono, último error) para ayudarte más rápido. No se envían datos de tus clientes.</p>
         <button class="btn primario" type="submit" style="margin-top:10px">Enviar</button></form>
-      <div class="seccion"><h3>Mis mensajes</h3><div id="mis-tickets" class="mini">Cargando…</div></div>`,
+      <div class="seccion"><h3>Preguntas frecuentes</h3><ul class="lista-simple">
+        ${PREGUNTAS.map(([p, r]) => `<li><details><summary><b>${esc(p)}</b></summary><p class="mini" style="margin-top:6px">${esc(r)}</p></details></li>`).join('')}</ul></div>`,
   });
-  const nombreTipo = (t) => TIPOS_TICKET[t] || (t === 'pago' ? 'Comprobante de pago' : t);
-  const pintar = async () => {
-    try {
-      const ts = await N.misTickets();
-      v.q('#mis-tickets').innerHTML = ts.length ? `<ul class="lista-simple">${ts.map((t) => `<li>
-          <span class="etq ${t.estado === 'cerrado' ? 'gris' : 'ambar'}">${t.estado === 'cerrado' ? 'Resuelto' : 'Abierto'}</span>
-          <b>${esc(nombreTipo(t.tipo))}</b>${t.creado?.toMillis ? `<span class="mini"> · ${L.fmtFechaHora(t.creado.toMillis())}</span>` : ''}
-          <div class="mini" style="white-space:pre-wrap;margin-top:4px">${esc(t.mensaje)}</div>
-          ${t.respuesta ? `<div class="banner info" style="margin:8px 0 0"><p><b>Respuesta:</b> ${esc(t.respuesta)}</p></div>` : ''}</li>`).join('')}</ul>`
-        : 'Aún no nos has escrito.';
-    } catch (e) { v.q('#mis-tickets').textContent = N.mensajeError(e); }
-  };
+  const pintar = () => { v.q('#convs').innerHTML = listaConversaciones(); };
+  v.repintarSoporte = pintar;
   pintar();
+  v.q('#convs').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-conv]');
+    if (b) abrirConversacion(b.dataset.conv);
+  });
   v.q('#f-ticket').addEventListener('submit', (e) => {
     e.preventDefault();
     const f = e.target;
     if (!f.mensaje.value.trim()) return aviso('Escribe tu mensaje', true);
     seguro(async () => {
-      await N.crearTicket({ tipo: f.tipo.value, mensaje: f.mensaje.value, contexto: contextoSoporte() });
+      const id = await N.crearConversacion({ tipo: f.tipo.value, texto: f.mensaje.value, contexto: contextoSoporte() });
+      const tipo = f.tipo.value;
       f.reset();
-      aviso('Mensaje enviado. Te responderemos aquí mismo.');
-      pintar();
+      abrirConversacion(id, tipo);
     });
   });
+}
+
+function abrirConversacion(id, tipoInicial = '') {
+  const t0 = N.soporte.tickets.find((x) => x.id === id) || { id, tipo: tipoInicial };
+  let mensajes = [];
+  let parar = null;
+  const v = ventana({
+    titulo: NOMBRE_TIPO[t0.tipo] || 'Conversación con soporte', ancho: true,
+    cuerpo: '<div class="chat" id="chat"><p class="mini">Cargando…</p></div>',
+    pie: `<form id="f-resp" class="chat-form"><textarea name="texto" rows="2" maxlength="2000" placeholder="Escribe tu mensaje…" aria-label="Mensaje"></textarea>
+      <button class="btn primario" type="submit">Enviar</button></form>`,
+    onCerrar: () => { if (parar) parar(); },
+  });
+  const chat = v.q('#chat');
+  const pintar = () => {
+    const t = N.soporte.tickets.find((x) => x.id === id) || t0;
+    const lista = mensajesDeConversacion(t, mensajes);
+    chat.innerHTML = lista.map((m) => `<div class="burbuja ${m.de === 'soporte' ? 'de-soporte' : 'mia'}">
+        <div class="quien">${m.de === 'soporte' ? 'Soporte' : 'Tú'}</div>
+        <div class="txt">${esc(m.texto)}</div>
+        <div class="hora">${m.creado?.toMillis ? L.fmtFechaHora(m.creado.toMillis()) : 'Enviando…'}</div></div>`).join('')
+      + (t.estado === 'cerrado' ? '<p class="mini" style="text-align:center;margin:10px 0">Marcamos esta conversación como resuelta. Si nos escribes, se vuelve a abrir.</p>'
+        : (t.ultimoDe === 'asesor' ? '<p class="mini" style="text-align:center;margin:10px 0">Recibimos tu mensaje. Te avisaremos aquí cuando respondamos.</p>' : ''));
+    const cuerpo = v.q('.modal-cuerpo');
+    cuerpo.scrollTop = cuerpo.scrollHeight;
+  };
+  v.repintarSoporte = pintar;
+  parar = N.escucharMensajes(id, (m) => {
+    mensajes = m;
+    pintar();
+    N.marcarLeida(id).catch(() => { /* se reintenta al volver a abrir */ });
+  }, (e) => { chat.innerHTML = `<p class="mini">${esc(N.mensajeError(e))}</p>`; });
+  const f = v.q('#f-resp');
+  f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const texto = f.texto.value.trim();
+    if (!texto) return;
+    f.texto.value = '';
+    seguro(async () => { await N.responderConversacion(id, texto); });
+  });
+}
+
+/** Llamado por la nube cuando cambia la lista de conversaciones (p. ej. llega una respuesta de soporte). */
+export function alCambiarSoporte(nuevas = []) {
+  render();
+  for (const v of pila) if (v.repintarSoporte) v.repintarSoporte();
+  if (nuevas.length) aviso(`💬 Soporte te respondió${nuevas.length > 1 ? ` (${nuevas.length} conversaciones)` : ''}. Míralo en ☰ Datos → Ayuda y soporte.`);
 }
 
 /** Se llama cuando llegan cambios de otro dispositivo: refresca la lista y las fichas abiertas. */

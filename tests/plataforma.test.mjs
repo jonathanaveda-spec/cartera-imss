@@ -35,3 +35,23 @@ test('pro gana sobre beta (muestra su vencimiento)', () => {
   const p = planEfectivo({ plan: { tipo: 'pro', vence: ahora + DIA }, sistema: { betaAbierta: true } }, ahora);
   assert.equal(p.tipo, 'pro');
 });
+
+import { mediosOrdenados, textoPrecios, mensajesDeConversacion } from '../plataforma/js/plan.js';
+
+test('medios de pago: los del país del asesor primero y sin incompletos', () => {
+  const m = [{ pais: 'MX', nombre: 'SPEI', dato: '1' }, { pais: 'CO', nombre: 'Nequi', dato: '2' }, { pais: 'VE', nombre: 'Binance', dato: '' }, { pais: 'CO', nombre: 'Bre-B', dato: '3' }];
+  assert.deepEqual(mediosOrdenados(m, 'CO').map((x) => x.nombre), ['Nequi', 'Bre-B', 'SPEI']);
+  assert.deepEqual(mediosOrdenados(undefined, 'CO'), []);
+});
+
+test('texto de precios', () => {
+  assert.equal(textoPrecios({ precioMensual: 5, precioAnual: 50 }), '5 USD al mes · 50 USD al año');
+  assert.equal(textoPrecios({ precioMensual: 20000, moneda: 'COP' }), '20000 COP al mes');
+  assert.equal(textoPrecios({}), '');
+});
+
+test('conversación: tickets antiguos se muestran como primeros mensajes', () => {
+  const r = mensajesDeConversacion({ mensaje: 'hola', respuesta: 'listo' }, [{ id: 'a', de: 'asesor', texto: 'gracias' }]);
+  assert.deepEqual(r.map((x) => `${x.de}:${x.texto}`), ['asesor:hola', 'soporte:listo', 'asesor:gracias']);
+  assert.equal(mensajesDeConversacion({}, []).length, 0);
+});

@@ -61,21 +61,52 @@ service cloud.firestore {
       allow write: if esAdmin();
     }
 
-    // Soporte y comprobantes de pago.
+    // Soporte: cada conversación es un ticket con sus mensajes en tickets/{id}/mensajes.
+    function conversacionNueva() {
+      let d = request.resource.data;
+      return soloCampos(['uid', 'correo', 'nombre', 'tipo', 'asunto', 'contexto', 'estado', 'creado', 'actualizado',
+                         'ultimoDe', 'ultimoMensaje', 'noLeidoAdmin', 'noLeidoAsesor'])
+        && d.uid == request.auth.uid && d.correo == request.auth.token.email
+        && texto(d.nombre, 100) && texto(d.asunto, 200) && texto(d.ultimoMensaje, 200)
+        && d.tipo in ['problema', 'pregunta', 'sugerencia', 'pago']
+        && d.estado == 'abierto' && d.ultimoDe == 'asesor' && d.noLeidoAdmin == true && d.noLeidoAsesor == false
+        && d.creado == request.time && d.actualizado == request.time
+        && contextoValido(d.contexto);
+    }
+    // El asesor solo puede: marcar como leída la respuesta, o escribir de nuevo (lo que reabre la conversación).
+    function cambioDelAsesor() {
+      let d = request.resource.data;
+      let cambios = d.diff(resource.data).affectedKeys();
+      return resource.data.uid == request.auth.uid && verificado()
+        && cambios.hasOnly(['estado', 'actualizado', 'ultimoDe', 'ultimoMensaje', 'noLeidoAdmin', 'noLeidoAsesor'])
+        && d.noLeidoAsesor == false
+        && (d.estado == resource.data.estado || d.estado == 'abierto')
+        && (!cambios.hasAny(['ultimoDe']) || d.ultimoDe == 'asesor')
+        && (!cambios.hasAny(['noLeidoAdmin']) || d.noLeidoAdmin == true)
+        && (!cambios.hasAny(['actualizado']) || d.actualizado == request.time)
+        && (!cambios.hasAny(['ultimoMensaje']) || texto(d.ultimoMensaje, 200));
+    }
+    function duenoDelTicket(id) {
+      return get(/databases/$(database)/documents/tickets/$(id)).data.uid == request.auth.uid;
+    }
+
     match /tickets/{id} {
-      allow create: if verificado()
-        && request.resource.data.uid == request.auth.uid
-        && request.resource.data.estado == 'abierto'
-        && request.resource.data.respuesta == ''
-        && request.resource.data.tipo in ['problema', 'pregunta', 'sugerencia', 'pago']
-        && texto(request.resource.data.mensaje, 4000)
-        && request.resource.data.correo == request.auth.token.email
-        && texto(request.resource.data.nombre, 100)
-        && contextoValido(request.resource.data.contexto)
-        && request.resource.data.creado == request.time
-        && soloCampos(['uid', 'correo', 'nombre', 'tipo', 'mensaje', 'contexto', 'estado', 'respuesta', 'creado']);
+      allow create: if verificado() && conversacionNueva();
       allow read: if logueado() && (resource.data.uid == request.auth.uid || esAdmin());
-      allow update, delete: if esAdmin();
+      allow update: if esAdmin() || cambioDelAsesor();
+      allow delete: if esAdmin();
+
+      match /mensajes/{mid} {
+        allow read: if esAdmin() || (logueado() && duenoDelTicket(id));
+        allow create: if logueado()
+          && request.resource.data.keys().hasOnly(['de', 'texto', 'autor', 'creado'])
+          && texto(request.resource.data.texto, 2000) && request.resource.data.texto.size() > 0
+          && request.resource.data.autor == request.auth.token.email
+          && request.resource.data.creado == request.time
+          && ((esAdmin() && request.resource.data.de == 'soporte')
+              || (verificado() && request.resource.data.de == 'asesor' && duenoDelTicket(id)));
+        allow delete: if esAdmin();
+      }
     }
 
     // Registro de acciones del administrador (no se puede modificar ni borrar).

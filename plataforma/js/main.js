@@ -1,7 +1,7 @@
 import * as S from './store.js';
 import * as N from './nube.js';
 import * as A from './acceso.js';
-import { render, enlazarEventos, refrescarTodo } from './ui.js';
+import { render, enlazarEventos, refrescarTodo, alCambiarSoporte } from './ui.js';
 
 function registrarSW() {
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
@@ -29,6 +29,7 @@ async function arrancar() {
 
   A.mostrarCargando();
   await N.preparar();
+  N.escucharSoporte(alCambiarSoporte);
   let iniciada = false;
 
   N.alCambiarUsuario(async (usuario) => {

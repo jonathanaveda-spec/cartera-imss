@@ -1,6 +1,6 @@
 // Panel de administración (solo cuentas cuyo UID está en la lista de administradores de firestore.rules).
 import { firebaseConfig } from './nube-config.js';
-import { PAISES, TIPOS_TICKET, LIMITE_GRATIS_DEFECTO, planEfectivo } from './plan.js';
+import { PAISES, LIMITE_GRATIS_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
 import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -63,15 +63,13 @@ function mostrarLogin(msg = '') {
 
 // ---------- Carga de datos ----------
 async function cargar() {
-  const [us, pl, tk, si] = await Promise.all([
+  const [us, pl, si] = await Promise.all([
     F.getDocs(F.collection(fs, 'usuarios')),
     F.getDocs(F.collection(fs, 'planes')),
-    F.getDocs(F.collection(fs, 'tickets')),
     F.getDoc(F.doc(fs, 'sistema', 'config')),
   ]);
   datos.usuarios = us.docs.map((d) => ({ uid: d.id, ...d.data() })).sort((a, b) => (ms(b.creado) || 0) - (ms(a.creado) || 0));
   datos.planes = new Map(pl.docs.map((d) => [d.id, d.data()]));
-  datos.tickets = tk.docs.map((d) => ({ id: d.id, ...d.data() })).sort((a, b) => (ms(b.creado) || 0) - (ms(a.creado) || 0));
   datos.sistema = si.exists() ? si.data() : {};
 }
 
@@ -94,14 +92,14 @@ function resumen() {
   const ahora = Date.now();
   const nuevos7 = datos.usuarios.filter((u) => ms(u.creado) > ahora - 7 * DIA).length;
   const pro = datos.usuarios.filter((u) => planDe(u.uid).tipo === 'pro').length;
-  const abiertos = datos.tickets.filter((t) => t.estado !== 'cerrado');
-  const pagos = abiertos.filter((t) => t.tipo === 'pago').length;
+  const pendientes = datos.tickets.filter(porResponder).length;
+  const pagos = datos.tickets.filter((t) => t.tipo === 'pago' && t.estado !== 'cerrado').length;
   const porPais = Object.entries(datos.usuarios.reduce((m, u) => { m[u.pais || '—'] = (m[u.pais || '—'] || 0) + 1; return m; }, {}));
   $('#vista').innerHTML = `<div class="kpis">
       <div class="kpi"><div class="num">${datos.usuarios.length}</div><div class="rot">Asesores registrados</div></div>
       <div class="kpi"><div class="num">${nuevos7}</div><div class="rot">Nuevos en 7 días</div></div>
       <div class="kpi"><div class="num">${pro}</div><div class="rot">Con Plan Pro vigente</div></div>
-      <div class="kpi"><div class="num">${abiertos.length - pagos}</div><div class="rot">Tickets abiertos</div></div>
+      <div class="kpi"><div class="num">${pendientes}</div><div class="rot">Mensajes por responder</div></div>
       <div class="kpi"><div class="num">${pagos}</div><div class="rot">Comprobantes por revisar</div></div>
     </div>
     <div class="seccion"><h3>Asesores por país</h3>${porPais.map(([p, n]) => `${esc(PAISES[p] || p)}: <b>${n}</b>`).join(' · ') || 'Sin datos'}</div>
@@ -131,7 +129,7 @@ function asesores() {
   render();
 }
 
-function editarPlan(uid) {
+function editarPlan(uid, ticketId = null) {
   const u = datos.usuarios.find((x) => x.uid === uid) || { correo: uid, nombre: '(cuenta eliminada)' };
   const actual = datos.planes.get(uid) || {};
   const venceISO = actual.vence ? hoyISO(new Date(ms(actual.vence))) : '';
@@ -155,7 +153,10 @@ function editarPlan(uid) {
       await F.setDoc(F.doc(fs, 'planes', uid), plan);
       await registrar('plan', `${u.correo}: ${plan.tipo}${vence ? ' hasta ' + f.vence.value : ''} ${plan.nota}`);
       datos.planes.set(uid, { ...plan, actualizado: Date.now() });
-      v.cerrar(); aviso('Plan guardado'); pintar();
+      if (ticketId && plan.tipo === 'pro') {
+        await enviarSoporte(ticketId, `✅ Activamos tu Plan Pro${vence ? ` hasta el ${fmtFecha(f.vence.value)}` : ''}. ¡Gracias por tu pago!`, { resolver: true });
+      }
+      v.cerrar(); aviso(ticketId ? 'Plan activado y asesor avisado' : 'Plan guardado'); pintar();
     });
   });
 }
@@ -176,64 +177,166 @@ async function verCartera(uid) {
   });
 }
 
-function tickets() {
-  let filtro = 'abiertos';
-  const pintarLista = () => {
-    const ts = datos.tickets.filter((t) => filtro === 'todos' || (filtro === 'pagos' ? t.tipo === 'pago' && t.estado !== 'cerrado' : t.estado !== 'cerrado'));
-    $('#lista-t').innerHTML = ts.map((t) => `<div class="seccion">
-        <div class="destacado"><div><span class="etq ${t.estado === 'cerrado' ? 'gris' : 'ambar'}">${t.estado === 'cerrado' ? 'Cerrado' : 'Abierto'}</span>
-          <b>${esc(TIPOS_TICKET[t.tipo] || (t.tipo === 'pago' ? 'Comprobante de pago' : t.tipo))}</b>
-          <div class="mini">${esc(t.nombre)} · ${esc(t.correo)} · ${ms(t.creado) ? fmtFechaHora(ms(t.creado)) : ''}</div></div>
-          ${t.tipo === 'pago' ? `<button class="btn chico primario" data-activar="${esc(t.uid)}">Activar plan</button>` : ''}</div>
-        <p style="white-space:pre-wrap;margin-top:8px">${esc(t.mensaje)}</p>
-        <details><summary class="mini">Datos técnicos</summary><pre class="ctx">${esc(JSON.stringify(t.contexto || {}, null, 1))}</pre></details>
-        ${t.respuesta ? `<div class="banner info" style="margin-top:8px"><p><b>Respuesta:</b> ${esc(t.respuesta)}</p></div>` : ''}
-        ${t.estado !== 'cerrado' ? `<form data-resp="${t.id}" style="margin-top:8px"><textarea name="r" placeholder="Respuesta para el asesor (opcional)"></textarea>
-          <button class="btn chico primario" style="margin-top:6px">Responder y cerrar</button></form>` : ''}</div>`).join('') || '<div class="vacio"><h2>Nada pendiente</h2></div>';
-  };
-  $('#vista').innerHTML = `<div id="tk"><div class="acc-fila" style="margin-bottom:10px">
-      <button class="btn chico" data-f="abiertos">Abiertos</button><button class="btn chico" data-f="pagos">Comprobantes</button><button class="btn chico" data-f="todos">Todos</button></div>
-    <div id="lista-t"></div></div>`;
-  $('#tk').addEventListener('click', (e) => {
-    const b = e.target.closest('[data-f]');
-    if (b) { filtro = b.dataset.f; pintarLista(); }
-    const a = e.target.closest('[data-activar]');
-    if (a) editarPlan(a.dataset.activar);
-  });
-  $('#tk').addEventListener('submit', (e) => {
-    const f = e.target.closest('[data-resp]');
-    if (!f) return;
-    e.preventDefault();
-    seguro(async () => {
-      const id = f.dataset.resp, respuesta = f.r.value.trim();
-      await F.updateDoc(F.doc(fs, 'tickets', id), { estado: 'cerrado', respuesta, cerrado: F.serverTimestamp() });
-      const t = datos.tickets.find((x) => x.id === id);
-      Object.assign(t, { estado: 'cerrado', respuesta });
-      await registrar('ticket', `${t.correo}: cerrado`);
-      aviso('Ticket cerrado'); pintarLista();
-    });
-  });
-  pintarLista();
+// ---------- Soporte: conversaciones en vivo ----------
+const porActualizado = (a, b) => (ms(b.actualizado) || ms(b.creado) || 0) - (ms(a.actualizado) || ms(a.creado) || 0);
+const porResponder = (t) => t.noLeidoAdmin === true || (t.estado !== 'cerrado' && !t.ultimoDe && !t.respuesta);
+let chatAbierto = null; // { id, repintar }
+
+function escucharTickets() {
+  let primera = true;
+  F.onSnapshot(F.collection(fs, 'tickets'), (snap) => {
+    const antes = new Map(datos.tickets.map((t) => [t.id, t]));
+    datos.tickets = snap.docs.map((d) => ({ id: d.id, ...d.data() })).sort(porActualizado);
+    if (!primera) {
+      const nuevos = datos.tickets.filter((t) => t.noLeidoAdmin && !antes.get(t.id)?.noLeidoAdmin);
+      if (nuevos.length) aviso(`💬 Nuevo mensaje de ${nuevos[0].nombre || nuevos[0].correo}${nuevos.length > 1 ? ` y ${nuevos.length - 1} más` : ''}`);
+    }
+    primera = false;
+    const n = datos.tickets.filter(porResponder).length;
+    const b = document.querySelector('[data-tab="tickets"]');
+    if (b) b.innerHTML = `Soporte${n ? ` <span class="pastilla" style="background:#dc2626">${n}</span>` : ''}`;
+    document.title = n ? `(${n}) Panel de administración` : 'Panel de administración';
+    if (tab === 'tickets' || tab === 'resumen') pintar();
+    if (chatAbierto) chatAbierto.repintar();
+  }, (e) => aviso(e.message, true));
 }
 
+function tickets() {
+  let filtro = window.__filtroSoporte || 'responder';
+  const lista = () => datos.tickets.filter((t) => filtro === 'todos'
+    || (filtro === 'responder' ? porResponder(t) : filtro === 'pagos' ? t.tipo === 'pago' && t.estado !== 'cerrado' : t.estado !== 'cerrado'));
+  $('#vista').innerHTML = `<div id="tk"><div class="acc-fila" style="margin-bottom:10px">
+      ${[['responder', 'Por responder'], ['abiertas', 'Abiertas'], ['pagos', 'Comprobantes'], ['todos', 'Todas']]
+        .map(([k, t]) => `<button class="btn chico ${filtro === k ? 'primario' : ''}" data-f="${k}">${t}</button>`).join('')}</div>
+    <div id="lista-t">${lista().map((t) => `<button class="seccion conv-admin" data-abrir="${esc(t.id)}">
+        <div class="destacado"><div>
+          ${porResponder(t) ? '<span class="punto"></span>' : ''}
+          <b>${esc(t.nombre || '(sin nombre)')}</b> <span class="mini">${esc(t.correo)}</span>
+          <div style="margin-top:4px"><span class="etq ${t.estado === 'cerrado' ? 'gris' : 'ambar'}">${t.estado === 'cerrado' ? 'Resuelta' : 'Abierta'}</span>
+            <b>${esc(NOMBRE_TIPO[t.tipo] || t.tipo)}</b></div></div>
+          <div class="mini">${ms(t.actualizado || t.creado) ? fmtFechaHora(ms(t.actualizado || t.creado)) : ''}</div></div>
+        <div class="mini" style="margin-top:6px">${t.ultimoDe === 'soporte' ? 'Tú: ' : 'Asesor: '}${esc(t.ultimoMensaje || t.asunto || t.mensaje || '')}</div>
+      </button>`).join('') || '<div class="vacio"><h2>Nada pendiente</h2><p>Cuando un asesor escriba, aparecerá aquí.</p></div>'}</div></div>`;
+  $('#tk').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-f]');
+    if (b) { window.__filtroSoporte = b.dataset.f; tickets(); return; }
+    const a = e.target.closest('[data-abrir]');
+    if (a) abrirChat(a.dataset.abrir);
+  });
+}
+
+function abrirChat(id) {
+  let mensajes = [];
+  const t0 = datos.tickets.find((x) => x.id === id) || {};
+  const v = ventana(`${NOMBRE_TIPO[t0.tipo] || 'Conversación'} · ${t0.nombre || t0.correo || ''}`,
+    `<div class="mini" style="margin-bottom:8px">${esc(t0.correo)}${t0.uid ? ` · <a href="#" data-plan="${esc(t0.uid)}">Ver / cambiar plan</a>` : ''}</div>
+     <details style="margin-bottom:10px"><summary class="mini">Datos técnicos del teléfono</summary><pre class="ctx">${esc(JSON.stringify(t0.contexto || {}, null, 1))}</pre></details>
+     <div class="chat" id="chat"><p class="mini">Cargando…</p></div>`,
+    `<form id="f-sop" class="chat-form"><textarea name="texto" rows="2" maxlength="2000" placeholder="Escribe tu respuesta…"></textarea>
+       <button class="btn primario" type="submit">Enviar</button></form>
+     <div class="acc-fila" style="width:100%;margin-top:8px">
+       ${t0.tipo === 'pago' ? '<button class="btn chico primario" data-activar>Activar plan y avisar</button>' : ''}
+       <button class="btn chico" data-resuelta>Marcar resuelta</button></div>`);
+  v.el.addEventListener('click', (e) => { const p = e.target.closest('[data-plan]'); if (p) { e.preventDefault(); editarPlan(p.dataset.plan, id); } });
+  const chat = v.q('#chat');
+  const repintar = () => {
+    const t = datos.tickets.find((x) => x.id === id) || t0;
+    chat.innerHTML = mensajesDeConversacion(t, mensajes).map((m) => `<div class="burbuja ${m.de === 'soporte' ? 'mia' : 'de-soporte'}">
+        <div class="quien">${m.de === 'soporte' ? `Soporte${m.autor ? ' · ' + esc(m.autor) : ''}` : esc(t.nombre || 'Asesor')}</div>
+        <div class="txt">${esc(m.texto)}</div>
+        <div class="hora">${ms(m.creado) ? fmtFechaHora(ms(m.creado)) : 'Enviando…'}</div></div>`).join('')
+      + (t.estado === 'cerrado' ? '<p class="mini" style="text-align:center">Conversación resuelta. Si el asesor escribe, se reabre.</p>' : '');
+    const cuerpo = v.q('.modal-cuerpo');
+    cuerpo.scrollTop = cuerpo.scrollHeight;
+  };
+  const parar = F.onSnapshot(F.query(F.collection(fs, 'tickets', id, 'mensajes'), F.orderBy('creado')), (s) => {
+    mensajes = s.docs.map((d) => ({ id: d.id, ...d.data() }));
+    repintar();
+  }, (e) => { chat.innerHTML = `<p class="mini">${esc(e.message)}</p>`; });
+  chatAbierto = { id, repintar };
+  const cerrarOriginal = v.cerrar;
+  v.cerrar = () => { parar(); chatAbierto = null; cerrarOriginal(); };
+  v.el.addEventListener('click', (e) => { if (e.target === v.el || e.target.closest('[data-cerrar]')) { parar(); chatAbierto = null; } }, true);
+  if (t0.noLeidoAdmin) F.updateDoc(F.doc(fs, 'tickets', id), { noLeidoAdmin: false }).catch(() => {});
+
+  v.q('#f-sop').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = e.target;
+    const texto = f.texto.value.trim();
+    if (!texto) return;
+    f.texto.value = '';
+    seguro(() => enviarSoporte(id, texto));
+  });
+  v.q('[data-resuelta]').addEventListener('click', () => seguro(async () => {
+    await F.updateDoc(F.doc(fs, 'tickets', id), { estado: 'cerrado', actualizado: F.serverTimestamp(), noLeidoAdmin: false });
+    await registrar('ticket', `${t0.correo}: resuelta`);
+    aviso('Marcada como resuelta');
+  }));
+  v.q('[data-activar]')?.addEventListener('click', () => editarPlan(t0.uid, id));
+}
+
+/** Soporte escribe en una conversación: queda como no leída para el asesor (le aparece el aviso). */
+async function enviarSoporte(id, texto, { resolver = false } = {}) {
+  await F.addDoc(F.collection(fs, 'tickets', id, 'mensajes'), { de: 'soporte', texto, autor: auth.currentUser.email, creado: F.serverTimestamp() });
+  await F.updateDoc(F.doc(fs, 'tickets', id), {
+    estado: resolver ? 'cerrado' : 'abierto', actualizado: F.serverTimestamp(), ultimoDe: 'soporte',
+    ultimoMensaje: texto.replace(/\s+/g, ' ').slice(0, 200), noLeidoAsesor: true, noLeidoAdmin: false,
+  });
+  const t = datos.tickets.find((x) => x.id === id);
+  await registrar('soporte', `${t?.correo || id}: respuesta enviada`);
+}
+
+// ---------- Sistema: modo beta, límites, precios y medios de pago ----------
 function sistema() {
   const s = datos.sistema;
-  $('#vista').innerHTML = `<form id="fs" class="seccion">
-      <label class="radio-tarjeta"><input type="checkbox" name="beta" ${s.betaAbierta ? 'checked' : ''}><span><b>Beta abierta</b><br>
-        <span class="mini">Todos los asesores usan la app sin límite y sin costo.</span></span></label>
-      <label style="margin-top:12px">Clientes permitidos en el plan gratis<input type="number" name="limite" min="1" max="1000" value="${s.limiteGratis ?? LIMITE_GRATIS_DEFECTO}"></label>
-      <label style="margin-top:12px">Medios de pago (lo ven los asesores en «Mi plan»)
-        <textarea name="pago" rows="6" placeholder="Ej.&#10;Plan Pro: 5 USD al mes o 50 USD al año&#10;Colombia: Nequi 300… / llave Bre-B …&#10;Venezuela: Binance Pay ID …&#10;México: transferencia …">${esc(s.datosPago || '')}</textarea></label>
-      <button class="btn primario" style="margin-top:12px">Guardar</button></form>`;
+  let medios = (s.medios || []).map((m) => ({ ...m }));
+  const filaMedio = (m, i) => `<div class="medio" data-i="${i}">
+      <select name="pais">${[['', 'Cualquier país'], ...Object.entries(PAISES)].map(([k, n]) => `<option value="${k}" ${m.pais === k ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select>
+      <input name="nombre" placeholder="Medio (ej. Nequi)" value="${esc(m.nombre || '')}" maxlength="40">
+      <input name="dato" placeholder="Número, llave o ID" value="${esc(m.dato || '')}" maxlength="120">
+      <input name="titular" placeholder="Titular (opcional)" value="${esc(m.titular || '')}" maxlength="80">
+      <button type="button" class="btn chico peligro" data-quitar="${i}" aria-label="Quitar">✕</button></div>`;
+  $('#vista').innerHTML = `<form id="fs">
+      <div class="seccion"><h3>Modo</h3>
+        <label class="radio-tarjeta"><input type="checkbox" name="beta" ${s.betaAbierta ? 'checked' : ''}><span><b>Beta abierta</b><br>
+          <span class="mini">Todos los asesores usan la app sin límite y sin costo.</span></span></label>
+        <label style="margin-top:12px">Clientes permitidos en el plan gratis<input type="number" name="limite" min="1" max="1000" value="${s.limiteGratis ?? LIMITE_GRATIS_DEFECTO}"></label></div>
+      <div class="seccion"><h3>Precio del Plan Pro</h3><div class="rejilla dos">
+        <label>Mensual<input type="number" name="mensual" min="0" step="0.01" value="${esc(s.precioMensual ?? '')}"></label>
+        <label>Anual<input type="number" name="anual" min="0" step="0.01" value="${esc(s.precioAnual ?? '')}"></label>
+        <label>Moneda<select name="moneda">${['USD', 'COP', 'MXN'].map((m) => `<option ${(s.moneda || 'USD') === m ? 'selected' : ''}>${m}</option>`).join('')}</select></label></div></div>
+      <div class="seccion"><h3>Medios de pago</h3>
+        <p class="mini" style="margin-bottom:8px">Cada asesor ve primero los de su país.</p>
+        <div id="medios"></div>
+        <button type="button" class="btn chico" id="mas-medio" style="margin-top:8px">＋ Agregar medio de pago</button></div>
+      <button class="btn primario">Guardar</button></form>`;
+  const pintarMedios = () => { $('#medios').innerHTML = medios.map(filaMedio).join('') || '<p class="mini">Aún no hay medios de pago.</p>'; };
+  const leerMedios = () => [...document.querySelectorAll('#medios .medio')].map((d) => ({
+    pais: d.querySelector('[name=pais]').value, nombre: d.querySelector('[name=nombre]').value.trim(),
+    dato: d.querySelector('[name=dato]').value.trim(), titular: d.querySelector('[name=titular]').value.trim(),
+  }));
+  pintarMedios();
+  $('#mas-medio').addEventListener('click', () => { medios = [...leerMedios(), { pais: 'CO', nombre: '', dato: '', titular: '' }]; pintarMedios(); });
+  $('#medios').addEventListener('click', (e) => {
+    const q = e.target.closest('[data-quitar]');
+    if (q) { medios = leerMedios().filter((_, i) => i !== Number(q.dataset.quitar)); pintarMedios(); }
+  });
   $('#fs').addEventListener('submit', (e) => {
     e.preventDefault();
     const f = e.target;
     seguro(async () => {
-      const nuevo = { betaAbierta: f.beta.checked, limiteGratis: Math.max(1, parseInt(f.limite.value, 10) || LIMITE_GRATIS_DEFECTO), datosPago: f.pago.value.trim() };
+      const num = (v) => (v === '' ? null : Math.max(0, Number(v)));
+      const nuevo = {
+        betaAbierta: f.beta.checked,
+        limiteGratis: Math.max(1, parseInt(f.limite.value, 10) || LIMITE_GRATIS_DEFECTO),
+        precioMensual: num(f.mensual.value), precioAnual: num(f.anual.value), moneda: f.moneda.value,
+        medios: leerMedios().filter((m) => m.nombre && m.dato),
+      };
       await F.setDoc(F.doc(fs, 'sistema', 'config'), nuevo);
-      await registrar('sistema', JSON.stringify({ betaAbierta: nuevo.betaAbierta, limiteGratis: nuevo.limiteGratis }));
+      await registrar('sistema', JSON.stringify({ betaAbierta: nuevo.betaAbierta, limiteGratis: nuevo.limiteGratis, precios: [nuevo.precioMensual, nuevo.precioAnual, nuevo.moneda], medios: nuevo.medios.length }));
       datos.sistema = nuevo;
-      aviso('Guardado');
+      aviso('Guardado. Los asesores lo verán al abrir «Mi plan».');
+      sistema();
     });
   });
 }
@@ -268,6 +371,7 @@ async function arrancar() {
       $('#vista').innerHTML = `<div class="banner mal"><p>${esc(e.message)}</p></div>`;
       return;
     }
+    if (!window.__escuchandoTickets) { window.__escuchandoTickets = true; escucharTickets(); }
     $('#quien').textContent = u.email;
     $('#pestanas').hidden = false;
     $('#salir').hidden = false;
