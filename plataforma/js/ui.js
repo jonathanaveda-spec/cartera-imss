@@ -606,7 +606,8 @@ export async function exportarRespaldo() {
 }
 
 export function abrirRestaurar() {
-  pedirArchivo('.json,application/json', (f) => seguro(async () => {
+  // Sin filtro de tipo: en Android los .json recibidos por WhatsApp a veces no se reconocen como JSON.
+  pedirArchivo('', (f) => seguro(async () => {
     const texto = await f.text();
     const ok = await confirmar({
       titulo: 'Restaurar respaldo',
