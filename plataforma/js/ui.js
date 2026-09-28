@@ -802,7 +802,7 @@ function contextoSoporte() {
   return {
     version: MARCA.version, navegador: navigator.userAgent.slice(0, 300), pantalla: `${innerWidth}x${innerHeight}`,
     enLinea: navigator.onLine, clientes: S.db.clientes.length, plan: N.estado.planEf.tipo, ultimoError,
-    errorSincro: N.estado.error || '',
+    errorSincro: String(N.estado.error || '').slice(0, 300),
   };
 }
 
