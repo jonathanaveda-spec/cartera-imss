@@ -64,10 +64,10 @@ export function mostrarLogin(acc) {
 export function mostrarRegistro(acc) {
   const el = pantalla(`${titulo()}<p class="acceso-texto">Crea tu cuenta de asesor.</p>
     <form id="f-reg" novalidate>
-      <label>Nombre completo<input name="nombre" autocomplete="name" required></label>
+      <label>Nombre completo<input name="nombre" autocomplete="name" maxlength="100" required></label>
       <label style="margin-top:12px">País donde vives
         <select name="pais">${Object.entries(PAISES).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <label style="margin-top:12px">Celular (WhatsApp)<input name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Con código de país, ej. +57 300…" required></label>
+      <label style="margin-top:12px">Celular (WhatsApp)<input name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Con código de país, ej. +57 300…" required></label>
       <label style="margin-top:12px">Correo<input name="correo" type="email" autocomplete="username" inputmode="email" autocapitalize="none" required></label>
       <label style="margin-top:12px">Contraseña<input name="clave" type="password" autocomplete="new-password" minlength="8" required>
         <div class="ayuda">Mínimo 8 caracteres.</div></label>
