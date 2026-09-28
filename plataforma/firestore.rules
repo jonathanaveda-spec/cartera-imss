@@ -3,13 +3,13 @@ rules_version = '2';
 //  - Cada asesor solo puede leer y escribir su propia cartera (usuarios/{su uid}/...), y solo con el correo verificado.
 //  - El plan (planes/{uid}) y la configuración global (sistema/config) solo los cambia el administrador.
 //  - El administrador puede leer para soporte; cada vez que abre la cartera de alguien queda en admin_log.
-// PENDIENTE: reemplazar PEGA_AQUI_TU_UID por tu UID (Authentication → Users → "UID de usuario").
+// Administrador: UID de la cuenta de Jonathan (Authentication → Users). Para agregar otro, suma su UID a la lista.
 service cloud.firestore {
   match /databases/{database}/documents {
 
     function logueado() { return request.auth != null; }
     function verificado() { return logueado() && request.auth.token.email_verified == true; }
-    function esAdmin() { return verificado() && request.auth.uid in ['PEGA_AQUI_TU_UID']; }
+    function esAdmin() { return logueado() && request.auth.uid in ['45YfsHUZpoSf5mmYJOWBcPLyreA2']; }
     function esDueno(uid) { return logueado() && request.auth.uid == uid; }
     function soloCampos(permitidos) { return request.resource.data.keys().hasOnly(permitidos); }
 

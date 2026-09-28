@@ -14,7 +14,7 @@ Gratis (plan Spark). Unos 15 minutos. Necesitas una cuenta de Google.
 ## 3. Tu cuenta de administrador
 1. **Users → Agregar usuario** → tu correo y una contraseña fuerte (no la de tu correo).
 2. Copia tu **UID de usuario** (texto largo de la columna derecha).
-   Nota: la primera vez que entres al panel te pedirá confirmar el correo; si hace falta, entra primero a la app con esa cuenta y confírmalo.
+   (El panel te reconoce por tu UID; no hace falta confirmar el correo de esta cuenta.)
 
 ## 4. Base de datos
 1. **Compilación → Firestore Database → Crear base de datos** → ubicación en Estados Unidos (ej. `nam5`, no se puede cambiar) → **modo de producción**.
