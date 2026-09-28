@@ -1,6 +1,7 @@
 // Pantallas de acceso: cargando, iniciar sesión, crear cuenta, verificar correo y errores.
 import { MARCA } from './marca.js';
 import { PAISES } from './plan.js';
+import * as I from './instalar.js';
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -9,10 +10,19 @@ const titulo = () => `<img src="icons/logo.png" alt="${esc(MARCA.nombre)}" class
 function pantalla(html) {
   const el = $('#acceso');
   el.innerHTML = `<div class="acceso-caja">${html}</div>`;
+  pintarZonaInstalar();
   el.hidden = false;
   document.body.classList.add('bloqueado');
   return el;
 }
+
+function pintarZonaInstalar() {
+  const z = document.querySelector('#acceso [data-zona-instalar]');
+  if (!z) return;
+  z.innerHTML = I.htmlZona(I.pidioInstalar());
+  z.querySelector('[data-instalar]')?.addEventListener('click', () => I.instalar());
+}
+I.alCambiar(pintarZonaInstalar);
 
 export function ocultarAcceso() {
   $('#acceso').hidden = true;
@@ -37,6 +47,7 @@ const msgEn = (el) => {
 /** acc = { entrar, recuperar, registrar, mensajeError } */
 export function mostrarLogin(acc) {
   const el = pantalla(`${titulo()}<p class="acceso-texto">${esc(MARCA.lema)}</p>
+    <div data-zona-instalar></div>
     <form id="f-login" novalidate>
       <label>Correo<input name="correo" type="email" autocomplete="username" inputmode="email" autocapitalize="none" required></label>
       <label style="margin-top:12px">Contraseña<input name="clave" type="password" autocomplete="current-password" required></label>

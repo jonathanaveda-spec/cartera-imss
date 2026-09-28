@@ -4,6 +4,7 @@ import * as S from './store.js';
 import * as E from './excel.js';
 import * as N from './nube.js';
 import { MARCA } from './marca.js';
+import * as I from './instalar.js';
 import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion, equivalenteLocal } from './plan.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -146,7 +147,9 @@ function renderAvisos(cnt) {
   if (S.estadoAlmacen.motor === 'ninguno') {
     a.push(`<div class="banner mal"><p><b>Atención:</b> este navegador no permite guardar datos. Lo que captures se perderá al cerrar. Abre la app desde Safari y agrégala a la pantalla de inicio.</p></div>`);
   }
-  if (esIOS() && !enModoApp() && !lsGet('cartera:ocultar-instalar')) {
+  if (I.puedeInstalar() && !lsGet('cartera:ocultar-instalar')) {
+    a.push(`<div class="banner info"><p><b>Instala la app</b> en tu pantalla de inicio para abrirla con un toque.</p><button class="btn chico primario" data-accion="instalar">Instalar</button><button class="btn chico" data-accion="ocultar-instalar">Ahora no</button></div>`);
+  } else if (esIOS() && !enModoApp() && !lsGet('cartera:ocultar-instalar')) {
     a.push(`<div class="banner info"><p><b>Para usarla como app en el iPhone:</b> toca el botón Compartir (cuadro con flecha) → <b>Agregar a pantalla de inicio</b>.</p>
       <button class="btn chico" data-accion="ocultar-instalar">Entendido</button></div>`);
   }
@@ -1094,6 +1097,7 @@ export function enlazarEventos() {
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
+    instalar: () => { I.instalar().then((ok) => { if (ok) aviso('¡Listo! La app quedó en tu pantalla de inicio.'); render(); }); },
     abrir: (el) => abrirDetalle(el.dataset.id),
     editar: (el) => abrirFormulario(el.dataset.id),
     pago: (el) => abrirPago(el.dataset.id),

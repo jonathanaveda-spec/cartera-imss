@@ -1,6 +1,7 @@
 import * as S from './store.js';
 import * as N from './nube.js';
 import * as A from './acceso.js';
+import * as I from './instalar.js';
 import { render, enlazarEventos, refrescarTodo, alCambiarSoporte } from './ui.js';
 
 function registrarSW() {
@@ -83,6 +84,7 @@ async function arrancar() {
     }
   }
 
+  I.alCambiar(() => { if (iniciada) render(); });
   window.addEventListener('online', render);
   window.addEventListener('offline', render);
   document.addEventListener('visibilitychange', () => { if (!document.hidden && iniciada) { N.recalcularPlan(); render(); } });
