@@ -4,7 +4,7 @@ import { PAISES } from './plan.js';
 
 const $ = (s) => document.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const titulo = () => `<h1>${esc(MARCA.nombre)}</h1>`;
+const titulo = () => `<img src="icons/logo.png" alt="${esc(MARCA.nombre)}" class="logo-acceso" width="120" height="120">`;
 
 function pantalla(html) {
   const el = $('#acceso');
