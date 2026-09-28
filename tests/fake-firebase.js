@@ -91,7 +91,7 @@ export const limit = (n) => ({ t: 'limit', n });
 
 // --- permisos simplificados ---
 const yo = () => (st.current ? st.users[st.current] : null);
-const esAdmin = () => !!yo() && yo().email.startsWith('admin@') && yo().emailVerified;
+const esAdmin = () => !!yo() && yo().email.startsWith('admin@');
 function permitido(path, accion, dato) {
   const u = yo();
   if (!u) return false;

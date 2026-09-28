@@ -182,7 +182,7 @@ export async function iniciarSincronizacion({ preguntarSubida, alRemoto, alCambi
     const col = (n) => F.collection(fs, raiz + n);
     escuchar('clientes', col('clientes'), (d) => actualizarBase(base, 'clientes', d));
     escuchar('papelera', col('papelera'), (d) => actualizarBase(base, 'papelera', d));
-    escuchar('historial', F.query(col('historial'), F.orderBy('ts', 'desc'), F.limit(3000)), (d) => actualizarBase(base, 'historial', d));
+    escuchar('historial', F.query(col('historial'), F.orderBy('ts', 'desc'), F.limit(300)), (d) => actualizarBase(base, 'historial', d));
     escuchar('config', col('config'), (d) => {
       base.delete('config/main');
       const x = d.find((y) => y.id === 'main');
