@@ -1,5 +1,5 @@
 // Service worker: deja la app disponible sin conexión. Los datos NO pasan por aquí (viven en IndexedDB).
-const VERSION = 'cartera-asesor-v1';
+const VERSION = 'cartera-asesor-v2';
 const ARCHIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'css/styles.css',
   'js/main.js', 'js/ui.js', 'js/store.js', 'js/excel.js', 'js/logic.js', 'js/nube.js', 'js/sincro.js', 'js/acceso.js', 'js/nube-config.js', 'js/plan.js', 'js/marca.js', 'privacidad.html', 'terminos.html',

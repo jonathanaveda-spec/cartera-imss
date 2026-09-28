@@ -27,4 +27,4 @@ export function cupo(planEf, actuales, nuevos = 1) {
 
 export const TIPOS_TICKET = { problema: 'Algo no funciona', pregunta: 'Tengo una pregunta', sugerencia: 'Sugerencia' };
 
-export const PAISES = { MX: 'México', CO: 'Colombia', VE: 'Venezuela', OTRO: 'Otro' };
+export const PAISES = { CO: 'Colombia', VE: 'Venezuela', MX: 'México', OTRO: 'Otro' };
