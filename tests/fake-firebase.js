@@ -105,9 +105,11 @@ function permitido(path, accion, dato) {
   }
   if (s[0] === 'planes') return accion === 'leer' ? (s[1] === u.uid || esAdmin() || s.length === 1 && esAdmin()) : esAdmin();
   if (s[0] === 'tickets') {
-    if (accion === 'crear') return u.emailVerified && dato?.uid === u.uid;
-    if (accion === 'leer') return true;                            // se filtra por uid en ejecutar()
-    return esAdmin();
+    if (esAdmin()) return true;
+    const dueno = s.length >= 2 && st.docs['tickets/' + s[1]]?.uid === u.uid;
+    if (s.length === 1) return accion === 'leer' || (accion === 'crear' && u.emailVerified && dato?.uid === u.uid);
+    if (s.length === 2) return dueno && (accion === 'leer' || accion === 'escribir');
+    return dueno && u.emailVerified && (accion === 'leer' || accion === 'crear'); // mensajes
   }
   if (s[0] === 'admin_log') return esAdmin();
   return false;

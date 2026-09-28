@@ -101,6 +101,7 @@ export async function cargarCuenta() {
     estado.planEf = planEfectivo({ plan: estado.plan, sistema: estado.sistema });
     alEstado();
   }, () => { /* sin permiso o sin conexión: se queda el último plan conocido */ }));
+  iniciarSoporte();
   return estado;
 }
 
@@ -193,19 +194,66 @@ export async function iniciarSincronizacion({ preguntarSubida, alRemoto, alCambi
   return 'ok';
 }
 
-// ---------- Soporte ----------
-export async function crearTicket({ tipo, mensaje, contexto }) {
-  await F.addDoc(F.collection(fs, 'tickets'), {
-    uid: estado.uid, correo: estado.usuario, nombre: estado.perfil?.nombre || '',
-    tipo, mensaje: mensaje.trim().slice(0, 4000), contexto: limpio(contexto || {}),
-    estado: 'abierto', respuesta: '', creado: F.serverTimestamp(),
+// ---------- Soporte: conversaciones con el equipo ----------
+// tickets/{id}: resumen de la conversación (estado, último mensaje, no leídos).
+// tickets/{id}/mensajes/{id}: cada mensaje del hilo ({ de: 'asesor' | 'soporte', texto, autor, creado }).
+export const soporte = { tickets: [], noLeidos: 0, listo: false };
+let alSoporte = () => {};
+export const escucharSoporte = (cb) => { alSoporte = cb; };
+const porActualizado = (a, b) => (b.actualizado?.toMillis?.() || b.creado?.toMillis?.() || 0) - (a.actualizado?.toMillis?.() || a.creado?.toMillis?.() || 0);
+
+function iniciarSoporte() {
+  soporte.listo = false;
+  desuscribir.push(F.onSnapshot(F.query(F.collection(fs, 'tickets'), F.where('uid', '==', estado.uid)), (snap) => {
+    const antes = new Map(soporte.tickets.map((x) => [x.id, x]));
+    soporte.tickets = snap.docs.map((d) => ({ id: d.id, ...d.data() })).sort(porActualizado);
+    // Respuestas nuevas llegadas mientras la app está abierta (no se avisan las que ya estaban al entrar).
+    const nuevas = soporte.listo ? soporte.tickets.filter((x) => x.noLeidoAsesor && !antes.get(x.id)?.noLeidoAsesor) : [];
+    soporte.noLeidos = soporte.tickets.filter((x) => x.noLeidoAsesor).length;
+    soporte.listo = true;
+    try {
+      if (soporte.noLeidos) navigator.setAppBadge?.(soporte.noLeidos);
+      else navigator.clearAppBadge?.();
+    } catch { /* el número en el ícono es opcional */ }
+    alSoporte(nuevas);
+  }, () => { /* sin conexión: se queda la última lista */ }));
+}
+
+const recorte = (s) => s.replace(/\s+/g, ' ').trim().slice(0, 200);
+
+export async function crearConversacion({ tipo, texto, contexto }) {
+  const t = String(texto || '').trim().slice(0, 2000);
+  if (!t) throw new Error('Escribe tu mensaje');
+  const ref = await F.addDoc(F.collection(fs, 'tickets'), {
+    uid: estado.uid, correo: estado.usuario, nombre: (estado.perfil?.nombre || '').slice(0, 100),
+    tipo, asunto: recorte(t), contexto: limpio(contexto || {}),
+    estado: 'abierto', creado: F.serverTimestamp(), actualizado: F.serverTimestamp(),
+    ultimoDe: 'asesor', ultimoMensaje: recorte(t), noLeidoAdmin: true, noLeidoAsesor: false,
+  });
+  await F.addDoc(F.collection(fs, 'tickets', ref.id, 'mensajes'), { de: 'asesor', texto: t, autor: estado.usuario, creado: F.serverTimestamp() });
+  return ref.id;
+}
+
+/** El asesor escribe en una conversación existente (si estaba resuelta, se vuelve a abrir). */
+export async function responderConversacion(id, texto) {
+  const t = String(texto || '').trim().slice(0, 2000);
+  if (!t) return;
+  await F.addDoc(F.collection(fs, 'tickets', id, 'mensajes'), { de: 'asesor', texto: t, autor: estado.usuario, creado: F.serverTimestamp() });
+  await F.updateDoc(F.doc(fs, 'tickets', id), {
+    estado: 'abierto', actualizado: F.serverTimestamp(), ultimoDe: 'asesor', ultimoMensaje: recorte(t),
+    noLeidoAdmin: true, noLeidoAsesor: false,
   });
 }
 
-export async function misTickets() {
-  const s = await F.getDocs(F.query(F.collection(fs, 'tickets'), F.where('uid', '==', estado.uid)));
-  return s.docs.map((d) => ({ id: d.id, ...d.data() }))
-    .sort((a, b) => (b.creado?.toMillis?.() || 0) - (a.creado?.toMillis?.() || 0));
+export async function marcarLeida(id) {
+  const x = soporte.tickets.find((y) => y.id === id);
+  if (x && x.noLeidoAsesor) await F.updateDoc(F.doc(fs, 'tickets', id), { noLeidoAsesor: false });
+}
+
+/** Escucha en vivo los mensajes de una conversación. Devuelve la función para dejar de escuchar. */
+export function escucharMensajes(id, cb, alError) {
+  return F.onSnapshot(F.query(F.collection(fs, 'tickets', id, 'mensajes'), F.orderBy('creado')),
+    (snap) => cb(snap.docs.map((d) => ({ id: d.id, ...d.data() }))), alError);
 }
 
 // ---------- Cierre de sesión y eliminación de cuenta ----------

@@ -275,3 +275,22 @@ tr.fila.est-baja td { opacity: .72; }
 .acceso-texto { color: var(--suave); margin: 6px 0 16px; }
 .girar { width: 34px; height: 34px; margin: 8px auto 0; border: 4px solid var(--linea); border-top-color: var(--marca); border-radius: 50%; animation: gira .9s linear infinite; }
 @keyframes gira { to { transform: rotate(360deg); } }
+
+/* ---------- Soporte (chat) ---------- */
+.punto { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #dc2626; box-shadow: 0 0 0 2px #fff; margin-left: 4px; vertical-align: middle; }
+.barra .btn { position: relative; }
+.barra .btn .punto { position: absolute; top: 4px; right: 4px; margin: 0; }
+.etq.nuevo { background: #dcfce7; color: #14532d; border-color: #86efac; }
+.conv { display: flex; flex-direction: column; gap: 3px; width: 100%; text-align: left; background: none; border: 0; padding: 4px 0; cursor: pointer; }
+.conv-tit { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.conv-ult { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.chat { display: flex; flex-direction: column; gap: 8px; }
+.burbuja { max-width: 85%; padding: 8px 12px; border-radius: 14px; box-shadow: var(--sombra); }
+.burbuja.mia { align-self: flex-end; background: #dcf2ef; border-bottom-right-radius: 4px; }
+.burbuja.de-soporte { align-self: flex-start; background: var(--tarjeta); border-bottom-left-radius: 4px; }
+.burbuja .quien { font-size: .72rem; font-weight: 700; color: var(--marca-osc); }
+.burbuja .txt { white-space: pre-wrap; word-break: break-word; }
+.burbuja .hora { font-size: .7rem; color: var(--suave); text-align: right; margin-top: 2px; }
+.chat-form { display: flex; gap: 8px; width: 100%; align-items: flex-end; }
+.chat-form textarea { min-height: 44px; flex: 1; }
+.dato-pago { font-size: 1.05rem; font-weight: 600; word-break: break-all; margin-top: 2px; }

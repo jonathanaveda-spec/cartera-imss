@@ -22,6 +22,10 @@
       .tabla-admin tr { background: var(--tarjeta); border-radius: var(--radio); box-shadow: var(--sombra); padding: 10px; margin-bottom: 10px; }
       .tabla-admin td { border: 0; padding: 3px 0; }
     }
+    .conv-admin { display: block; width: 100%; text-align: left; border: 0; cursor: pointer; font: inherit; color: inherit; }
+    .conv-admin:hover { outline: 2px solid var(--marca-tenue); }
+    .medio { display: grid; grid-template-columns: 140px 1fr 1.4fr 1fr auto; gap: 6px; margin-bottom: 6px; }
+    @media (max-width: 799px) { .medio { grid-template-columns: 1fr 1fr; } }
     pre.ctx { white-space: pre-wrap; font-size: .75rem; background: #f6f8fa; border-radius: 8px; padding: 8px; margin: 6px 0 0; }
   </style>
 </head>
@@ -33,7 +37,7 @@
     <nav class="pestanas" id="pestanas" hidden>
       <button class="btn" data-tab="resumen" aria-selected="true">Resumen</button>
       <button class="btn" data-tab="asesores">Asesores</button>
-      <button class="btn" data-tab="tickets">Tickets</button>
+      <button class="btn" data-tab="tickets">Soporte</button>
       <button class="btn" data-tab="sistema">Sistema</button>
     </nav>
     <section id="vista"></section>
