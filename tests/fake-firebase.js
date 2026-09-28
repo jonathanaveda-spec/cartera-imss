@@ -111,6 +111,7 @@ function permitido(path, accion, dato) {
     if (s.length === 2) return dueno && (accion === 'leer' || accion === 'escribir');
     return dueno && u.emailVerified && (accion === 'leer' || accion === 'crear'); // mensajes
   }
+  if (s[0] === 'pagos_plan') return accion === 'leer' || esAdmin();          // se filtra por uid en ejecutar()
   if (s[0] === 'admin_log') return esAdmin();
   return false;
 }
@@ -121,7 +122,7 @@ function ejecutar(q) {
   let ids = hijosDirectos(q.path);
   let filas = ids.map((p) => ({ id: p.split('/').pop(), dato: st.docs[p] }));
   const cons = q.cons || [];
-  if (q.path === 'tickets' && !esAdmin()) {
+  if ((q.path === 'tickets' || q.path === 'pagos_plan') && !esAdmin()) {
     const w = cons.find((c) => c.t === 'where' && c.campo === 'uid' && c.valor === yo()?.uid);
     if (!w) throw err('permission-denied');
   }

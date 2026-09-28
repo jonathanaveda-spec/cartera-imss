@@ -65,3 +65,44 @@ test('equivalente en moneda local redondeado hacia arriba', () => {
   assert.equal(equivalenteLocal({ ...s, tasas: {} }, 'CO'), '');
   assert.equal(equivalenteLocal({ ...s, moneda: 'COP' }, 'CO'), '');
 });
+
+import { puedeEditar } from '../plataforma/js/plan.js';
+test('prueba automática de 7 días desde el registro', () => {
+  const creado = ahora - 2 * DIA;
+  const p = planEfectivo({ sistema: {}, creado }, ahora);
+  assert.equal(p.tipo, 'prueba'); assert.equal(p.ilimitado, true); assert.equal(p.diasRestantes, 5);
+  const v = planEfectivo({ sistema: {}, creado: ahora - 8 * DIA }, ahora);
+  assert.equal(v.tipo, 'gratis'); assert.equal(v.vencido, true); assert.equal(v.termino, 'prueba');
+});
+test('días de prueba configurables y beta abierta gana sobre la prueba', () => {
+  assert.equal(planEfectivo({ sistema: { diasPrueba: 14 }, creado: ahora - 10 * DIA }, ahora).tipo, 'prueba');
+  assert.equal(planEfectivo({ sistema: { betaAbierta: true }, creado: ahora - 30 * DIA }, ahora).tipo, 'beta');
+});
+test('el administrador extiende la prueba o activa Pro', () => {
+  const creado = ahora - 30 * DIA;
+  assert.equal(planEfectivo({ plan: { tipo: 'prueba', vence: ahora + 7 * DIA }, sistema: {}, creado }, ahora).tipo, 'prueba');
+  const vp = planEfectivo({ plan: { tipo: 'prueba', vence: ahora - DIA }, sistema: {}, creado }, ahora);
+  assert.equal(vp.tipo, 'gratis'); assert.equal(vp.termino, 'prueba');
+  assert.equal(planEfectivo({ plan: { tipo: 'pro', vence: ahora + DIA }, sistema: {}, creado }, ahora).tipo, 'pro');
+  const g = planEfectivo({ plan: { tipo: 'gratis' }, sistema: {}, creado }, ahora);
+  assert.equal(g.tipo, 'gratis'); assert.equal(g.vencido, false);
+});
+test('solo lectura con plan vencido y más clientes que el límite', () => {
+  const v = planEfectivo({ sistema: { limiteGratis: 15 }, creado: ahora - 8 * DIA }, ahora);
+  assert.equal(puedeEditar(v, 15), true);
+  assert.equal(puedeEditar(v, 116), false);
+  assert.equal(puedeEditar(planEfectivo({ sistema: {}, creado: ahora }, ahora), 500), true);
+});
+
+import * as LP from '../plataforma/js/logic.js';
+test('recordatorio de cobro por WhatsApp', () => {
+  const c = { nombre: 'CASTAÑEDA MENCHACA CINTHIA', proximo_pago: '2026-10-24', celular: '866 281 2325' };
+  assert.equal(LP.nombreBonito(c.nombre), 'Castañeda Menchaca Cinthia');
+  const pv = LP.mensajeCobro(c, { codigo: 'POR_VENCER', diasRestantes: 3 });
+  assert.match(pv, /^Hola Castañeda Menchaca Cinthia 👋 Te recuerdo que tu pago vence el 24\/10\/2026 \(faltan 3 días\)/);
+  assert.match(LP.mensajeCobro(c, { codigo: 'POR_VENCER', diasRestantes: 0 }), /\(hoy\)/);
+  assert.match(LP.mensajeCobro(c, { codigo: 'MOROSO', diasAtraso: 1 }), /venció el 24\/10\/2026 \(1 día de atraso\)/);
+  assert.equal(LP.mensajeCobro(c, { codigo: 'MOROSO', diasAtraso: 2 }, { moroso: 'Oye {nombre}, debes {dias}' }), 'Oye Castañeda Menchaca Cinthia, debes 2 días');
+  assert.equal(LP.enlaceWhatsApp(c.celular, 'Hola 👋'), 'https://wa.me/528662812325?text=Hola%20%F0%9F%91%8B');
+  assert.equal(LP.enlaceWhatsApp('Asesor Oscar', 'x'), null);
+});

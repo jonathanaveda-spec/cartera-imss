@@ -249,3 +249,29 @@ export function otrosDuplicados(c, dup) {
   ids.delete(c.id);
   return [...ids];
 }
+
+// ---------- Recordatorio de cobro por WhatsApp ----------
+export const PLANTILLAS_COBRO = {
+  porVencer: 'Hola {nombre} 👋 Te recuerdo que tu pago vence el {fecha} ({dias}). ¿Te comparto los datos para pagar? ¡Gracias!',
+  moroso: 'Hola {nombre} 👋 Tu pago venció el {fecha} ({dias} de atraso). ¿Me confirmas cuándo puedes pagar? ¡Gracias!',
+};
+
+/** "CASTAÑEDA MENCHACA CINTHIA" → "Castañeda Menchaca Cinthia". */
+export function nombreBonito(n) {
+  return String(n || '').trim().toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (_, a, b) => a + b.toUpperCase());
+}
+
+/** Mensaje de cobro según el estado del cliente, con las plantillas del asesor ({nombre}, {fecha}, {dias}). */
+export function mensajeCobro(c, e, plantillas = {}) {
+  const moroso = e.codigo === 'MOROSO';
+  const base = (moroso ? plantillas.moroso : plantillas.porVencer) || PLANTILLAS_COBRO[moroso ? 'moroso' : 'porVencer'];
+  const dias = moroso ? plural(e.diasAtraso, 'día', 'días')
+    : e.diasRestantes === 0 ? 'hoy' : `faltan ${plural(e.diasRestantes, 'día', 'días')}`;
+  return base.replaceAll('{nombre}', nombreBonito(c.nombre)).replaceAll('{fecha}', fmtFecha(c.proximo_pago)).replaceAll('{dias}', dias);
+}
+
+/** Enlace de WhatsApp con el texto listo (los clientes son de México: prefijo 52). */
+export function enlaceWhatsApp(celular, texto) {
+  const t = telefonoDe(celular);
+  return t ? `https://wa.me/52${t}${texto ? `?text=${encodeURIComponent(texto)}` : ''}` : null;
+}

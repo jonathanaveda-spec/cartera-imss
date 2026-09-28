@@ -3,7 +3,7 @@
 import { firebaseConfig } from './nube-config.js';
 import * as S from './store.js';
 import { calcularCambios, actualizarBase, separarConfig, limpio, estable } from './sincro.js';
-import { planEfectivo, cupo } from './plan.js';
+import { planEfectivo, cupo, puedeEditar } from './plan.js';
 
 export const nubeActiva = !!firebaseConfig;
 export const estado = { usuario: null, uid: null, error: null, perfil: null, plan: null, sistema: {}, planEf: planEfectivo() };
@@ -90,22 +90,37 @@ export async function cargarCuenta() {
     // Por si el perfil no se creó al registrarse (p. ej. se cortó la conexión).
     await F.setDoc(F.doc(fs, 'usuarios', u.uid), { nombre: '', correo: u.email, pais: '', telefono: '', creado: F.serverTimestamp() });
   }
+  // Fecha de registro: la prueba gratis corre desde ahí (si el perfil recién se creó, desde ahora).
   estado.perfil = perfil || { correo: u.email };
+  estado.creado = perfil?.creado?.toMillis ? perfil.creado.toMillis() : Date.now();
   estado.plan = plan ? { ...plan, vence: plan.vence?.toMillis ? plan.vence.toMillis() : plan.vence ?? null } : null;
   estado.sistema = sistema || {};
-  estado.planEf = planEfectivo({ plan: estado.plan, sistema: estado.sistema });
+  recalcularPlan();
   // Cambios de plan hechos por el administrador llegan en vivo.
   desuscribir.push(F.onSnapshot(F.doc(fs, 'planes', u.uid), (d) => {
     const p = d.exists() ? d.data() : null;
     estado.plan = p ? { ...p, vence: p.vence?.toMillis ? p.vence.toMillis() : p.vence ?? null } : null;
-    estado.planEf = planEfectivo({ plan: estado.plan, sistema: estado.sistema });
+    recalcularPlan();
     alEstado();
   }, () => { /* sin permiso o sin conexión: se queda el último plan conocido */ }));
   iniciarSoporte();
   return estado;
 }
 
+/** Recalcula el plan vigente (se llama al cargar, al cambiar el plan y al volver a abrir la app: la prueba vence con el tiempo). */
+export function recalcularPlan() {
+  estado.planEf = planEfectivo({ plan: estado.plan, sistema: estado.sistema, creado: estado.creado });
+  return estado.planEf;
+}
+
 export const cupoPara = (actuales, nuevos = 1) => cupo(estado.planEf, actuales, nuevos);
+export const puedeEditarCartera = () => puedeEditar(estado.planEf, S.db.clientes.length);
+
+/** Pagos del plan registrados por el administrador para este asesor (para "Mi plan"). */
+export async function misPagosPlan() {
+  const s = await F.getDocs(F.query(F.collection(fs, 'pagos_plan'), F.where('uid', '==', estado.uid)));
+  return s.docs.map((d) => ({ id: d.id, ...d.data() })).sort((a, b) => (b.registrado?.toMillis?.() || 0) - (a.registrado?.toMillis?.() || 0));
+}
 
 // ---------- Envío de cambios ----------
 const ref = (clave) => F.doc(fs, raiz + clave);

@@ -1,6 +1,6 @@
 // Panel de administración (solo cuentas cuyo UID está en la lista de administradores de firestore.rules).
 import { firebaseConfig } from './nube-config.js';
-import { PAISES, LIMITE_GRATIS_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
+import { PAISES, LIMITE_GRATIS_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
 import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -10,7 +10,7 @@ const fechaDe = (t) => (ms(t) ? fmtFecha(hoyISO(new Date(ms(t)))) : '—');
 const DIA = 86400000;
 
 let F, auth, fs;
-const datos = { usuarios: [], planes: new Map(), tickets: [], sistema: {}, conteos: new Map() };
+const datos = { usuarios: [], planes: new Map(), tickets: [], sistema: {}, conteos: new Map(), pagos: [] };
 let tab = 'resumen';
 let mensajeLogin = ''; // se muestra la próxima vez que aparezca el formulario de acceso
 
@@ -63,11 +63,13 @@ function mostrarLogin(msg = '') {
 
 // ---------- Carga de datos ----------
 async function cargar() {
-  const [us, pl, si] = await Promise.all([
+  const [us, pl, si, pg] = await Promise.all([
     F.getDocs(F.collection(fs, 'usuarios')),
     F.getDocs(F.collection(fs, 'planes')),
     F.getDoc(F.doc(fs, 'sistema', 'config')),
+    F.getDocs(F.collection(fs, 'pagos_plan')),
   ]);
+  datos.pagos = pg.docs.map((d) => ({ id: d.id, ...d.data() })).sort((a, b) => (ms(b.registrado) || 0) - (ms(a.registrado) || 0));
   datos.usuarios = us.docs.map((d) => ({ uid: d.id, ...d.data() })).sort((a, b) => (ms(b.creado) || 0) - (ms(a.creado) || 0));
   datos.planes = new Map(pl.docs.map((d) => [d.id, d.data()]));
   datos.sistema = si.exists() ? si.data() : {};
@@ -80,12 +82,33 @@ async function contarClientes(uid) {
   return n;
 }
 
-const planDe = (uid) => planEfectivo({ plan: datos.planes.get(uid), sistema: datos.sistema });
+const planDe = (uid) => {
+  const u = datos.usuarios.find((x) => x.uid === uid);
+  const p = datos.planes.get(uid);
+  return planEfectivo({ plan: p ? { ...p, vence: ms(p.vence) } : null, sistema: datos.sistema, creado: ms(u?.creado) });
+};
+
+/** Asesores que requieren una decisión: prueba o Pro que termina en ≤ 3 días, o ya vencidos (últimos 30 días). */
+function vencimientos() {
+  const ahora = Date.now();
+  return datos.usuarios.map((u) => ({ u, p: planDe(u.uid) })).filter(({ p }) =>
+    ((p.tipo === 'prueba' || p.tipo === 'pro') && p.diasRestantes != null && p.diasRestantes <= 3)
+    || (p.vencido && p.vence && ahora - p.vence < 30 * DIA))
+    .sort((a, b) => (a.p.vence || 0) - (b.p.vence || 0));
+}
+
+function textoVence(p) {
+  if (p.vencido) {
+    const dias = Math.floor((Date.now() - p.vence) / DIA);
+    return `<span style="color:#b91c1c">${p.termino === 'pro' ? 'Pro' : 'Prueba'} venció ${dias <= 0 ? 'hoy' : `hace ${dias} día(s)`}</span>`;
+  }
+  return `${p.nombre} termina ${p.diasRestantes <= 0 ? 'hoy' : `en ${p.diasRestantes} día(s)`}`;
+}
 
 // ---------- Vistas ----------
 function pintar() {
   document.querySelectorAll('[data-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
-  ({ resumen, asesores, tickets, sistema })[tab]();
+  ({ resumen, asesores, tickets, pagos, sistema })[tab]();
 }
 
 function resumen() {
@@ -94,6 +117,7 @@ function resumen() {
   const pro = datos.usuarios.filter((u) => planDe(u.uid).tipo === 'pro').length;
   const pendientes = datos.tickets.filter(porResponder).length;
   const pagos = datos.tickets.filter((t) => t.tipo === 'pago' && t.estado !== 'cerrado').length;
+  const vs = vencimientos();
   const porPais = Object.entries(datos.usuarios.reduce((m, u) => { m[u.pais || '—'] = (m[u.pais || '—'] || 0) + 1; return m; }, {}));
   $('#vista').innerHTML = `<div class="kpis">
       <div class="kpi"><div class="num">${datos.usuarios.length}</div><div class="rot">Asesores registrados</div></div>
@@ -102,8 +126,17 @@ function resumen() {
       <div class="kpi"><div class="num">${pendientes}</div><div class="rot">Mensajes por responder</div></div>
       <div class="kpi"><div class="num">${pagos}</div><div class="rot">Comprobantes por revisar</div></div>
     </div>
+    <div class="seccion"><h3>Vencimientos · ${vs.length ? `<span style="color:#b91c1c">${vs.length} por decidir</span>` : 'nada pendiente'}</h3>
+      ${vs.length ? `<ul class="lista-simple">${vs.map(({ u, p }) => `<li>
+        <div class="destacado"><div><b>${esc(u.nombre || '(sin nombre)')}</b> <span class="mini">${esc(u.correo)} · ${esc(PAISES[u.pais] || '')}</span>
+          <div class="mini">${textoVence(p)}</div></div>
+          <div class="acc-fila">
+            <button class="btn chico" data-mas-prueba="${u.uid}">+7 días de prueba</button>
+            <button class="btn chico primario" data-plan="${u.uid}">Registrar pago</button>
+            <button class="btn chico" data-escribir="${u.uid}">Escribir</button></div></div></li>`).join('')}</ul>`
+      : '<p class="mini">Aquí aparecerán los asesores cuya prueba o plan termine en los próximos 3 días o ya haya vencido.</p>'}</div>
     <div class="seccion"><h3>Asesores por país</h3>${porPais.map(([p, n]) => `${esc(PAISES[p] || p)}: <b>${n}</b>`).join(' · ') || 'Sin datos'}</div>
-    <div class="seccion"><h3>Modo actual</h3>${datos.sistema.betaAbierta ? 'Beta abierta: todos sin límite.' : `Planes activos. Plan gratis hasta ${datos.sistema.limiteGratis ?? LIMITE_GRATIS_DEFECTO} clientes.`}</div>`;
+    <div class="seccion"><h3>Modo actual</h3>${datos.sistema.betaAbierta ? 'Acceso libre: todos sin límite (las pruebas y los pagos no aplican).' : `Prueba gratis de ${datos.sistema.diasPrueba ?? DIAS_PRUEBA_DEFECTO} días; después Plan Pro o plan gratis hasta ${datos.sistema.limiteGratis ?? LIMITE_GRATIS_DEFECTO} clientes.`}</div>`;
 }
 
 function asesores() {
@@ -115,9 +148,9 @@ function asesores() {
     return `<tr><td><b>${esc(u.nombre) || '(sin nombre)'}</b><div class="sub">${esc(u.correo)}</div></td>
       <td>${esc(PAISES[u.pais] || u.pais || '—')}<div class="sub">${esc(u.telefono)}</div></td>
       <td>${fechaDe(u.creado)}</td>
-      <td>${esc(p.nombre)}${p.vence ? `<div class="sub">vence ${fechaDe(p.vence)}</div>` : ''}${p.vencido ? '<div class="sub" style="color:#b91c1c">Pro vencido</div>' : ''}</td>
+      <td>${p.vencido ? `<span style="color:#b91c1c">${p.termino === 'pro' ? 'Pro vencido' : 'Prueba vencida'}</span>` : esc(p.nombre)}${p.vence ? `<div class="sub">${p.vencido ? 'desde' : 'hasta'} ${fechaDe(p.vence)}</div>` : ''}</td>
       <td data-conteo="${u.uid}">…</td>
-      <td><div class="acciones"><button class="btn chico" data-plan="${u.uid}">Plan</button><button class="btn chico" data-cartera="${u.uid}">Cartera</button></div></td></tr>`;
+      <td><div class="acciones"><button class="btn chico" data-plan="${u.uid}">Plan</button><button class="btn chico" data-cartera="${u.uid}">Cartera</button><button class="btn chico" data-escribir="${u.uid}">Escribir</button></div></td></tr>`;
   }).join('') || '<tr><td colspan="6">Sin asesores.</td></tr>';
   const render = () => {
     $('#filas').innerHTML = filas($('#buscar').value.trim().toLowerCase());
@@ -132,33 +165,132 @@ function asesores() {
 function editarPlan(uid, ticketId = null) {
   const u = datos.usuarios.find((x) => x.uid === uid) || { correo: uid, nombre: '(cuenta eliminada)' };
   const actual = datos.planes.get(uid) || {};
-  const venceISO = actual.vence ? hoyISO(new Date(ms(actual.vence))) : '';
-  const v = ventana(`Plan · ${u.nombre || u.correo}`, `<form id="fp" class="rejilla dos">
-      <label>Tipo<select name="tipo"><option value="gratis">Gratis</option><option value="pro" ${actual.tipo === 'pro' ? 'selected' : ''}>Pro</option></select></label>
+  const efectivo = planDe(uid);
+  const s = datos.sistema;
+  const venceISO = efectivo.vence && !efectivo.vencido ? hoyISO(new Date(efectivo.vence)) : '';
+  const medios = (s.medios || []).map((m) => m.nombre).filter(Boolean);
+  const v = ventana(`Plan · ${u.nombre || u.correo}`, `
+    <p class="mini" style="margin-bottom:10px">Ahora: <b>${esc(efectivo.nombre)}</b>${efectivo.vence ? ` · ${efectivo.vencido ? 'venció' : 'hasta'} ${fechaDe(efectivo.vence)}` : ''}</p>
+    <div class="acc-fila" style="margin-bottom:12px">
+      <button type="button" class="btn chico" data-rapido="prueba:7">+7 días de prueba</button>
+      <button type="button" class="btn chico" data-rapido="pro:30">Pro +1 mes</button>
+      <button type="button" class="btn chico" data-rapido="pro:365">Pro +1 año</button></div>
+    <form id="fp" class="rejilla dos">
+      <label>Tipo<select name="tipo">
+        <option value="prueba" ${(actual.tipo || efectivo.tipo) === 'prueba' ? 'selected' : ''}>Prueba gratis</option>
+        <option value="pro" ${actual.tipo === 'pro' ? 'selected' : ''}>Plan Pro</option>
+        <option value="gratis" ${actual.tipo === 'gratis' ? 'selected' : ''}>Gratis (con límite)</option></select></label>
       <label>Vence<input type="date" name="vence" value="${venceISO}"><div class="ayuda">Vacío = sin vencimiento.</div></label>
-      <div class="completo acc-fila"><button type="button" class="btn chico" data-mas="30">+1 mes</button><button type="button" class="btn chico" data-mas="365">+1 año</button></div>
-      <label class="completo">Nota (medio y referencia del pago)<input name="nota" value="${esc(actual.nota || '')}"></label></form>`,
+      <fieldset class="completo" id="pago-fs" style="border:1px solid var(--linea);border-radius:10px;padding:10px">
+        <legend class="mini">Pago recibido (opcional, queda registrado)</legend>
+        <div class="rejilla dos">
+          <label>Monto<input type="number" name="monto" min="0" step="0.01" value="${esc(s.precioMensual ?? '')}"></label>
+          <label>Moneda<select name="moneda">${['USD', 'COP', 'MXN', 'USDT'].map((m) => `<option ${(s.moneda || 'USD') === m ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
+          <label>Medio<input name="medio" list="lista-medios" placeholder="Nequi, Binance…"><datalist id="lista-medios">${medios.map((m) => `<option value="${esc(m)}">`).join('')}</datalist></label>
+          <label>Referencia<input name="referencia" maxlength="120"></label></div></fieldset>
+    </form>`,
   '<button class="btn" data-cerrar>Cancelar</button><button class="btn primario" type="submit" form="fp">Guardar</button>');
   const f = v.q('#fp');
-  v.el.querySelectorAll('[data-mas]').forEach((b) => b.addEventListener('click', () => {
-    const baseMs = Math.max(Date.now(), ms(actual.vence) || 0);
-    f.tipo.value = 'pro';
-    f.vence.value = hoyISO(new Date(baseMs + Number(b.dataset.mas) * DIA));
+  const mostrarPago = () => { v.q('#pago-fs').hidden = f.tipo.value !== 'pro'; };
+  f.tipo.addEventListener('change', mostrarPago);
+  v.el.querySelectorAll('[data-rapido]').forEach((b) => b.addEventListener('click', () => {
+    const [tipo, dias] = b.dataset.rapido.split(':');
+    // Se suma desde hoy o desde el vencimiento vigente, lo que sea más tarde.
+    const base = Math.max(Date.now(), efectivo.vencido ? 0 : (efectivo.vence || 0));
+    f.tipo.value = tipo;
+    f.vence.value = hoyISO(new Date(base + Number(dias) * DIA));
+    if (tipo === 'pro') f.monto.value = dias === '365' ? (s.precioAnual ?? '') : (s.precioMensual ?? '');
+    mostrarPago();
   }));
+  mostrarPago();
   f.addEventListener('submit', (e) => {
     e.preventDefault();
     seguro(async () => {
       const vence = f.vence.value ? new Date(f.vence.value + 'T23:59:59').getTime() : null;
-      const plan = { tipo: f.tipo.value, vence, nota: f.nota.value.trim(), actualizado: F.serverTimestamp(), por: auth.currentUser.email };
+      const plan = { tipo: f.tipo.value, vence, actualizado: F.serverTimestamp(), por: auth.currentUser.email };
       await F.setDoc(F.doc(fs, 'planes', uid), plan);
-      await registrar('plan', `${u.correo}: ${plan.tipo}${vence ? ' hasta ' + f.vence.value : ''} ${plan.nota}`);
-      datos.planes.set(uid, { ...plan, actualizado: Date.now() });
-      if (ticketId && plan.tipo === 'pro') {
-        await enviarSoporte(ticketId, `✅ Activamos tu Plan Pro${vence ? ` hasta el ${fmtFecha(f.vence.value)}` : ''}. ¡Gracias por tu pago!`, { resolver: true });
+      let detalle = `${u.correo}: ${plan.tipo}${vence ? ' hasta ' + f.vence.value : ''}`;
+      if (plan.tipo === 'pro' && Number(f.monto.value) > 0) {
+        const pago = {
+          uid, correo: u.correo || '', nombre: u.nombre || '', monto: Number(f.monto.value), moneda: f.moneda.value,
+          medio: f.medio.value.trim(), referencia: f.referencia.value.trim(), desde: Date.now(), hasta: vence,
+          registrado: F.serverTimestamp(), por: auth.currentUser.email,
+        };
+        const ref = await F.addDoc(F.collection(fs, 'pagos_plan'), pago);
+        datos.pagos.unshift({ id: ref.id, ...pago, registrado: Date.now() });
+        detalle += ` · pago ${pago.monto} ${pago.moneda} ${pago.medio} ${pago.referencia}`;
       }
-      v.cerrar(); aviso(ticketId ? 'Plan activado y asesor avisado' : 'Plan guardado'); pintar();
+      await registrar('plan', detalle);
+      datos.planes.set(uid, { ...plan, actualizado: Date.now() });
+      const fechaTxt = vence ? ` hasta el ${fmtFecha(f.vence.value)}` : '';
+      if (ticketId && plan.tipo === 'pro') {
+        await enviarSoporte(ticketId, `✅ Activamos tu Plan Pro${fechaTxt}. ¡Gracias por tu pago!`, { resolver: true });
+      }
+      v.cerrar();
+      aviso(ticketId ? 'Plan activado y asesor avisado' : 'Plan guardado');
+      pintar();
     });
   });
+}
+
+/** Extiende 7 días la prueba sin abrir el formulario. */
+async function masPrueba(uid) {
+  const p = planDe(uid);
+  const base = Math.max(Date.now(), p.vencido ? 0 : (p.vence || 0));
+  const vence = base + 7 * DIA;
+  await F.setDoc(F.doc(fs, 'planes', uid), { tipo: 'prueba', vence, actualizado: F.serverTimestamp(), por: auth.currentUser.email });
+  datos.planes.set(uid, { tipo: 'prueba', vence });
+  const u = datos.usuarios.find((x) => x.uid === uid);
+  await registrar('plan', `${u?.correo || uid}: prueba +7 días hasta ${fmtFecha(hoyISO(new Date(vence)))}`);
+  aviso(`Prueba extendida hasta el ${fmtFecha(hoyISO(new Date(vence)))}`);
+  pintar();
+}
+
+/** Soporte inicia una conversación con un asesor (le aparece como respuesta nueva). */
+function escribirA(uid) {
+  const u = datos.usuarios.find((x) => x.uid === uid);
+  if (!u) return;
+  const p = planDe(uid);
+  const sugerido = p.tipo === 'prueba' || p.vencido
+    ? `Hola ${(u.nombre || '').split(' ')[0]} 👋 ${p.vencido ? 'Tu prueba gratis de Cartera Asesor terminó' : `Tu prueba gratis de Cartera Asesor termina el ${fechaDe(p.vence)}`}. ¿Cómo te ha ido? Si quieres seguir, en ☰ Datos → Mi plan están los medios de pago. Cualquier duda, respóndeme por aquí.`
+    : '';
+  const v = ventana(`Escribir a ${u.nombre || u.correo}`, `<form id="fe"><label>Mensaje<textarea name="texto" rows="5" maxlength="2000">${esc(sugerido)}</textarea></label></form>`,
+    '<button class="btn" data-cerrar>Cancelar</button><button class="btn primario" type="submit" form="fe">Enviar</button>');
+  v.q('#fe').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const texto = e.target.texto.value.trim();
+    if (!texto) return;
+    seguro(async () => {
+      const resumenTxt = texto.replace(/\s+/g, ' ').slice(0, 200);
+      const ref = await F.addDoc(F.collection(fs, 'tickets'), {
+        uid, correo: u.correo || '', nombre: u.nombre || '', tipo: 'aviso', asunto: resumenTxt, contexto: {},
+        estado: 'abierto', creado: F.serverTimestamp(), actualizado: F.serverTimestamp(),
+        ultimoDe: 'soporte', ultimoMensaje: resumenTxt, noLeidoAdmin: false, noLeidoAsesor: true,
+      });
+      await F.addDoc(F.collection(fs, 'tickets', ref.id, 'mensajes'), { de: 'soporte', texto, autor: auth.currentUser.email, creado: F.serverTimestamp() });
+      await registrar('soporte', `${u.correo}: conversación iniciada por soporte`);
+      v.cerrar();
+      aviso('Mensaje enviado. Le aparecerá como respuesta nueva.');
+    });
+  });
+}
+
+// ---------- Pagos del plan ----------
+function pagos() {
+  const porMes = {};
+  for (const p of datos.pagos) {
+    const f = ms(p.registrado);
+    const mes = f ? hoyISO(new Date(f)).slice(0, 7) : '—';
+    porMes[mes] ||= {};
+    porMes[mes][p.moneda] = (porMes[mes][p.moneda] || 0) + Number(p.monto || 0);
+  }
+  $('#vista').innerHTML = `<div class="seccion"><h3>Ingresos por mes</h3>${Object.keys(porMes).length
+      ? `<ul class="lista-simple">${Object.entries(porMes).sort((a, b) => b[0].localeCompare(a[0])).map(([mes, tot]) => `<li><b>${esc(mes)}</b> · ${Object.entries(tot).map(([m, v]) => `${Math.round(v * 100) / 100} ${esc(m)}`).join(' + ')}</li>`).join('')}</ul>`
+      : '<p class="mini">Aún no hay pagos registrados. Se registran al activar un Plan Pro con monto.</p>'}</div>
+    <table class="tabla-admin"><thead><tr><th>Fecha</th><th>Asesor</th><th>Monto</th><th>Medio · referencia</th><th>Plan hasta</th></tr></thead><tbody>
+    ${datos.pagos.map((p) => `<tr><td>${fechaDe(p.registrado)}</td><td><b>${esc(p.nombre || '')}</b><div class="sub">${esc(p.correo)}</div></td>
+      <td>${esc(p.monto)} ${esc(p.moneda)}</td><td>${esc(p.medio || '—')}<div class="sub">${esc(p.referencia || '')}</div></td><td>${p.hasta ? fechaDe(p.hasta) : '—'}</td></tr>`).join('') || '<tr><td colspan="5">Sin pagos.</td></tr>'}
+    </tbody></table>`;
 }
 
 async function verCartera(uid) {
@@ -298,8 +430,9 @@ function sistema() {
       <button type="button" class="btn chico peligro" data-quitar="${i}" aria-label="Quitar">✕</button></div>`;
   $('#vista').innerHTML = `<form id="fs">
       <div class="seccion"><h3>Modo</h3>
-        <label class="radio-tarjeta"><input type="checkbox" name="beta" ${s.betaAbierta ? 'checked' : ''}><span><b>Beta abierta</b><br>
-          <span class="mini">Todos los asesores usan la app sin límite y sin costo.</span></span></label>
+        <label class="radio-tarjeta"><input type="checkbox" name="beta" ${s.betaAbierta ? 'checked' : ''}><span><b>Acceso libre para todos</b><br>
+          <span class="mini">Si está marcado, nadie tiene límite ni vencimiento (ignora la prueba y los pagos). Desmárcalo para activar la prueba de 7 días y el cobro.</span></span></label>
+        <label style="margin-top:12px">Días de prueba gratis para cada asesor nuevo<input type="number" name="diasPrueba" min="0" max="90" value="${s.diasPrueba ?? DIAS_PRUEBA_DEFECTO}"></label>
         <label style="margin-top:12px">Clientes permitidos en el plan gratis<input type="number" name="limite" min="1" max="1000" value="${s.limiteGratis ?? LIMITE_GRATIS_DEFECTO}"></label></div>
       <div class="seccion"><h3>Precio del Plan Pro</h3><div class="rejilla dos">
         <label>Mensual<input type="number" name="mensual" min="0" step="0.01" value="${esc(s.precioMensual ?? '')}"></label>
@@ -333,6 +466,7 @@ function sistema() {
       const nuevo = {
         betaAbierta: f.beta.checked,
         limiteGratis: Math.max(1, parseInt(f.limite.value, 10) || LIMITE_GRATIS_DEFECTO),
+        diasPrueba: Math.max(0, parseInt(f.diasPrueba.value, 10) || 0),
         precioMensual: num(f.mensual.value), precioAnual: num(f.anual.value), moneda: f.moneda.value,
         tasas: { COP: num(f.tasaCOP.value), MXN: num(f.tasaMXN.value) },
         medios: leerMedios().filter((m) => m.nombre && m.dato),
@@ -363,6 +497,10 @@ async function arrancar() {
     if (p) editarPlan(p.dataset.plan);
     const c = e.target.closest('[data-cartera]');
     if (c) verCartera(c.dataset.cartera);
+    const mp = e.target.closest('[data-mas-prueba]');
+    if (mp) seguro(() => masPrueba(mp.dataset.masPrueba));
+    const es = e.target.closest('[data-escribir]');
+    if (es) escribirA(es.dataset.escribir);
   });
 
   F.onAuthStateChanged(auth, async (u) => {
@@ -377,6 +515,10 @@ async function arrancar() {
       return;
     }
     if (!window.__escuchandoTickets) { window.__escuchandoTickets = true; escucharTickets(); }
+    const nv = vencimientos().length;
+    if (nv) aviso(`⏳ ${nv} asesor(es) con prueba o plan por vencer o vencido. Míralos en Resumen → Vencimientos.`);
+    const bR = document.querySelector('[data-tab="resumen"]');
+    if (bR) bR.innerHTML = `Resumen${nv ? ` <span class="pastilla" style="background:#f59e0b;color:#111827">${nv}</span>` : ''}`;
     $('#quien').textContent = u.email;
     $('#pestanas').hidden = false;
     $('#salir').hidden = false;

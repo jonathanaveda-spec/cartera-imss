@@ -85,7 +85,7 @@ async function arrancar() {
 
   window.addEventListener('online', render);
   window.addEventListener('offline', render);
-  document.addEventListener('visibilitychange', () => { if (!document.hidden && iniciada) render(); });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && iniciada) { N.recalcularPlan(); render(); } });
 }
 
 arrancar().catch((e) => {
