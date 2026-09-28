@@ -168,6 +168,16 @@ function etiquetaOrden() {
 }
 
 export function render() {
+  const btnRev = document.querySelector('.barra [data-accion="revision"]');
+  if (btnRev) {
+    const dupR = L.indexarDuplicados(S.db.clientes);
+    const hoyR = L.hoyISO();
+    const nRev = S.db.clientes.filter((c) => L.avisosDeCliente(c, dupR, hoyR).length).length;
+    let b = btnRev.querySelector('.pastilla');
+    if (nRev && !b) { b = document.createElement('span'); b.className = 'pastilla'; btnRev.appendChild(b); }
+    if (b) { if (nRev) b.textContent = nRev; else b.remove(); }
+    btnRev.title = nRev ? `Revisión de datos: ${nRev} cliente(s) por revisar` : 'Revisión de datos';
+  }
   const btnMenu = document.querySelector('.barra [data-accion="menu"]');
   if (btnMenu) {
     let p = btnMenu.querySelector('.punto');
@@ -499,22 +509,18 @@ async function accionAnular(id) {
 // Menú de datos
 // =====================================================================
 export function abrirMenu() {
-  const { hoy } = ctx();
-  const dup = L.indexarDuplicados(S.db.clientes);
-  const nAvisos = S.db.clientes.filter((c) => L.avisosDeCliente(c, dup, hoy).length).length;
   const op = (acc, ico, tit, desc) => `<button class="opcion-menu" data-accion="${acc}"><span class="ico">${ico}</span><span><b>${tit}</b><span class="d">${desc}</span></span></button>`;
   const v = ventana({
     titulo: 'Datos y opciones',
     cuerpo: [
-      op('importar', '📥', 'Importar Excel', 'Carga un archivo .xlsx (por ejemplo ALTAS.xlsx). No borra nada de lo que ya tienes.'),
+      op('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
+      op('importar', '📥', 'Importar Excel', 'Carga tu archivo .xlsx de clientes. No borra nada de lo que ya tienes.'),
       op('exportar', '📤', 'Exportar a Excel', 'Crea un archivo nuevo con clientes, pagos e historial. El original no se toca.'),
       op('respaldo', '💾', 'Descargar respaldo completo', 'Copia de todos los datos de la app (.json) para guardarla o pasarla a otro teléfono.'),
       op('restaurar', '♻️', 'Restaurar respaldo', 'Recupera datos desde un respaldo .json. Guarda antes una copia de lo actual.'),
-      op('revision', '🔎', 'Revisión de datos', nAvisos ? `${nAvisos} cliente(s) con datos por revisar.` : 'Sin avisos.'),
       op('asistente', '🗓️', 'Configurar pagos iniciales', 'Asigna periodicidad y próxima fecha a los clientes que aún no la tienen.'),
       op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
       op('config', '⚙️', 'Configuración', 'Días de aviso, campos nuevos y estado del almacenamiento.'),
-      op('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
       op('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
       op('cuenta', '👤', 'Mi cuenta', `${esc(N.estado.usuario || '')} · cerrar sesión o eliminar cuenta.`),
     ].join(''),
