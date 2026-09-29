@@ -5,6 +5,7 @@ import * as E from './excel.js';
 import * as N from './nube.js';
 import { MARCA } from './marca.js';
 import * as I from './instalar.js';
+import * as B from './bloqueo.js';
 import { enPlay } from './origen.js';
 import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion, equivalenteLocal } from './plan.js';
 
@@ -146,6 +147,9 @@ function renderAvisos(cnt) {
     a.push(`<div class="banner"><p>Usas <b>${nCli} de ${pe.limite}</b> clientes de la beta gratuita.${nCli >= pe.limite ? ' Tus clientes siguen igual; ¿necesitas agregar más? Escríbenos.' : ''}</p><button class="btn chico" data-accion="ayuda" data-texto="En la beta necesito más de ${pe.limite} clientes: ">Escríbenos</button></div>`);
   } else if (!pe.ilimitado && nCli >= pe.limite - 2) {
     a.push(`<div class="banner"><p>${pe.vencido ? termino + '. ' : ''}Usas <b>${nCli} de ${pe.limite}</b> clientes del plan gratis.</p><button class="btn chico" data-accion="plan">${enPlay() ? 'Mi plan' : 'Ver planes'}</button></div>`);
+  }
+  if (nCli && !B.activo() && !lsGet('cartera:ocultar-aviso-bloqueo')) {
+    a.push(`<div class="banner info"><p>🔒 <b>Nuevo: protege tu cartera con un PIN</b>. Si alguien más toma tu teléfono, no podrá ver a tus clientes.</p><button class="btn chico primario" data-accion="bloqueo">Activar</button><button class="btn chico" data-accion="ocultar-bloqueo">Ahora no</button></div>`);
   }
   if (S.estadoAlmacen.motor === 'ninguno') {
     a.push(`<div class="banner mal"><p><b>Atención:</b> este navegador no permite guardar datos. Lo que captures se perderá al cerrar. Abre la app desde Safari y agrégala a la pantalla de inicio.</p></div>`);
@@ -579,6 +583,7 @@ export function abrirMenu() {
       opMenu('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp del botón «Recordar».'),
       grupoMenu('Tus datos'),
       opMenu('archivos', '📂', 'Importar y exportar', `Excel y respaldos · ${ult ? 'último respaldo: ' + L.fmtFecha(L.hoyISO(new Date(ult))) : '<b class="txt-ambar">aún sin respaldo</b>'}`, { sub: true }),
+      opMenu('bloqueo', '🔒', 'Bloqueo con PIN', B.activo() ? `Activado${B.conBiometria() ? ' · también con ' + B.nombreBiometria() : ''}.` : 'Que nadie vea tu cartera si toma tu teléfono.'),
       opMenu('papelera', '🗑️', 'Papelera', S.db.papelera.length ? `${S.db.papelera.length} cliente(s) eliminados.` : 'Vacía.'),
       opMenu('config', '⚙️', 'Configuración', 'Campos personalizados, almacenamiento y deshacer cambios.'),
       grupoMenu('Ayuda y cuenta'),
@@ -1127,6 +1132,87 @@ export function abrirPapelera() {
 
 // ---------- Cuenta (nube) ----------
 // ---------- Mi cuenta ----------
+// ---------- Bloqueo con PIN ----------
+const campoPin = (nombre, etiqueta, auto = 'new-password') => `<label>${etiqueta}<input type="password" name="${nombre}" inputmode="numeric"
+  pattern="[0-9]{4}" maxlength="4" minlength="4" autocomplete="${auto}" required class="campo-pin"></label>`;
+
+export async function abrirBloqueo() {
+  const hayBio = await B.biometriaDisponible();
+  const bio = B.nombreBiometria();
+  const v = ventana({ titulo: '🔒 Bloqueo de la app', cuerpo: '' });
+  const opcionesTiempo = () => B.TIEMPOS.map(([m, t]) => `<option value="${m}" ${m === B.minutos() ? 'selected' : ''}>${t}</option>`).join('');
+
+  const pintar = () => {
+    if (!B.activo()) {
+      v.poner({
+        cuerpo: `<p style="margin-bottom:10px">Si alguien más toma tu teléfono, <b>no podrá ver tu cartera</b> (nombres, CURP, NSS, celulares) sin tu PIN.</p>
+          <form id="f-pin" class="rejilla">
+            ${campoPin('pin', 'Crea un PIN de 4 números')}
+            ${campoPin('pin2', 'Repite el PIN')}
+            <label>Pedir el PIN<select name="minutos">${opcionesTiempo()}</select></label>
+            ${hayBio ? `<label class="radio-tarjeta"><input type="checkbox" name="bio" checked><span>Desbloquear también con <b>${bio}</b></span></label>` : ''}
+          </form>
+          <p class="mini" style="margin-top:10px">El PIN se guarda solo en este teléfono. Si lo olvidas, cierras sesión y vuelves a entrar con tu correo y contraseña: tus clientes siguen en la nube.</p>`,
+        pie: '<button class="btn" data-cerrar type="button">Ahora no</button><button class="btn primario" type="submit" form="f-pin">Activar bloqueo</button>',
+      });
+      v.q('#f-pin').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = e.target;
+        if (!/^\d{4}$/.test(f.pin.value)) return aviso('El PIN debe tener 4 números', true);
+        if (f.pin.value !== f.pin2.value) return aviso('Los dos PIN no coinciden. Escríbelos de nuevo.', true);
+        seguro(async () => {
+          await B.guardarPin(f.pin.value, Number(f.minutos.value));
+          if (f.bio?.checked) {
+            try { await B.activarBiometria(N.estado.usuario); } catch { aviso(`No se activó ${bio}; puedes intentarlo después aquí mismo.`, true); }
+          }
+          aviso('🔒 Bloqueo activado');
+          render();
+          pintar();
+        });
+      });
+      return;
+    }
+    v.poner({
+      cuerpo: `<div class="banner info"><p>🔒 <b>Bloqueo activado</b> en este teléfono${B.conBiometria() ? `, también con ${bio}` : ''}.</p></div>
+        <label>Pedir el PIN<select data-minutos>${opcionesTiempo()}</select></label>
+        ${hayBio ? `<label class="radio-tarjeta" style="margin-top:10px"><input type="checkbox" data-bio ${B.conBiometria() ? 'checked' : ''}><span>Desbloquear también con <b>${bio}</b></span></label>` : ''}
+        <div class="acc-fila" style="margin-top:12px"><button class="btn" data-cambiar type="button">Cambiar PIN</button>
+          <button class="btn peligro" data-quitar type="button">Quitar bloqueo</button></div>`,
+      pie: '<button class="btn primario" data-cerrar type="button">Listo</button>',
+    });
+    v.q('[data-minutos]').addEventListener('change', (e) => { B.cambiarMinutos(Number(e.target.value)); aviso('Guardado'); });
+    v.q('[data-bio]')?.addEventListener('change', (e) => seguro(async () => {
+      if (e.target.checked) {
+        try { await B.activarBiometria(N.estado.usuario); aviso(`${bio} activado`); } catch { e.target.checked = false; aviso(`No se activó ${bio}`, true); }
+      } else { B.quitarBiometria(); aviso(`${bio} desactivado`); }
+    }));
+    // Cambiar o quitar pide el PIN actual.
+    const conPinActual = (titulo, textoOk, alConfirmar) => {
+      const w = ventana({
+        titulo, fondoCierra: false,
+        cuerpo: `<form id="f-pin-actual" class="rejilla">${campoPin('actual', 'Tu PIN actual', 'current-password')}
+          ${textoOk === 'Cambiar' ? campoPin('pin', 'PIN nuevo') + campoPin('pin2', 'Repite el PIN nuevo') : ''}</form>`,
+        pie: `<button class="btn" data-cerrar type="button">Cancelar</button><button class="btn ${textoOk === 'Cambiar' ? 'primario' : 'peligro solido'}" type="submit" form="f-pin-actual">${textoOk}</button>`,
+      });
+      w.q('#f-pin-actual').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const f = e.target;
+        seguro(async () => {
+          if (!(await B.pinCorrecto(f.actual.value))) return aviso('El PIN actual no es correcto', true);
+          if (f.pin && (!/^\d{4}$/.test(f.pin.value) || f.pin.value !== f.pin2.value)) return aviso('El PIN nuevo debe tener 4 números y coincidir las dos veces', true);
+          await alConfirmar(f);
+          w.cerrar();
+          render();
+          pintar();
+        });
+      });
+    };
+    v.q('[data-cambiar]').addEventListener('click', () => conPinActual('Cambiar PIN', 'Cambiar', async (f) => { await B.guardarPin(f.pin.value); aviso('PIN cambiado'); }));
+    v.q('[data-quitar]').addEventListener('click', () => conPinActual('Quitar bloqueo', 'Quitar', async () => { B.quitar(); aviso('Bloqueo quitado'); }));
+  };
+  pintar();
+}
+
 function abrirCuenta() {
   const p = N.estado.perfil || {};
   const v = ventana({
@@ -1283,6 +1369,7 @@ const PREGUNTAS = [
   ['¿Cómo registro un pago?', 'Toca «Registrar pago» en el cliente. La próxima fecha se calcula sola según su periodicidad.'],
   ['¿Qué significa cada color?', '🟢 al día · 🟡 vence pronto · 🔴 moroso (ya pasó su fecha) · ⚫ dado de baja · ⚪ aún sin fecha de pago.'],
   ['¿Otro asesor puede ver mis clientes?', 'No. Cada cuenta ve únicamente sus propios clientes.'],
+  ['¿Cómo evito que alguien vea mi cartera si toma mi teléfono?', 'Activa el bloqueo: Menú ☰ → Bloqueo con PIN. Creas un PIN de 4 números (y, si tu teléfono lo permite, también huella o Face ID) y eliges cuándo pedirlo. Si olvidas el PIN, en la pantalla de bloqueo toca «¿Olvidaste tu PIN?»: cierras sesión, vuelves a entrar con tu correo y contraseña, y tus clientes siguen ahí porque están en la nube.'],
   ['¿Funciona sin internet?', 'Sí. Los cambios se guardan en el teléfono y se envían a tu cuenta cuando vuelve la conexión.'],
   ['Cambié de teléfono, ¿pierdo mis datos?', 'No. Inicia sesión con tu mismo correo y tus clientes aparecen.'],
 ];
@@ -1530,6 +1617,8 @@ export function enlazarEventos() {
     cuenta: abrirCuenta,
     plan: abrirPlan,
     ayuda: (el) => abrirAyuda(el.dataset.texto),
+    bloqueo: abrirBloqueo,
+    'ocultar-bloqueo': () => { lsSet('cartera:ocultar-aviso-bloqueo', '1'); render(); },
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
