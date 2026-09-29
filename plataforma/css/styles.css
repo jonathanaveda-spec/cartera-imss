@@ -250,9 +250,16 @@ tr.fila.est-baja td { opacity: .72; }
   background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer;
   min-height: 56px;
 }
-.opcion-menu .ico { font-size: 1.4rem; width: 32px; text-align: center; }
+.opcion-menu .ico { font-size: 1.4rem; width: 32px; text-align: center; flex: none; }
+.opcion-menu .txt { flex: 1; min-width: 0; }
 .opcion-menu b { display: block; }
 .opcion-menu span.d { font-size: .85rem; color: var(--suave); }
+.opcion-menu span.d b { display: inline; }
+.opcion-menu .ir { font-size: 1.5rem; line-height: 1; color: var(--suave); flex: none; }
+.opcion-menu:hover { border-color: var(--marca-tenue, #c7d4f2); }
+.opcion-menu.destacada { background: #fffaf0; border-color: #efd28a; }
+.txt-ambar { color: #8a5300; }
+.menu-grupo { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--suave); margin: 16px 4px 8px; }
 
 .tabla-mini { width: 100%; font-size: .85rem; box-shadow: none; }
 .tabla-mini td, .tabla-mini th { padding: 6px 8px; display: table-cell; }
