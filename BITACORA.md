@@ -51,6 +51,14 @@ fila 1 y una columna llamada CLIENTE o NOMBRE). Ahora:
 - Verificado: con el ALTAS.xlsx de Yami la lectura nueva da **exactamente** lo mismo que la anterior (116 filas,
   mismos datos y misma huella para no duplicar). Probado en /demo/ en tamaño celular con Excels inventados.
 
+**Video de 30 s**: guion en `tienda/video-guion.md` (escenas con IA 0–8 s + grabación real de la app + CapCut).
+Excel de clientes inventados para grabar (25 clientes: 6 🔴, 6 🟡, 13 🟢 según la fecha en que se creó): se le mandó a
+Jonathan; no está en el repo (los .xlsx no se suben). Se regenera con un script de Claude si hace falta.
+
+**Números con código de país**: `logic.js → telefonoInternacional`. Un celular de 10 dígitos sigue siendo de México
+(+52); si se escribe con «+» y código de país (ej. +57 300…), WhatsApp y «Llamar» usan ese país. «Llamar» ahora
+marca con +52 (antes marcaba los 10 dígitos sin código: desde Colombia o Venezuela no llegaba a México).
+
 ## 2026-10-01
 
 **Aviso de GitHub "Possible valid secrets detected"**: se revisó todo el historial. Lo único detectado es

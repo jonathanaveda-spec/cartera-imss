@@ -153,6 +153,18 @@ export function telefonoDe(celular) {
   return null;
 }
 
+/**
+ * Número completo con código de país, para WhatsApp y llamadas. Un número de 10 dígitos es de México (+52);
+ * si se escribió con «+» y código de país (ej. +57 300 123 4567), se respeta tal cual.
+ */
+export function telefonoInternacional(celular) {
+  const s = String(celular ?? '').trim();
+  const d = s.replace(/\D/g, '');
+  if (s.startsWith('+') && d.length >= 8 && d.length <= 15) return d;
+  const mx = telefonoDe(celular);
+  return mx ? '52' + mx : null;
+}
+
 function textoBusqueda(c) {
   const extra = Object.values(c.extra || {}).join(' ');
   return normalizar(
@@ -246,7 +258,7 @@ export function avisosDeCliente(c, dup, hoy) {
   const nss = (c.nss || '').trim();
   if (!nss) a.push('nss_vacio');
   else if (!/^\d{11}$/.test(nss)) a.push('nss_largo');
-  if (!telefonoDe(c.celular)) a.push('celular');
+  if (!telefonoInternacional(c.celular)) a.push('celular');
   if (!c.fecha_inicio || !esISO(c.fecha_inicio)) a.push('fecha_inicio');
   else if (c.fecha_inicio > hoy) a.push('fecha_futura');
   const k = curp.toUpperCase();
@@ -285,6 +297,6 @@ export function mensajeCobro(c, e, plantillas = {}) {
 
 /** Enlace de WhatsApp con el texto listo (los clientes son de México: prefijo 52). */
 export function enlaceWhatsApp(celular, texto) {
-  const t = telefonoDe(celular);
-  return t ? `https://wa.me/52${t}${texto ? `?text=${encodeURIComponent(texto)}` : ''}` : null;
+  const t = telefonoInternacional(celular);
+  return t ? `https://wa.me/${t}${texto ? `?text=${encodeURIComponent(texto)}` : ''}` : null;
 }

@@ -244,7 +244,7 @@ function filaHTML({ c, e }) {
     : e.codigo === 'SIN_CONFIG'
       ? `<button class="btn chico" data-accion="editar" data-id="${c.id}">Fijar fecha</button>`
       : `<button class="btn chico primario" data-accion="pago" data-id="${c.id}">Registrar pago</button>`;
-  const wa = (e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER') && L.telefonoDe(c.celular)
+  const wa = (e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER') && L.telefonoInternacional(c.celular)
     ? `<button class="btn chico btn-wa" data-accion="recordar" data-id="${c.id}" aria-label="Recordar el pago por WhatsApp">💬 Recordar</button>` : '';
   return `<tr class="fila est-${e.clase}" data-id="${c.id}" tabindex="0" role="button" aria-label="Abrir ${esc(c.nombre)}">
     <td class="c-estado"><span class="insignia ${e.clase}">${e.icono} ${e.etiqueta}</span></td>
@@ -267,7 +267,7 @@ export function abrirDetalle(id, ventanaExistente) {
   const e = L.calcularEstado(c, hoy, dias);
   const dup = L.indexarDuplicados(S.db.clientes);
   const avisos = L.avisosDeCliente(c, dup, hoy);
-  const tel = L.telefonoDe(c.celular);
+  const tel = L.telefonoInternacional(c.celular);
   const otros = L.otrosDuplicados(c, dup).map(S.buscar).filter(Boolean);
   const hist = S.historialDe(id).slice(0, 40);
   const ult = S.ultimoPagoRegistrado(c);
@@ -285,7 +285,7 @@ export function abrirDetalle(id, ventanaExistente) {
     <div class="seccion acc-fila">
       ${e.codigo === 'BAJA' ? '' : `<button class="btn primario" data-accion="pago" data-id="${id}">Registrar pago</button>`}
       <button class="btn" data-accion="editar" data-id="${id}">Editar</button>
-      ${tel ? `<a class="btn" href="tel:${tel}">Llamar</a>${e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER'
+      ${tel ? `<a class="btn" href="tel:+${tel}">Llamar</a>${e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER'
         ? `<button class="btn btn-wa" data-accion="recordar" data-id="${id}">💬 Recordar pago</button>`
         : `<a class="btn" href="${L.enlaceWhatsApp(c.celular, '')}" target="_blank" rel="noopener">WhatsApp</a>`}` : ''}
       ${c.baja ? `<button class="btn" data-accion="reactivar" data-id="${id}">Reactivar</button>` : `<button class="btn" data-accion="baja" data-id="${id}">Dar de baja</button>`}
