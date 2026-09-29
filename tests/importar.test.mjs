@@ -125,3 +125,14 @@ test('títulos reconocidos', () => {
   assert.equal(t('WhatsApp'), 'celular');
   assert.equal(t('Color favorito'), null);
 });
+
+test('una columna con «Mensual», «Trimestral»… se reconoce como periodicidad aunque el título no lo diga', () => {
+  const r = leer([
+    ['Nombre', 'Mensualidad', 'Comentario'],
+    ['Ana Ruiz', 'Mensual', 'ok'],
+    ['Luis Gómez', 'Trimestral', 'llamar'],
+    ['Eva Soto', 'Anual', 'pendiente'],
+  ]);
+  assert.deepEqual(r.campos, ['nombre', 'periodicidad', 'notas']);
+  assert.equal(r.mapeo[1].por, 'contenido');
+});

@@ -73,6 +73,30 @@ FAQ con «+» que gira y pregunta nueva sobre Excel con otro formato; textos al 
 plantilla, «cada cierto número de días»); correo de soporte en el pie; `og:image` con URL completa para que
 WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y computador.
 
+**Importar Excel más guiado** (pedido de Jonathan: «que no se me queden en el proceso»):
+- Barra de avance arriba en todo el recorrido: **1 Tu archivo · 2 Columnas · 3 Revisar**.
+- Paso 1 pregunta **«¿Dónde tienes tu lista?»**. Cada respuesta lleva a instrucciones cortas:
+  - **En este teléfono**: dónde buscar el archivo, y qué hacer si está en WhatsApp o en un correo.
+  - **En mi computadora** (solo en celular): entrar a carteraasesor.com/app en la compu con la misma cuenta, con botón
+    📋 Copiar enlace. Los clientes llegan solos al teléfono por la nube.
+  - **En Google, en Numbers o en papel**: cómo guardarlo como Excel, o usar la plantilla.
+- Ahora también acepta archivos **.csv** y **.ods**.
+- Si el archivo no se puede leer (foto, PDF, Numbers, contraseña…), sale una pantalla con las causas comunes en lugar
+  de un mensaje de error.
+- En el paso de columnas:
+  - Resumen al inicio: nombre del archivo, cuántas filas tiene y qué datos se reconocieron.
+  - Frase «si todo se ve bien, solo toca Siguiente».
+  - La elección de la fila de títulos queda escondida, salvo que falte el nombre.
+  - Botón «Otro archivo» para empezar de nuevo.
+- La columna de periodicidad se reconoce **por su contenido** («Mensual», «Trimestral»…) aunque el título no lo diga.
+  Tiene prueba nueva; son 47 pruebas en verde.
+- En cada pantalla hay un enlace «¿Te atoraste? Escríbenos» que abre el chat de soporte con el mensaje ya empezado.
+  Lo mismo en la pantalla vacía («Empecemos con tus clientes»).
+- Pantalla final «¡Listo! 🎉» con **lo que sigue**: poner fechas de cobro y revisar datos. Solo muestra los botones
+  que hacen falta.
+- Probado en celular (375 px) con un Excel inventado: los 3 pasos, el error y el chat de ayuda. Los datos de prueba
+  locales se borraron después.
+
 **Números con código de país**: `logic.js → telefonoInternacional`. Un celular de 10 dígitos sigue siendo de México
 (+52); si se escribe con «+» y código de país (ej. +57 300…), WhatsApp y «Llamar» usan ese país. «Llamar» ahora
 marca con +52 (antes marcaba los 10 dígitos sin código: desde Colombia o Venezuela no llegaba a México).

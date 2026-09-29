@@ -357,8 +357,25 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 .instalando .girar { margin: 0 auto 8px; }
 
 /* Importar Excel */
-.pasos-importar { margin: 12px 0; padding-left: 22px; }
-.pasos-importar li { margin: 8px 0; line-height: 1.4; }
+.barra-pasos { display: flex; gap: 6px; list-style: none; margin: 0 0 14px; padding: 0; counter-reset: none; }
+.barra-pasos li { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: .78rem; color: var(--suave); text-align: center; position: relative; }
+.barra-pasos li::before { content: ''; position: absolute; top: 13px; right: 50%; width: calc(100% + 6px); height: 2px; background: var(--linea); z-index: 0; }
+.barra-pasos li:first-child::before { display: none; }
+.barra-pasos li.hecho::before, .barra-pasos li.actual::before { background: var(--marca); }
+.barra-pasos span { position: relative; z-index: 1; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: .85rem; background: var(--c-sin-bg); color: var(--c-sin-tx); transition: background-color .2s cubic-bezier(.23, 1, .32, 1); }
+.barra-pasos li.hecho span { background: var(--c-aldia); color: #fff; }
+.barra-pasos li.actual { color: var(--tinta); font-weight: 600; }
+.barra-pasos li.actual span { background: var(--marca); color: #fff; box-shadow: 0 0 0 4px var(--marca-tenue); }
+.ayuda-importar { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--linea); font-size: .88rem; color: var(--suave); text-align: center; }
+.ayuda-importar a { color: var(--marca); font-weight: 600; }
+.caso-importar { border: 1px solid var(--linea); border-radius: 12px; background: var(--tarjeta); margin-bottom: 8px; }
+.caso-importar summary { cursor: pointer; padding: 14px; font-weight: 600; min-height: 48px; list-style-position: inside; }
+.caso-importar[open] summary { border-bottom: 1px solid var(--linea); }
+.caso-importar p { margin: 10px 14px; line-height: 1.45; }
+.imp-listo { text-align: center; padding: 8px 0 4px; }
+.imp-listo-ico { font-size: 2.6rem; line-height: 1; margin-bottom: 6px; animation: aparece-listo .45s cubic-bezier(.23, 1, .32, 1) both; }
+@keyframes aparece-listo { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .imp-listo-ico { animation: none; } }
 .imp-archivo { display: grid; gap: 8px; padding: 10px 12px; margin-bottom: 12px; border: 1px solid var(--linea); border-radius: 10px; background: var(--tarjeta); }
 .col-imp { padding: 10px 12px; margin-bottom: 8px; border: 1px solid var(--linea); border-left: 4px solid var(--c-sin); border-radius: 10px; background: var(--tarjeta); }
 .col-imp.ok { border-left-color: var(--c-aldia); }

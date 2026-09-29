@@ -219,10 +219,11 @@ export function render() {
 function renderLista(items) {
   const cont = $('#lista');
   if (!S.db.clientes.length) {
-    cont.innerHTML = `<div class="vacio"><h2>Aún no hay clientes</h2>
-      <p>Importa tu Excel para empezar, o agrega clientes uno por uno.</p>
-      <button class="btn primario" data-accion="importar">Importar mi Excel</button>
-      <button class="btn" data-accion="nuevo">Agregar cliente</button></div>`;
+    cont.innerHTML = `<div class="vacio"><h2>Empecemos con tus clientes</h2>
+      <p>¿Ya los tienes en Excel? Tráelos en 3 pasos: eliges el archivo, revisas las columnas y confirmas. Toma unos 2 minutos y te guiamos en cada paso.</p>
+      <button class="btn primario" data-accion="importar">📥 Traer mis clientes de Excel</button>
+      <button class="btn" data-accion="nuevo">Agregar uno por uno</button>
+      <p class="mini" style="margin:14px 0 0">¿Dudas? <a href="#" data-accion="ayuda" data-texto="Necesito ayuda para importar mi Excel: ">Escríbenos</a> y te ayudamos.</p></div>`;
     return;
   }
   if (!items.length) {
@@ -614,38 +615,134 @@ function pedirArchivo(accept, alElegir) {
   inp.click();
 }
 
-const ACEPTA_EXCEL = '.xlsx,.xls,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel';
+const ACEPTA_EXCEL = '.xlsx,.xls,.xlsm,.csv,.ods,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,text/csv,application/vnd.oasis.opendocument.spreadsheet';
+const URL_APP = 'carteraasesor.com/app';
 
-// Pantalla de entrada: cómo tener el archivo en el teléfono, plantilla y «Elegir mi Excel».
+// Barra de avance del importador: 1 Tu archivo · 2 Columnas · 3 Revisar.
+const barraImportar = (n) => `<ol class="barra-pasos" aria-label="Paso ${n} de 3">${['Tu archivo', 'Columnas', 'Revisar'].map((t, i) =>
+  `<li class="${i + 1 < n ? 'hecho' : i + 1 === n ? 'actual' : ''}"${i + 1 === n ? ' aria-current="step"' : ''}><span>${i + 1 < n ? '✓' : i + 1}</span>${t}</li>`).join('')}</ol>`;
+// En cada pantalla del importador: un atajo al chat de soporte con el mensaje ya empezado.
+const ayudaImportar = `<p class="ayuda-importar">¿Te atoraste? <a href="#" data-accion="ayuda" data-texto="Necesito ayuda para importar mi Excel: ">Escríbenos por el chat de ayuda</a> y te acompañamos.</p>`;
+const opcionPantalla = (pant, ico, tit, desc) => `<button class="opcion-menu" data-pant="${pant}" type="button">
+  <span class="ico">${ico}</span><span class="txt"><b>${tit}</b><span class="d">${desc}</span></span><span class="ir" aria-hidden="true">›</span></button>`;
+
+// Paso 1: ¿dónde está tu lista? Cada respuesta lleva a la forma más fácil de elegir el archivo.
 export function abrirImportar() {
   const ios = esIOS();
-  const v = ventana({
-    titulo: 'Importar clientes desde Excel',
-    cuerpo: `<p>Carga tu lista de clientes desde tu archivo de Excel. <b>No se borra nada</b> de lo que ya tienes en la app y tu archivo no se modifica.</p>
-      <ol class="pasos-importar">
-        <li><b>Ten el archivo en este teléfono.</b> Si está en tu computadora, mándatelo por WhatsApp o por correo y ábrelo aquí: toca el archivo → ${ios ? '<b>Compartir</b> → <b>Guardar en Archivos</b>' : '<b>Descargar</b>'}.</li>
-        <li>Toca <b>Elegir mi Excel</b> y búscalo ${ios ? 'en <b>Archivos</b> (o en Recientes)' : 'en <b>Descargas</b> (o en Recientes)'}.</li>
-        <li>La app reconoce tus columnas. <b>Tú solo revisas y confirmas.</b></li>
-      </ol>
-      <div class="banner info"><p>¿No tienes tu lista en Excel o está muy desordenada? Descarga la <b>plantilla</b>, copia ahí tus clientes y luego impórtala.</p></div>`,
-    pie: `<button class="btn" data-plantilla type="button">📄 Plantilla</button><button class="btn primario" data-elegir type="button">📥 Elegir mi Excel</button>`,
-  });
-  v.q('[data-plantilla]').addEventListener('click', () => seguro(async () => {
-    if (await E.descargar(E.plantillaBytes(), 'Plantilla_Cartera_Asesor.xlsx', MIME_XLSX)) aviso('Plantilla descargada');
-  }));
-  v.q('[data-elegir]').addEventListener('click', () => pedirArchivo(ACEPTA_EXCEL, (f) => seguro(async () => {
-    let libro;
-    try {
-      libro = E.leerLibro(new Uint8Array(await f.arrayBuffer()), f.name);
-    } catch (e) {
-      throw new Error(/hoja con datos/.test(e.message) ? e.message : 'No pude abrir ese archivo. Revisa que sea un Excel (.xlsx) y vuelve a intentarlo.');
+  const movil = ios || /Android|Mobi/i.test(navigator.userAgent);
+  const cuenta = N.estado.usuario ? `<b>${esc(N.estado.usuario)}</b>` : 'tu mismo correo';
+  const botonElegir = (texto = '📥 Elegir mi archivo') => `<button class="btn primario" data-elegir type="button">${texto}</button>`;
+  const atras = '<button class="btn" data-pant="inicio" type="button">Atrás</button>';
+
+  const pantallas = {
+    inicio: () => ({
+      cuerpo: `${barraImportar(1)}
+        <h3 style="margin-bottom:4px">¿Dónde tienes tu lista de clientes?</h3>
+        <p class="mini" style="margin-bottom:12px">Toma unos 2 minutos. <b>No se borra nada</b> de lo que ya tienes y tu archivo no se modifica.</p>
+        ${opcionPantalla('aqui', movil ? '📱' : '💻', movil ? 'En este teléfono' : 'En esta computadora', 'Es un Excel que ya tengo aquí (o me lo mandaron por WhatsApp o correo).')}
+        ${movil && N.nubeActiva ? opcionPantalla('compu', '🖥️', 'En mi computadora', 'Te decimos la forma más fácil de pasarla.') : ''}
+        ${opcionPantalla('otro', '🗂️', 'En Google, en Numbers o en papel', 'O no la tengo en Excel, o está muy desordenada.')}
+        ${ayudaImportar}`,
+      pie: '',
+    }),
+    aqui: () => ({
+      cuerpo: `${barraImportar(1)}
+        <h3 style="margin-bottom:8px">Elige tu archivo</h3>
+        <ol class="guia-ios">
+          <li class="paso-ios"><span class="num">1</span><div>Toca <b>Elegir mi archivo</b> (abajo).</div></li>
+          <li class="paso-ios"><span class="num">2</span><div>${movil
+            ? `Se abre la lista de archivos del teléfono. Busca tu Excel en <b>Recientes</b>${ios ? ' o en <b>Explorar → En mi iPhone</b>' : ' o en <b>Descargas</b>'}.`
+            : 'Se abre una ventana: busca tu Excel (normalmente está en <b>Descargas</b> o en <b>Documentos</b>) y ábrelo.'}</div></li>
+          <li class="paso-ios"><span class="num">3</span><div>La app reconoce tus columnas. <b>Tú solo revisas y confirmas.</b></div></li>
+        </ol>
+        ${movil ? `<details class="ayuda-ios"><summary>¿No aparece? Está en un chat de WhatsApp o en un correo</summary>
+          <p>Abre ese chat o correo y toca el archivo. ${ios
+            ? 'Luego toca <b>Compartir</b> (el cuadro con la flecha ↑) → <b>Guardar en Archivos</b> → <b>Guardar</b>.'
+            : 'Luego toca <b>⋮</b> (tres puntos) → <b>Guardar</b> o <b>Descargar</b>.'} Vuelve aquí y ya te aparece en <b>Recientes</b>.</p></details>` : ''}
+        <p class="mini" style="margin-top:10px">Sirven archivos de Excel (.xlsx o .xls) y también .csv.</p>
+        ${ayudaImportar}`,
+      pie: `${atras}${botonElegir()}`,
+    }),
+    compu: () => ({
+      cuerpo: `${barraImportar(1)}
+        <h3 style="margin-bottom:8px">Lo más fácil: hazlo desde la computadora</h3>
+        <ol class="guia-ios">
+          <li class="paso-ios"><span class="num">1</span><div>En tu computadora abre <b>${URL_APP}</b>
+            <div class="mini">Puedes mandarte el enlace: <button class="btn chico" data-copiar type="button">📋 Copiar enlace</button></div></div></li>
+          <li class="paso-ios"><span class="num">2</span><div>Entra con ${cuenta}.</div></li>
+          <li class="paso-ios"><span class="num">3</span><div>Toca <b>☰ Menú → Importar y exportar → Importar Excel</b> y sigue los mismos pasos.</div></li>
+        </ol>
+        <div class="banner info"><p>☁️ Al terminar, <b>tus clientes aparecen solos en este teléfono</b>. No tienes que hacer nada más aquí.</p></div>
+        <details class="ayuda-ios"><summary>¿No tienes la computadora a la mano?</summary>
+          <p>Mándate el Excel a ti mismo por WhatsApp o por correo. Ábrelo en este teléfono y ${ios
+            ? 'toca <b>Compartir</b> → <b>Guardar en Archivos</b>'
+            : 'toca <b>⋮</b> → <b>Descargar</b>'}. Después toca <b>Ya lo tengo en el teléfono</b>.</p></details>
+        ${ayudaImportar}`,
+      pie: `${atras}<button class="btn" data-pant="aqui" type="button">Ya lo tengo en el teléfono</button>`,
+    }),
+    otro: () => ({
+      cuerpo: `${barraImportar(1)}
+        <h3 style="margin-bottom:8px">Sin problema, elige tu caso</h3>
+        <details class="caso-importar"><summary>📗 Está en Google (Hojas de cálculo o Drive)</summary>
+          <p><b>En la computadora:</b> abre tu hoja → <b>Archivo → Descargar → Microsoft Excel (.xlsx)</b>.</p>
+          <p><b>En el celular:</b> abre tu hoja en la app Hojas de cálculo → <b>⋮</b> → <b>Compartir y exportar → Guardar como → Excel</b>.</p>
+          <p>Luego toca <b>Elegir mi archivo</b> y elige el que descargaste.</p></details>
+        <details class="caso-importar"><summary>🍏 Está en Numbers (iPhone o Mac)</summary>
+          <p>Abre el archivo → toca <b>···</b> (o <b>Compartir</b>) → <b>Exportar → Excel</b> → guárdalo en Archivos.</p>
+          <p>Luego toca <b>Elegir mi archivo</b> y elige el que exportaste.</p></details>
+        <details class="caso-importar"><summary>📝 En papel, en notas o muy desordenada</summary>
+          <p>Descarga la <b>plantilla</b>: es un Excel ya preparado. Escribe <b>un cliente por fila</b> (basta con el nombre y el celular) y guárdalo. Luego toca <b>Elegir mi archivo</b>.</p>
+          <p><button class="btn" data-plantilla type="button">📄 Descargar plantilla</button></p>
+          <p>¿Son pocos? También puedes agregarlos uno por uno con el botón <b>+ Nuevo cliente</b>.</p></details>
+        <details class="caso-importar"><summary>📄 Es un archivo .csv</summary>
+          <p>También sirve: toca <b>Elegir mi archivo</b> y elígelo directo.</p></details>
+        ${ayudaImportar}`,
+      pie: `${atras}${botonElegir()}`,
+    }),
+    error: (motivo) => ({
+      cuerpo: `${barraImportar(1)}
+        <div class="banner mal"><p><b>No pudimos leer ese archivo.</b> ${motivo ? esc(motivo) + '.' : ''}</p></div>
+        <p style="margin:10px 0 6px">Lo más común es que:</p>
+        <ul class="lista-simple">
+          <li>Sea una <b>foto o un PDF</b> de la lista, no el archivo de Excel.</li>
+          <li>Sea de <b>Numbers</b> o de <b>Google</b>: primero hay que guardarlo como Excel (<a href="#" data-pant="otro">ver cómo</a>).</li>
+          <li>El Excel tenga <b>contraseña</b>: ábrelo, quítasela y guárdalo otra vez.</li>
+          <li>La lista esté vacía o en otra hoja del archivo.</li>
+        </ul>
+        ${ayudaImportar}`,
+      pie: `${atras}${botonElegir('📥 Probar con otro archivo')}`,
+    }),
+  };
+
+  const v = ventana({ titulo: 'Traer mis clientes de Excel', cuerpo: '' });
+  const ir = (pant, ...args) => { v.poner(pantallas[pant](...args)); v.q('.modal-cuerpo').scrollTop = 0; };
+  ir('inicio');
+  v.el.addEventListener('click', (e) => {
+    const p = e.target.closest('[data-pant]');
+    if (p) { e.preventDefault(); ir(p.dataset.pant); return; }
+    if (e.target.closest('[data-plantilla]')) seguro(async () => {
+      if (await E.descargar(E.plantillaBytes(), 'Plantilla_Cartera_Asesor.xlsx', MIME_XLSX)) aviso('Plantilla descargada');
+    });
+    if (e.target.closest('[data-copiar]')) {
+      navigator.clipboard?.writeText('https://' + URL_APP)
+        .then(() => aviso('Enlace copiado: pégalo en WhatsApp o en tu correo'))
+        .catch(() => aviso(`Escríbelo tal cual: ${URL_APP}`));
     }
-    v.cerrar();
-    asistenteImportar(libro);
-  })));
+    if (e.target.closest('[data-elegir]')) pedirArchivo(ACEPTA_EXCEL, (f) => seguro(async () => {
+      let libro;
+      try {
+        libro = E.leerLibro(new Uint8Array(await f.arrayBuffer()), f.name);
+      } catch (err) {
+        ir('error', /hoja con datos/.test(err.message) ? 'El archivo no tiene una lista con datos' : '');
+        return;
+      }
+      v.cerrar();
+      asistenteImportar(libro);
+    }));
+  });
 }
 
-// Dos pasos: ¿qué dato tiene cada columna? → revisa y confirma.
+// Pasos 2 y 3: ¿qué dato tiene cada columna? → revisa y confirma.
 function asistenteImportar(libro) {
   const sel = { paso: 1, hoja: 0, fila: 0, cols: [], mapeo: [] };
   const hoja = () => libro.hojas[sel.hoja];
@@ -655,7 +752,6 @@ function asistenteImportar(libro) {
     sel.mapeo = E.sugerirMapeo(sel.cols);
   };
   analizar();
-  const pasoDe = (n) => `<p class="mini" style="margin-bottom:10px"><b>Paso ${n} de 2</b></p>`;
   const hayNombre = () => sel.mapeo.some((m) => m.campo === 'nombre');
   const etiquetaCampo = (c) => E.CAMPOS_IMPORTAR.find((x) => x.campo === c)?.etiqueta || '';
   let parsed = null, prep = null, lim = null;
@@ -696,20 +792,26 @@ function asistenteImportar(libro) {
       const conDato = sel.cols.map((k, i) => [k, i]).filter(([k]) => k.conDato);
       const vacias = sel.cols.filter((k) => !k.conDato && k.titulo);
       const nombres = sel.mapeo.filter((m) => m.campo === 'nombre').length;
+      const filas = Math.max(0, ...sel.cols.map((k) => k.conDato));
+      const reconocidas = [...new Set(sel.mapeo.filter((m) => m.por && m.campo !== E.EXTRA && m.campo !== E.IGNORAR).map((m) => etiquetaCampo(m.campo)))];
       return {
-        cuerpo: `${pasoDe(1)}
-          <h3 style="margin-bottom:6px">¿Qué dato tiene cada columna?</h3>
-          <p class="mini" style="margin-bottom:10px">Ya reconocimos las que pudimos. Revisa y cambia la que no esté bien.</p>
+        cuerpo: `${barraImportar(2)}
           <div class="imp-archivo">
-            <div>📄 <b>${esc(libro.archivo)}</b></div>
-            ${libro.hojas.length > 1 ? `<label>Hoja<select data-hoja>${libro.hojas.map((h, i) => `<option value="${i}" ${i === sel.hoja ? 'selected' : ''}>${esc(h.nombre)} (${h.filas} filas)</option>`).join('')}</select></label>` : ''}
-            <label>Los títulos de las columnas están en<select data-fila>${opcionesFila()}</select></label>
+            <div>📄 <b>${esc(libro.archivo)}</b> · unas <b>${filas}</b> fila(s) con datos</div>
+            ${reconocidas.length ? `<div>✅ Ya reconocimos: <b>${reconocidas.map(esc).join(', ')}</b></div>` : ''}
+            ${libro.hojas.length > 1 ? `<label>Tu archivo tiene varias hojas. ¿En cuál están tus clientes?<select data-hoja>${libro.hojas.map((h, i) => `<option value="${i}" ${i === sel.hoja ? 'selected' : ''}>${esc(h.nombre)} (${h.filas} filas)</option>`).join('')}</select></label>` : ''}
           </div>
+          <h3 style="margin-bottom:6px">¿Qué dato tiene cada columna?</h3>
+          <p class="mini" style="margin-bottom:10px">Cada tarjeta es una columna de tu Excel, con ejemplos de lo que trae. ${hayNombre() ? '<b>Si todo se ve bien, solo toca Siguiente.</b> ' : ''}Si alguna no corresponde, cámbiala en su lista.</p>
           ${conDato.map(([k, i]) => tarjetaColumna(k, i)).join('')}
           ${nombres > 1 ? `<p class="mini" style="margin-top:4px">El nombre se arma uniendo ${nombres} columnas en orden (ej. nombre + apellidos).</p>` : ''}
           ${vacias.length ? `<p class="mini" style="margin-top:8px">Columnas vacías (no se importan): ${vacias.map((k) => esc(k.titulo)).join(', ')}</p>` : ''}
-          ${hayNombre() ? '' : '<div class="banner mal" style="margin-top:10px"><p>Elige qué columna tiene el <b>nombre del cliente</b>. Si el nombre y los apellidos están separados, elige «Nombre del cliente» en cada una.</p></div>'}`,
-        pie: `<button class="btn" data-cerrar type="button">Cancelar</button><button class="btn primario" data-ir="2" type="button" ${hayNombre() ? '' : 'disabled'}>Siguiente</button>`,
+          ${hayNombre() ? '' : '<div class="banner mal" style="margin-top:10px"><p>Falta decirnos qué columna tiene el <b>nombre del cliente</b>: búscala arriba y en su lista elige «Nombre del cliente». Si el nombre y los apellidos están separados, elígelo en cada una.</p></div>'}
+          <details class="ayuda-ios" ${sel.verAvanzado || !hayNombre() ? 'open' : ''}><summary>¿Ves títulos como si fueran clientes, o datos raros?</summary>
+            <p>Dinos en qué fila de tu Excel están los títulos de las columnas (Nombre, Celular…):</p>
+            <label><select data-fila aria-label="Fila de los títulos">${opcionesFila()}</select></label></details>
+          ${ayudaImportar}`,
+        pie: `<button class="btn" data-otro type="button">Otro archivo</button><button class="btn primario" data-ir="2" type="button" ${hayNombre() ? '' : 'disabled'}>Siguiente</button>`,
       };
     },
     2: () => {
@@ -723,9 +825,10 @@ function asistenteImportar(libro) {
       const colFecha = usados.includes('proximo_pago') ? 'proximo_pago' : usados.includes('fecha_inicio') ? 'fecha_inicio' : null;
       const muestra = prep.nuevas.slice(0, 5);
       return {
-        cuerpo: `${pasoDe(2)}
-          <h3 style="margin-bottom:8px">Revisa antes de importar</h3>
+        cuerpo: `${barraImportar(3)}
+          <h3 style="margin-bottom:8px">Último paso: revisa y confirma</h3>
           <div class="imp-total"><b>${prep.nuevas.length}</b> cliente(s) nuevos para importar</div>
+          ${prep.nuevas.length ? '' : '<div class="banner info"><p>Todos los clientes de este archivo <b>ya estaban en la app</b>: no hay nada nuevo que importar. Si esperabas ver clientes aquí, toca <b>Atrás</b> y revisa las columnas.</p></div>'}
           ${muestra.length ? `<div class="imp-tabla"><table>
             <thead><tr><th>Nombre</th>${usados.includes('celular') ? '<th>Celular</th>' : ''}${colFecha ? `<th>${colFecha === 'proximo_pago' ? 'Próx. pago' : 'Inicio'}</th>` : ''}</tr></thead>
             <tbody>${muestra.map((f) => `<tr><td>${esc(f.datos.nombre) || '<i>(sin nombre)</i>'}</td>${usados.includes('celular') ? `<td>${esc(f.datos.celular)}</td>` : ''}${colFecha ? `<td>${f.datos[colFecha] ? L.fmtFecha(f.datos[colFecha]) : f.fechaMala ? '<span class="txt-ambar">⚠️ no se entendió</span>' : ''}</td>` : ''}</tr>`).join('')}</tbody>
@@ -742,7 +845,8 @@ function asistenteImportar(libro) {
             ${parsed.otrasHojas.length ? `<li class="mini">Otras hojas con datos (no se importan ahora): ${parsed.otrasHojas.map(esc).join(', ')}</li>` : ''}
           </ul>
           ${lim.permitido ? '' : `<div class="banner mal"><p>Tu plan permite <b>${lim.caben}</b> cliente(s) más. Se importarán solo los primeros ${lim.caben}. Revisa ☰ → Mi plan.</p></div>`}
-          <p class="mini" style="margin-top:10px">Cada valor se guarda tal cual venía en tu Excel. Nada se corrige automáticamente. ¿Te equivocaste? En ☰ → Configuración → «Deshacer último cambio grande».</p>`,
+          <p class="mini" style="margin-top:10px">Cada valor se guarda tal cual venía en tu Excel. Nada se corrige automáticamente. ¿Te equivocaste? En ☰ → Configuración → «Deshacer último cambio grande».</p>
+          ${ayudaImportar}`,
         pie: `<button class="btn" data-ir="1" type="button">Atrás</button>
           <button class="btn primario" data-ok type="button" ${lim.caben ? '' : 'disabled'}>Importar ${lim.caben} cliente(s)</button>`,
       };
@@ -758,7 +862,7 @@ function asistenteImportar(libro) {
   };
   v.el.addEventListener('change', (e) => {
     if (e.target.matches('[data-hoja]')) { sel.hoja = Number(e.target.value); analizar(); pintar()(false); return; }
-    if (e.target.matches('[data-fila]')) { analizar(Number(e.target.value)); pintar()(false); return; }
+    if (e.target.matches('[data-fila]')) { sel.verAvanzado = true; analizar(Number(e.target.value)); pintar()(false); return; }
     if (e.target.matches('[data-col]')) {
       const i = Number(e.target.dataset.col);
       const campo = e.target.value;
@@ -777,6 +881,7 @@ function asistenteImportar(libro) {
   v.el.addEventListener('click', (e) => {
     const ir = e.target.closest('[data-ir]');
     if (ir) { sel.paso = Number(ir.dataset.ir); pintar()(false); }
+    if (e.target.closest('[data-otro]')) { v.cerrar(); abrirImportar(); }
     if (e.target.closest('[data-ok]')) seguro(async () => {
       parsed.rojoEsBaja = !!v.q('#rojo-baja')?.checked;
       const n = await S.aplicarImportacion(parsed, { ...prep, nuevas: prep.nuevas.slice(0, lim.caben) });
@@ -793,17 +898,23 @@ function resultadoImport(n) {
   const dup = L.indexarDuplicados(S.db.clientes);
   const conAviso = S.db.clientes.filter((c) => L.avisosDeCliente(c, dup, hoy).length).length;
   const sin = S.db.clientes.filter((c) => !c.proximo_pago && !c.baja).length;
+  const pendientes = [
+    sin ? `<li><b>Ponles fecha de cobro</b> a ${sin} cliente(s): así la app te avisa quién está por vencer y quién ya se atrasó.</li>` : '',
+    conAviso ? `<li><b>Revisa ${conAviso} cliente(s)</b> con datos que conviene corregir (CURP o NSS incompletos, repetidos, fechas raras…).</li>` : '',
+  ].filter(Boolean);
   const v = ventana({
-    titulo: 'Importación completa',
-    cuerpo: `<p style="margin-bottom:12px"><b>${n}</b> cliente(s) importados. Total en la app: <b>${S.db.clientes.length}</b>.</p>
-      <p style="margin-bottom:8px">Siguientes pasos recomendados:</p>
-      <ol class="pasos">
-        <li><b>${conAviso}</b> cliente(s) tienen datos que conviene revisar (CURP/NSS incompletos, duplicados, fechas raras…).</li>
-        <li><b>${sin}</b> cliente(s) aún no tienen fecha de cobro.</li>
-      </ol>`,
-    pie: `<button class="btn" data-cerrar type="button">Cerrar</button>
-          <button class="btn" data-accion="revision">Revisar datos</button>
-          <button class="btn primario" data-accion="asistente">Poner fechas de cobro</button>`,
+    titulo: '¡Listo!',
+    cuerpo: `<div class="imp-listo"><div class="imp-listo-ico" aria-hidden="true">🎉</div>
+        <h3>Importaste ${n} cliente(s)</h3>
+        <p class="mini">Ya tienes <b>${S.db.clientes.length}</b> en la app${N.nubeActiva ? ', guardados también en la nube' : ''}.</p></div>
+      ${pendientes.length ? `<p style="margin:14px 0 6px"><b>Lo que sigue</b> (te toma unos minutos):</p><ol class="pasos">${pendientes.join('')}</ol>`
+        : '<p style="margin-top:14px">Todo quedó en orden. Ya puedes ver tu cartera y mandar recordatorios de cobro.</p>'}`,
+    pie: sin
+      ? `${conAviso ? '<button class="btn" data-accion="revision">Revisar datos</button>' : '<button class="btn" data-cerrar type="button">Después</button>'}
+          <button class="btn primario" data-accion="asistente">Poner fechas de cobro</button>`
+      : conAviso
+        ? '<button class="btn" data-cerrar type="button">Después</button><button class="btn primario" data-accion="revision">Revisar datos</button>'
+        : '<button class="btn primario" data-cerrar type="button">Ver mis clientes</button>',
   });
   v.el.addEventListener('click', (e) => { if (e.target.closest('[data-accion]')) v.cerrar(); });
 }
@@ -1154,7 +1265,7 @@ function contextoSoporte() {
 }
 
 const PREGUNTAS = [
-  ['¿Cómo cargo mis clientes desde Excel?', 'Menú ☰ → Importar y exportar → Importar Excel. Tu Excel puede tener sus columnas con cualquier nombre y en cualquier orden: la app reconoce cuál es cada una y tú solo revisas antes de importar. Si no tienes tu lista en Excel, descarga ahí mismo la plantilla.'],
+  ['¿Cómo cargo mis clientes desde Excel?', 'Menú ☰ → Importar y exportar → Importar Excel. La app te pregunta dónde está tu lista y te guía en 3 pasos. Tu Excel puede tener sus columnas con cualquier nombre y en cualquier orden: la app reconoce cuál es cada una y tú solo revisas antes de importar. Si el archivo está en tu computadora, lo más fácil es entrar a carteraasesor.com/app desde ahí con tu misma cuenta e importarlo: tus clientes aparecen solos en el teléfono. Si tu lista está en Google o en Numbers, primero guárdala como Excel; si no la tienes en Excel, descarga la plantilla.'],
   ['¿Cómo registro un pago?', 'Toca «Registrar pago» en el cliente. La próxima fecha se calcula sola según su periodicidad.'],
   ['¿Qué significa cada color?', '🟢 al día · 🟡 vence pronto · 🔴 moroso (ya pasó su fecha) · ⚫ dado de baja · ⚪ aún sin fecha de pago.'],
   ['¿Otro asesor puede ver mis clientes?', 'No. Cada cuenta ve únicamente sus propios clientes.'],
@@ -1176,7 +1287,7 @@ function listaConversaciones() {
       <span class="mini">${fechaTs(t.actualizado || t.creado)}</span></button></li>`).join('')}</ul>`;
 }
 
-function abrirAyuda() {
+function abrirAyuda(texto = '') {
   const v = ventana({
     titulo: 'Ayuda y soporte', ancho: true,
     cuerpo: `<div class="seccion"><h3>Tus conversaciones</h3><div id="convs"></div></div>
@@ -1191,6 +1302,14 @@ function abrirAyuda() {
   const pintar = () => { v.q('#convs').innerHTML = listaConversaciones(); };
   v.repintarSoporte = pintar;
   pintar();
+  // Llegó desde un botón «¿Te atoraste?»: el mensaje ya viene empezado y listo para escribir.
+  if (texto) {
+    v.q('[name=tipo]').value = 'pregunta';
+    const t = v.q('[name=mensaje]');
+    t.value = texto;
+    t.scrollIntoView({ block: 'center' });
+    t.focus();
+  }
   v.q('#convs').addEventListener('click', (e) => {
     const b = e.target.closest('[data-conv]');
     if (b) abrirConversacion(b.dataset.conv);
@@ -1396,7 +1515,7 @@ export function enlazarEventos() {
     mensajes: abrirMensajesCobro,
     cuenta: abrirCuenta,
     plan: abrirPlan,
-    ayuda: abrirAyuda,
+    ayuda: (el) => abrirAyuda(el.dataset.texto),
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
