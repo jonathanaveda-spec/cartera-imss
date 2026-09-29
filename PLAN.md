@@ -33,9 +33,19 @@ Estrategia: **web primero** (sin tiendas ni comisiones) → cobro directo con ac
 - Comprobante → ticket «pago» → activas con «Activar plan». ✅ ya funciona.
 - Pendiente: recordatorio automático de vencimiento del plan, subir foto del comprobante.
 
-## Fase 3 — Google Play (25 USD)
-- Empaquetar con Capacitor, notificaciones de «cobros de hoy», chat de soporte con IA (con tope de gasto).
-- Prueba cerrada obligatoria: mínimo 12 personas durante 14 días.
+## Fase 3 — Google Play (25 USD) — EN MARCHA (01/10)
+Motivo: en Android la instalación desde la web es lenta y algunos teléfonos (Tecno/Infinix/itel,
+antivirus de Transsion) muestran «Pueden existir riesgos». Desde Play Store eso desaparece.
+| Paso | Quién | Estado |
+|---|---|---|
+| Ficha: textos e imagen 1024×500 (`tienda/`) | Claude | ✅ |
+| Crear cuenta de Play Console (25 USD, verificar identidad) — elegir personal u organización | Jonathan | ⏳ |
+| Empaquetar la app (la app de Play abre carteraasesor.com/app, se actualiza sola con la web) + `assetlinks.json` | Claude | ⏳ |
+| Capturas de pantalla y cuenta de prueba para el revisor | Claude + Jonathan | ⏳ |
+| Prueba cerrada: 12 personas durante 14 días (solo cuentas personales) | Jonathan invita | ⏳ |
+| Enviar a revisión y publicar | Jonathan | ⏳ |
+- Pagos: mientras la app de Play no cobre dentro de la app, no mostrar ahí los precios ni los medios de pago del Plan Pro (política de pagos de Google).
+- Después: notificaciones de «cobros de hoy», chat de soporte con IA (con tope de gasto).
 
 ## Fase 4 — App Store (99 USD/año)
 - Iniciar sesión con Apple, pagos dentro de la tienda (RevenueCat).
