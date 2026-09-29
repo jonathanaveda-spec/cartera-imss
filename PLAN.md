@@ -39,8 +39,10 @@ antivirus de Transsion) muestran «Pueden existir riesgos». Desde Play Store es
 | Paso | Quién | Estado |
 |---|---|---|
 | Ficha: textos e imagen 1024×500 (`tienda/`) | Claude | ✅ |
-| Crear cuenta de Play Console (25 USD, verificar identidad) — elegir personal u organización | Jonathan | ⏳ |
-| Empaquetar la app (la app de Play abre carteraasesor.com/app, se actualiza sola con la web) + `assetlinks.json` | Claude | ⏳ |
+| Crear cuenta de Play Console (25 USD, verificar identidad) — **personal** (decidido 01/10); pago programado para el sábado 03/10 | Jonathan | ⏳ |
+| Versión de Play sin precios ni medios de pago (`js/origen.js`, se activa con `?origen=play`) | Claude | ✅ |
+| Empaquetar con PWABuilder (pwabuilder.com → carteraasesor.com/app/ → Android). Opciones: paquete `com.carteraasesor.app`, nombre «Cartera Asesor», URL de inicio `/app/?origen=play`. Jonathan guarda el .zip (trae la llave de firma: **no perderla**, copia en Drive) | Jonathan + Claude | ⏳ |
+| Publicar `sitio/.well-known/assetlinks.json` con la huella del .zip y la de «Firma de apps» de Play Console (quita la barra del navegador) | Claude | ⏳ |
 | Capturas de pantalla y cuenta de prueba para el revisor | Claude + Jonathan | ⏳ |
 | Prueba cerrada: 12 personas durante 14 días (solo cuentas personales) | Jonathan invita | ⏳ |
 | Enviar a revisión y publicar | Jonathan | ⏳ |
