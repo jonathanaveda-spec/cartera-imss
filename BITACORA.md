@@ -44,6 +44,10 @@ muestra «Ya tienes la app» en lugar del botón.
 **Android: aviso «Pueden existir riesgos»** en el teléfono de Jonathan (antivirus de Transsion: Tecno/Infinix/itel).
 El escaneo de virus pasa; avisa solo porque la app no viene de una tienda. Decisión: ir a **Google Play**
 (ver PLAN.md, Fase 3). Ya quedaron listos los textos de la ficha y el gráfico 1024×500 en `tienda/`.
+Cuenta **personal** (Jonathan paga el sábado 03/10). Nuevo `js/origen.js`: si la app se abre con
+`?origen=play` (o referrer android-app://com.carteraasesor…) lo recuerda en el teléfono y «Mi plan» y los
+avisos del plan ya no muestran precios, medios de pago ni «Ver planes/Renovar» (política de pagos de Google).
+Empaquetado previsto con PWABuilder (pasos en PLAN.md).
 
 **Páginas legales**: se quitó el aviso BORRADOR de `privacidad.html` y `terminos.html`
 (Jonathan confirmó responsable y domicilio en Colombia).

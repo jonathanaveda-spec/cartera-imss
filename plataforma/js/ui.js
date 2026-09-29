@@ -5,6 +5,7 @@ import * as E from './excel.js';
 import * as N from './nube.js';
 import { MARCA } from './marca.js';
 import * as I from './instalar.js';
+import { enPlay } from './origen.js';
 import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion, equivalenteLocal } from './plan.js';
 
 const $ = (s, r = document) => r.querySelector(s);
@@ -136,13 +137,13 @@ function renderAvisos(cnt) {
   const nCli = S.db.clientes.length;
   const termino = pe.termino === 'pro' ? 'Tu Plan Pro venció' : 'Tu prueba gratis terminó';
   if (pe.tipo === 'prueba' && pe.diasRestantes != null && pe.diasRestantes <= 3) {
-    a.push(`<div class="banner"><p>⏳ <b>Tu prueba gratis termina ${pe.diasRestantes <= 0 ? 'hoy' : `en ${pe.diasRestantes} día(s)`}.</b> Activa el Plan Pro para seguir sin interrupciones.</p><button class="btn chico primario" data-accion="plan">Ver planes</button></div>`);
+    a.push(`<div class="banner"><p>⏳ <b>Tu prueba gratis termina ${pe.diasRestantes <= 0 ? 'hoy' : `en ${pe.diasRestantes} día(s)`}.</b>${enPlay() ? '' : ' Activa el Plan Pro para seguir sin interrupciones.'}</p><button class="btn chico primario" data-accion="plan">${enPlay() ? 'Mi plan' : 'Ver planes'}</button></div>`);
   } else if (pe.tipo === 'pro' && pe.diasRestantes != null && pe.diasRestantes <= 5) {
-    a.push(`<div class="banner"><p>Tu Plan Pro vence en <b>${pe.diasRestantes} día(s)</b>.</p><button class="btn chico" data-accion="plan">Renovar</button></div>`);
+    a.push(`<div class="banner"><p>Tu Plan Pro vence en <b>${pe.diasRestantes} día(s)</b>.</p><button class="btn chico" data-accion="plan">${enPlay() ? 'Mi plan' : 'Renovar'}</button></div>`);
   } else if (!N.puedeEditarCartera()) {
-    a.push(`<div class="banner mal"><p><b>${termino}.</b> Puedes ver y exportar tus ${nCli} clientes, pero para registrar pagos, editar o agregar necesitas el Plan Pro.</p><button class="btn chico primario" data-accion="plan">Activar plan</button></div>`);
+    a.push(`<div class="banner mal"><p><b>${termino}.</b> Puedes ver y exportar tus ${nCli} clientes, pero para registrar pagos, editar o agregar necesitas el Plan Pro.</p><button class="btn chico primario" data-accion="plan">${enPlay() ? 'Mi plan' : 'Activar plan'}</button></div>`);
   } else if (!pe.ilimitado && nCli >= pe.limite - 2) {
-    a.push(`<div class="banner"><p>${pe.vencido ? termino + '. ' : ''}Usas <b>${nCli} de ${pe.limite}</b> clientes del plan gratis.</p><button class="btn chico" data-accion="plan">Ver planes</button></div>`);
+    a.push(`<div class="banner"><p>${pe.vencido ? termino + '. ' : ''}Usas <b>${nCli} de ${pe.limite}</b> clientes del plan gratis.</p><button class="btn chico" data-accion="plan">${enPlay() ? 'Mi plan' : 'Ver planes'}</button></div>`);
   }
   if (S.estadoAlmacen.motor === 'ninguno') {
     a.push(`<div class="banner mal"><p><b>Atención:</b> este navegador no permite guardar datos. Lo que captures se perderá al cerrar. Abre la app desde Safari y agrégala a la pantalla de inicio.</p></div>`);
@@ -922,8 +923,8 @@ function avisoLimite() {
   ventana({
     titulo: 'Límite de tu plan',
     cuerpo: `<p>El <b>${esc(pe.nombre)}</b> permite hasta <b>${pe.limite}</b> clientes y ya tienes ${S.db.clientes.length}.</p>
-      <p style="margin-top:10px">Activa el Plan Pro para agregar clientes sin límite.</p>`,
-    pie: '<button class="btn" data-cerrar type="button">Cerrar</button><button class="btn primario" data-accion="plan" data-cerrar>Ver planes</button>',
+      ${enPlay() ? '' : '<p style="margin-top:10px">Activa el Plan Pro para agregar clientes sin límite.</p>'}`,
+    pie: `<button class="btn" data-cerrar type="button">Cerrar</button><button class="btn primario" data-accion="plan" data-cerrar>${enPlay() ? 'Mi plan' : 'Ver planes'}</button>`,
   });
 }
 
@@ -932,8 +933,8 @@ function avisoSoloLectura() {
   ventana({
     titulo: 'Activa tu plan para continuar',
     cuerpo: `<p>${pe.termino === 'pro' ? 'Tu Plan Pro venció' : 'Tu prueba gratis terminó'}. Tus ${S.db.clientes.length} clientes siguen guardados y puedes verlos y exportarlos.</p>
-      <p style="margin-top:10px">Para registrar pagos, editar o agregar clientes, activa el Plan Pro.</p>`,
-    pie: '<button class="btn" data-cerrar type="button">Ahora no</button><button class="btn primario" data-accion="plan" data-cerrar>Ver planes</button>',
+      <p style="margin-top:10px">Para registrar pagos, editar o agregar clientes necesitas el Plan Pro.</p>`,
+    pie: `<button class="btn" data-cerrar type="button">Ahora no</button><button class="btn primario" data-accion="plan" data-cerrar>${enPlay() ? 'Mi plan' : 'Ver planes'}</button>`,
   });
 }
 
@@ -965,15 +966,19 @@ function abrirPlan() {
           <p class="mini" style="margin-top:6px">Lo revisamos y te confirmamos por Ayuda y soporte al activar tu plan.</p>
           <button class="btn primario" type="submit" style="margin-top:10px">Enviar comprobante</button></form>`
     : '<p class="mini">Pronto publicaremos los medios de pago. Escríbenos desde Ayuda y soporte.</p>'}`;
+  // Versión de Google Play: solo el estado del plan, sin precios ni medios de pago.
+  const cobroFinal = enPlay()
+    ? (pe.tipo === 'beta' ? '<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todo sin límite y sin costo.</p></div>' : '')
+    : cobro;
   const infoPrueba = pe.tipo === 'prueba'
-    ? `<div class="banner info"><p>🎁 Estás en tu <b>prueba gratis</b>: ${pe.diasRestantes <= 0 ? 'termina hoy' : `te quedan ${pe.diasRestantes} día(s)`}. Puedes activar el Plan Pro cuando quieras.</p></div>` : '';
+    ? `<div class="banner info"><p>🎁 Estás en tu <b>prueba gratis</b>: ${pe.diasRestantes <= 0 ? 'termina hoy' : `te quedan ${pe.diasRestantes} día(s)`}.${enPlay() ? '' : ' Puedes activar el Plan Pro cuando quieras.'}</p></div>` : '';
   const v = ventana({
     titulo: 'Mi plan',
     cuerpo: `<div class="seccion destacado"><div><div class="mini">Plan actual</div><div class="grande">${esc(pe.nombre)}</div>
         <div class="mini">${uso}</div></div>
         ${pe.vence ? `<div style="text-align:right"><div class="mini">Vence</div><b>${L.fmtFecha(L.hoyISO(new Date(pe.vence)))}</b></div>` : ''}</div>
-      ${pe.vencido ? '<div class="banner mal"><p>Tu Plan Pro venció. Tus clientes siguen guardados; renueva para seguir agregando.</p></div>' : ''}
-      ${infoPrueba}${cobro}
+      ${pe.vencido ? `<div class="banner mal"><p>Tu Plan Pro venció. Tus clientes siguen guardados${enPlay() ? '' : '; renueva para seguir agregando'}.</p></div>` : ''}
+      ${infoPrueba}${cobroFinal}
       <div class="seccion"><h3>Mis pagos del plan</h3><div id="mis-pagos" class="mini">Cargando…</div></div>`,
   });
   N.misPagosPlan().then((ps) => {
