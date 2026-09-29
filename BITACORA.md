@@ -4,11 +4,33 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
-## ▶ Estado actual y próximos pasos (actualizado 30/09, cierre de la noche)
+## ▶ Estado actual y próximos pasos (actualizado: cierre de la sesión larga en la PC del local)
 
-**En línea:** carteraasesor.com/app → versión `cartera-asesor-945579d83c` (la versión ya se pone sola
-con cada publicación). Panel: carteraasesor.com/app/admin.html (ya con 🗑️ Borrar pagos y asesores;
-Jonathan confirmó que le llegó la versión nueva).
+**En línea:** carteraasesor.com/app → versión `cartera-asesor-efc2163…` (la versión ya se pone sola
+con cada publicación). Panel: carteraasesor.com/app/admin.html.
+
+**Lo hecho en esta sesión** (detalle en «PC del local» más abajo):
+- Importar Excel guiado en 3 pasos.
+- Beta gratuita hasta 100 clientes (se cambia en el panel → Sistema). Precios de la página tras el velo «Beta gratuita».
+- Sección «¿Tu Excel está en la computadora?» en la página.
+- Bloqueo con PIN y huella: Jonathan lo probó y le encantó.
+- Comprobante de pago por WhatsApp.
+- Botones del cliente reordenados.
+- Gesto «atrás» de Android que ya no minimiza la app: Jonathan confirmó que funciona.
+- Competencia revisada, con sus ideas en `PLAN.md`.
+
+**Siguiente (Jonathan elige):**
+1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan diga el **nombre de marca** del desarrollador.
+2. Entrar con Google.
+3. Filtros rápidos «Pagan hoy» / «Pagaron hoy».
+4. Google Play (cuenta el sábado 03/10):
+   - capturas de pantalla;
+   - cuenta de prueba para el revisor;
+   - juntar los Gmail de **12 personas** para la prueba cerrada de 14 días.
+5. Si algún asesor pasa de 100 clientes (por ejemplo Yamileth), darle Plan Pro en el panel.
+
+**Pruebas locales sin cuenta real:** http://localhost:8080/demo/ (Firebase simulado; ver la nota del comprobante más
+abajo para entrar sin escribir contraseña). Borrar después los datos inventados del navegador.
 
 **Para retomar en otra PC:** `git pull` en la carpeta del repo y decirle a Claude «retomemos».
 Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
