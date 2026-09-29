@@ -556,23 +556,45 @@ async function accionAnular(id) {
 // =====================================================================
 // Menú de datos
 // =====================================================================
+// Opción de menú. `destacada`: resaltada en ámbar (hay algo pendiente); `sub`: abre otro menú (muestra ›).
+const opMenu = (acc, ico, tit, desc, { destacada = false, sub = false } = {}) => `<button class="opcion-menu${destacada ? ' destacada' : ''}" data-accion="${acc}">
+  <span class="ico">${ico}</span><span class="txt"><b>${tit}</b><span class="d">${desc}</span></span>${sub ? '<span class="ir" aria-hidden="true">›</span>' : ''}</button>`;
+const grupoMenu = (titulo) => `<h3 class="menu-grupo">${titulo}</h3>`;
+
 export function abrirMenu() {
-  const op = (acc, ico, tit, desc) => `<button class="opcion-menu" data-accion="${acc}"><span class="ico">${ico}</span><span><b>${tit}</b><span class="d">${desc}</span></span></button>`;
+  const sinFecha = S.db.clientes.filter((c) => !c.proximo_pago && !c.baja).length;
+  const ult = S.db.config.ultimoRespaldo;
   const v = ventana({
-    titulo: 'Datos y opciones',
+    titulo: 'Menú',
     cuerpo: [
-      op('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
-      op('vencimientos', '🔔', 'Vencimientos', `Un cliente es 🟡 cuando faltan ${S.db.config.diasAviso} días o menos para su pago. Periodicidad sugerida: ${esc(S.db.config.periodicidadDefecto)}.`),
-      op('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp que se envían con el botón «Recordar».'),
-      op('importar', '📥', 'Importar Excel', 'Carga tu archivo .xlsx de clientes. No borra nada de lo que ya tienes.'),
-      op('exportar', '📤', 'Exportar a Excel', 'Crea un archivo nuevo con clientes, pagos e historial. El original no se toca.'),
-      op('respaldo', '💾', 'Descargar respaldo completo', 'Excel (.xlsx) con todos tus datos. Se guarda en el teléfono y sirve para restaurar o pasarlos a otro.'),
-      op('restaurar', '♻️', 'Restaurar respaldo', 'Recupera datos desde un respaldo (.xlsx o .json). Guarda antes una copia de lo actual.'),
-      op('asistente', '🗓️', 'Fechas de cobro', `${(() => { const n = S.db.clientes.filter((c) => !c.proximo_pago && !c.baja).length; return n ? `${n} cliente(s) sin fecha de cobro. Pónsela en 3 pasos.` : 'Todos tus clientes tienen fecha de cobro.'; })()}`),
-      op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
-      op('config', '⚙️', 'Configuración', 'Campos personalizados y estado del almacenamiento.'),
-      op('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
-      op('cuenta', '👤', 'Mi cuenta', `${esc(N.estado.usuario || '')} · cerrar sesión o eliminar cuenta.`),
+      opMenu('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
+      grupoMenu('Cobranza'),
+      opMenu('asistente', '🗓️', 'Fechas de cobro', sinFecha ? `<b class="txt-ambar">${sinFecha} cliente(s) sin fecha de cobro.</b> Pónsela en 3 pasos.` : 'Todos tus clientes tienen fecha de cobro.', { destacada: !!sinFecha }),
+      opMenu('vencimientos', '🔔', 'Vencimientos', `🟡 cuando faltan ${S.db.config.diasAviso} días o menos · sugerida: ${esc(S.db.config.periodicidadDefecto)}`),
+      opMenu('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp del botón «Recordar».'),
+      grupoMenu('Tus datos'),
+      opMenu('archivos', '📂', 'Importar y exportar', `Excel y respaldos · ${ult ? 'último respaldo: ' + L.fmtFecha(L.hoyISO(new Date(ult))) : '<b class="txt-ambar">aún sin respaldo</b>'}`, { sub: true }),
+      opMenu('papelera', '🗑️', 'Papelera', S.db.papelera.length ? `${S.db.papelera.length} cliente(s) eliminados.` : 'Vacía.'),
+      opMenu('config', '⚙️', 'Configuración', 'Campos personalizados, almacenamiento y deshacer cambios.'),
+      grupoMenu('Ayuda y cuenta'),
+      opMenu('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
+      opMenu('cuenta', '👤', 'Mi cuenta', `${N.estado.usuario ? esc(N.estado.usuario) + ' · ' : ''}cerrar sesión o eliminar cuenta.`),
+    ].join(''),
+  });
+  v.el.addEventListener('click', (e) => { if (e.target.closest('.opcion-menu')) v.cerrar(); });
+}
+
+// Importar, exportar, respaldar y restaurar, juntos en un solo lugar.
+export function abrirArchivos() {
+  const v = ventana({
+    titulo: '📂 Importar y exportar',
+    cuerpo: [
+      grupoMenu('Guardar una copia'),
+      opMenu('respaldo', '💾', 'Descargar respaldo', 'Guarda <b>todos</b> tus datos en el teléfono. Hazlo cada mes: con él recuperas todo si cambias de celular.'),
+      opMenu('exportar', '📤', 'Exportar a Excel', 'Tus clientes, pagos e historial en un Excel para verlo o compartirlo.'),
+      grupoMenu('Traer datos'),
+      opMenu('importar', '📥', 'Importar Excel', 'Agrega clientes desde tu archivo .xlsx. No borra nada de lo que ya tienes.'),
+      opMenu('restaurar', '♻️', 'Restaurar respaldo', 'Reemplaza tus datos por los de un respaldo. Antes guardamos una copia de lo actual.'),
     ].join(''),
   });
   v.el.addEventListener('click', (e) => { if (e.target.closest('.opcion-menu')) v.cerrar(); });
@@ -1155,7 +1177,10 @@ export function abrirConfig() {
     const cfg = S.db.config;
     const st = S.estadoAlmacen;
     v.poner({
-      cuerpo: `<div class="seccion"><h3>Campos personalizados</h3>
+      cuerpo: `${grupoMenu('Cobranza')}
+        ${opMenu('vencimientos', '🔔', 'Vencimientos', 'Cuándo marcar 🟡 y la periodicidad sugerida.', { sub: true })}
+        ${opMenu('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp del botón «Recordar».', { sub: true })}
+        <div class="seccion"><h3>Campos personalizados</h3>
           <p class="mini" style="margin-bottom:8px">Agrega columnas nuevas a tus clientes sin afectar los datos existentes.</p>
           <ul class="lista-simple">${cfg.camposPersonalizados.map((x) => `<li style="display:flex;justify-content:space-between;gap:8px;align-items:center">
             <span>${esc(x.etiqueta)} <span class="mini">(${esc(x.tipo)})${x.archivado ? ' · oculto' : ''}</span></span>
@@ -1224,6 +1249,7 @@ export function enlazarEventos() {
     asistente: abrirAsistente,
     papelera: abrirPapelera,
     config: abrirConfig,
+    archivos: abrirArchivos,
     vencimientos: abrirVencimientos,
     mensajes: abrirMensajesCobro,
     cuenta: abrirCuenta,

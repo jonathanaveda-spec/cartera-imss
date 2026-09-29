@@ -86,3 +86,5 @@ para verla, probar desde otra cuenta.
   lo mismo en el navegador). La app vieja (app/) no se tocó. (sw v17)
 
 **Publicación trabada (29/09)**: de v15 a v17 no se publicaron porque un despliegue de GitHub Pages (36e9cbd) quedó colgado "en curso". Se destrabó con `tools\destrabar-pages.ps1 -Sha <SHA del error>` (lo corre Jonathan: usa su sesión de GitHub). Ya en línea v17.
+
+**Menú ☰ reorganizado (v18)**: título "Menú"; Mi plan arriba y 3 grupos: Cobranza (Fechas de cobro, resaltada si hay clientes sin fecha; Vencimientos; Mensajes de cobro), Tus datos (📂 Importar y exportar → submenú con Descargar respaldo, Exportar a Excel, Importar Excel, Restaurar respaldo; Papelera; Configuración) y Ayuda y cuenta. Configuración también tiene accesos a Vencimientos y Mensajes.
