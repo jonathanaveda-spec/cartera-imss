@@ -150,8 +150,9 @@ function renderAvisos(cnt) {
   if (I.puedeInstalar() && !lsGet('cartera:ocultar-instalar')) {
     a.push(`<div class="banner info"><p><b>Instala la app</b> en tu pantalla de inicio para abrirla con un toque.</p><button class="btn chico primario" data-accion="instalar">Instalar</button><button class="btn chico" data-accion="ocultar-instalar">Ahora no</button></div>`);
   } else if (esIOS() && !enModoApp() && !lsGet('cartera:ocultar-instalar')) {
-    a.push(`<div class="banner info"><p><b>Para usarla como app en el iPhone:</b> toca el botón Compartir (cuadro con flecha) → <b>Agregar a pantalla de inicio</b>.</p>
-      <button class="btn chico" data-accion="ocultar-instalar">Entendido</button></div>`);
+    a.push(`<div class="banner info"><p><b>📲 Instala la app en tu iPhone</b> para abrirla con un toque desde tu pantalla de inicio.</p>
+      <button class="btn chico primario" data-accion="guia-instalar">Ver cómo (4 pasos)</button>
+      <button class="btn chico" data-accion="ocultar-instalar">Ahora no</button></div>`);
   }
   if (cnt.total && cnt.SIN_CONFIG) {
     a.push(`<div class="banner"><p><b>${cnt.SIN_CONFIG}</b> ${cnt.SIN_CONFIG === 1 ? 'cliente aún no tiene' : 'clientes aún no tienen'} fecha de cobro. Pónsela a todos de una vez en 3 pasos.</p>
@@ -1258,6 +1259,7 @@ export function enlazarEventos() {
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
+    'guia-instalar': () => { const v = ventana({ titulo: '📲 Instalar en iPhone', cuerpo: I.guiaIOS({ flecha: true }) }); I.enlazarGuia(v.el); },
     instalar: () => { I.instalar().then((ok) => { if (ok) aviso('¡Listo! La app quedó en tu pantalla de inicio.'); render(); }); },
     abrir: (el) => abrirDetalle(el.dataset.id),
     editar: (el) => abrirFormulario(el.dataset.id),

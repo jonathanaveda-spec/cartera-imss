@@ -336,3 +336,20 @@ tr.fila.est-baja td { opacity: .72; }
 .pasos-instalar { text-align: left; margin: 8px 0 4px; padding-left: 22px; }
 .pasos-instalar li { margin: 8px 0; line-height: 1.4; }
 .btn.instalar-grande { min-height: 56px; font-size: 1.1rem; }
+
+/* Guía visual para instalar en iPhone */
+.guia-ios { list-style: none; margin: 10px 0 6px; padding: 0; text-align: left; }
+.paso-ios { display: flex; gap: 12px; align-items: flex-start; background: var(--tarjeta); border: 1px solid var(--linea); border-radius: 12px; padding: 12px; margin-bottom: 8px; line-height: 1.45; }
+.paso-ios .num { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--marca); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: .95rem; }
+.paso-ios .mini { margin-top: 4px; }
+.ico-ios { width: 22px; height: 22px; vertical-align: -5px; color: #0a84ff; background: #eef4ff; border-radius: 6px; padding: 2px; }
+.ayuda-ios { text-align: left; margin-top: 8px; font-size: .9rem; }
+.ayuda-ios summary { cursor: pointer; font-weight: 600; color: var(--marca); }
+.ayuda-ios p { margin: 8px 0; }
+details.instalar-ios summary { cursor: pointer; list-style: none; }
+details.instalar-ios summary::-webkit-details-marker { display: none; }
+/* Flecha que apunta a la barra de Safari (abajo al centro; en iOS 26, al botón ••• de la derecha). */
+.flecha-safari { position: fixed; bottom: calc(6px + env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); z-index: 120;
+  font-size: 2.4rem; color: #0a84ff; text-shadow: 0 2px 6px rgba(0, 0, 0, .25); animation: rebota 1.1s ease-in-out infinite; pointer-events: none; }
+.flecha-safari.derecha { left: auto; right: 22px; transform: none; }
+@keyframes rebota { 0%, 100% { translate: 0 0; } 50% { translate: 0 10px; } }

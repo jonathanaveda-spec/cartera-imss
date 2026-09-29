@@ -21,6 +21,7 @@ function pintarZonaInstalar() {
   if (!z) return;
   z.innerHTML = I.htmlZona();
   z.querySelector('[data-instalar]')?.addEventListener('click', () => I.instalar());
+  I.enlazarGuia(z);
 }
 I.alCambiar(pintarZonaInstalar);
 
@@ -32,6 +33,7 @@ function pintarPantallaInstalar() {
   const z = document.querySelector('#acceso [data-pantalla-instalar]');
   if (!z) return;
   z.innerHTML = I.htmlPantalla();
+  I.enlazarGuia(z);
   z.querySelector('[data-instalar]')?.addEventListener('click', async () => {
     if (await I.instalar()) {
       z.innerHTML = `<p class="acceso-texto"><b>¡Listo!</b> Busca el ícono <b>Cartera</b> en tu pantalla de inicio y ábrela desde ahí.</p>`;
