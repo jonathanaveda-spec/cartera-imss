@@ -1,6 +1,6 @@
 // Panel de administración (solo cuentas cuyo UID está en la lista de administradores de firestore.rules).
 import { firebaseConfig } from './nube-config.js';
-import { PAISES, LIMITE_GRATIS_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
+import { PAISES, LIMITE_GRATIS_DEFECTO, LIMITE_BETA_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
 import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
 import './pantalla.js';
 import { activarActualizaciones } from './actualizar.js';
@@ -172,7 +172,7 @@ function resumen() {
             <button class="btn chico" data-escribir="${u.uid}">Escribir</button></div></div></li>`).join('')}</ul>`
       : '<p class="mini">Aquí aparecerán los asesores cuya prueba o plan termine en los próximos 3 días o ya haya vencido.</p>'}</div>
     <div class="seccion"><h3>Asesores por país</h3>${porPais.map(([p, n]) => `${esc(PAISES[p] || p)}: <b>${n}</b>`).join(' · ') || 'Sin datos'}</div>
-    <div class="seccion"><h3>Modo actual</h3>${datos.sistema.betaAbierta ? 'Acceso libre: todos sin límite (las pruebas y los pagos no aplican).' : `Prueba gratis de ${datos.sistema.diasPrueba ?? DIAS_PRUEBA_DEFECTO} días; después Plan Pro o plan gratis hasta ${datos.sistema.limiteGratis ?? LIMITE_GRATIS_DEFECTO} clientes.`}</div>`;
+    <div class="seccion"><h3>Modo actual</h3>${datos.sistema.betaAbierta ? `Beta gratuita: todos gratis hasta ${datos.sistema.limiteBeta ?? LIMITE_BETA_DEFECTO} clientes (las pruebas y los pagos no aplican).` : `Prueba gratis de ${datos.sistema.diasPrueba ?? DIAS_PRUEBA_DEFECTO} días; después Plan Pro o plan gratis hasta ${datos.sistema.limiteGratis ?? LIMITE_GRATIS_DEFECTO} clientes.`}</div>`;
 }
 
 function asesores() {
@@ -537,7 +537,8 @@ function sistema() {
   $('#vista').innerHTML = `<form id="fs">
       <div class="seccion"><h3>Modo</h3>
         <label class="radio-tarjeta"><input type="checkbox" name="beta" ${s.betaAbierta ? 'checked' : ''}><span><b>Acceso libre para todos</b><br>
-          <span class="mini">Si está marcado, nadie tiene límite ni vencimiento (ignora la prueba y los pagos). Desmárcalo para activar la prueba de 7 días y el cobro.</span></span></label>
+          <span class="mini">Si está marcado, es la <b>beta gratuita</b>: nadie paga ni vence, con el tope de clientes de abajo (ignora la prueba y los pagos; el Plan Pro sí quita el tope). Desmárcalo para activar la prueba de 7 días y el cobro.</span></span></label>
+        <label style="margin-top:12px">Clientes permitidos en la beta gratuita<input type="number" name="limiteBeta" min="1" max="100000" value="${s.limiteBeta ?? LIMITE_BETA_DEFECTO}"></label>
         <label style="margin-top:12px">Días de prueba gratis para cada asesor nuevo<input type="number" name="diasPrueba" min="0" max="90" value="${s.diasPrueba ?? DIAS_PRUEBA_DEFECTO}"></label>
         <label style="margin-top:12px">Clientes permitidos en el plan gratis<input type="number" name="limite" min="1" max="1000" value="${s.limiteGratis ?? LIMITE_GRATIS_DEFECTO}"></label></div>
       <div class="seccion"><h3>Precio del Plan Pro</h3><div class="rejilla dos">
@@ -572,13 +573,14 @@ function sistema() {
       const nuevo = {
         betaAbierta: f.beta.checked,
         limiteGratis: Math.max(1, parseInt(f.limite.value, 10) || LIMITE_GRATIS_DEFECTO),
+        limiteBeta: Math.max(1, parseInt(f.limiteBeta.value, 10) || LIMITE_BETA_DEFECTO),
         diasPrueba: Math.max(0, parseInt(f.diasPrueba.value, 10) || 0),
         precioMensual: num(f.mensual.value), precioAnual: num(f.anual.value), moneda: f.moneda.value,
         tasas: { COP: num(f.tasaCOP.value), MXN: num(f.tasaMXN.value) },
         medios: leerMedios().filter((m) => m.nombre && m.dato),
       };
       await F.setDoc(F.doc(fs, 'sistema', 'config'), nuevo);
-      await registrar('sistema', JSON.stringify({ betaAbierta: nuevo.betaAbierta, limiteGratis: nuevo.limiteGratis, precios: [nuevo.precioMensual, nuevo.precioAnual, nuevo.moneda], medios: nuevo.medios.length }));
+      await registrar('sistema', JSON.stringify({ betaAbierta: nuevo.betaAbierta, limiteBeta: nuevo.limiteBeta, limiteGratis: nuevo.limiteGratis, precios: [nuevo.precioMensual, nuevo.precioAnual, nuevo.moneda], medios: nuevo.medios.length }));
       datos.sistema = nuevo;
       aviso('Guardado. Los asesores lo verán al abrir «Mi plan».');
       sistema();

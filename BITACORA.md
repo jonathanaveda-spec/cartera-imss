@@ -73,6 +73,34 @@ FAQ con «+» que gira y pregunta nueva sobre Excel con otro formato; textos al 
 plantilla, «cada cierto número de días»); correo de soporte en el pie; `og:image` con URL completa para que
 WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y computador.
 
+**Beta gratuita con tope de 100 clientes** (pedido de Jonathan):
+- En `plan.js`, la beta («Acceso libre para todos») ya no es ilimitada: permite hasta `limiteBeta` clientes.
+  - Por defecto son 100 (`LIMITE_BETA_DEFECTO`).
+  - Se cambia en el panel → Sistema → «Clientes permitidos en la beta gratuita».
+- Quien ya tenía más de 100 **no queda bloqueado**: sigue editando y cobrando a los suyos, solo no puede agregar más.
+- Al llegar al tope, la app dice «Tope de la beta gratuita» y ofrece escribir a soporte.
+- El **Plan Pro** (asignado a mano en el panel) quita el tope. Úsalo para quien necesite más, por ejemplo Yamileth
+  si pasa de 100.
+- Los textos de «Mi plan», del aviso y del importador explican el tope. El menú muestra «Beta gratuita · N de 100 clientes».
+
+**Página carteraasesor.com:**
+- **Precios** detrás de un velo semitransparente: los planes se ven borrosos debajo y encima va la tarjeta
+  «BETA GRATUITA · Hoy es gratis, sin letra pequeña».
+  - Dice «hasta 100 clientes, no pedimos tarjeta, nada se cobra solo, te avisaremos con tiempo».
+  - En el celular la tarjeta se queda fija arriba mientras pasan los planes.
+- Se quitaron las promesas de «7 días gratis» de la portada, los pasos, el cierre y la descripción para
+  WhatsApp/Google; ahora todo dice «beta gratuita».
+- Preguntas nuevas en la FAQ:
+  - «¿Me van a cobrar?» reemplaza a «¿Qué pasa cuando terminan los 7 días?».
+  - «Tengo más de 100 clientes» reemplaza a «¿Cómo pago?».
+  - «Mi Excel está en la computadora».
+- Sección nueva **«¿Tu Excel está en la computadora?»** con 5 pasos: abrir carteraasesor.com/app en la compu, entrar con
+  la misma cuenta, importar, revisar y abrir el celular. Al lado va la alternativa desde el celular.
+- En la app, en la computadora, el importador agrega el paso 4: «abre la app en tu celular y tus clientes ya estarán ahí».
+- **Cuando termine la beta**, en la página hay que:
+  - quitar el velo (`.velo-beta`) y el `inert` de `.precios`;
+  - volver a poner los textos de prueba y cobro.
+
 **Importar Excel más guiado** (pedido de Jonathan: «que no se me queden en el proceso»):
 - Barra de avance arriba en todo el recorrido: **1 Tu archivo · 2 Columnas · 3 Revisar**.
 - Paso 1 pregunta **«¿Dónde tienes tu lista?»**. Cada respuesta lleva a instrucciones cortas:

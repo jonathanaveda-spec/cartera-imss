@@ -142,6 +142,8 @@ function renderAvisos(cnt) {
     a.push(`<div class="banner"><p>Tu Plan Pro vence en <b>${pe.diasRestantes} día(s)</b>.</p><button class="btn chico" data-accion="plan">${enPlay() ? 'Mi plan' : 'Renovar'}</button></div>`);
   } else if (!N.puedeEditarCartera()) {
     a.push(`<div class="banner mal"><p><b>${termino}.</b> Puedes ver y exportar tus ${nCli} clientes, pero para registrar pagos, editar o agregar necesitas el Plan Pro.</p><button class="btn chico primario" data-accion="plan">${enPlay() ? 'Mi plan' : 'Activar plan'}</button></div>`);
+  } else if (pe.tipo === 'beta' && nCli >= pe.limite - 5) {
+    a.push(`<div class="banner"><p>Usas <b>${nCli} de ${pe.limite}</b> clientes de la beta gratuita.${nCli >= pe.limite ? ' Tus clientes siguen igual; ¿necesitas agregar más? Escríbenos.' : ''}</p><button class="btn chico" data-accion="ayuda" data-texto="En la beta necesito más de ${pe.limite} clientes: ">Escríbenos</button></div>`);
   } else if (!pe.ilimitado && nCli >= pe.limite - 2) {
     a.push(`<div class="banner"><p>${pe.vencido ? termino + '. ' : ''}Usas <b>${nCli} de ${pe.limite}</b> clientes del plan gratis.</p><button class="btn chico" data-accion="plan">${enPlay() ? 'Mi plan' : 'Ver planes'}</button></div>`);
   }
@@ -654,6 +656,7 @@ export function abrirImportar() {
             ? `Se abre la lista de archivos del teléfono. Busca tu Excel en <b>Recientes</b>${ios ? ' o en <b>Explorar → En mi iPhone</b>' : ' o en <b>Descargas</b>'}.`
             : 'Se abre una ventana: busca tu Excel (normalmente está en <b>Descargas</b> o en <b>Documentos</b>) y ábrelo.'}</div></li>
           <li class="paso-ios"><span class="num">3</span><div>La app reconoce tus columnas. <b>Tú solo revisas y confirmas.</b></div></li>
+          ${!movil && N.nubeActiva ? '<li class="paso-ios"><span class="num">4</span><div>Listo: abre la app en tu celular con tu misma cuenta y <b>tus clientes ya estarán ahí</b>.</div></li>' : ''}
         </ol>
         ${movil ? `<details class="ayuda-ios"><summary>¿No aparece? Está en un chat de WhatsApp o en un correo</summary>
           <p>Abre ese chat o correo y toca el archivo. ${ios
@@ -844,7 +847,9 @@ function asistenteImportar(libro) {
             ${rojas ? `<li><b>${rojas}</b> fila(s) con celdas en <span style="color:#dc2626">rojo</span>.<label class="radio-tarjeta" style="margin-top:8px"><input type="checkbox" id="rojo-baja"><span>Importar las filas en rojo como ⚫ <b>DADO DE BAJA</b></span></label></li>` : ''}
             ${parsed.otrasHojas.length ? `<li class="mini">Otras hojas con datos (no se importan ahora): ${parsed.otrasHojas.map(esc).join(', ')}</li>` : ''}
           </ul>
-          ${lim.permitido ? '' : `<div class="banner mal"><p>Tu plan permite <b>${lim.caben}</b> cliente(s) más. Se importarán solo los primeros ${lim.caben}. Revisa ☰ → Mi plan.</p></div>`}
+          ${lim.permitido ? '' : N.estado.planEf.tipo === 'beta'
+            ? `<div class="banner mal"><p>En la <b>beta gratuita</b> puedes tener hasta <b>${N.estado.planEf.limite}</b> clientes: caben <b>${lim.caben}</b> más, así que se importarán solo los primeros ${lim.caben}. ¿Necesitas más? Escríbenos por el chat de ayuda.</p></div>`
+            : `<div class="banner mal"><p>Tu plan permite <b>${lim.caben}</b> cliente(s) más. Se importarán solo los primeros ${lim.caben}. Revisa ☰ → Mi plan.</p></div>`}
           <p class="mini" style="margin-top:10px">Cada valor se guarda tal cual venía en tu Excel. Nada se corrige automáticamente. ¿Te equivocaste? En ☰ → Configuración → «Deshacer último cambio grande».</p>
           ${ayudaImportar}`,
         pie: `<button class="btn" data-ir="1" type="button">Atrás</button>
@@ -1167,6 +1172,15 @@ function abrirCuenta() {
 // ---------- Plan ----------
 function avisoLimite() {
   const pe = N.estado.planEf;
+  if (pe.tipo === 'beta') {
+    ventana({
+      titulo: 'Tope de la beta gratuita',
+      cuerpo: `<p>Durante la <b>beta gratuita</b> puedes tener hasta <b>${pe.limite}</b> clientes y ya tienes ${S.db.clientes.length}.</p>
+        <p style="margin-top:10px">Tus clientes siguen igual y puedes seguir trabajando con ellos. ¿Necesitas agregar más? Escríbenos y lo vemos contigo.</p>`,
+      pie: `<button class="btn" data-cerrar type="button">Cerrar</button><button class="btn primario" data-accion="ayuda" data-texto="En la beta necesito más de ${pe.limite} clientes: " data-cerrar>Escribir a soporte</button>`,
+    });
+    return;
+  }
   ventana({
     titulo: 'Límite de tu plan',
     cuerpo: `<p>El <b>${esc(pe.nombre)}</b> permite hasta <b>${pe.limite}</b> clientes y ya tienes ${S.db.clientes.length}.</p>
@@ -1199,7 +1213,7 @@ function abrirPlan() {
     : (legado ? `<p style="white-space:pre-wrap">${esc(legado)}</p>` : '');
   const puedePagar = !!listaMedios;
   const cobro = pe.tipo === 'beta'
-    ? `<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todo sin límite y sin costo. Te avisaremos antes de que empiecen los planes de pago.</p></div>
+    ? `<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todas las funciones sin costo, hasta <b>${pe.limite}</b> clientes. Te avisaremos antes de que empiecen los planes de pago.</p></div>
        ${precios ? `<p class="mini">Precio del Plan Pro después de la beta: <b>${esc(precios)}</b>${local ? ` (${esc(local)})` : ''}.</p>` : ''}`
     : `<div class="seccion"><h3>Plan Pro</h3>${precios ? `<div class="grande" style="font-size:1.2rem">${esc(precios)}</div>` : ''}
         ${local ? `<div class="mini">${esc(local)} según la tasa de hoy</div>` : ''}
@@ -1215,7 +1229,7 @@ function abrirPlan() {
     : '<p class="mini">Pronto publicaremos los medios de pago. Escríbenos desde Ayuda y soporte.</p>'}`;
   // Versión de Google Play: solo el estado del plan, sin precios ni medios de pago.
   const cobroFinal = enPlay()
-    ? (pe.tipo === 'beta' ? '<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todo sin límite y sin costo.</p></div>' : '')
+    ? (pe.tipo === 'beta' ? `<div class="banner info"><p>Estás en la <b>beta gratuita</b>: todas las funciones sin costo, hasta <b>${pe.limite}</b> clientes.</p></div>` : '')
     : cobro;
   const infoPrueba = pe.tipo === 'prueba'
     ? `<div class="banner info"><p>🎁 Estás en tu <b>prueba gratis</b>: ${pe.diasRestantes <= 0 ? 'termina hoy' : `te quedan ${pe.diasRestantes} día(s)`}.${enPlay() ? '' : ' Puedes activar el Plan Pro cuando quieras.'}</p></div>` : '';
