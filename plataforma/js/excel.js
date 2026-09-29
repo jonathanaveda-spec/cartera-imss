@@ -70,6 +70,7 @@ const PRUEBAS_CONTENIDO = [
   ['curp', (v) => RE_CURP.test(String(v).trim())],
   ['nss', (v) => /^\d{11}$/.test(soloDigitos(v))],
   ['celular', (v) => /^(52|57|58)?\d{10}$/.test(soloDigitos(v))],
+  ['periodicidad', (v) => typeof v === 'string' && !!aPeriodicidad(v)],
   ['nombre', (v) => typeof v === 'string' && /^[\p{L}.'-]+(\s+[\p{L}.'-]+)+$/u.test(v.trim())],
 ];
 
