@@ -41,6 +41,10 @@ tocar» → «✅ ¡Lista!» al terminar; si pasan 90 s sin confirmación, pregu
 dice que la app ya está en el teléfono (manifest `related_applications` + getInstalledRelatedApps),
 muestra «Ya tienes la app» en lugar del botón.
 
+**Android: aviso «Pueden existir riesgos»** en el teléfono de Jonathan (antivirus de Transsion: Tecno/Infinix/itel).
+El escaneo de virus pasa; avisa solo porque la app no viene de una tienda. Decisión: ir a **Google Play**
+(ver PLAN.md, Fase 3). Ya quedaron listos los textos de la ficha y el gráfico 1024×500 en `tienda/`.
+
 **Páginas legales**: se quitó el aviso BORRADOR de `privacidad.html` y `terminos.html`
 (Jonathan confirmó responsable y domicilio en Colombia).
 
