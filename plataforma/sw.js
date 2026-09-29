@@ -1,8 +1,9 @@
 // Service worker: deja la app disponible sin conexión. Los datos NO pasan por aquí (viven en IndexedDB).
-const VERSION = 'cartera-asesor-v21';
+const VERSION = 'cartera-asesor-v22';
 const ARCHIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'css/styles.css',
   'js/main.js', 'js/ui.js', 'js/store.js', 'js/excel.js', 'js/logic.js', 'js/nube.js', 'js/sincro.js', 'js/acceso.js', 'js/nube-config.js', 'js/plan.js', 'js/marca.js', 'js/instalar.js', 'js/pantalla.js', 'privacidad.html', 'terminos.html',
+  'admin.html', 'admin.webmanifest', 'js/admin.js',
   'vendor/xlsx.full.min.js', 'vendor/firebase.js', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'icons/logo.png',
 ];
 
@@ -32,7 +33,9 @@ self.addEventListener('fetch', (e) => {
       const guardado = await cache.match(req, { ignoreSearch: true });
       if (guardado) return guardado;
       try {
-        const r = await fetch(req);
+        // Lo que no está en ARCHIVOS se pide saltándose la caché HTTP (GitHub Pages guarda 10 minutos):
+        // si no, se podía guardar aquí una copia vieja y quedarse pegada hasta la siguiente versión.
+        const r = await fetch(req.mode === 'navigate' ? req : new Request(req, { cache: 'no-cache' }));
         if (r && r.ok) cache.put(req, r.clone());
         return r;
       } catch {
