@@ -106,3 +106,17 @@ test('recordatorio de cobro por WhatsApp', () => {
   assert.equal(LP.enlaceWhatsApp(c.celular, 'Hola 👋'), 'https://wa.me/528662812325?text=Hola%20%F0%9F%91%8B');
   assert.equal(LP.enlaceWhatsApp('Asesor Oscar', 'x'), null);
 });
+
+test('periodicidad personalizada: cada N días', () => {
+  assert.equal(LP.diasDePeriodicidad('Cada 15 días'), 15);
+  assert.equal(LP.diasDePeriodicidad('Cada 1 día'), 1);
+  assert.equal(LP.diasDePeriodicidad('Cada 0 días'), null);
+  assert.equal(LP.diasDePeriodicidad('Cada 400 días'), null);
+  assert.equal(LP.diasDePeriodicidad('Mensual'), null);
+  assert.equal(LP.periodicidadDias(15), 'Cada 15 días');
+  assert.equal(LP.periodicidadDias(1), 'Cada 1 día');
+  assert.ok(LP.esPeriodicidad('Cada 15 días') && LP.esPeriodicidad('Trimestral') && !LP.esPeriodicidad('Quincenal'));
+  assert.equal(LP.siguienteVencimiento('2026-09-20', 'Cada 15 días'), '2026-10-05');
+  assert.equal(LP.siguienteVencimiento('2026-01-31', 'Mensual'), '2026-02-28');
+  assert.equal(LP.textoDiaPago({ periodicidad: 'Cada 15 días', dia_pago: 5 }), '');
+});

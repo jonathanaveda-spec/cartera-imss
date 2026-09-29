@@ -5,6 +5,16 @@ const pad = (n) => String(n).padStart(2, '0');
 
 export const PERIODICIDADES = { Mensual: 1, Trimestral: 3, Semestral: 6, Anual: 12 };
 
+// Periodicidad personalizada: el asesor elige cada cuántos días paga el cliente. Se guarda como texto «Cada N días».
+export const MAX_DIAS_PERIODO = 365;
+export function diasDePeriodicidad(p) {
+  const m = /^Cada (\d{1,3}) días?$/.exec(p || '');
+  const n = m ? Number(m[1]) : 0;
+  return n >= 1 && n <= MAX_DIAS_PERIODO ? n : null;
+}
+export const periodicidadDias = (n) => `Cada ${n} ${n === 1 ? 'día' : 'días'}`;
+export const esPeriodicidad = (p) => !!PERIODICIDADES[p] || !!diasDePeriodicidad(p);
+
 export const ESTADOS = {
   MOROSO: { codigo: 'MOROSO', etiqueta: 'MOROSO / DEUDOR', icono: '🔴', orden: 0, clase: 'moroso' },
   POR_VENCER: { codigo: 'POR_VENCER', etiqueta: 'PRÓXIMO A VENCER', icono: '🟡', orden: 1, clase: 'porvencer' },
@@ -61,6 +71,8 @@ export function sumarMeses(iso, n, diaAncla) {
 }
 
 export function siguienteVencimiento(actualISO, periodicidad, diaAncla) {
+  const dias = diasDePeriodicidad(periodicidad);
+  if (dias) return sumarDias(actualISO, dias);
   const meses = PERIODICIDADES[periodicidad];
   if (!meses) throw new Error('Periodicidad no válida: ' + periodicidad);
   return sumarMeses(actualISO, meses, diaAncla || diaDe(actualISO));
@@ -68,6 +80,7 @@ export function siguienteVencimiento(actualISO, periodicidad, diaAncla) {
 
 /** "Día 24 de cada mes" / "Día 24, cada 3 meses": el día de pago sale del día de la fecha de próximo pago. */
 export function textoDiaPago(c) {
+  if (diasDePeriodicidad(c.periodicidad)) return ''; // «Cada N días» ya lo dice todo: no hay un día fijo del mes.
   const dia = c.dia_pago || (c.proximo_pago && esISO(c.proximo_pago) ? diaDe(c.proximo_pago) : null);
   if (!dia) return '';
   const p = c.periodicidad;

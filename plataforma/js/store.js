@@ -1,6 +1,6 @@
 // Almacenamiento local persistente (IndexedDB, con respaldo en localStorage) y operaciones sobre los datos.
 // Todo cambio queda en el historial. Nada se borra sin pasar por la papelera.
-import { uid, hoyISO, esISO, diaDe, siguienteVencimiento, sumarMeses, diasEntre, ultimoPago } from './logic.js';
+import { uid, hoyISO, esISO, diaDe, siguienteVencimiento, sumarMeses, sumarDias, diasEntre, ultimoPago, diasDePeriodicidad, esPeriodicidad } from './logic.js';
 
 // Nombre distinto al de la app personal de Yamileth: comparten dominio y no deben mezclar datos.
 const DB_NAME = 'cartera-asesor';
@@ -202,7 +202,7 @@ function limpiar(datos) {
     o.comision = Number.isFinite(n) ? n : null;
   }
   for (const k of ['fecha_inicio', 'proximo_pago']) if (k in o) o[k] = o[k] && esISO(o[k]) ? o[k] : null;
-  if ('periodicidad' in o) o.periodicidad = o.periodicidad || null;
+  if ('periodicidad' in o) o.periodicidad = esPeriodicidad(o.periodicidad) ? o.periodicidad : null;
   return o;
 }
 
@@ -361,7 +361,8 @@ export async function registrarPago(id, p) {
   c.periodicidad = per;
   c.proximo_pago = siguiente;
   // Si la fecha se ajustó a mano, el nuevo día pasa a ser la referencia; si no, se conserva el original.
-  c.dia_pago = siguiente !== calc.siguiente || !c.dia_pago ? diaDe(siguiente) : c.dia_pago;
+  if (diasDePeriodicidad(per)) c.dia_pago = null; // cada N días: no hay día fijo del mes
+  else c.dia_pago = siguiente !== calc.siguiente || !c.dia_pago ? diaDe(siguiente) : c.dia_pago;
   c.actualizado = ahora();
   log(c, 'pago', `Pago registrado (${p.fecha_pago}). Próximo pago: ${siguiente}`, [
     { campo: 'Próximo pago', antes: pago.prev_proximo, despues: siguiente },
@@ -432,7 +433,12 @@ export function calcularMasivo(clientes, { periodicidad, metodo, hoy }) {
     const per = periodicidad;
     const dia = diaDe(c.fecha_inicio);
     let f;
-    if (metodo === 'ciclo') {
+    const cadaDias = diasDePeriodicidad(per);
+    if (cadaDias && metodo === 'ciclo') {
+      // Cada N días desde la fecha de inicio: el primer cobro que sea hoy o después.
+      const pasados = diasEntre(c.fecha_inicio, hoy);
+      f = pasados > 0 ? sumarDias(c.fecha_inicio, Math.ceil(pasados / cadaDias) * cadaDias) : c.fecha_inicio;
+    } else if (metodo === 'ciclo') {
       // El día de la fecha de inicio es el día de pago. Si esa fecha aún no llega, es el primer pago;
       // si ya pasó, se avanza al siguiente día de pago según la periodicidad.
       const meses = { Mensual: 1, Trimestral: 3, Semestral: 6, Anual: 12 }[per];
@@ -454,7 +460,7 @@ export async function aplicarMasivo(calculo, periodicidad, metodo) {
     if (it.omitido) continue;
     it.c.periodicidad = periodicidad;
     it.c.proximo_pago = it.proximo;
-    it.c.dia_pago = diaDe(it.c.fecha_inicio);
+    it.c.dia_pago = diasDePeriodicidad(periodicidad) ? null : diaDe(it.c.fecha_inicio);
     it.c.actualizado = ahora();
     log(it.c, 'editar', `Configuración inicial de pagos (${periodicidad}, ${metodo === 'ciclo' ? 'ciclo desde fecha de inicio' : 'inicio + un periodo'})`, [
       { campo: 'Periodicidad', antes: null, despues: periodicidad },
