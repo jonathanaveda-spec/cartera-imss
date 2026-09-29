@@ -138,3 +138,5 @@ Decisión 29/09: publicar Cartera Asesor en la App Store es la meta, pero queda 
    Plan Pro en iOS (guía 3.1.1), compilar en Codemagic sin Mac.
 4. TestFlight con Jonathan y Yami → ficha de tienda (capturas 6.9", descripción, privacidad,
    cuenta de prueba para el revisor) → revisión (1-3 días). Tiempo total estimado 2-4 semanas.
+
+**Service worker: panel admin se quedaba viejo (v22)**: admin.html / js/admin.js no estaban en la lista de precarga; al pedirlos, el service worker podía guardar una copia vieja de la caché HTTP de GitHub Pages (10 min) y dejarla pegada toda la versión. Ahora están en ARCHIVOS y lo que no está en la lista se pide con cache: 'no-cache'. Regla: todo archivo nuevo de plataforma/ que se use debe ir en ARCHIVOS de sw.js.
