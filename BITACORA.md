@@ -15,12 +15,13 @@ Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 1. Yamileth: en iPhone, cerrar y abrir la app 2 veces y probar **Eliminar** (clienta duplicada
    HERNANDEZ PEREZ ANA VERONICA: revisar antes cuál copia tiene pagos) y el **scroll** de las ventanas.
 2. Que algún usuario de iPhone pruebe la **guía de instalación** nueva desde Safari.
-3. Confirmar que el **destrabe automático** de publicaciones funciona (se agregó el 29/09 a `pages.yml`).
+3. ~~Confirmar el destrabe automático de publicaciones~~ ✅ funcionó el 30/09 (v21 salió sola).
 4. Decidir cuándo quitar **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
 5. `privacidad.html`: revisar «persona natural con domicilio en Colombia» y el aviso BORRADOR.
 6. Siguiente tarea grande: **asistente para importar cualquier Excel** (PLAN.md, paso 13).
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
-8. **Publicar las reglas nuevas de Firebase** (`plataforma/firestore.rules`) para que el panel pueda borrar asesores.
+8. ~~Publicar las reglas nuevas de Firebase~~ ✅ publicadas por Jonathan el 30/09 1:59 a.m. (verificado).
+   Falta probar el borrado en el panel (Asesores → 🗑️ Borrar en «Jonathan Prueba»).
 
 ## 2026-09-30
 
