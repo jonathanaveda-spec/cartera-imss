@@ -153,7 +153,7 @@ const celFecha = (iso) => (iso && esISO(iso) ? { t: 'n', v: serial(iso), z: 'dd/
 const celTexto = (s) => (s == null || s === '' ? '' : { t: 's', v: String(s) });
 const celNum = (n) => (n == null || n === '' ? '' : { t: 'n', v: Number(n) });
 
-export function construirLibro(db, hoy = hoyISO()) {
+export function construirLibro(db, hoy = hoyISO(), respaldo = null) {
   const X = XLSX();
   const extras = db.config.camposPersonalizados;
 
@@ -206,20 +206,42 @@ export function construirLibro(db, hoy = hoyISO()) {
   X.utils.book_append_sheet(wb, ws1, 'Clientes');
   X.utils.book_append_sheet(wb, ws2, 'Pagos');
   X.utils.book_append_sheet(wb, ws3, 'Historial');
+  if (respaldo) {
+    // Hoja oculta con el respaldo completo, para que este mismo Excel sirva para "Restaurar respaldo".
+    // Excel admite hasta 32767 caracteres por celda: el texto se reparte en filas de la columna A.
+    const filas = [[HOJA_RESPALDO]];
+    for (let i = 0; i < respaldo.length; i += 30000) filas.push([respaldo.slice(i, i + 30000)]);
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(filas), HOJA_RESPALDO);
+    wb.Workbook = { Sheets: wb.SheetNames.map((n) => ({ Hidden: n === HOJA_RESPALDO ? 1 : 0 })) };
+  }
   return wb;
 }
 
-export function exportarExcelBytes(db, hoy) {
-  return XLSX().write(construirLibro(db, hoy), { bookType: 'xlsx', type: 'array' });
+const HOJA_RESPALDO = 'Respaldo';
+
+export function exportarExcelBytes(db, hoy, respaldo) {
+  return XLSX().write(construirLibro(db, hoy, respaldo), { bookType: 'xlsx', type: 'array' });
+}
+
+/** Devuelve el texto del respaldo guardado en un Excel exportado por la app, o null si no lo tiene. */
+export function leerRespaldoExcel(buffer) {
+  const X = XLSX();
+  const wb = X.read(buffer, { type: 'array' });
+  const ws = wb.Sheets[HOJA_RESPALDO];
+  if (!ws) return null;
+  const filas = X.utils.sheet_to_json(ws, { header: 1, raw: true });
+  if (!filas.length || filas[0][0] !== HOJA_RESPALDO) return null;
+  return filas.slice(1).map((f) => String(f[0] ?? '')).join('');
 }
 
 // ---------- Descarga ----------
-const esMovil = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+const esIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
 export async function descargar(bytesOTexto, nombre, tipo) {
   const blob = new Blob([bytesOTexto], { type: tipo });
   // En iPhone, la hoja de compartir permite "Guardar en Archivos" con un toque.
-  if (esMovil() && navigator.canShare && globalThis.File) {
+  // En Android la hoja de compartir no ofrece guardar (solo WhatsApp, correo…): se descarga directo a Descargas.
+  if (esIOS() && navigator.canShare && globalThis.File) {
     const archivo = new File([blob], nombre, { type: tipo });
     if (navigator.canShare({ files: [archivo] })) {
       try {

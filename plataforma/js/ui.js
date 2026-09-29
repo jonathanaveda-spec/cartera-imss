@@ -530,8 +530,8 @@ export function abrirMenu() {
       op('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
       op('importar', '📥', 'Importar Excel', 'Carga tu archivo .xlsx de clientes. No borra nada de lo que ya tienes.'),
       op('exportar', '📤', 'Exportar a Excel', 'Crea un archivo nuevo con clientes, pagos e historial. El original no se toca.'),
-      op('respaldo', '💾', 'Descargar respaldo completo', 'Copia de todos los datos de la app (.json) para guardarla o pasarla a otro teléfono.'),
-      op('restaurar', '♻️', 'Restaurar respaldo', 'Recupera datos desde un respaldo .json. Guarda antes una copia de lo actual.'),
+      op('respaldo', '💾', 'Descargar respaldo completo', 'Excel (.xlsx) con todos tus datos. Se guarda en el teléfono y sirve para restaurar o pasarlos a otro.'),
+      op('restaurar', '♻️', 'Restaurar respaldo', 'Recupera datos desde un respaldo (.xlsx o .json). Guarda antes una copia de lo actual.'),
       op('asistente', '🗓️', 'Configurar pagos iniciales', 'Asigna periodicidad y próxima fecha a los clientes que aún no la tienen.'),
       op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
       op('config', '⚙️', 'Configuración', 'Días de aviso, campos nuevos y estado del almacenamiento.'),
@@ -617,7 +617,7 @@ function resultadoImport(n) {
 // ---------- Exportar / respaldo ----------
 export async function exportarExcel() {
   await seguro(async () => {
-    const bytes = E.exportarExcelBytes(S.db, L.hoyISO());
+    const bytes = E.exportarExcelBytes(S.db, L.hoyISO(), S.exportarJSON());
     const ok = await E.descargar(bytes, `Cartera_IMSS_${L.hoyISO()}.xlsx`, MIME_XLSX);
     if (ok) {
       await S.marcarRespaldo();
@@ -627,17 +627,31 @@ export async function exportarExcel() {
   });
 }
 
+// El respaldo es un Excel normal (se abre en cualquier teléfono) con una hoja oculta que trae todos los datos.
 export async function exportarRespaldo() {
   await seguro(async () => {
-    const ok = await E.descargar(S.exportarJSON(), `Respaldo_Cartera_IMSS_${L.hoyISO()}.json`, 'application/json');
-    if (ok) { await S.marcarRespaldo(); aviso('Respaldo descargado'); render(); }
+    const bytes = E.exportarExcelBytes(S.db, L.hoyISO(), S.exportarJSON());
+    const ok = await E.descargar(bytes, `Respaldo_Cartera_IMSS_${L.hoyISO()}.xlsx`, MIME_XLSX);
+    if (ok) { await S.marcarRespaldo(); aviso('Respaldo guardado en el teléfono (carpeta Descargas o Archivos)'); render(); }
   });
 }
 
+// Acepta el respaldo en Excel (.xlsx) o el .json de versiones anteriores.
+async function textoDeRespaldo(f) {
+  const buf = await f.arrayBuffer();
+  const b = new Uint8Array(buf.slice(0, 2));
+  if (b[0] === 0x50 && b[1] === 0x4b) { // "PK": es un .xlsx
+    const t = E.leerRespaldoExcel(buf);
+    if (!t) throw new Error('Este Excel no trae el respaldo completo. Descarga un respaldo nuevo desde la app, o usa "Importar Excel" para cargar solo los clientes.');
+    return t;
+  }
+  return new TextDecoder().decode(buf);
+}
+
 export function abrirRestaurar() {
-  // Sin filtro de tipo: en Android los .json recibidos por WhatsApp a veces no se reconocen como JSON.
+  // Sin filtro de tipo: en Android los archivos recibidos por WhatsApp a veces no se reconocen por su tipo.
   pedirArchivo('', (f) => seguro(async () => {
-    const texto = await f.text();
+    const texto = await textoDeRespaldo(f);
     const ok = await confirmar({
       titulo: 'Restaurar respaldo',
       mensaje: `Esto reemplazará los datos actuales (${S.db.clientes.length} clientes) por los del respaldo <b>${esc(f.name)}</b>. Antes se guarda una copia de lo actual por si necesitas volver.`,
