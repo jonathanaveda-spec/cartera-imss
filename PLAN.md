@@ -24,7 +24,7 @@ Estrategia: **web primero** (sin tiendas ni comisiones) → cobro directo con ac
 | 10 | Crear proyecto Firebase de la plataforma y pasar configuración + tu UID | **Tú** | ⏳ ver `plataforma/LEEME_FIREBASE.md` |
 | 11 | Nombre final, logo (Corel), correo de contacto | **Tú** | ⏳ |
 | 12 | Publicar la beta y probar de punta a punta con Firebase real | Claude (tras 10) | ⏳ |
-| 13 | Asistente para importar cualquier Excel (elegir qué columna es cada dato) | Claude | ⏳ siguiente |
+| 13 | Asistente para importar cualquier Excel (elegir qué columna es cada dato) | Claude | ✅ |
 | 14 | Invitar 5–12 asesores a la beta | Tú | ⏳ |
 
 ## Fase 2 — Cobro directo

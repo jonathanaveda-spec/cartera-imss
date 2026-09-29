@@ -19,10 +19,37 @@ Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 3. ~~Confirmar el destrabe automático de publicaciones~~ ✅ funcionó el 30/09 (v21 salió sola).
 4. Seguimos en **beta** (decisión 01/10): no quitar todavía **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
 5. ~~`privacidad.html`: domicilio y aviso BORRADOR~~ ✅ domicilio confirmado; se quitó BORRADOR de privacidad y términos (01/10).
-6. Siguiente tarea grande: **asistente para importar cualquier Excel** (PLAN.md, paso 13).
+6. ~~Asistente para importar cualquier Excel~~ ✅ hecho (PC del local, ver abajo). Siguiente: **video corto** de cómo
+   pasar el Excel al teléfono e importarlo (lo graba Jonathan con su celular; Claude prepara Excel de prueba y guion),
+   y **capturas + cuenta de prueba** para Google Play.
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
 8. ~~Publicar las reglas nuevas de Firebase~~ ✅ publicadas por Jonathan el 30/09 1:59 a.m. (verificado).
    Falta probar el borrado en el panel (Asesores → 🗑️ Borrar en «Jonathan Prueba»).
+
+## PC del local (después del 01/10) — Importar cualquier Excel
+
+**Importar Excel rehecho** (PLAN.md paso 13). Antes solo funcionaba con el formato de Yami (títulos en la
+fila 1 y una columna llamada CLIENTE o NOMBRE). Ahora:
+- Pantalla de entrada (☰ → Importar y exportar → Importar Excel) con los 3 pasos para tener el archivo en el
+  teléfono (WhatsApp/correo → Descargar o Guardar en Archivos), botón **📄 Plantilla** y **📥 Elegir mi Excel**.
+- **Paso 1 de 2 · ¿Qué dato tiene cada columna?**: busca sola la fila de títulos (en las primeras 20 filas; se
+  puede cambiar o elegir «Mi archivo no tiene títulos») y sugiere qué es cada columna por el título (Nombre(s),
+  Apellidos, Tel. cel., WhatsApp, Fecha alta, Frecuencia, Próximo pago, No. IMSS, Observaciones…) o, si el título
+  no dice nada, por el contenido (CURP, NSS de 11 dígitos, celular de 10, nombres). Cada columna tiene un selector:
+  un dato de la app, «Otro dato» (campo personalizado) o «No importar». El nombre puede venir en varias columnas
+  (nombre + apellidos) y se une en orden; los demás datos van en una sola columna.
+- **Paso 2 de 2 · Revisa antes de importar**: tabla con los primeros 5 clientes, qué datos entran y avisos
+  (fechas o periodicidades que no se entendieron quedan vacías, nunca se inventan; filas repetidas; filas en rojo).
+- Se pueden importar también **Periodicidad** (Mensual, Trimestral, Semestral, Anual, quincenal/semanal, «cada N
+  días») y **Próximo pago**: con eso el cliente queda 🟢/🟡/🔴 sin pasar por «Fechas de cobro».
+- **Plantilla** `Plantilla_Cartera_Asesor.xlsx` con los títulos, una fila de EJEMPLO (no se importa aunque se
+  olvide borrarla) y una hoja «Cómo llenarla».
+- «Fechas de cobro» ahora **respeta la periodicidad** que el cliente ya trae (antes la cambiaba por la elegida).
+- Código: `js/excel.js` (leerLibro, detectarFilaTitulos, columnasDeHoja, sugerirMapeo, construirImportacion,
+  plantillaBytes; leerExcel queda como lectura automática), `js/ui.js` (abrirImportar + asistenteImportar),
+  `js/store.js` (calcularMasivo/aplicarMasivo). Pruebas nuevas: `tests/importar.test.mjs` (46 pruebas en total, pasan).
+- Verificado: con el ALTAS.xlsx de Yami la lectura nueva da **exactamente** lo mismo que la anterior (116 filas,
+  mismos datos y misma huella para no duplicar). Probado en /demo/ en tamaño celular con Excels inventados.
 
 ## 2026-10-01
 

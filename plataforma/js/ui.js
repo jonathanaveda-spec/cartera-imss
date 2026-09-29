@@ -614,44 +614,178 @@ function pedirArchivo(accept, alElegir) {
   inp.click();
 }
 
+const ACEPTA_EXCEL = '.xlsx,.xls,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel';
+
+// Pantalla de entrada: cómo tener el archivo en el teléfono, plantilla y «Elegir mi Excel».
 export function abrirImportar() {
-  pedirArchivo('.xlsx,.xls,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel', (f) => seguro(async () => {
-    const buf = await f.arrayBuffer();
-    mostrarVistaPreviaImport(E.leerExcel(new Uint8Array(buf), f.name));
+  const ios = esIOS();
+  const v = ventana({
+    titulo: 'Importar clientes desde Excel',
+    cuerpo: `<p>Carga tu lista de clientes desde tu archivo de Excel. <b>No se borra nada</b> de lo que ya tienes en la app y tu archivo no se modifica.</p>
+      <ol class="pasos-importar">
+        <li><b>Ten el archivo en este teléfono.</b> Si está en tu computadora, mándatelo por WhatsApp o por correo y ábrelo aquí: toca el archivo → ${ios ? '<b>Compartir</b> → <b>Guardar en Archivos</b>' : '<b>Descargar</b>'}.</li>
+        <li>Toca <b>Elegir mi Excel</b> y búscalo ${ios ? 'en <b>Archivos</b> (o en Recientes)' : 'en <b>Descargas</b> (o en Recientes)'}.</li>
+        <li>La app reconoce tus columnas. <b>Tú solo revisas y confirmas.</b></li>
+      </ol>
+      <div class="banner info"><p>¿No tienes tu lista en Excel o está muy desordenada? Descarga la <b>plantilla</b>, copia ahí tus clientes y luego impórtala.</p></div>`,
+    pie: `<button class="btn" data-plantilla type="button">📄 Plantilla</button><button class="btn primario" data-elegir type="button">📥 Elegir mi Excel</button>`,
+  });
+  v.q('[data-plantilla]').addEventListener('click', () => seguro(async () => {
+    if (await E.descargar(E.plantillaBytes(), 'Plantilla_Cartera_Asesor.xlsx', MIME_XLSX)) aviso('Plantilla descargada');
   }));
+  v.q('[data-elegir]').addEventListener('click', () => pedirArchivo(ACEPTA_EXCEL, (f) => seguro(async () => {
+    let libro;
+    try {
+      libro = E.leerLibro(new Uint8Array(await f.arrayBuffer()), f.name);
+    } catch (e) {
+      throw new Error(/hoja con datos/.test(e.message) ? e.message : 'No pude abrir ese archivo. Revisa que sea un Excel (.xlsx) y vuelve a intentarlo.');
+    }
+    v.cerrar();
+    asistenteImportar(libro);
+  })));
 }
 
-export function mostrarVistaPreviaImport(parsed) {
-  const prep = S.prepararImportacion(parsed);
-  const rojas = prep.nuevas.filter((f) => f.rojas.length).length;
-  const lim = N.cupoPara(S.db.clientes.length, prep.nuevas.length);
-  const sinNombre = prep.nuevas.filter((f) => !f.datos.nombre).length;
-  const v = ventana({
-    titulo: 'Importar Excel', fondoCierra: false,
-    cuerpo: `<div class="seccion"><h3>Archivo</h3>
-        <p><b>${esc(parsed.archivo)}</b> · hoja «${esc(parsed.hoja)}»</p>
-        <p class="mini">Columnas: ${parsed.encabezados.map(esc).join(' · ')}</p></div>
-      <div class="seccion"><h3>Qué se va a importar</h3><ul class="lista-simple">
-        <li><b>${prep.nuevas.length}</b> cliente(s) nuevos</li>
-        ${prep.repetidas.length ? `<li><b>${prep.repetidas.length}</b> fila(s) ya importadas antes (se omiten, no se duplican)</li>` : ''}
-        ${rojas ? `<li><b>${rojas}</b> fila(s) con celdas en <span style="color:#dc2626">rojo</span>.<label class="radio-tarjeta" style="margin-top:8px"><input type="checkbox" id="rojo-baja"><span>Importar las filas en rojo como ⚫ <b>DADO DE BAJA</b></span></label></li>` : ''}
-        ${sinNombre ? `<li><b>${sinNombre}</b> fila(s) sin nombre</li>` : ''}
-        ${parsed.columnasVacias.length ? `<li>Columna(s) vacía(s) que se ignoran: ${parsed.columnasVacias.map(esc).join(', ')}</li>` : ''}
-        ${parsed.camposNuevos.length ? `<li>Columnas extra que pasan a campos personalizados: ${parsed.camposNuevos.map((x) => esc(x.etiqueta)).join(', ')}</li>` : ''}
-        ${parsed.hojasVacias.length ? `<li class="mini">Hojas sin datos (no se importan): ${parsed.hojasVacias.map(esc).join(', ')}</li>` : ''}
-      </ul></div>
-      ${lim.permitido ? '' : `<div class="banner mal"><p>Tu plan permite <b>${lim.caben}</b> cliente(s) más. Se importarán solo los primeros ${lim.caben}. Revisa ☰ Datos → Mi plan.</p></div>`}
-      <p class="mini">Cada valor original se guarda tal cual venía en el Excel. Solo se eliminan espacios sobrantes al inicio y al final de los textos. Nada se corrige automáticamente.</p>`,
-    pie: `<button class="btn" data-cerrar type="button">Cancelar</button>
+// Dos pasos: ¿qué dato tiene cada columna? → revisa y confirma.
+function asistenteImportar(libro) {
+  const sel = { paso: 1, hoja: 0, fila: 0, cols: [], mapeo: [] };
+  const hoja = () => libro.hojas[sel.hoja];
+  const analizar = (fila = E.detectarFilaTitulos(hoja())) => {
+    sel.fila = fila;
+    sel.cols = E.columnasDeHoja(hoja(), fila);
+    sel.mapeo = E.sugerirMapeo(sel.cols);
+  };
+  analizar();
+  const pasoDe = (n) => `<p class="mini" style="margin-bottom:10px"><b>Paso ${n} de 2</b></p>`;
+  const hayNombre = () => sel.mapeo.some((m) => m.campo === 'nombre');
+  const etiquetaCampo = (c) => E.CAMPOS_IMPORTAR.find((x) => x.campo === c)?.etiqueta || '';
+  let parsed = null, prep = null, lim = null;
+
+  const opcionesFila = () => {
+    const h = hoja();
+    const X = globalThis.XLSX;
+    const hasta = Math.min(h.rango.e.r, h.rango.s.r + 19);
+    const ops = [`<option value="-1" ${sel.fila < 0 ? 'selected' : ''}>Mi archivo no tiene títulos</option>`];
+    for (let r = h.rango.s.r; r <= hasta; r++) {
+      const textos = [];
+      for (let c = h.rango.s.c; c <= h.rango.e.c && textos.length < 3; c++) {
+        const t = E.textoCelda(h.ws[X.utils.encode_cell({ r, c })]);
+        if (t) textos.push(t.length > 18 ? t.slice(0, 17) + '…' : t);
+      }
+      if (textos.length) ops.push(`<option value="${r}" ${r === sel.fila ? 'selected' : ''}>Fila ${r + 1}: ${esc(textos.join(' · '))}</option>`);
+    }
+    return ops.join('');
+  };
+
+  const tarjetaColumna = (k, i) => {
+    const m = sel.mapeo[i];
+    const reconocida = m.por && m.campo !== E.EXTRA && m.campo !== E.IGNORAR;
+    const clase = m.campo === E.IGNORAR ? 'ignorada' : m.campo === E.EXTRA ? '' : 'ok';
+    return `<div class="col-imp ${clase}">
+      <div class="col-imp-cab"><span class="col-letra">${esc(k.letra)}</span><b>${esc(k.titulo || 'Sin título')}</b>
+        ${reconocida ? '<span class="col-imp-chip">✓ reconocida</span>' : ''}</div>
+      <div class="col-imp-ej">${k.ejemplos.map((x) => esc(x.length > 28 ? x.slice(0, 27) + '…' : x)).join(' · ')}${k.conDato > k.ejemplos.length ? ' …' : ''}</div>
+      <select data-col="${i}" aria-label="Qué dato tiene la columna ${esc(k.nombre)}">
+        ${E.CAMPOS_IMPORTAR.map((x) => `<option value="${x.campo}" ${m.campo === x.campo ? 'selected' : ''}>${esc(x.etiqueta)}</option>`).join('')}
+        <option value="${E.EXTRA}" ${m.campo === E.EXTRA ? 'selected' : ''}>Otro dato (guardarlo como «${esc(k.nombre)}»)</option>
+        <option value="${E.IGNORAR}" ${m.campo === E.IGNORAR ? 'selected' : ''}>No importar esta columna</option>
+      </select></div>`;
+  };
+
+  const pasos = {
+    1: () => {
+      const conDato = sel.cols.map((k, i) => [k, i]).filter(([k]) => k.conDato);
+      const vacias = sel.cols.filter((k) => !k.conDato && k.titulo);
+      const nombres = sel.mapeo.filter((m) => m.campo === 'nombre').length;
+      return {
+        cuerpo: `${pasoDe(1)}
+          <h3 style="margin-bottom:6px">¿Qué dato tiene cada columna?</h3>
+          <p class="mini" style="margin-bottom:10px">Ya reconocimos las que pudimos. Revisa y cambia la que no esté bien.</p>
+          <div class="imp-archivo">
+            <div>📄 <b>${esc(libro.archivo)}</b></div>
+            ${libro.hojas.length > 1 ? `<label>Hoja<select data-hoja>${libro.hojas.map((h, i) => `<option value="${i}" ${i === sel.hoja ? 'selected' : ''}>${esc(h.nombre)} (${h.filas} filas)</option>`).join('')}</select></label>` : ''}
+            <label>Los títulos de las columnas están en<select data-fila>${opcionesFila()}</select></label>
+          </div>
+          ${conDato.map(([k, i]) => tarjetaColumna(k, i)).join('')}
+          ${nombres > 1 ? `<p class="mini" style="margin-top:4px">El nombre se arma uniendo ${nombres} columnas en orden (ej. nombre + apellidos).</p>` : ''}
+          ${vacias.length ? `<p class="mini" style="margin-top:8px">Columnas vacías (no se importan): ${vacias.map((k) => esc(k.titulo)).join(', ')}</p>` : ''}
+          ${hayNombre() ? '' : '<div class="banner mal" style="margin-top:10px"><p>Elige qué columna tiene el <b>nombre del cliente</b>. Si el nombre y los apellidos están separados, elige «Nombre del cliente» en cada una.</p></div>'}`,
+        pie: `<button class="btn" data-cerrar type="button">Cancelar</button><button class="btn primario" data-ir="2" type="button" ${hayNombre() ? '' : 'disabled'}>Siguiente</button>`,
+      };
+    },
+    2: () => {
+      parsed = E.construirImportacion(libro, hoja(), sel.fila, sel.mapeo);
+      prep = S.prepararImportacion(parsed);
+      lim = N.cupoPara(S.db.clientes.length, prep.nuevas.length);
+      const rojas = prep.nuevas.filter((f) => f.rojas.length).length;
+      const sinNombre = prep.nuevas.filter((f) => !f.datos.nombre).length;
+      const av = parsed.avisos;
+      const usados = [...new Set(sel.mapeo.map((m) => m.campo).filter((c) => c !== E.EXTRA && c !== E.IGNORAR))];
+      const colFecha = usados.includes('proximo_pago') ? 'proximo_pago' : usados.includes('fecha_inicio') ? 'fecha_inicio' : null;
+      const muestra = prep.nuevas.slice(0, 5);
+      return {
+        cuerpo: `${pasoDe(2)}
+          <h3 style="margin-bottom:8px">Revisa antes de importar</h3>
+          <div class="imp-total"><b>${prep.nuevas.length}</b> cliente(s) nuevos para importar</div>
+          ${muestra.length ? `<div class="imp-tabla"><table>
+            <thead><tr><th>Nombre</th>${usados.includes('celular') ? '<th>Celular</th>' : ''}${colFecha ? `<th>${colFecha === 'proximo_pago' ? 'Próx. pago' : 'Inicio'}</th>` : ''}</tr></thead>
+            <tbody>${muestra.map((f) => `<tr><td>${esc(f.datos.nombre) || '<i>(sin nombre)</i>'}</td>${usados.includes('celular') ? `<td>${esc(f.datos.celular)}</td>` : ''}${colFecha ? `<td>${f.datos[colFecha] ? L.fmtFecha(f.datos[colFecha]) : f.fechaMala ? '<span class="txt-ambar">⚠️ no se entendió</span>' : ''}</td>` : ''}</tr>`).join('')}</tbody>
+          </table>${prep.nuevas.length > muestra.length ? `<div class="mini" style="padding:6px 10px">…y ${prep.nuevas.length - muestra.length} más</div>` : ''}</div>` : ''}
+          <ul class="lista-simple" style="margin-top:10px">
+            <li>Datos que se importan: ${usados.map((c) => esc(etiquetaCampo(c))).join(', ')}${parsed.camposNuevos.length ? `, y como datos extra: ${parsed.camposNuevos.map((x) => esc(x.etiqueta)).join(', ')}` : ''}</li>
+            ${prep.repetidas.length ? `<li><b>${prep.repetidas.length}</b> fila(s) ya importadas antes: se omiten para no duplicarlas.</li>` : ''}
+            ${av.fechas ? `<li class="txt-ambar">⚠️ <b>${av.fechas}</b> cliente(s) con una fecha que no se entendió: quedan sin esa fecha y se la pones después.</li>` : ''}
+            ${av.periodicidades ? `<li class="txt-ambar">⚠️ <b>${av.periodicidades}</b> cliente(s) con una periodicidad que no se reconoció (se aceptan Mensual, Trimestral, Semestral, Anual o «Cada 15 días»).</li>` : ''}
+            ${sinNombre ? `<li class="txt-ambar">⚠️ <b>${sinNombre}</b> fila(s) sin nombre.</li>` : ''}
+            ${av.ejemplo ? `<li>Se omite la fila de ejemplo de la plantilla.</li>` : ''}
+            ${av.titulosRepetidos ? `<li>Se omiten ${av.titulosRepetidos} fila(s) que repiten los títulos.</li>` : ''}
+            ${rojas ? `<li><b>${rojas}</b> fila(s) con celdas en <span style="color:#dc2626">rojo</span>.<label class="radio-tarjeta" style="margin-top:8px"><input type="checkbox" id="rojo-baja"><span>Importar las filas en rojo como ⚫ <b>DADO DE BAJA</b></span></label></li>` : ''}
+            ${parsed.otrasHojas.length ? `<li class="mini">Otras hojas con datos (no se importan ahora): ${parsed.otrasHojas.map(esc).join(', ')}</li>` : ''}
+          </ul>
+          ${lim.permitido ? '' : `<div class="banner mal"><p>Tu plan permite <b>${lim.caben}</b> cliente(s) más. Se importarán solo los primeros ${lim.caben}. Revisa ☰ → Mi plan.</p></div>`}
+          <p class="mini" style="margin-top:10px">Cada valor se guarda tal cual venía en tu Excel. Nada se corrige automáticamente. ¿Te equivocaste? En ☰ → Configuración → «Deshacer último cambio grande».</p>`,
+        pie: `<button class="btn" data-ir="1" type="button">Atrás</button>
           <button class="btn primario" data-ok type="button" ${lim.caben ? '' : 'disabled'}>Importar ${lim.caben} cliente(s)</button>`,
+      };
+    },
+  };
+
+  const v = ventana({ titulo: 'Importar Excel', cuerpo: '', fondoCierra: false });
+  const pintar = () => {
+    const cuerpo = v.q('.modal-cuerpo');
+    const arriba = cuerpo.scrollTop;
+    v.poner(pasos[sel.paso]());
+    return (mantener) => { cuerpo.scrollTop = mantener ? arriba : 0; };
+  };
+  v.el.addEventListener('change', (e) => {
+    if (e.target.matches('[data-hoja]')) { sel.hoja = Number(e.target.value); analizar(); pintar()(false); return; }
+    if (e.target.matches('[data-fila]')) { analizar(Number(e.target.value)); pintar()(false); return; }
+    if (e.target.matches('[data-col]')) {
+      const i = Number(e.target.dataset.col);
+      const campo = e.target.value;
+      let movida = '';
+      // Cada dato va en una sola columna (menos el nombre, que puede venir en varias).
+      if (campo !== 'nombre' && campo !== E.EXTRA && campo !== E.IGNORAR) {
+        sel.mapeo.forEach((m, j) => {
+          if (j !== i && m.campo === campo) { sel.mapeo[j] = { campo: E.EXTRA, por: null }; movida = sel.cols[j].nombre; }
+        });
+      }
+      sel.mapeo[i] = { campo, por: null };
+      pintar()(true);
+      if (movida) aviso(`«${etiquetaCampo(campo)}» estaba en la columna «${movida}»; esa quedó como otro dato`);
+    }
   });
-  v.q('[data-ok]').addEventListener('click', () => seguro(async () => {
-    parsed.rojoEsBaja = !!v.q('#rojo-baja')?.checked;
-    const n = await S.aplicarImportacion(parsed, { ...prep, nuevas: prep.nuevas.slice(0, lim.caben) });
-    v.cerrar();
-    render();
-    resultadoImport(n);
-  }));
+  v.el.addEventListener('click', (e) => {
+    const ir = e.target.closest('[data-ir]');
+    if (ir) { sel.paso = Number(ir.dataset.ir); pintar()(false); }
+    if (e.target.closest('[data-ok]')) seguro(async () => {
+      parsed.rojoEsBaja = !!v.q('#rojo-baja')?.checked;
+      const n = await S.aplicarImportacion(parsed, { ...prep, nuevas: prep.nuevas.slice(0, lim.caben) });
+      v.cerrar();
+      render();
+      resultadoImport(n);
+    });
+  });
+  pintar();
 }
 
 function resultadoImport(n) {
@@ -751,6 +885,7 @@ export function abrirAsistente() {
   if (!pendientes.length) return aviso('Todos tus clientes ya tienen fecha de cobro');
   const { hoy, aviso: dias } = ctx();
   const perDefecto = S.db.config.periodicidadDefecto;
+  const conPer = pendientes.filter((c) => L.esPeriodicidad(c.periodicidad)).length;
   const sel = {
     paso: 1, periodicidad: perDefecto, metodo: 'ciclo',
     // tipo: una de PERIODICIDADES o 'personalizado' (cada `dias` días)
@@ -789,7 +924,8 @@ export function abrirAsistente() {
           <span><b>Personalizado</b> <span class="mini">· tú eliges cada cuántos días</span>
             <span class="per-dias" ${sel.tipo === 'personalizado' ? '' : 'hidden'}>Cada
               <input type="number" name="dias_per" min="1" max="${L.MAX_DIAS_PERIODO}" inputmode="numeric" value="${sel.dias}" placeholder="15"> días</span></span></label>
-        <p class="mini" style="margin-top:8px">Si algunos pagan distinto, elige lo más común. A esos los cambias después uno por uno.</p>`,
+        <p class="mini" style="margin-top:8px">Si algunos pagan distinto, elige lo más común. A esos los cambias después uno por uno.</p>
+        ${conPer ? `<div class="banner info" style="margin-top:10px"><p><b>${conPer}</b> cliente(s) ya tienen su periodicidad (por ejemplo, la que venía en tu Excel) y se les respeta. ${conPer === pendientes.length ? 'Como todos la tienen, solo toca «Siguiente».' : `Esta respuesta es para ${pendientes.length - conPer === 1 ? 'el otro cliente' : `los otros ${pendientes.length - conPer}`}.`}</p></div>` : ''}`,
       pie: `<button class="btn" data-ir="1" type="button">Atrás</button><button class="btn primario" data-ir="3" type="button">Siguiente</button>`,
     }),
     3: () => {
@@ -1018,7 +1154,7 @@ function contextoSoporte() {
 }
 
 const PREGUNTAS = [
-  ['¿Cómo cargo mis clientes desde Excel?', 'Menú ☰ Datos → Importar Excel. La primera fila debe tener los títulos (CLIENTE, CURP, NSS, CELULAR, FECHA DE inicio…). Verás una vista previa antes de importar.'],
+  ['¿Cómo cargo mis clientes desde Excel?', 'Menú ☰ → Importar y exportar → Importar Excel. Tu Excel puede tener sus columnas con cualquier nombre y en cualquier orden: la app reconoce cuál es cada una y tú solo revisas antes de importar. Si no tienes tu lista en Excel, descarga ahí mismo la plantilla.'],
   ['¿Cómo registro un pago?', 'Toca «Registrar pago» en el cliente. La próxima fecha se calcula sola según su periodicidad.'],
   ['¿Qué significa cada color?', '🟢 al día · 🟡 vence pronto · 🔴 moroso (ya pasó su fecha) · ⚫ dado de baja · ⚪ aún sin fecha de pago.'],
   ['¿Otro asesor puede ver mis clientes?', 'No. Cada cuenta ve únicamente sus propios clientes.'],
