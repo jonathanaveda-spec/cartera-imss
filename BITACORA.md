@@ -66,3 +66,8 @@ para verla, probar desde otra cuenta.
 - Instalable como app aparte "Cartera Admin": `plataforma/admin.webmanifest` (id "admin",
   scope "admin") + registro del service worker en admin.js (36e9cbd, sw v14). Antes Chrome
   solo ofrecía "Crear acceso directo" porque admin.html no tenía manifiesto.
+
+**App de asesores: menú ☰**
+- "Vencimientos" (días para 🟡 y periodicidad sugerida) y "Mensajes de cobro" (textos de
+  WhatsApp del botón «Recordar») salen de Configuración y tienen su propio apartado, justo
+  debajo de "Mi plan". Configuración queda con campos personalizados y almacenamiento. (sw v15)
