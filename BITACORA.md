@@ -75,6 +75,16 @@ WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y c
 
 **Jonathan probó el PIN y la huella en su celular: funcionan** («me encantó»).
 
+**Botones del detalle del cliente reordenados** (Jonathan: «se ven con desorganización»):
+- **💵 Registrar pago** va grande y a lo ancho. Si el cliente está de baja, en su lugar va **↩️ Reactivar cliente**.
+- Debajo, contactar: **💬 Recordar** (verde; si el cliente está al día dice «WhatsApp») y **📞 Llamar**. «Llamar» ya
+  no se ve como enlace azul subrayado.
+- Luego administrar: **✏️ Editar** y **⏸️ Dar de baja**.
+- **🗑️ Eliminar cliente** queda aparte, abajo, como texto rojo, para no tocarlo por error.
+- El bloque «Próximo pago» se alinea a la izquierda en el celular.
+- Probado en la demo con clientes inventados (moroso y de baja).
+- A Jonathan le gustó que el asesor decida si envía o no el comprobante.
+
 **Comprobante de pago por WhatsApp**:
 - Al registrar un pago aparece «✅ Pago registrado» con el mensaje listo y editable. Ejemplo: «Hola Marta 👋 Recibí tu pago
   de $1,500.00 del 29 de septiembre de 2026. ✅ Tu próximo pago es el 5 de noviembre de 2026. ¡Gracias por tu

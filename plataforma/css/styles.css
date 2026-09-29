@@ -236,6 +236,20 @@ tr.fila.est-baja td { opacity: .72; }
 
 .destacado { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; }
 .destacado .grande { font-size: 1.5rem; font-weight: 700; }
+.destacado .prox { text-align: right; }
+/* En el celular el bloque del próximo pago baja a su propia línea: alineado a la izquierda como lo demás. */
+@media (max-width: 520px) { .destacado .prox { text-align: left; width: 100%; padding-top: 10px; border-top: 1px solid var(--linea); } }
+
+/* Botones del detalle: primero registrar pago, luego contactar, luego administrar; eliminar aparte. */
+.acc-detalle { display: grid; gap: 8px; }
+.acc-detalle .btn { width: 100%; min-height: 48px; white-space: nowrap; text-decoration: none; }
+.acc-detalle a.btn:not(.btn-wa) { color: var(--tinta); }
+.acc-detalle .btn.principal { min-height: 54px; font-size: 1.05rem; }
+.acc-dos { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.acc-dos:empty { display: none; }
+.acc-dos > .btn:only-child { grid-column: 1 / -1; }
+.acc-eliminar { justify-self: center; margin-top: 4px; min-height: 44px; padding: 0 14px; background: none; border: 0; color: var(--peligro);
+  font-size: .92rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .datos { display: grid; grid-template-columns: 1fr; gap: 8px 16px; }
 @media (min-width: 560px) { .datos { grid-template-columns: 1fr 1fr; } }
 .datos dt { font-size: .75rem; text-transform: uppercase; letter-spacing: .4px; color: var(--suave); }
