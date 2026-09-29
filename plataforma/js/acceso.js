@@ -19,10 +19,36 @@ function pantalla(html) {
 function pintarZonaInstalar() {
   const z = document.querySelector('#acceso [data-zona-instalar]');
   if (!z) return;
-  z.innerHTML = I.htmlZona(I.pidioInstalar());
+  z.innerHTML = I.htmlZona();
   z.querySelector('[data-instalar]')?.addEventListener('click', () => I.instalar());
 }
 I.alCambiar(pintarZonaInstalar);
+
+// Quien llega desde "Instalar la app" de la página ve primero una pantalla solo para instalar; después, el inicio de sesión.
+let instalacionVista = false;
+const debeMostrarInstalar = () => I.pidioInstalar() && !I.instalada() && !instalacionVista;
+
+function pintarPantallaInstalar() {
+  const z = document.querySelector('#acceso [data-pantalla-instalar]');
+  if (!z) return;
+  z.innerHTML = I.htmlPantalla();
+  z.querySelector('[data-instalar]')?.addEventListener('click', async () => {
+    if (await I.instalar()) {
+      z.innerHTML = `<p class="acceso-texto"><b>¡Listo!</b> Busca el ícono <b>Cartera</b> en tu pantalla de inicio y ábrela desde ahí.</p>`;
+    }
+  });
+}
+I.alCambiar(pintarPantallaInstalar);
+
+function mostrarInstalar(acc) {
+  const el = pantalla(`${titulo()}<h2>Instala ${esc(MARCA.nombre)}</h2>
+    <p class="acceso-texto" style="margin-bottom:8px">Queda en tu pantalla de inicio y se abre con un toque, como cualquier app.</p>
+    <div class="instalar-zona" data-pantalla-instalar></div>
+    <p class="mini" style="margin-top:14px">Cuando la abras desde el ícono, ahí creas tu cuenta o inicias sesión.</p>
+    <button class="btn" type="button" id="seguir-web" style="width:100%;margin-top:10px">Seguir sin instalar</button>`);
+  pintarPantallaInstalar();
+  el.querySelector('#seguir-web').addEventListener('click', () => { instalacionVista = true; mostrarLogin(acc); });
+}
 
 export function ocultarAcceso() {
   $('#acceso').hidden = true;
@@ -46,6 +72,7 @@ const msgEn = (el) => {
 
 /** acc = { entrar, recuperar, registrar, mensajeError } */
 export function mostrarLogin(acc) {
+  if (debeMostrarInstalar()) return mostrarInstalar(acc);
   const el = pantalla(`${titulo()}<p class="acceso-texto">${esc(MARCA.lema)}</p>
     <div data-zona-instalar></div>
     <form id="f-login" novalidate>
