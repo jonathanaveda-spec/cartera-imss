@@ -4,9 +4,11 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
-## ▶ Estado actual y próximos pasos (actualizado 29/09)
+## ▶ Estado actual y próximos pasos (actualizado 30/09, cierre de la noche)
 
-**En línea:** carteraasesor.com/app → versión `cartera-asesor-v20`. Panel: carteraasesor.com/app/admin.html
+**En línea:** carteraasesor.com/app → versión `cartera-asesor-945579d83c` (la versión ya se pone sola
+con cada publicación). Panel: carteraasesor.com/app/admin.html (ya con 🗑️ Borrar pagos y asesores;
+Jonathan confirmó que le llegó la versión nueva).
 
 **Para retomar en otra PC:** `git pull` en la carpeta del repo y decirle a Claude «retomemos».
 Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
