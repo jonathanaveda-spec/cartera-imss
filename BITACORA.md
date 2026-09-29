@@ -14,16 +14,27 @@ Jonathan confirmó que le llegó la versión nueva).
 Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 
 **Pendientes (en orden sugerido):**
-1. Yamileth: en iPhone, cerrar y abrir la app 2 veces y probar **Eliminar** (clienta duplicada
-   HERNANDEZ PEREZ ANA VERONICA: revisar antes cuál copia tiene pagos) y el **scroll** de las ventanas.
+1. ~~Yamileth: probar **Eliminar** y el **scroll** en iPhone~~ ✅ arreglado (Jonathan, 01/10).
 2. Que algún usuario de iPhone pruebe la **guía de instalación** nueva desde Safari.
 3. ~~Confirmar el destrabe automático de publicaciones~~ ✅ funcionó el 30/09 (v21 salió sola).
-4. Decidir cuándo quitar **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
-5. `privacidad.html`: revisar «persona natural con domicilio en Colombia» y el aviso BORRADOR.
+4. Seguimos en **beta** (decisión 01/10): no quitar todavía **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
+5. ~~`privacidad.html`: domicilio y aviso BORRADOR~~ ✅ domicilio confirmado; se quitó BORRADOR de privacidad y términos (01/10).
 6. Siguiente tarea grande: **asistente para importar cualquier Excel** (PLAN.md, paso 13).
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
 8. ~~Publicar las reglas nuevas de Firebase~~ ✅ publicadas por Jonathan el 30/09 1:59 a.m. (verificado).
    Falta probar el borrado en el panel (Asesores → 🗑️ Borrar en «Jonathan Prueba»).
+
+## 2026-10-01
+
+**Aviso de GitHub "Possible valid secrets detected"**: se revisó todo el historial. Lo único detectado es
+la `apiKey` de Firebase en `plataforma/js/nube-config.js`. No es un secreto: va en la app de todos los
+visitantes y solo identifica el proyecto; los datos los protegen el inicio de sesión y `firestore.rules`.
+No hay contraseñas, tokens de GitHub ni llaves privadas. Pasos que hace Jonathan (guía en el chat):
+(1) Google Cloud → Credenciales → restringir la llave a los sitios carteraasesor.com, github.io,
+cartera-asesor.firebaseapp.com y localhost; (2) cerrar la alerta en GitHub como «Won't fix».
+
+**Páginas legales**: se quitó el aviso BORRADOR de `privacidad.html` y `terminos.html`
+(Jonathan confirmó responsable y domicilio en Colombia).
 
 ## 2026-09-30
 
