@@ -51,5 +51,12 @@ con `git pull`.
 - Pasos para Yami: en la app vieja ☰ Datos → Descargar respaldo completo (queda en Descargas);
   en la nueva ☰ Datos → Restaurar respaldo → elegir Respaldo_Cartera_IMSS_<fecha>.xlsx.
 
-**Correo de soporte**: sigue pendiente. El panel de Cloudflare no carga desde Claude in Chrome
-(ventana sin tamaño / se queda cargando), así que la regla hay que revisarla a mano.
+- Yami ya se mudó a la app nueva.
+
+**Correo de soporte: RESUELTO.** Causa: en Cloudflare no existía ninguna regla ("Reglas de
+enrutamiento: 0"); solo estaba la regla general "Para todo" (Descartar, desactivada). Se creó la
+regla soporte@carteraasesor.com → Enviar a jonathanaveda@gmail.com (Activa; destino Verificado).
+Prueba 3 sin rebote y el Registro de actividad de Cloudflare la muestra como "Forwarded".
+Nota: si la prueba se manda desde el mismo Gmail, Gmail no muestra la copia reenviada en Recibidos;
+para verla, probar desde otra cuenta.
+(Si Claude in Chrome no carga Cloudflare, es porque la ventana de Chrome está minimizada.)
