@@ -395,3 +395,31 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 .imp-tabla thead { display: table-header-group; }
 .imp-tabla tbody { display: table-row-group; }
 .imp-tabla td:first-child { white-space: normal; min-width: 120px; }
+
+/* Bloqueo con PIN: pantalla completa por encima de todo (también de la de carga). */
+.bloqueo { position: fixed; inset: 0; z-index: 300; display: flex; align-items: center; justify-content: center; overflow-y: auto;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  background: linear-gradient(160deg, #0b2a6f, #1d4ed8 70%, #1aa3f5); color: #fff; }
+.bloqueo-caja { width: 100%; max-width: 320px; text-align: center; }
+.bloqueo-logo { border-radius: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+.bloqueo h2 { font-size: 1.2rem; margin: 14px 0 4px; }
+.bloqueo-msj { min-height: 1.5em; opacity: .9; }
+.bloqueo-msj.mal { color: #fecaca; font-weight: 600; opacity: 1; }
+.bloqueo-texto { margin: 10px 0; line-height: 1.45; opacity: .95; }
+.bloqueo-puntos { display: flex; justify-content: center; gap: 18px; margin: 18px 0 26px; }
+.bloqueo-puntos i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .85); transition: background-color .12s ease, transform .12s cubic-bezier(.23, 1, .32, 1); }
+.bloqueo-puntos i.lleno { background: #fff; transform: scale(1.1); }
+.bloqueo-puntos.sacudir { animation: sacudir .4s cubic-bezier(.36, .07, .19, .97); }
+@keyframes sacudir { 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+.teclado { display: grid; grid-template-columns: repeat(3, 72px); gap: 14px 22px; justify-content: center; }
+.tecla { width: 72px; height: 72px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .16); color: #fff; font-size: 1.7rem; font-weight: 500;
+  cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+  transition: transform .1s cubic-bezier(.23, 1, .32, 1), background-color .1s ease; }
+.tecla:active { transform: scale(.94); background: rgba(255, 255, 255, .32); }
+.tecla.accion { background: transparent; font-size: 1.5rem; }
+.tecla:focus-visible, .bloqueo-enlace:focus-visible { outline: 3px solid #bfdbfe; outline-offset: 2px; }
+.bloqueo-enlace { display: block; margin: 16px auto 0; background: none; border: 0; color: #fff; font-size: .95rem; text-decoration: underline; cursor: pointer; min-height: 44px; padding: 0 12px; }
+.bloqueo .btn.completo { width: 100%; margin-top: 8px; background: #fff; color: var(--marca-osc); border-color: #fff; }
+.campo-pin { display: block; width: 100%; max-width: 200px; margin-top: 4px; letter-spacing: .5em; font-size: 1.3rem; text-align: center; }
+@media (max-height: 640px) { .tecla { width: 62px; height: 62px; } .teclado { grid-template-columns: repeat(3, 62px); gap: 10px 20px; } .bloqueo-puntos { margin: 12px 0 16px; } }
+@media (prefers-reduced-motion: reduce) { .bloqueo-puntos.sacudir { animation: none; } }

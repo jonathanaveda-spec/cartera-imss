@@ -49,6 +49,24 @@ antivirus de Transsion) muestran «Pueden existir riesgos». Desde Play Store es
 - Pagos: mientras la app de Play no cobre dentro de la app, no mostrar ahí los precios ni los medios de pago del Plan Pro (política de pagos de Google).
 - Después: notificaciones de «cobros de hoy», chat de soporte con IA (con tope de gasto).
 
+## Ideas aprendidas de la competencia (29/09)
+Revisadas «Cobros y Deudas» (DT-Soft, 10K) y «CobrApp» (100K+, en realidad es para préstamos y cobradores).
+Buscando «imss asesores» en Google Play **no hay ninguna app para que el asesor IMSS maneje su cartera**: el nicho
+está libre. CobrApp paga anuncios para salir en esa búsqueda: usar esas palabras en nuestra ficha.
+Decisiones: nada de publicidad dentro de la app, la nube es para todos (se cobra por crecer, no por guardar) y nos
+quedamos en el nicho de asesores IMSS (después: otros oficios de cobro recurrente; préstamos, si acaso, como app aparte).
+| Idea | Estado |
+|---|---|
+| Bloqueo con PIN y huella / Face ID | ✅ 29/09 |
+| Comprobante de pago por WhatsApp con el nombre del asesor | pendiente (siguiente) |
+| Pantalla «Acerca de» con marca del desarrollador + botón Compartir la app | pendiente: Jonathan elige el nombre de marca |
+| Entrar con Google | pendiente |
+| Filtros rápidos «Pagan hoy» / «Pagaron hoy» | pendiente |
+| Tour de bienvenida corto y tutoriales (video) dentro de la app | pendiente |
+| «Usada por N asesores» (prueba social) cuando haya usuarios | después |
+| Notificaciones «hoy vencen N clientes» (necesita servidor pagado) | después |
+No copiar: préstamos/intereses/rutas, banners de Premium por todos lados, botones flotantes que se tapan.
+
 ## Fase 4 — App Store (99 USD/año)
 - Iniciar sesión con Apple, pagos dentro de la tienda (RevenueCat).
 

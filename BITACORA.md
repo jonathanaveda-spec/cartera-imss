@@ -73,6 +73,29 @@ FAQ con «+» que gira y pregunta nueva sobre Excel con otro formato; textos al 
 plantilla, «cada cierto número de días»); correo de soporte en el pie; `og:image` con URL completa para que
 WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y computador.
 
+**Competencia revisada** (capturas de Jonathan: Cobros y Deudas, CobrApp y la búsqueda «imss asesores» en Play).
+Conclusiones e ideas pendientes en `PLAN.md` → «Ideas aprendidas de la competencia».
+
+**Bloqueo con PIN y huella / Face ID** (`js/bloqueo.js`, idea tomada de la competencia):
+- Se activa en ☰ Menú → «🔒 Bloqueo con PIN». Hay un aviso «Nuevo: protege tu cartera con un PIN» con los botones
+  Activar / Ahora no, que sale cuando ya hay clientes.
+- PIN de 4 números. Se guarda **solo en ese teléfono** (en `localStorage`, clave `cartera:bloqueo`), como resumen
+  SHA-256 con sal, y ligado a la cuenta que lo activó.
+- Opcional: huella o Face ID (WebAuthn del propio teléfono), si el teléfono lo permite.
+- Cuándo lo pide: al abrir la app, y al volver después de salir por 0, 1, 5 o 20 minutos (se elige; por defecto 5).
+  Con 0, se bloquea al salir, así la vista de apps recientes tampoco muestra la cartera.
+- Tras 5 intentos fallidos hay que esperar 30 segundos.
+- «¿Olvidaste tu PIN?» lleva a cerrar sesión y volver a entrar con correo y contraseña; los clientes están en la nube.
+  Al cerrar sesión, el PIN se borra.
+- Cambiar o quitar el PIN pide el PIN actual.
+- Es una pantalla de privacidad (evita que otra persona vea la cartera). No cifra los datos del teléfono.
+- Probado en tamaño celular: teclado, PIN incorrecto, espera, «Olvidé», activar, cambiar tiempo y quitar. Se corrigió
+  un error: al volver de «Olvidé», los puntos y los mensajes dejaban de actualizarse.
+- La huella / Face ID no se pudo probar aquí; hay que probarla en un celular real.
+- Nota para probar en local: el service worker local guarda versiones viejas. Hay que borrarlo o usar
+  http://localhost:8080/demo/ (Firebase simulado).
+- Nueva pregunta en la ayuda de la app. En la página, la tarjeta «Privada y segura» menciona el PIN o la huella.
+
 **Beta gratuita con tope de 100 clientes** (pedido de Jonathan):
 - En `plan.js`, la beta («Acceso libre para todos») ya no es ilimitada: permite hasta `limiteBeta` clientes.
   - Por defecto son 100 (`LIMITE_BETA_DEFECTO`).

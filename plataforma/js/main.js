@@ -2,6 +2,7 @@ import * as S from './store.js';
 import * as N from './nube.js';
 import * as A from './acceso.js';
 import * as I from './instalar.js';
+import * as B from './bloqueo.js';
 import './pantalla.js';
 import { activarActualizaciones } from './actualizar.js';
 import { render, enlazarEventos, refrescarTodo, alCambiarSoporte } from './ui.js';
@@ -56,6 +57,8 @@ async function arrancar() {
     A.mostrarCargando('Cargando tus clientes…');
     try {
       const u = N.usuarioActual();
+      // Si activó el bloqueo con PIN en este teléfono, se pide antes de mostrar la cartera.
+      B.iniciar(u.uid, { salir: async () => { await N.salir(); location.reload(); } });
       await S.asegurarDueno(u.uid);
       await N.cargarCuenta();
       const r = await N.iniciarSincronizacion({

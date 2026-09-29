@@ -4,6 +4,7 @@ import { firebaseConfig } from './nube-config.js';
 import * as S from './store.js';
 import { calcularCambios, actualizarBase, separarConfig, limpio, estable } from './sincro.js';
 import { planEfectivo, cupo, puedeEditar } from './plan.js';
+import { alSalir as olvidarPin } from './bloqueo.js';
 
 export const nubeActiva = !!firebaseConfig;
 export const estado = { usuario: null, uid: null, error: null, perfil: null, plan: null, sistema: {}, planEf: planEfectivo() };
@@ -281,6 +282,7 @@ function detener() {
 
 export async function salir() {
   detener();
+  olvidarPin();
   try { await F.signOut(auth); } catch { /* ignorar */ }
   try { await F.terminate(fs); await F.clearIndexedDbPersistence(fs); } catch { /* ignorar */ }
   await S.borrarLocal();
