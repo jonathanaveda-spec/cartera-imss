@@ -46,8 +46,8 @@ export async function instalar() {
 export function htmlEstado() {
   if (estado === 'instalando') {
     return `<div class="instalando"><div class="girar" aria-hidden="true"></div>
-      <p><b>Instalando…</b> El teléfono está preparando la app; puede tardar hasta 1 minuto.</p>
-      <p class="mini">No vuelvas a tocar «Instalar». Cuando termine te avisamos aquí.</p></div>`;
+      <p><b>Instalando…</b> Puede tardar hasta 1 minuto.</p>
+      <p class="mini">Espera aquí, te avisamos cuando esté lista.</p></div>`;
   }
   if (estado === 'tardando') {
     return `<p><b>¿Ya ves el ícono «Cartera»?</b> Búscalo en tu pantalla de inicio o en la lista de apps.</p>
