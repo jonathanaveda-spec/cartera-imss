@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Cartera Asesor · Tu cartera de clientes IMSS, organizada y al día</title>
-  <meta name="description" content="La app para asesores que manejan clientes del IMSS: pagos, vencimientos, morosos y recordatorios por WhatsApp en un solo lugar. Prueba 7 días gratis.">
+  <meta name="description" content="La app para asesores que manejan clientes del IMSS: pagos, vencimientos, morosos y recordatorios por WhatsApp en un solo lugar. Gratis durante la beta.">
   <meta name="theme-color" content="#0b2a6f">
   <meta property="og:title" content="Cartera Asesor">
-  <meta property="og:description" content="Tu cartera de clientes IMSS, organizada y al día. Prueba 7 días gratis.">
+  <meta property="og:description" content="Tu cartera de clientes IMSS, organizada y al día. Gratis durante la beta.">
   <meta property="og:image" content="https://carteraasesor.com/logo.png">
   <meta property="og:url" content="https://carteraasesor.com/">
   <meta property="og:type" content="website">
@@ -137,6 +137,29 @@
     .precio ul { list-style: none; padding: 0; margin: 16px 0 24px; flex: 1; text-align: left; }
     .precio li { padding: 6px 0 6px 28px; position: relative; color: var(--suave); }
     .precio li::before { content: "✓"; position: absolute; left: 0; color: var(--verde); font-weight: 800; }
+    .precios-beta { position: relative; }
+    .precios-beta .precios { filter: blur(2.5px) saturate(.7); opacity: .7; pointer-events: none; user-select: none; -webkit-user-select: none; }
+    .velo-beta { position: absolute; inset: -12px; display: flex; align-items: center; justify-content: center; padding: 16px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(245, 248, 255, .75)); border-radius: 24px; }
+    .velo-tarjeta { position: sticky; top: 84px; bottom: 16px; max-width: 420px; background: #fff; border: 2px solid var(--azul); border-radius: 22px;
+      padding: 28px 24px; box-shadow: 0 24px 60px rgba(11, 42, 111, .22); text-align: center; }
+    .velo-tarjeta h3 { margin: 14px 0 8px; font-size: 1.35rem; }
+    .velo-tarjeta p { margin: 0 0 10px; color: var(--suave); }
+    .velo-tarjeta p.chico { font-size: .9rem; margin-bottom: 18px; }
+    .sello-beta { display: inline-block; background: linear-gradient(135deg, #16a34a, #22c55e); color: #fff; font-weight: 800; letter-spacing: .06em;
+      text-transform: uppercase; font-size: .85rem; padding: 7px 16px; border-radius: 99px; box-shadow: 0 6px 16px rgba(22, 163, 74, .35); transform: rotate(-3deg); }
+    @media (max-width: 900px) { .velo-beta { align-items: flex-start; padding-top: 48px; } }
+
+    .pc-guia { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; align-items: start; }
+    @media (max-width: 860px) { .pc-guia { grid-template-columns: 1fr; } }
+    .pc-pasos { counter-reset: pc; list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    .pc-pasos li { position: relative; background: #fff; border: 1px solid var(--linea); border-radius: var(--radio); padding: 18px 20px 18px 70px; color: var(--suave); }
+    .pc-pasos li b { color: var(--tinta); }
+    .pc-pasos li::before { counter-increment: pc; content: counter(pc); position: absolute; left: 20px; top: 16px; width: 34px; height: 34px; border-radius: 50%;
+      background: linear-gradient(135deg, #1d4ed8, #1aa3f5); color: #fff; font-weight: 800; display: grid; place-items: center; }
+    .pc-lado { background: #fff; border: 1px solid var(--linea); border-radius: var(--radio); padding: 22px; color: var(--suave); }
+    .pc-lado h3 { margin: 0 0 8px; color: var(--tinta); font-size: 1.1rem; }
+    .pc-lado p { margin: 0 0 12px; }
     .ahorro { display: inline-block; background: #dcfce7; color: #14532d; font-weight: 700; font-size: .85rem; padding: 3px 10px; border-radius: 99px; }
 
     /* Preguntas: el + gira a × y la respuesta aparece suave */
@@ -213,7 +236,7 @@
             <a class="btn btn-primario" href="app/?instalar=1"><svg><use href="#i-bajar"/></svg> Instalar la app gratis</a>
             <a class="btn btn-borde" href="#funciones">Ver cómo funciona</a>
           </div>
-          <p class="nota entra" style="--i:4"><span>7 días gratis</span><span>Sin tarjeta</span><span>Android, iPhone y computador</span></p>
+          <p class="nota entra" style="--i:4"><span>Beta gratuita</span><span>Sin tarjeta</span><span>Android, iPhone y computador</span></p>
         </div>
         <div class="escena" aria-hidden="true">
           <div class="telefono">
@@ -260,18 +283,41 @@
         <h2 data-revelar>Empieza en 3 pasos</h2>
         <p class="sub" data-revelar>En menos de 5 minutos tienes tu cartera lista.</p>
         <div class="pasos">
-          <div class="paso" data-revelar style="--i:0"><h3>Instala y crea tu cuenta</h3><p>Con tu correo. Tienes 7 días para probarla completa, sin pagar nada.</p></div>
+          <div class="paso" data-revelar style="--i:0"><h3>Instala y crea tu cuenta</h3><p>Con tu correo. Durante la beta es gratis, con todas las funciones.</p></div>
           <div class="paso" data-revelar style="--i:1"><h3>Carga tus clientes</h3><p>Sube tu Excel tal como lo tienes o agrégalos uno por uno.</p></div>
           <div class="paso" data-revelar style="--i:2"><h3>Cobra a tiempo</h3><p>Revisa quién vence y recuérdale por WhatsApp desde la misma app.</p></div>
         </div>
       </div>
     </section>
 
+    <section id="excel-pc" style="padding-top:0">
+      <div class="envoltura">
+        <h2 data-revelar>¿Tu Excel está en la computadora?</h2>
+        <p class="sub" data-revelar>Es lo más fácil: impórtalo desde la computadora y tus clientes aparecen solos en tu celular.</p>
+        <div class="pc-guia">
+          <ol class="pc-pasos">
+            <li data-revelar style="--i:0"><b>Abre la app en tu computadora.</b> En Chrome, Edge o Safari entra a <b>carteraasesor.com/app</b>. No hay que instalar nada.</li>
+            <li data-revelar style="--i:1"><b>Entra con tu misma cuenta.</b> El mismo correo y contraseña que usas en el celular (o crea tu cuenta ahí).</li>
+            <li data-revelar style="--i:2"><b>Importa tu Excel.</b> Ve a <b>☰ Menú → Importar y exportar → Importar Excel → En esta computadora</b> y elige tu archivo (suele estar en Descargas o en Documentos).</li>
+            <li data-revelar style="--i:3"><b>Revisa y confirma.</b> La app reconoce tus columnas; tú solo revisas y tocas <b>Importar</b>.</li>
+            <li data-revelar style="--i:4"><b>Abre la app en tu celular.</b> Tus clientes ya están ahí, sin hacer nada más.</li>
+          </ol>
+          <div class="pc-lado" data-revelar style="--i:2">
+            <h3>¿Prefieres hacerlo desde el celular?</h3>
+            <p>Mándate el Excel por WhatsApp o por correo, ábrelo en el celular y guárdalo (en iPhone: Compartir → Guardar en Archivos; en Android: Descargar). Luego, en la app: ☰ Menú → Importar y exportar → Importar Excel.</p>
+            <p>¿Tu lista está en Google o en Numbers? Primero guárdala como Excel (.xlsx); la app te explica cómo.</p>
+            <a class="btn btn-azul" href="app/">Abrir la app</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="precios" style="background:#fff">
       <div class="envoltura centro">
-        <h2 data-revelar>Precios simples</h2>
-        <p class="sub" data-revelar>El mismo precio en México, Colombia y Venezuela. Pagas en tu moneda con Nequi, transferencia o Binance.</p>
-        <div class="precios">
+        <h2 data-revelar>Planes y precios</h2>
+        <p class="sub" data-revelar>Hoy estamos en <b>beta gratuita</b>: no pagas nada. Así serán los planes cuando termine la beta.</p>
+        <div class="precios-beta">
+        <div class="precios" aria-hidden="true" inert>
           <div class="precio" data-revelar style="--i:0"><h3>Prueba gratis</h3><div class="monto">0 <small>USD</small></div><div>7 días completos</div>
             <ul><li>Clientes ilimitados</li><li>Todas las funciones</li><li>Sin tarjeta</li></ul>
             <a class="btn btn-azul" href="app/?instalar=1">Empezar gratis</a></div>
@@ -282,6 +328,16 @@
             <ul><li>Todo lo del plan mensual</li><li>Un solo pago al año</li></ul>
             <a class="btn btn-azul" href="app/?instalar=1">Probar 7 días gratis</a></div>
         </div>
+        <div class="velo-beta">
+          <div class="velo-tarjeta" data-revelar>
+            <span class="sello-beta">Beta gratuita</span>
+            <h3>Hoy es gratis, sin letra pequeña</h3>
+            <p>Todas las funciones sin costo, <b>hasta 100 clientes</b>. No pedimos tarjeta y nada se cobra solo.</p>
+            <p class="chico">Cuando termine la beta te avisaremos con tiempo. El plan de pago solo se activa si tú lo pides.</p>
+            <a class="btn btn-azul" href="app/?instalar=1">Entrar gratis a la beta</a>
+          </div>
+        </div>
+        </div>
       </div>
     </section>
 
@@ -290,9 +346,10 @@
         <h2 class="centro" data-revelar>Preguntas frecuentes</h2>
         <div class="faq" style="margin-top:28px">
           <details><summary>¿Necesito descargarla de una tienda?</summary><p>No. Toca «Instalar la app» y queda en tu pantalla de inicio como cualquier app. En Android es un toque; en iPhone, Compartir → «Agregar a pantalla de inicio».</p></details>
+          <details><summary>Mi Excel está en la computadora, ¿cómo lo paso a la app?</summary><p>Entra a carteraasesor.com/app desde la computadora con tu misma cuenta y ve a ☰ Menú → Importar y exportar → Importar Excel. Tus clientes aparecen solos en tu celular. Más arriba, en «¿Tu Excel está en la computadora?», están los pasos.</p></details>
           <details><summary>¿Mi Excel sirve aunque tenga otro formato?</summary><p>Sí. Súbelo tal como lo tienes: la app busca los títulos, reconoce qué dato tiene cada columna y te muestra una vista previa antes de importar. Si no tienes Excel, descarga la plantilla desde la misma app.</p></details>
-          <details><summary>¿Qué pasa cuando terminan los 7 días?</summary><p>Tus clientes siguen guardados. Para seguir registrando pagos y agregando clientes activas el Plan Pro desde la app, en «Mi plan».</p></details>
-          <details><summary>¿Cómo pago?</summary><p>En «Mi plan» verás los medios de pago de tu país (Nequi, llave, transferencia o Binance). Envías tu comprobante desde la app y activamos tu plan.</p></details>
+          <details><summary>¿Me van a cobrar?</summary><p>No. Durante la beta la app es gratis, con todas las funciones y hasta 100 clientes. Cuando empiecen los planes de pago te avisaremos con tiempo, y nada se cobra solo: el plan de pago solo se activa si tú lo pides.</p></details>
+          <details><summary>Tengo más de 100 clientes, ¿qué hago?</summary><p>Escríbenos desde «Ayuda y soporte» en la app y lo vemos contigo. Los clientes que ya tienes nunca se bloquean.</p></details>
           <details><summary>¿Otro asesor puede ver mis clientes?</summary><p>No. Cada cuenta ve únicamente sus propios clientes.</p></details>
           <details><summary>¿Funciona sin internet?</summary><p>Sí. Puedes trabajar sin conexión y los cambios se guardan en tu cuenta al volver la señal.</p></details>
           <details><summary>¿Puedo sacar mis datos?</summary><p>Sí, cuando quieras: exporta tu cartera a Excel desde el menú de la app.</p></details>
@@ -304,7 +361,7 @@
       <div class="envoltura">
         <div class="cierre" data-revelar>
           <h2>Tu cartera, bajo control desde hoy</h2>
-          <p>Instálala gratis y pruébala 7 días con tus propios clientes.</p>
+          <p>Instálala gratis: estamos en beta y no cobramos nada.</p>
           <a class="btn btn-primario" href="app/?instalar=1"><svg><use href="#i-bajar"/></svg> Instalar la app gratis</a>
         </div>
       </div>

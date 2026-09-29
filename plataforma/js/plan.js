@@ -5,6 +5,7 @@
 
 export const LIMITE_GRATIS_DEFECTO = 15;
 export const DIAS_PRUEBA_DEFECTO = 7;
+export const LIMITE_BETA_DEFECTO = 100;
 const DIA = 86400000;
 const diasHasta = (v, ahora) => (v == null ? null : Math.ceil((v - ahora) / DIA));
 
@@ -15,7 +16,11 @@ export function planEfectivo({ plan, sistema, creado } = {}, ahora = Date.now())
   const ilimitado = (tipo, nombre, v) => ({ tipo, nombre, ilimitado: true, limite: Infinity, vence: v, vencido: false, diasRestantes: diasHasta(v, ahora) });
 
   if (plan?.tipo === 'pro' && (vence == null || vence > ahora)) return ilimitado('pro', 'Plan Pro', vence);
-  if (sistema?.betaAbierta) return ilimitado('beta', 'Beta gratuita', null);
+  if (sistema?.betaAbierta) {
+    // Beta gratuita: sin costo ni vencimiento, con un tope de clientes (se cambia en el panel → Sistema).
+    const tope = Number.isFinite(sistema.limiteBeta) && sistema.limiteBeta > 0 ? sistema.limiteBeta : LIMITE_BETA_DEFECTO;
+    return { tipo: 'beta', nombre: 'Beta gratuita', ilimitado: false, limite: tope, vence: null, vencido: false, diasRestantes: null };
+  }
   if (plan?.tipo === 'prueba' && vence != null && vence > ahora) return ilimitado('prueba', 'Prueba gratis', vence);
   // Sin plan asignado: prueba automática desde el registro.
   const finPrueba = !plan?.tipo && creado != null ? creado + diasPrueba * DIA : null;
@@ -27,9 +32,12 @@ export function planEfectivo({ plan, sistema, creado } = {}, ahora = Date.now())
     vencido: !!termino, termino, diasRestantes: null };
 }
 
-/** Con el plan vencido y más clientes que el límite gratis, la cartera queda en solo lectura (ver y exportar). */
+/**
+ * Con el plan vencido y más clientes que el límite gratis, la cartera queda en solo lectura (ver y exportar).
+ * En la beta nunca: quien ya tenía más clientes que el tope sigue trabajando con ellos, solo no agrega más.
+ */
 export function puedeEditar(planEf, clientes) {
-  return planEf.ilimitado || clientes <= planEf.limite;
+  return planEf.ilimitado || planEf.tipo === 'beta' || clientes <= planEf.limite;
 }
 
 /** ¿Se pueden agregar `nuevos` clientes teniendo `actuales`? Devuelve cuántos caben. */

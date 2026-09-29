@@ -1,13 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { planEfectivo, cupo, LIMITE_GRATIS_DEFECTO } from '../plataforma/js/plan.js';
+import { planEfectivo, cupo, puedeEditar, LIMITE_GRATIS_DEFECTO, LIMITE_BETA_DEFECTO } from '../plataforma/js/plan.js';
 
 const ahora = Date.UTC(2026, 8, 28);
 const DIA = 86400000;
 
-test('beta abierta: ilimitado para todos', () => {
+test('beta abierta: gratis y sin vencimiento, hasta 100 clientes', () => {
   const p = planEfectivo({ sistema: { betaAbierta: true } }, ahora);
-  assert.equal(p.tipo, 'beta'); assert.equal(cupo(p, 5000, 100).permitido, true);
+  assert.equal(p.tipo, 'beta'); assert.equal(p.limite, LIMITE_BETA_DEFECTO); assert.equal(LIMITE_BETA_DEFECTO, 100);
+  assert.equal(p.vencido, false); assert.equal(p.vence, null);
+  assert.deepEqual(cupo(p, 90, 30), { permitido: false, caben: 10 });
+  assert.deepEqual(cupo(p, 100, 1), { permitido: false, caben: 0 });
+  // Quien ya tenía más de 100 sigue editando los suyos (no queda en solo lectura), pero no agrega más.
+  assert.equal(puedeEditar(p, 250), true);
+  assert.equal(planEfectivo({ sistema: { betaAbierta: true, limiteBeta: 300 } }, ahora).limite, 300);
 });
 
 test('sin beta y sin plan: gratis con límite por defecto', () => {
@@ -66,7 +72,6 @@ test('equivalente en moneda local redondeado hacia arriba', () => {
   assert.equal(equivalenteLocal({ ...s, moneda: 'COP' }, 'CO'), '');
 });
 
-import { puedeEditar } from '../plataforma/js/plan.js';
 test('prueba automática de 7 días desde el registro', () => {
   const creado = ahora - 2 * DIA;
   const p = planEfectivo({ sistema: {}, creado }, ahora);
