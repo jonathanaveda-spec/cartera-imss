@@ -4,6 +4,23 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
+## ▶ Estado actual y próximos pasos (actualizado 29/09)
+
+**En línea:** carteraasesor.com/app → versión `cartera-asesor-v20`. Panel: carteraasesor.com/app/admin.html
+
+**Para retomar en otra PC:** `git pull` en la carpeta del repo y decirle a Claude «retomemos».
+Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
+
+**Pendientes (en orden sugerido):**
+1. Yamileth: en iPhone, cerrar y abrir la app 2 veces y probar **Eliminar** (clienta duplicada
+   HERNANDEZ PEREZ ANA VERONICA: revisar antes cuál copia tiene pagos) y el **scroll** de las ventanas.
+2. Que algún usuario de iPhone pruebe la **guía de instalación** nueva desde Safari.
+3. Confirmar que el **destrabe automático** de publicaciones funciona (se agregó el 29/09 a `pages.yml`).
+4. Decidir cuándo quitar **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
+5. `privacidad.html`: revisar «persona natural con domicilio en Colombia» y el aviso BORRADOR.
+6. Siguiente tarea grande: **asistente para importar cualquier Excel** (PLAN.md, paso 13).
+7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
+
 ## 2026-09-28 (PC de casa)
 
 **Código**
@@ -92,3 +109,17 @@ para verla, probar desde otra cuenta.
 **iPhone: ventanas cortadas y scroll difícil (v19)**: en iPhone la capa fija de las ventanas quedaba más alta que la pantalla visible; la confirmación "Eliminar cliente" quedaba con los botones fuera de pantalla (Yami no podía borrar un duplicado) y costaba llegar al final de la ficha. Arreglo: js/pantalla.js pone --alto-visible/--tope-visible con visualViewport; .fondo-modal usa esa altura; confirmaciones centradas (ventana({dialogo:true})); overscroll-behavior: contain en .modal-cuerpo.
 
 **Instalar en iPhone (v20)**: guía visual de 4 pasos con íconos dibujados como los de Safari (Compartir, •••, Agregar a inicio), distinta para Safari de iOS 26 (••• → Compartir) y anteriores; flecha animada que apunta a la barra de Safari; ayuda para quien abrió el enlace desde WhatsApp (abrir en Safari / copiar enlace). En la pantalla de acceso va plegada («ver cómo»); dentro de la app, el aviso tiene «Ver cómo (4 pasos)».
+
+**Publicación trabada otra vez**: desde v18 no se publica; GitHub pide cancelar el despliegue 227c1e7544bc4ff2ffd01a1537e795a9e44f4aff. El script ahora lo detecta solo: `powershell -ExecutionPolicy Bypass -File tools\destrabar-pages.ps1` (sin -Sha). Jonathan lo corrió y quedó v20 en línea. Además se agregó a `pages.yml` un paso «Cancelar publicaciones colgadas» (usa el token del propio flujo) para que no vuelva a pasar.
+
+## Meta pendiente: App Store (en espera)
+Decisión 29/09: publicar Cartera Asesor en la App Store es la meta, pero queda en espera
+(faltan los 99 USD/año de Apple Developer y el trámite). Plan acordado cuando se retome:
+1. Jonathan se inscribe en Apple Developer (decidir: persona o empresa; empresa pide D-U-N-S).
+2. App Store Connect: acuerdo de apps gratis, app "Cartera Asesor", Bundle ID com.carteraasesor.app,
+   llave API (rol App Manager) que sube Jonathan a Codemagic.
+3. Claude: empaquetar plataforma/ con Capacitor (rama aparte), notificaciones locales de cobro
+   (requisito práctico para no ser rechazada por "solo una web", guía 4.2), ocultar pagos del
+   Plan Pro en iOS (guía 3.1.1), compilar en Codemagic sin Mac.
+4. TestFlight con Jonathan y Yami → ficha de tienda (capturas 6.9", descripción, privacidad,
+   cuenta de prueba para el revisor) → revisión (1-3 días). Tiempo total estimado 2-4 semanas.
