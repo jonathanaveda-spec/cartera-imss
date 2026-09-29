@@ -20,10 +20,10 @@ Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 4. Seguimos en **beta** (decisión 01/10): no quitar todavía **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
 5. ~~`privacidad.html`: domicilio y aviso BORRADOR~~ ✅ domicilio confirmado; se quitó BORRADOR de privacidad y términos (01/10).
 6. ~~Asistente para importar cualquier Excel~~ ✅ hecho (PC del local, ver abajo). ~~Video corto~~ ✅ v1 lista (ver abajo).
-   Siguiente: **embellecer la página carteraasesor.com** (`sitio/index.html`) con las skills de Emil Kowalski
-   (**emil-design-eng** y **mobile-native**, instaladas en la PC del local en `~/.claude/skills/`; en otra PC hay que
-   instalarlas de nuevo desde github.com/emilkowalski/skills, carpeta `skills/<nombre>/SKILL.md`). Hacerlo en una
-   conversación nueva. Después: **capturas + cuenta de prueba** para Google Play.
+   ~~Embellecer la página carteraasesor.com~~ ✅ hecho con las skills de Emil Kowalski (ver abajo). Las skills
+   **emil-design-eng** y **mobile-native** están instaladas en la PC del local en `~/.claude/skills/`; en otra PC hay que
+   instalarlas de nuevo desde github.com/emilkowalski/skills (carpeta `skills/<nombre>/SKILL.md`, solo texto).
+   Siguiente: **capturas + cuenta de prueba** para Google Play.
    Jonathan prefiere editar él los videos en CapCut (manejar CapCut con clics gasta muchos tokens).
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
 8. ~~Publicar las reglas nuevas de Firebase~~ ✅ publicadas por Jonathan el 30/09 1:59 a.m. (verificado).
@@ -63,6 +63,15 @@ Jonathan; no está en el repo (los .xlsx no se suben). Se regenera con un script
 quedan ~630). Luego tarjetas PNG hechas con sharp (logo / candado / cierre) y la grabación de Jonathan recortada
 (sin el registro de la cuenta: se veía su correo) a 3x y 2x. Falta: voz de Jonathan (opcional); en la grabación
 aparece el botón flotante de la grabadora de pantalla (esconderlo la próxima vez).
+
+**Página carteraasesor.com más pulida** (`sitio/index.html`, reglas de emil-design-eng + mobile-native):
+íconos SVG propios en lugar de emojis; entrada escalonada de la portada; el teléfono de muestra se anima al entrar en
+pantalla (números que cuentan, se «toca» Recordar y aparece la burbuja de WhatsApp con el mensaje); secciones que
+aparecen al bajar (una sola vez; seguro de 3 s por si el navegador no avisa); botones que se hunden al presionar;
+hover solo con mouse; sin destello gris al tocar; `prefers-reduced-motion` respetado; safe-area del iPhone;
+FAQ con «+» que gira y pregunta nueva sobre Excel con otro formato; textos al día (Excel tal como lo tienes,
+plantilla, «cada cierto número de días»); correo de soporte en el pie; `og:image` con URL completa para que
+WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y computador.
 
 **Números con código de país**: `logic.js → telefonoInternacional`. Un celular de 10 dígitos sigue siendo de México
 (+52); si se escribe con «+» y código de país (ej. +57 300…), WhatsApp y «Llamar» usan ese país. «Llamar» ahora
