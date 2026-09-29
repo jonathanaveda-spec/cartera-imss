@@ -316,7 +316,8 @@ export function abrirDetalle(id, ventanaExistente) {
     <div class="seccion"><h3>Historial de pagos (${c.pagos.length})</h3>
       ${c.pagos.length ? `<ul class="lista-simple">${[...c.pagos].reverse().map((p) => `<li>
         <b>${L.fmtFecha(p.fecha_pago)}</b> · ${dinero(p.monto)}${p.metodo ? ' · ' + esc(p.metodo) : ''}
-        <div class="mini">Cubre desde ${L.fmtFecha(p.periodo_desde)} · siguiente vencimiento ${L.fmtFecha(p.periodo_hasta)}${p.nota ? ' · ' + esc(p.nota) : ''}</div></li>`).join('')}</ul>
+        <div class="mini">Cubre desde ${L.fmtFecha(p.periodo_desde)} · siguiente vencimiento ${L.fmtFecha(p.periodo_hasta)}${p.nota ? ' · ' + esc(p.nota) : ''}</div>
+        <button class="btn chico" data-accion="comprobante" data-id="${id}" data-pago="${esc(p.id)}" style="margin-top:6px">📲 ${p.comprobante_enviado ? 'Reenviar comprobante <span class="mini">(✓ enviado)</span>' : 'Enviar comprobante'}</button></li>`).join('')}</ul>
         <button class="btn chico peligro" data-accion="anular" data-id="${id}" style="margin-top:8px">Anular último pago (${L.fmtFecha(ult.fecha_pago)})</button>`
       : '<p class="mini">Aún no hay pagos registrados.</p>'}</div>
     <div class="seccion"><h3>Historial de cambios</h3>
@@ -505,12 +506,53 @@ export function abrirPago(id) {
       const fd = Object.fromEntries(new FormData(form).entries());
       fd.periodicidad = leerPeriodicidad(form);
       delete fd.periodicidad_dias;
-      await S.registrarPago(id, fd);
+      const pago = await S.registrarPago(id, fd);
       ven.cerrar();
-      aviso('Pago registrado');
       render();
       refrescarDetalleAbierto(id);
+      if (S.db.config.preguntarComprobante === false) aviso('Pago registrado');
+      else abrirComprobante(id, pago.id, { recienRegistrado: true });
     });
+  });
+}
+
+// Comprobante de pago por WhatsApp: se ofrece al registrar un pago y se puede reenviar desde el historial.
+export function abrirComprobante(id, pagoId, { recienRegistrado = false } = {}) {
+  const c = S.buscar(id);
+  const pago = c?.pagos.find((p) => p.id === pagoId);
+  if (!pago) return;
+  const texto = L.mensajeComprobante(c, pago, S.db.config.plantillaComprobante, N.estado.perfil?.nombre || '');
+  const tel = L.telefonoInternacional(c.celular);
+  const v = ventana({
+    titulo: recienRegistrado ? '✅ Pago registrado' : '📲 Comprobante de pago',
+    cuerpo: `<p style="margin-bottom:10px">${tel
+        ? `¿Le mandas el comprobante a <b>${esc(L.nombreBonito(c.nombre))}</b> por WhatsApp? Así queda tranquilo de que recibiste su pago.`
+        : `<b>${esc(L.nombreBonito(c.nombre))}</b> no tiene un celular válido. Puedes copiar el mensaje, o agregar su celular para enviárselo por WhatsApp.`}</p>
+      <label>Mensaje (puedes cambiarlo antes de enviar)<textarea data-texto rows="6">${esc(texto)}</textarea></label>
+      ${pago.comprobante_enviado ? `<p class="mini" style="margin-top:6px">✓ Ya se envió el ${L.fmtFechaHora(pago.comprobante_enviado)}.</p>` : ''}
+      ${recienRegistrado ? '<label class="radio-tarjeta" style="margin-top:10px"><input type="checkbox" data-preguntar checked><span>Preguntarme siempre al registrar un pago</span></label>' : ''}
+      <p class="mini" style="margin-top:8px">Cambia el mensaje de siempre en ☰ → Mensajes de cobro.</p>`,
+    pie: `<button class="btn" data-cerrar type="button">Ahora no</button>
+      ${tel ? '<button class="btn primario" data-enviar type="button">📲 Enviar por WhatsApp</button>' : '<button class="btn primario" data-copiar type="button">📋 Copiar mensaje</button>'}`,
+    onCerrar: () => {
+      if (recienRegistrado && v.q('[data-preguntar]') && !v.q('[data-preguntar]').checked) {
+        S.guardarConfig({ preguntarComprobante: false })
+          .then(() => aviso('Listo: ya no te preguntaremos. Lo puedes enviar desde el historial de pagos del cliente.'))
+          .catch(() => {});
+      }
+    },
+  });
+  v.q('[data-enviar]')?.addEventListener('click', () => {
+    const url = L.enlaceWhatsApp(c.celular, v.q('[data-texto]').value.trim());
+    if (!url) return aviso('Este cliente no tiene un celular válido', true);
+    window.open(url, '_blank', 'noopener');
+    S.anotarComprobante(id, pagoId).then(() => refrescarDetalleAbierto(id)).catch(() => {});
+    v.cerrar();
+  });
+  v.q('[data-copiar]')?.addEventListener('click', () => {
+    navigator.clipboard?.writeText(v.q('[data-texto]').value.trim())
+      .then(() => aviso('Mensaje copiado'))
+      .catch(() => aviso('No se pudo copiar; selecciónalo y cópialo a mano', true));
   });
 }
 
@@ -580,7 +622,7 @@ export function abrirMenu() {
       grupoMenu('Cobranza'),
       opMenu('asistente', '🗓️', 'Fechas de cobro', sinFecha ? `<b class="txt-ambar">${sinFecha} cliente(s) sin fecha de cobro.</b> Pónsela en 3 pasos.` : 'Todos tus clientes tienen fecha de cobro.', { destacada: !!sinFecha }),
       opMenu('vencimientos', '🔔', 'Vencimientos', `🟡 cuando faltan ${S.db.config.diasAviso} días o menos · sugerida: ${esc(S.db.config.periodicidadDefecto)}`),
-      opMenu('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp del botón «Recordar».'),
+      opMenu('mensajes', '📲', 'Mensajes de cobro', 'Recordatorios y comprobante de pago por WhatsApp.'),
       grupoMenu('Tus datos'),
       opMenu('archivos', '📂', 'Importar y exportar', `Excel y respaldos · ${ult ? 'último respaldo: ' + L.fmtFecha(L.hoyISO(new Date(ult))) : '<b class="txt-ambar">aún sin respaldo</b>'}`, { sub: true }),
       opMenu('bloqueo', '🔒', 'Bloqueo con PIN', B.activo() ? `Activado${B.conBiometria() ? ' · también con ' + B.nombreBiometria() : ''}.` : 'Que nadie vea tu cartera si toma tu teléfono.'),
@@ -1518,18 +1560,27 @@ export function abrirMensajesCobro() {
         <p class="mini" style="margin-bottom:8px">Se envían por WhatsApp con el botón «Recordar». Puedes escribir {nombre}, {fecha} y {dias}.</p>
         <label>Cuando está por vencer<textarea name="porVencer" rows="4">${esc(cfg.plantillasCobro?.porVencer || L.PLANTILLAS_COBRO.porVencer)}</textarea></label>
         <label style="margin-top:10px">Cuando ya venció<textarea name="moroso" rows="4">${esc(cfg.plantillasCobro?.moroso || L.PLANTILLAS_COBRO.moroso)}</textarea></label>
+        <h3 style="margin-top:16px">✅ Comprobante de pago</h3>
+        <p class="mini" style="margin-bottom:8px">Se ofrece al registrar un pago. Puedes escribir {nombre}, {monto}, {fecha_pago}, {proximo}, {metodo} y {asesor} (tu nombre).</p>
+        <label>Mensaje del comprobante<textarea name="comprobante" rows="5">${esc(cfg.plantillaComprobante || L.PLANTILLA_COMPROBANTE)}</textarea></label>
+        <label class="radio-tarjeta" style="margin-top:10px"><input type="checkbox" name="preguntar" ${cfg.preguntarComprobante === false ? '' : 'checked'}><span>Preguntarme si lo envío cada vez que registro un pago</span></label>
         <div class="acc-fila" style="margin-top:10px"><button class="btn primario" type="submit">Guardar mensajes</button>
           <button class="btn" type="button" data-sugeridos>Usar los sugeridos</button></div></form>`,
   });
   v.q('#f-plantillas').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
     const f = e.target;
-    await S.guardarConfig({ plantillasCobro: { porVencer: f.porVencer.value.trim(), moroso: f.moroso.value.trim() } });
+    await S.guardarConfig({
+      plantillasCobro: { porVencer: f.porVencer.value.trim(), moroso: f.moroso.value.trim() },
+      plantillaComprobante: f.comprobante.value.trim(),
+      preguntarComprobante: f.preguntar.checked,
+    });
     aviso('Mensajes guardados'); v.cerrar();
   }); });
   v.q('[data-sugeridos]').addEventListener('click', () => {
     const f = v.q('#f-plantillas');
     f.porVencer.value = L.PLANTILLAS_COBRO.porVencer;
     f.moroso.value = L.PLANTILLAS_COBRO.moroso;
+    f.comprobante.value = L.PLANTILLA_COMPROBANTE;
   });
 }
 
@@ -1541,7 +1592,7 @@ export function abrirConfig() {
     v.poner({
       cuerpo: `${grupoMenu('Cobranza')}
         ${opMenu('vencimientos', '🔔', 'Vencimientos', 'Cuándo marcar 🟡 y la periodicidad sugerida.', { sub: true })}
-        ${opMenu('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp del botón «Recordar».', { sub: true })}
+        ${opMenu('mensajes', '📲', 'Mensajes de cobro', 'Recordatorios y comprobante de pago por WhatsApp.', { sub: true })}
         <div class="seccion"><h3>Campos personalizados</h3>
           <p class="mini" style="margin-bottom:8px">Agrega columnas nuevas a tus clientes sin afectar los datos existentes.</p>
           <ul class="lista-simple">${cfg.camposPersonalizados.map((x) => `<li style="display:flex;justify-content:space-between;gap:8px;align-items:center">
@@ -1618,6 +1669,7 @@ export function enlazarEventos() {
     plan: abrirPlan,
     ayuda: (el) => abrirAyuda(el.dataset.texto),
     bloqueo: abrirBloqueo,
+    comprobante: (el) => abrirComprobante(el.dataset.id, el.dataset.pago),
     'ocultar-bloqueo': () => { lsSet('cartera:ocultar-aviso-bloqueo', '1'); render(); },
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },

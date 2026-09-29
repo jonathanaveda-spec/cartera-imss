@@ -130,3 +130,17 @@ test('periodicidad personalizada: cada N días', () => {
   assert.equal(LP.siguienteVencimiento('2026-01-31', 'Mensual'), '2026-02-28');
   assert.equal(LP.textoDiaPago({ periodicidad: 'Cada 15 días', dia_pago: 5 }), '');
 });
+test('comprobante de pago por WhatsApp', () => {
+  const c = { nombre: 'NOMBRE DE EJEMPLO', periodicidad: 'Mensual' };
+  const pago = { fecha_pago: '2026-10-03', monto: 1500, metodo: 'Transferencia', periodo_hasta: '2026-11-15' };
+  const m = LP.mensajeComprobante(c, pago, '', 'Jonathan Aveda');
+  assert.match(m, /^Hola NOMBRE DE EJEMPLO 👋 Recibí tu pago de \$1,500\.00 del 3 de octubre de 2026\. ✅/);
+  assert.match(m, /Tu próximo pago es el 15 de noviembre de 2026\./);
+  assert.match(m, /— Jonathan Aveda$/);
+  // Sin monto ni firma: no quedan huecos raros.
+  const s = LP.mensajeComprobante(c, { ...pago, monto: null }, '', '');
+  assert.match(s, /Recibí tu pago del 3 de octubre/);
+  assert.match(s, /¡Gracias por tu confianza!$/);
+  assert.equal(LP.mensajeComprobante(c, pago, 'Pagaste {monto} por {metodo} ({periodicidad})'), 'Pagaste  de $1,500.00 por Transferencia (Mensual)');
+  assert.equal(LP.fmtFechaLarga('2026-01-31'), '31 de enero de 2026');
+});

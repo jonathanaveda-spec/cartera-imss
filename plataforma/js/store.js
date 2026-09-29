@@ -307,6 +307,17 @@ export async function anotarRecordatorio(id) {
   await guardar();
 }
 
+/** Anota que se mandó por WhatsApp el comprobante de un pago (se ve como «✓ enviado» en el historial). */
+export async function anotarComprobante(id, pagoId) {
+  const c = buscar(id);
+  const p = c.pagos.find((x) => x.id === pagoId);
+  if (!p) return;
+  p.comprobante_enviado = ahora();
+  c.actualizado = ahora();
+  log(c, 'comprobante', `Comprobante del pago del ${p.fecha_pago} enviado por WhatsApp`);
+  await guardar();
+}
+
 export async function darDeBaja(id, motivo = '') {
   const c = buscar(id);
   c.baja = true;

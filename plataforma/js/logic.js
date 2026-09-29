@@ -295,6 +295,37 @@ export function mensajeCobro(c, e, plantillas = {}) {
   return base.replaceAll('{nombre}', nombreBonito(c.nombre)).replaceAll('{fecha}', fmtFecha(c.proximo_pago)).replaceAll('{dias}', dias);
 }
 
+// ---------- Comprobante de pago por WhatsApp ----------
+export const PLANTILLA_COMPROBANTE = 'Hola {nombre} 👋 Recibí tu pago{monto} del {fecha_pago}. ✅\nTu próximo pago es el {proximo}.\n¡Gracias por tu confianza!\n{asesor}';
+
+const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+/** "2026-10-15" → "15 de octubre de 2026" (para mensajes a clientes). */
+export function fmtFechaLarga(iso) {
+  if (!iso || !/^\d{4}-\d{2}-\d{2}/.test(iso)) return '';
+  const [y, m, d] = iso.slice(0, 10).split('-').map(Number);
+  return `${d} de ${MESES[m - 1]} de ${y}`;
+}
+
+export const fmtDinero = (n) => (n == null || !Number.isFinite(Number(n)) ? '' : new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(Number(n)));
+
+/**
+ * Mensaje de comprobante para un pago registrado. Variables: {nombre}, {fecha_pago}, {monto} (« de $1,500.00»
+ * o vacío si no se anotó), {metodo}, {proximo}, {periodicidad} y {asesor} (firma «— Nombre», o vacío).
+ */
+export function mensajeComprobante(c, pago, plantilla = '', asesor = '') {
+  const base = (plantilla || '').trim() || PLANTILLA_COMPROBANTE;
+  const monto = fmtDinero(pago.monto);
+  return base
+    .replaceAll('{nombre}', nombreBonito(c.nombre))
+    .replaceAll('{fecha_pago}', fmtFechaLarga(pago.fecha_pago))
+    .replaceAll('{monto}', monto ? ` de ${monto}` : '')
+    .replaceAll('{metodo}', pago.metodo || '')
+    .replaceAll('{proximo}', fmtFechaLarga(pago.periodo_hasta) || 'por confirmar')
+    .replaceAll('{periodicidad}', c.periodicidad || '')
+    .replaceAll('{asesor}', asesor ? `— ${asesor.trim()}` : '')
+    .trim();
+}
+
 /** Enlace de WhatsApp con el texto listo (los clientes son de México: prefijo 52). */
 export function enlaceWhatsApp(celular, texto) {
   const t = telefonoInternacional(celular);

@@ -58,7 +58,7 @@ quedamos en el nicho de asesores IMSS (después: otros oficios de cobro recurren
 | Idea | Estado |
 |---|---|
 | Bloqueo con PIN y huella / Face ID | ✅ 29/09 |
-| Comprobante de pago por WhatsApp con el nombre del asesor | pendiente (siguiente) |
+| Comprobante de pago por WhatsApp con el nombre del asesor | ✅ 29/09 |
 | Pantalla «Acerca de» con marca del desarrollador + botón Compartir la app | pendiente: Jonathan elige el nombre de marca |
 | Entrar con Google | pendiente |
 | Filtros rápidos «Pagan hoy» / «Pagaron hoy» | pendiente |
