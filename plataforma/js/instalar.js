@@ -38,5 +38,13 @@ export function htmlZona(destacar = false) {
         <li>Elige <b>«Agregar a pantalla de inicio»</b>.</li>
         <li>Abre la app desde el ícono nuevo.</li></ol></div>`;
   }
+  // El navegador no ofreció el botón (aún no lo permite o no lo soporta): si la persona vino a instalar, damos los pasos a mano.
+  if (destacar) {
+    return `<div class="instalar-zona destacar"><b>Instálala desde el menú del navegador</b>
+      <ol class="mini" style="text-align:left;margin:6px 0 0;padding-left:20px">
+        <li>Toca el menú <b>⋮</b> (arriba a la derecha).</li>
+        <li>Elige <b>«Instalar app»</b> o <b>«Agregar a pantalla de inicio»</b>.</li>
+        <li>Si no aparece, abre esta página en <b>Chrome</b> y vuelve a intentarlo.</li></ol></div>`;
+  }
   return '';
 }
