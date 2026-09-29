@@ -14,6 +14,11 @@ const datos = { usuarios: [], planes: new Map(), tickets: [], sistema: {}, conte
 let tab = 'resumen';
 let mensajeLogin = ''; // se muestra la próxima vez que aparezca el formulario de acceso
 
+// El mismo service worker de la app: permite instalar el panel como app ("Cartera Admin").
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
 // ---------- Utilidades de interfaz ----------
 function aviso(msg, mal = false) {
   const t = document.createElement('div');
