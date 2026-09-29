@@ -355,3 +355,26 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 @keyframes rebota { 0%, 100% { translate: 0 0; } 50% { translate: 0 10px; } }
 .instalando { text-align: center; }
 .instalando .girar { margin: 0 auto 8px; }
+
+/* Importar Excel */
+.pasos-importar { margin: 12px 0; padding-left: 22px; }
+.pasos-importar li { margin: 8px 0; line-height: 1.4; }
+.imp-archivo { display: grid; gap: 8px; padding: 10px 12px; margin-bottom: 12px; border: 1px solid var(--linea); border-radius: 10px; background: var(--tarjeta); }
+.col-imp { padding: 10px 12px; margin-bottom: 8px; border: 1px solid var(--linea); border-left: 4px solid var(--c-sin); border-radius: 10px; background: var(--tarjeta); }
+.col-imp.ok { border-left-color: var(--c-aldia); }
+.col-imp.ignorada { opacity: .6; }
+.col-imp-cab { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.col-letra { display: inline-grid; place-items: center; min-width: 24px; height: 24px; padding: 0 4px; border-radius: 6px; background: var(--c-sin-bg); color: var(--c-sin-tx); font-size: .8rem; font-weight: 700; }
+.col-imp-chip { font-size: .75rem; font-weight: 600; color: var(--c-aldia-tx); background: var(--c-aldia-bg); padding: 1px 8px; border-radius: 999px; }
+.col-imp-ej { font-size: .85rem; color: var(--suave); margin: 4px 0 8px; overflow-wrap: anywhere; }
+.col-imp select { width: 100%; }
+.imp-total { font-size: 1.05rem; margin-bottom: 8px; }
+.imp-tabla { border: 1px solid var(--linea); border-radius: 10px; overflow-x: auto; }
+.imp-tabla table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.imp-tabla th, .imp-tabla td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--linea); white-space: nowrap; }
+.imp-tabla th { background: var(--fondo); font-weight: 600; color: var(--suave); }
+/* La vista previa es una tabla normal también en el celular (la lista de clientes se vuelve tarjetas). */
+.imp-tabla table { display: table; }
+.imp-tabla thead { display: table-header-group; }
+.imp-tabla tbody { display: table-row-group; }
+.imp-tabla td:first-child { white-space: normal; min-width: 120px; }

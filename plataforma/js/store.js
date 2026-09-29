@@ -430,7 +430,8 @@ export function calcularMasivo(clientes, { periodicidad, metodo, hoy }) {
     if (!c.fecha_inicio || !esISO(c.fecha_inicio)) { salida.push({ c, omitido: true, razon: 'sin fecha de inicio' }); continue; }
     // Una fecha de inicio a más de un año en el futuro casi seguro es un error de captura: no se calcula nada.
     if (diasEntre(hoy, c.fecha_inicio) > 366) { salida.push({ c, omitido: true, razon: 'fecha de inicio lejana en el futuro' }); continue; }
-    const per = periodicidad;
+    // La periodicidad que el cliente ya tiene (por ejemplo, traída del Excel) se respeta.
+    const per = esPeriodicidad(c.periodicidad) ? c.periodicidad : periodicidad;
     const dia = diaDe(c.fecha_inicio);
     let f;
     const cadaDias = diasDePeriodicidad(per);
@@ -448,7 +449,7 @@ export function calcularMasivo(clientes, { periodicidad, metodo, hoy }) {
     } else {
       f = siguienteVencimiento(c.fecha_inicio, per, dia);
     }
-    salida.push({ c, proximo: f });
+    salida.push({ c, proximo: f, periodicidad: per });
   }
   return salida;
 }
@@ -458,12 +459,14 @@ export async function aplicarMasivo(calculo, periodicidad, metodo) {
   let n = 0;
   for (const it of calculo) {
     if (it.omitido) continue;
-    it.c.periodicidad = periodicidad;
+    const per = it.periodicidad || periodicidad;
+    const antes = it.c.periodicidad || null;
+    it.c.periodicidad = per;
     it.c.proximo_pago = it.proximo;
-    it.c.dia_pago = diasDePeriodicidad(periodicidad) ? null : diaDe(it.c.fecha_inicio);
+    it.c.dia_pago = diasDePeriodicidad(per) ? null : diaDe(it.c.fecha_inicio);
     it.c.actualizado = ahora();
-    log(it.c, 'editar', `Configuración inicial de pagos (${periodicidad}, ${metodo === 'ciclo' ? 'ciclo desde fecha de inicio' : 'inicio + un periodo'})`, [
-      { campo: 'Periodicidad', antes: null, despues: periodicidad },
+    log(it.c, 'editar', `Configuración inicial de pagos (${per}, ${metodo === 'ciclo' ? 'ciclo desde fecha de inicio' : 'inicio + un periodo'})`, [
+      { campo: 'Periodicidad', antes, despues: per },
       { campo: 'Próximo pago', antes: null, despues: it.proximo },
     ]);
     n++;
