@@ -528,13 +528,15 @@ export function abrirMenu() {
     titulo: 'Datos y opciones',
     cuerpo: [
       op('plan', '⭐', 'Mi plan', `${esc(N.estado.planEf.nombre)}${N.estado.planEf.ilimitado ? '' : ` · ${S.db.clientes.length} de ${N.estado.planEf.limite} clientes`}`),
+      op('vencimientos', '🔔', 'Vencimientos', `Un cliente es 🟡 cuando faltan ${S.db.config.diasAviso} días o menos para su pago. Periodicidad sugerida: ${esc(S.db.config.periodicidadDefecto)}.`),
+      op('mensajes', '📲', 'Mensajes de cobro', 'Los textos de WhatsApp que se envían con el botón «Recordar».'),
       op('importar', '📥', 'Importar Excel', 'Carga tu archivo .xlsx de clientes. No borra nada de lo que ya tienes.'),
       op('exportar', '📤', 'Exportar a Excel', 'Crea un archivo nuevo con clientes, pagos e historial. El original no se toca.'),
       op('respaldo', '💾', 'Descargar respaldo completo', 'Excel (.xlsx) con todos tus datos. Se guarda en el teléfono y sirve para restaurar o pasarlos a otro.'),
       op('restaurar', '♻️', 'Restaurar respaldo', 'Recupera datos desde un respaldo (.xlsx o .json). Guarda antes una copia de lo actual.'),
       op('asistente', '🗓️', 'Configurar pagos iniciales', 'Asigna periodicidad y próxima fecha a los clientes que aún no la tienen.'),
       op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
-      op('config', '⚙️', 'Configuración', 'Días de aviso, campos nuevos y estado del almacenamiento.'),
+      op('config', '⚙️', 'Configuración', 'Campos personalizados y estado del almacenamiento.'),
       op('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
       op('cuenta', '👤', 'Mi cuenta', `${esc(N.estado.usuario || '')} · cerrar sesión o eliminar cuenta.`),
     ].join(''),
@@ -1001,26 +1003,58 @@ export function refrescarTodo() {
   }
 }
 
+// ---------- Vencimientos ----------
+export function abrirVencimientos() {
+  const cfg = S.db.config;
+  const v = ventana({
+    titulo: '🔔 Vencimientos',
+    cuerpo: `<form id="f-cfg" class="seccion">
+        <label>Días para marcar «Próximo a vencer»<input type="number" name="diasAviso" min="1" max="90" value="${cfg.diasAviso}" inputmode="numeric">
+          <div class="ayuda">Un cliente es 🟡 cuando faltan entre 0 y este número de días para su próximo pago.</div></label>
+        <label style="margin-top:12px">Periodicidad sugerida
+          <select name="periodicidadDefecto">${Object.keys(L.PERIODICIDADES).map((p) => `<option ${cfg.periodicidadDefecto === p ? 'selected' : ''}>${p}</option>`).join('')}</select>
+          <div class="ayuda">La que aparece elegida al configurar el pago de un cliente nuevo.</div></label>
+        <button class="btn primario" type="submit" style="margin-top:12px">Guardar</button></form>`,
+  });
+  v.q('#f-cfg').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
+    const f = e.target;
+    const d = Math.max(1, Math.min(90, parseInt(f.diasAviso.value, 10) || 7));
+    await S.guardarConfig({ diasAviso: d, periodicidadDefecto: f.periodicidadDefecto.value });
+    aviso('Vencimientos guardados'); render(); v.cerrar();
+  }); });
+}
+
+// ---------- Mensajes de cobro ----------
+export function abrirMensajesCobro() {
+  const cfg = S.db.config;
+  const v = ventana({
+    titulo: '📲 Mensajes de cobro',
+    cuerpo: `<form id="f-plantillas" class="seccion">
+        <p class="mini" style="margin-bottom:8px">Se envían por WhatsApp con el botón «Recordar». Puedes escribir {nombre}, {fecha} y {dias}.</p>
+        <label>Cuando está por vencer<textarea name="porVencer" rows="4">${esc(cfg.plantillasCobro?.porVencer || L.PLANTILLAS_COBRO.porVencer)}</textarea></label>
+        <label style="margin-top:10px">Cuando ya venció<textarea name="moroso" rows="4">${esc(cfg.plantillasCobro?.moroso || L.PLANTILLAS_COBRO.moroso)}</textarea></label>
+        <div class="acc-fila" style="margin-top:10px"><button class="btn primario" type="submit">Guardar mensajes</button>
+          <button class="btn" type="button" data-sugeridos>Usar los sugeridos</button></div></form>`,
+  });
+  v.q('#f-plantillas').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
+    const f = e.target;
+    await S.guardarConfig({ plantillasCobro: { porVencer: f.porVencer.value.trim(), moroso: f.moroso.value.trim() } });
+    aviso('Mensajes guardados'); v.cerrar();
+  }); });
+  v.q('[data-sugeridos]').addEventListener('click', () => {
+    const f = v.q('#f-plantillas');
+    f.porVencer.value = L.PLANTILLAS_COBRO.porVencer;
+    f.moroso.value = L.PLANTILLAS_COBRO.moroso;
+  });
+}
+
 // ---------- Configuración ----------
 export function abrirConfig() {
   const pintar = (v) => {
     const cfg = S.db.config;
     const st = S.estadoAlmacen;
     v.poner({
-      cuerpo: `<form id="f-cfg">
-        <div class="seccion"><h3>Vencimientos</h3>
-          <label>Días para marcar «Próximo a vencer»<input type="number" name="diasAviso" min="1" max="90" value="${cfg.diasAviso}" inputmode="numeric">
-            <div class="ayuda">Un cliente es 🟡 cuando faltan entre 0 y este número de días para su próximo pago.</div></label>
-          <label style="margin-top:12px">Periodicidad sugerida
-            <select name="periodicidadDefecto">${Object.keys(L.PERIODICIDADES).map((p) => `<option ${cfg.periodicidadDefecto === p ? 'selected' : ''}>${p}</option>`).join('')}</select></label>
-          <button class="btn primario" type="submit" style="margin-top:12px">Guardar</button></div></form>
-        <form id="f-plantillas" class="seccion"><h3>Mensajes de cobro por WhatsApp</h3>
-          <p class="mini" style="margin-bottom:8px">Se usan en el botón «Recordar». Puedes escribir {nombre}, {fecha} y {dias}.</p>
-          <label>Cuando está por vencer<textarea name="porVencer" rows="3">${esc(cfg.plantillasCobro?.porVencer || L.PLANTILLAS_COBRO.porVencer)}</textarea></label>
-          <label style="margin-top:10px">Cuando ya venció<textarea name="moroso" rows="3">${esc(cfg.plantillasCobro?.moroso || L.PLANTILLAS_COBRO.moroso)}</textarea></label>
-          <div class="acc-fila" style="margin-top:10px"><button class="btn primario" type="submit">Guardar mensajes</button>
-            <button class="btn" type="button" data-sugeridos>Usar los sugeridos</button></div></form>
-        <div class="seccion"><h3>Campos personalizados</h3>
+      cuerpo: `<div class="seccion"><h3>Campos personalizados</h3>
           <p class="mini" style="margin-bottom:8px">Agrega columnas nuevas a tus clientes sin afectar los datos existentes.</p>
           <ul class="lista-simple">${cfg.camposPersonalizados.map((x) => `<li style="display:flex;justify-content:space-between;gap:8px;align-items:center">
             <span>${esc(x.etiqueta)} <span class="mini">(${esc(x.tipo)})${x.archivado ? ' · oculto' : ''}</span></span>
@@ -1034,22 +1068,6 @@ export function abrirConfig() {
           ${st.persistente ? '<br>Protegido contra borrado automático.' : ''}</p>
           <p class="mini" style="margin-top:6px">${S.db.clientes.length} clientes · ${S.db.historial.length} eventos de historial. Haz respaldos periódicos desde el menú Datos.</p>
           <button class="btn" data-accion="previa" style="margin-top:10px">Deshacer último cambio grande (importar/restaurar/masivo)</button></div>`,
-    });
-    v.q('#f-cfg').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
-      const f = e.target;
-      const d = Math.max(1, Math.min(90, parseInt(f.diasAviso.value, 10) || 7));
-      await S.guardarConfig({ diasAviso: d, periodicidadDefecto: f.periodicidadDefecto.value });
-      aviso('Configuración guardada'); render(); pintar(v);
-    }); });
-    v.q('#f-plantillas').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
-      const f = e.target;
-      await S.guardarConfig({ plantillasCobro: { porVencer: f.porVencer.value.trim(), moroso: f.moroso.value.trim() } });
-      aviso('Mensajes guardados');
-    }); });
-    v.q('[data-sugeridos]').addEventListener('click', () => {
-      const f = v.q('#f-plantillas');
-      f.porVencer.value = L.PLANTILLAS_COBRO.porVencer;
-      f.moroso.value = L.PLANTILLAS_COBRO.moroso;
     });
     v.q('#f-campo').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
       await S.agregarCampoPersonalizado(e.target.etiqueta.value, e.target.tipo.value);
@@ -1105,6 +1123,8 @@ export function enlazarEventos() {
     asistente: abrirAsistente,
     papelera: abrirPapelera,
     config: abrirConfig,
+    vencimientos: abrirVencimientos,
+    mensajes: abrirMensajesCobro,
     cuenta: abrirCuenta,
     plan: abrirPlan,
     ayuda: abrirAyuda,
