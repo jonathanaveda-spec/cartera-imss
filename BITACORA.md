@@ -15,11 +15,20 @@ con `git pull`.
 - Cloudflare Email Routing: reenvío de soporte@carteraasesor.com → jonathanaveda@gmail.com
   (activado, destino verificado, regla "soporte"). Lo hizo Jonathan.
 - Correo de prueba enviado desde jonathanaveda@gmail.com a soporte@carteraasesor.com
-  (asunto "Prueba reenvio soporte").
+  (asunto "Prueba reenvio soporte"). **REBOTÓ**: `550 5.1.1 Address does not exist`.
+  El DNS está bien (MX route1/2/3.mx.cloudflare.net, SPF de Cloudflare), así que Cloudflare
+  recibe el correo pero no encuentra una regla activa para "soporte".
+- Publicado en carteraasesor.com (commit 9e75b98): comprobado en línea que sw.js es v11
+  y que privacidad.html muestra el nombre.
+- Git en esta PC ya tiene la sesión de GitHub guardada (jonathanaveda-spec).
 
 **Pendiente**
-- Confirmar que el correo de prueba llegó a la bandeja de Gmail.
+- Cloudflare → carteraasesor.com → Enrutamiento de correo electrónico → Reglas: revisar que
+  la regla sea exactamente "soporte", acción "Enviar a un correo electrónico" →
+  jonathanaveda@gmail.com, que esté ACTIVADA y que el destino figure como Verificado.
+  Después mandar otra prueba. (El panel de Cloudflare no cargó desde Claude in Chrome.)
 - admin.html → Sistema: quitar "Acceso libre para todos" (activa la prueba de 7 días).
+  No se tocó: falta que Jonathan decida si ya se empieza a cobrar.
 - Revisar privacidad.html: dice "persona natural con domicilio en Colombia" y el banner
   "BORRADOR — pendiente de revisión legal".
 - GitHub avisó "Possible valid secrets detected" en el repo `cartera-imss`: revisar.
