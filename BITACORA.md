@@ -71,3 +71,10 @@ para verla, probar desde otra cuenta.
 - "Vencimientos" (días para 🟡 y periodicidad sugerida) y "Mensajes de cobro" (textos de
   WhatsApp del botón «Recordar») salen de Configuración y tienen su propio apartado, justo
   debajo de "Mi plan". Configuración queda con campos personalizados y almacenamiento. (sw v15)
+- "Configurar pagos iniciales" → **"Fechas de cobro"**, rehecho como asistente de 3 pasos:
+  1) qué es, con un cliente real de ejemplo (fecha de inicio → día de cobro); 2) ¿cada cuánto
+  te pagan?; 3) ¿van al corriente? (con el próximo cobro del ejemplo en cada opción) + resumen
+  🟢🟡🔴 y la lista de clientes que no se tocan, separados por motivo. La lógica de cálculo no
+  cambió (S.calcularMasivo / S.aplicarMasivo).
+- Encabezado: "Cartera Asesor" ya no se parte en dos líneas en el celular; en pantallas
+  menores a 360px solo se ve el logo. (sw v16)

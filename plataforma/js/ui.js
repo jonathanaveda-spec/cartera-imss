@@ -154,8 +154,8 @@ function renderAvisos(cnt) {
       <button class="btn chico" data-accion="ocultar-instalar">Entendido</button></div>`);
   }
   if (cnt.total && cnt.SIN_CONFIG) {
-    a.push(`<div class="banner"><p><b>${cnt.SIN_CONFIG}</b> ${cnt.SIN_CONFIG === 1 ? 'cliente aún no tiene' : 'clientes aún no tienen'} fecha de próximo pago. Puedes asignarla uno por uno o con el asistente.</p>
-      <button class="btn chico" data-accion="asistente">Configurar pagos</button></div>`);
+    a.push(`<div class="banner"><p><b>${cnt.SIN_CONFIG}</b> ${cnt.SIN_CONFIG === 1 ? 'cliente aún no tiene' : 'clientes aún no tienen'} fecha de cobro. Pónsela a todos de una vez en 3 pasos.</p>
+      <button class="btn chico" data-accion="asistente">Poner fechas de cobro</button></div>`);
   }
   const ult = S.db.config.ultimoRespaldo;
   if (cnt.total && (!ult || Date.now() - ult > 30 * 86400000)) {
@@ -534,7 +534,7 @@ export function abrirMenu() {
       op('exportar', '📤', 'Exportar a Excel', 'Crea un archivo nuevo con clientes, pagos e historial. El original no se toca.'),
       op('respaldo', '💾', 'Descargar respaldo completo', 'Excel (.xlsx) con todos tus datos. Se guarda en el teléfono y sirve para restaurar o pasarlos a otro.'),
       op('restaurar', '♻️', 'Restaurar respaldo', 'Recupera datos desde un respaldo (.xlsx o .json). Guarda antes una copia de lo actual.'),
-      op('asistente', '🗓️', 'Configurar pagos iniciales', 'Asigna periodicidad y próxima fecha a los clientes que aún no la tienen.'),
+      op('asistente', '🗓️', 'Fechas de cobro', `${(() => { const n = S.db.clientes.filter((c) => !c.proximo_pago && !c.baja).length; return n ? `${n} cliente(s) sin fecha de cobro. Pónsela en 3 pasos.` : 'Todos tus clientes tienen fecha de cobro.'; })()}`),
       op('papelera', '🗑️', 'Papelera', `${S.db.papelera.length} cliente(s) eliminados.`),
       op('config', '⚙️', 'Configuración', 'Campos personalizados y estado del almacenamiento.'),
       op('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
@@ -607,11 +607,11 @@ function resultadoImport(n) {
       <p style="margin-bottom:8px">Siguientes pasos recomendados:</p>
       <ol class="pasos">
         <li><b>${conAviso}</b> cliente(s) tienen datos que conviene revisar (CURP/NSS incompletos, duplicados, fechas raras…).</li>
-        <li><b>${sin}</b> cliente(s) aún no tienen periodicidad ni fecha de próximo pago.</li>
+        <li><b>${sin}</b> cliente(s) aún no tienen fecha de cobro.</li>
       </ol>`,
     pie: `<button class="btn" data-cerrar type="button">Cerrar</button>
           <button class="btn" data-accion="revision">Revisar datos</button>
-          <button class="btn primario" data-accion="asistente">Configurar pagos</button>`,
+          <button class="btn primario" data-accion="asistente">Poner fechas de cobro</button>`,
   });
   v.el.addEventListener('click', (e) => { if (e.target.closest('[data-accion]')) v.cerrar(); });
 }
@@ -685,46 +685,83 @@ export function abrirRevision() {
 }
 
 // ---------- Asistente de configuración inicial de pagos ----------
+// Tres pasos cortos (qué es → cada cuánto pagan → ¿están al corriente?) con un cliente real de ejemplo.
+const CADA = { Mensual: 'cada mes', Trimestral: 'cada 3 meses', Semestral: 'cada 6 meses', Anual: 'una vez al año' };
+
 export function abrirAsistente() {
   const pendientes = S.db.clientes.filter((c) => !c.proximo_pago && !c.baja);
-  if (!pendientes.length) return aviso('Todos los clientes ya tienen fecha de próximo pago');
+  if (!pendientes.length) return aviso('Todos tus clientes ya tienen fecha de cobro');
   const { hoy, aviso: dias } = ctx();
-  const cuerpo = `<form id="f-asis">
-    <div class="banner info"><p>En el Excel, la «FECHA DE inicio» indica el <b>día de pago</b> de cada cliente (por ejemplo, el 24 = paga cada 24). Lo que el Excel no dice es si ya pagó los meses pasados. Verás el resultado antes de aplicarlo, y luego puedes ajustar cliente por cliente.</p></div>
-    <label style="margin-bottom:12px">Periodicidad para estos ${pendientes.length} clientes
-      <select name="periodicidad">${Object.keys(L.PERIODICIDADES).map((p) => `<option ${S.db.config.periodicidadDefecto === p ? 'selected' : ''}>${p}</option>`).join('')}</select></label>
-    <label class="radio-tarjeta"><input type="radio" name="metodo" value="ciclo" checked><span><b>Suponer que están al corriente</b><br>
-      <span class="mini">El próximo pago es el siguiente día de pago a partir de hoy (ej. si paga el 24 y hoy es 24/09, el próximo es 24/10). Nadie aparecerá como moroso hasta que pase esa fecha.</span></span></label>
-    <label class="radio-tarjeta"><input type="radio" name="metodo" value="inicio"><span><b>No suponer nada</b><br>
-      <span class="mini">El primer vencimiento es un periodo después de la fecha de inicio. Los clientes antiguos aparecerán como morosos hasta que registres sus pagos.</span></span></label>
-    <div class="seccion" id="prev-asis" style="margin-top:12px"></div></form>`;
-  const v = ventana({
-    titulo: 'Configurar pagos iniciales', cuerpo, fondoCierra: false,
-    pie: `<button class="btn" data-cerrar type="button">Cancelar</button><button class="btn primario" data-ok type="button">Aplicar</button>`,
-  });
-  const form = v.q('#f-asis');
-  let calculo = [];
-  const actualizar = () => {
-    calculo = S.calcularMasivo(pendientes, { periodicidad: form.periodicidad.value, metodo: form.metodo.value, hoy });
-    const cnt = { AL_DIA: 0, POR_VENCER: 0, MOROSO: 0 };
-    let omit = 0;
-    for (const it of calculo) {
-      if (it.omitido) { omit++; continue; }
-      cnt[L.calcularEstado({ ...it.c, proximo_pago: it.proximo, baja: false }, hoy, dias).codigo]++;
-    }
-    const aplicables = calculo.length - omit;
-    v.q('#prev-asis').innerHTML = `<h3>Vista previa (${aplicables} clientes)</h3>
-      <div>🟢 Al día: <b>${cnt.AL_DIA}</b> · 🟡 Próximos a vencer: <b>${cnt.POR_VENCER}</b> · 🔴 Morosos: <b>${cnt.MOROSO}</b></div>
-      ${omit ? `<div class="mini" style="margin-top:6px">${omit} cliente(s) no se tocan por no tener una fecha de inicio confiable: ${[...new Set(calculo.filter((i) => i.omitido).map((i) => i.razon))].join(', ')}. Los puedes configurar a mano.</div>` : ''}`;
-    v.q('[data-ok]').disabled = !aplicables;
-    v.q('[data-ok]').textContent = `Aplicar a ${aplicables} clientes`;
+  const sel = { paso: 1, periodicidad: S.db.config.periodicidadDefecto, metodo: 'ciclo' };
+  const ejemplo = pendientes.find((c) => !S.calcularMasivo([c], { periodicidad: 'Mensual', metodo: 'ciclo', hoy })[0]?.omitido);
+  const nombreEj = ejemplo ? esc(String(ejemplo.nombre).split(/\s+/).slice(0, 2).join(' ')) : '';
+  const proximoEj = (metodo) => {
+    if (!ejemplo) return '';
+    const f = S.calcularMasivo([ejemplo], { periodicidad: sel.periodicidad, metodo, hoy })[0].proximo;
+    const e = L.calcularEstado({ ...ejemplo, proximo_pago: f, baja: false }, hoy, dias).codigo;
+    return `<b>${L.fmtFecha(f)}</b> · ${{ AL_DIA: '🟢 al día', POR_VENCER: '🟡 por vencer', MOROSO: '🔴 atrasado' }[e] || ''}`;
   };
-  form.addEventListener('input', actualizar);
-  actualizar();
-  v.q('[data-ok]').addEventListener('click', () => seguro(async () => {
-    const n = await S.aplicarMasivo(calculo, form.periodicidad.value, form.metodo.value);
-    v.cerrar(); aviso(`Listo: ${n} clientes configurados`); render();
-  }));
+  const pasoDe = (n) => `<p class="mini" style="margin-bottom:10px"><b>Paso ${n} de 3</b></p>`;
+  let calculo = [];
+
+  const pasos = {
+    1: () => ({
+      cuerpo: `${pasoDe(1)}
+        <h3 style="margin-bottom:8px">Pongamos la fecha de cobro a tus clientes</h3>
+        <p>Tienes <b>${pendientes.length} cliente(s)</b> sin fecha de cobro. La app necesita saber <b>cuándo te toca cobrarle a cada uno</b> para avisarte a tiempo y marcar quién está al día 🟢, por vencer 🟡 o atrasado 🔴.</p>
+        ${ejemplo ? `<div class="banner info" style="margin-top:12px"><p>Usamos la <b>fecha de inicio</b> de cada cliente para saber qué día le cobras.<br>
+          Ejemplo: <b>${nombreEj}</b> empezó el <b>${L.fmtFecha(ejemplo.fecha_inicio)}</b> → le cobras cada <b>día ${Number(ejemplo.fecha_inicio.slice(8, 10))}</b>.</p></div>` : ''}
+        <p style="margin-top:12px">Solo te haremos <b>2 preguntas</b>. Antes de guardar verás cómo queda, y después puedes cambiar la fecha de cualquier cliente.</p>`,
+      pie: `<button class="btn" data-cerrar type="button">Ahora no</button><button class="btn primario" data-ir="2" type="button">Empezar</button>`,
+    }),
+    2: () => ({
+      cuerpo: `${pasoDe(2)}
+        <h3 style="margin-bottom:8px">¿Cada cuánto te pagan estos clientes?</h3>
+        ${Object.keys(L.PERIODICIDADES).map((p) => `<label class="radio-tarjeta"><input type="radio" name="periodicidad" value="${p}" ${sel.periodicidad === p ? 'checked' : ''}>
+          <span><b>${p}</b> <span class="mini">· ${CADA[p] || ''}</span></span></label>`).join('')}
+        <p class="mini" style="margin-top:8px">Si algunos pagan distinto, elige lo más común. A esos los cambias después uno por uno.</p>`,
+      pie: `<button class="btn" data-ir="1" type="button">Atrás</button><button class="btn primario" data-ir="3" type="button">Siguiente</button>`,
+    }),
+    3: () => {
+      calculo = S.calcularMasivo(pendientes, { periodicidad: sel.periodicidad, metodo: sel.metodo, hoy });
+      const cnt = { AL_DIA: 0, POR_VENCER: 0, MOROSO: 0 };
+      const omitidos = calculo.filter((i) => i.omitido);
+      for (const it of calculo) if (!it.omitido) cnt[L.calcularEstado({ ...it.c, proximo_pago: it.proximo, baja: false }, hoy, dias).codigo]++;
+      const aplicables = calculo.length - omitidos.length;
+      return {
+        cuerpo: `${pasoDe(3)}
+          <h3 style="margin-bottom:8px">¿Tus clientes van al corriente con sus pagos?</h3>
+          <label class="radio-tarjeta"><input type="radio" name="metodo" value="ciclo" ${sel.metodo === 'ciclo' ? 'checked' : ''}><span><b>Sí, casi todos van al corriente</b><br>
+            <span class="mini">Les ponemos como próximo cobro su siguiente día de pago. Nadie sale atrasado.${ejemplo ? `<br>Ej.: ${nombreEj} → próximo cobro ${proximoEj('ciclo')}` : ''}</span></span></label>
+          <label class="radio-tarjeta"><input type="radio" name="metodo" value="inicio" ${sel.metodo === 'inicio' ? 'checked' : ''}><span><b>No estoy seguro, quiero revisarlos</b><br>
+            <span class="mini">Contamos desde su fecha de inicio. Quien no tenga pagos anotados saldrá atrasado 🔴 hasta que registres lo que ya te pagó.${ejemplo ? `<br>Ej.: ${nombreEj} → próximo cobro ${proximoEj('inicio')}` : ''}</span></span></label>
+          <div class="seccion" style="margin-top:12px"><h3>Así quedarían tus ${aplicables} clientes</h3>
+            <div>🟢 Al día: <b>${cnt.AL_DIA}</b> · 🟡 Por vencer: <b>${cnt.POR_VENCER}</b> · 🔴 Atrasados: <b>${cnt.MOROSO}</b></div>
+            ${[['sin fecha de inicio', 'no tienen fecha de inicio'], ['fecha de inicio lejana en el futuro', 'tienen una fecha de inicio que parece un error (muy en el futuro)']].map(([razon, texto]) => {
+              const l = omitidos.filter((i) => i.razon === razon);
+              return l.length ? `<div class="mini" style="margin-top:8px">⚠️ No tocamos a ${l.length} cliente(s) que ${texto}: <b>${l.slice(0, 5).map((i) => esc(i.c.nombre)).join(', ')}${l.length > 5 ? '…' : ''}</b>. Abre cada uno y ponle su fecha a mano.</div>` : '';
+            }).join('')}
+            <div class="mini" style="margin-top:8px">¿Te equivocaste? En ☰ Datos → Configuración → «Deshacer último cambio grande».</div></div>`,
+        pie: `<button class="btn" data-ir="2" type="button">Atrás</button><button class="btn primario" data-ok type="button" ${aplicables ? '' : 'disabled'}>Guardar fechas (${aplicables})</button>`,
+      };
+    },
+  };
+
+  const v = ventana({ titulo: 'Fechas de cobro', cuerpo: '', fondoCierra: false });
+  const pintar = () => v.poner(pasos[sel.paso]());
+  v.el.addEventListener('change', (e) => {
+    if (e.target.name === 'periodicidad') sel.periodicidad = e.target.value;
+    if (e.target.name === 'metodo') { sel.metodo = e.target.value; pintar(); }
+  });
+  v.el.addEventListener('click', (e) => {
+    const ir = e.target.closest('[data-ir]');
+    if (ir) { sel.paso = Number(ir.dataset.ir); pintar(); v.q('.modal-cuerpo').scrollTop = 0; }
+    if (e.target.closest('[data-ok]')) seguro(async () => {
+      const n = await S.aplicarMasivo(calculo, sel.periodicidad, sel.metodo);
+      v.cerrar(); aviso(`Listo: ${n} clientes ya tienen fecha de cobro`); render();
+    });
+  });
+  pintar();
 }
 
 // ---------- Papelera ----------
