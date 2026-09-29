@@ -32,6 +32,12 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 - Correo soporte@carteraasesor.com → reenvío a Gmail con Cloudflare Email Routing (funciona desde el 29/09).
 - Pruebas: `npm test` (necesita Node; la PC de la casa no lo tiene → probar en el navegador del panel).
 
+## Diseño
+- Skills de diseño en el repo: `.claude/skills/emil-design-eng` y `.claude/skills/mobile-native`
+  (de github.com/emilkowalski/skills, licencia MIT en `.claude/skills/LICENSE-emilkowalski-skills.txt`).
+  Usarlas al tocar la interfaz de `plataforma/` o `sitio/`: animaciones con propósito, `:active`, hover solo con mouse,
+  `prefers-reduced-motion`, safe-area, sin destello al tocar.
+
 ## Forma de trabajar con Jonathan
 - Todo en español, simple y sin tecnicismos: Jonathan no es programador.
 - Probar los cambios de interfaz en tamaño de celular (muchos usuarios usan iPhone).
