@@ -3,5 +3,5 @@ export const MARCA = {
   nombre: 'Cartera Asesor',
   lema: 'Tu cartera de clientes, organizada y al día.',
   version: '0.1.0-beta',
-  correoSoporte: '', // PENDIENTE: correo de contacto que aparecerá en el aviso de privacidad
+  correoSoporte: 'soporte@carteraasesor.com',
 };
