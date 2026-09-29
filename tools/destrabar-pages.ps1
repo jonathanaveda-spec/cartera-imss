@@ -10,6 +10,10 @@ param(
   [string]$Repo = 'jonathanaveda-spec/carteraasesor'
 )
 $ErrorActionPreference = 'Stop'
+# Si la terminal se abrió antes de instalar Git, todavía no lo encuentra: se recarga el PATH.
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+  $env:Path = [Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [Environment]::GetEnvironmentVariable('Path', 'User')
+}
 $cred = "protocol=https`nhost=github.com`n`n" | git credential fill
 $tok = (($cred -split "`n") | Where-Object { $_ -like 'password=*' }) -replace '^password=', ''
 if (-not $tok) { throw 'Git no tiene una sesión de GitHub guardada. Haz primero un git push para iniciar sesión.' }
