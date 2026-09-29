@@ -34,11 +34,7 @@ function pintarPantallaInstalar() {
   if (!z) return;
   z.innerHTML = I.htmlPantalla();
   I.enlazarGuia(z);
-  z.querySelector('[data-instalar]')?.addEventListener('click', async () => {
-    if (await I.instalar()) {
-      z.innerHTML = `<p class="acceso-texto"><b>¡Listo!</b> Busca el ícono <b>Cartera</b> en tu pantalla de inicio y ábrela desde ahí.</p>`;
-    }
-  });
+  z.querySelector('[data-instalar]')?.addEventListener('click', () => I.instalar());
 }
 I.alCambiar(pintarPantallaInstalar);
 
