@@ -1,4 +1,4 @@
-# Destraba la publicación en GitHub Pages cuando falla con
+﻿# Destraba la publicación en GitHub Pages cuando falla con
 # "Deployment request failed ... due to in progress deployment. Please cancel <SHA> first".
 # Cancela ese despliegue colgado y vuelve a lanzar la última publicación.
 # Usa la sesión de GitHub que Git ya tiene guardada en esta PC (no muestra ni guarda el token).

@@ -84,3 +84,5 @@ para verla, probar desde otra cuenta.
   ficha del cliente, Registrar pago y Vencimientos (periodicidad sugerida). Pruebas nuevas en
   tests/plataforma.test.mjs (no se pudieron correr aquí: esta PC no tiene Node; se verificó
   lo mismo en el navegador). La app vieja (app/) no se tocó. (sw v17)
+
+**Publicación trabada (29/09)**: de v15 a v17 no se publicaron porque un despliegue de GitHub Pages (36e9cbd) quedó colgado "en curso". Se destrabó con `tools\destrabar-pages.ps1 -Sha <SHA del error>` (lo corre Jonathan: usa su sesión de GitHub). Ya en línea v17.
