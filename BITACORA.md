@@ -60,3 +60,9 @@ Prueba 3 sin rebote y el Registro de actividad de Cloudflare la muestra como "Fo
 Nota: si la prueba se manda desde el mismo Gmail, Gmail no muestra la copia reenviada en Recibidos;
 para verla, probar desde otra cuenta.
 (Si Claude in Chrome no carga Cloudflare, es porque la ventana de Chrome está minimizada.)
+
+**Panel de administración**
+- Logo de Cartera Asesor en el encabezado, la pantalla de acceso y el ícono (2f01999).
+- Instalable como app aparte "Cartera Admin": `plataforma/admin.webmanifest` (id "admin",
+  scope "admin") + registro del service worker en admin.js (36e9cbd, sw v14). Antes Chrome
+  solo ofrecía "Crear acceso directo" porque admin.html no tenía manifiesto.
