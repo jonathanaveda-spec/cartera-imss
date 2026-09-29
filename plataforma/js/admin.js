@@ -29,9 +29,9 @@ function aviso(msg, mal = false) {
   setTimeout(() => t.remove(), mal ? 6000 : 3000);
 }
 
-function ventana(titulo, cuerpo, pie = '') {
+function ventana(titulo, cuerpo, pie = '', { dialogo = false } = {}) {
   const f = document.createElement('div');
-  f.className = 'fondo-modal';
+  f.className = 'fondo-modal' + (dialogo ? ' dialogo' : '');
   f.innerHTML = `<div class="modal ancho" role="dialog" aria-modal="true"><div class="modal-cab"><h2>${esc(titulo)}</h2>
     <button class="btn cerrar" data-cerrar aria-label="Cerrar">✕</button></div><div class="modal-cuerpo">${cuerpo}</div>
     ${pie ? `<div class="modal-pie">${pie}</div>` : ''}</div>`;
@@ -48,6 +48,37 @@ async function seguro(fn) {
 
 async function registrar(accion, detalle) {
   await F.addDoc(F.collection(fs, 'admin_log'), { accion, detalle, admin: auth.currentUser.email, ts: F.serverTimestamp() });
+}
+
+/**
+ * Confirmación centrada para acciones peligrosas. `escribir`: palabra que hay que teclear para habilitar el botón.
+ * Devuelve null si se cancela, o un objeto { nombre: marcada } con las casillas [data-opcion] del mensaje.
+ */
+function confirmar({ titulo, mensaje, ok = 'Aceptar', escribir = '' }) {
+  return new Promise((res) => {
+    let hecho = false;
+    const fin = (r) => { if (!hecho) { hecho = true; res(r); } };
+    const v = ventana(titulo, `${mensaje}${escribir ? `<label style="margin-top:12px">Escribe <b>${esc(escribir)}</b> para confirmar<input data-escribir-conf autocomplete="off" autocapitalize="characters"></label>` : ''}`,
+      `<button class="btn" data-cerrar type="button">Cancelar</button><button class="btn peligro solido" data-ok type="button" ${escribir ? 'disabled' : ''}>${esc(ok)}</button>`,
+      { dialogo: true });
+    const bOk = v.q('[data-ok]');
+    v.q('[data-escribir-conf]')?.addEventListener('input', (e) => { bOk.disabled = e.target.value.trim().toUpperCase() !== escribir; });
+    v.el.addEventListener('click', (e) => { if (e.target === v.el || e.target.closest('[data-cerrar]')) fin(null); });
+    bOk.addEventListener('click', () => {
+      const opciones = Object.fromEntries([...v.el.querySelectorAll('[data-opcion]')].map((c) => [c.dataset.opcion, c.checked]));
+      v.cerrar();
+      fin(opciones);
+    });
+  });
+}
+
+/** Borra documentos por tandas (Firestore acepta hasta 500 operaciones por tanda). */
+async function borrarDocs(refs) {
+  for (let i = 0; i < refs.length; i += 400) {
+    const b = F.writeBatch(fs);
+    refs.slice(i, i + 400).forEach((r) => b.delete(r));
+    await b.commit();
+  }
 }
 
 // ---------- Acceso ----------
@@ -156,7 +187,7 @@ function asesores() {
       <td>${fechaDe(u.creado)}</td>
       <td>${p.vencido ? `<span style="color:#b91c1c">${p.termino === 'pro' ? 'Pro vencido' : 'Prueba vencida'}</span>` : esc(p.nombre)}${p.vence ? `<div class="sub">${p.vencido ? 'desde' : 'hasta'} ${fechaDe(p.vence)}</div>` : ''}</td>
       <td data-conteo="${u.uid}">…</td>
-      <td><div class="acciones"><button class="btn chico" data-plan="${u.uid}">Plan</button><button class="btn chico" data-cartera="${u.uid}">Cartera</button><button class="btn chico" data-escribir="${u.uid}">Escribir</button></div></td></tr>`;
+      <td><div class="acciones"><button class="btn chico" data-plan="${u.uid}">Plan</button><button class="btn chico" data-cartera="${u.uid}">Cartera</button><button class="btn chico" data-escribir="${u.uid}">Escribir</button>${u.uid === auth.currentUser?.uid ? '' : `<button class="btn chico peligro" data-borrar-asesor="${u.uid}">🗑️ Borrar</button>`}</div></td></tr>`;
   }).join('') || '<tr><td colspan="6">Sin asesores.</td></tr>';
   const render = () => {
     $('#filas').innerHTML = filas($('#buscar').value.trim().toLowerCase());
@@ -293,10 +324,80 @@ function pagos() {
   $('#vista').innerHTML = `<div class="seccion"><h3>Ingresos por mes</h3>${Object.keys(porMes).length
       ? `<ul class="lista-simple">${Object.entries(porMes).sort((a, b) => b[0].localeCompare(a[0])).map(([mes, tot]) => `<li><b>${esc(mes)}</b> · ${Object.entries(tot).map(([m, v]) => `${Math.round(v * 100) / 100} ${esc(m)}`).join(' + ')}</li>`).join('')}</ul>`
       : '<p class="mini">Aún no hay pagos registrados. Se registran al activar un Plan Pro con monto.</p>'}</div>
-    <table class="tabla-admin"><thead><tr><th>Fecha</th><th>Asesor</th><th>Monto</th><th>Medio · referencia</th><th>Plan hasta</th></tr></thead><tbody>
+    <table class="tabla-admin"><thead><tr><th>Fecha</th><th>Asesor</th><th>Monto</th><th>Medio · referencia</th><th>Plan hasta</th><th></th></tr></thead><tbody>
     ${datos.pagos.map((p) => `<tr><td>${fechaDe(p.registrado)}</td><td><b>${esc(p.nombre || '')}</b><div class="sub">${esc(p.correo)}</div></td>
-      <td>${esc(p.monto)} ${esc(p.moneda)}</td><td>${esc(p.medio || '—')}<div class="sub">${esc(p.referencia || '')}</div></td><td>${p.hasta ? fechaDe(p.hasta) : '—'}</td></tr>`).join('') || '<tr><td colspan="5">Sin pagos.</td></tr>'}
+      <td>${esc(p.monto)} ${esc(p.moneda)}</td><td>${esc(p.medio || '—')}<div class="sub">${esc(p.referencia || '')}</div></td><td>${p.hasta ? fechaDe(p.hasta) : '—'}</td>
+      <td><button class="btn chico peligro" data-borrar-pago="${esc(p.id)}">🗑️ Borrar</button></td></tr>`).join('') || '<tr><td colspan="6">Sin pagos.</td></tr>'}
     </tbody></table>`;
+}
+
+async function borrarPago(id) {
+  const p = datos.pagos.find((x) => x.id === id);
+  if (!p) return;
+  const r = await confirmar({
+    titulo: 'Borrar pago',
+    mensaje: `<p>¿Borrar el pago de <b>${esc(p.monto)} ${esc(p.moneda)}</b> de <b>${esc(p.nombre || p.correo)}</b> (${fechaDe(p.registrado)})?</p>
+      <p class="mini" style="margin-top:8px">Solo se borra el registro del pago y deja de sumar en los ingresos. El plan del asesor no cambia: si también quieres quitarle el Pro, usa el botón <b>Plan</b> en Asesores.</p>`,
+    ok: 'Sí, borrar pago',
+  });
+  if (!r) return;
+  await seguro(async () => {
+    await borrarDocs([F.doc(fs, 'pagos_plan', id)]);
+    await registrar('borrar_pago', `${p.correo}: ${p.monto} ${p.moneda} ${p.medio || ''} ${p.referencia || ''} (${fechaDe(p.registrado)})`);
+    datos.pagos = datos.pagos.filter((x) => x.id !== id);
+    aviso('Pago borrado');
+    pintar();
+  });
+}
+
+/** Borra a un asesor y todos sus datos en la nube (perfil, cartera, plan, conversaciones y, si se elige, sus pagos). */
+async function borrarAsesor(uid) {
+  const u = datos.usuarios.find((x) => x.uid === uid);
+  if (!u) return;
+  if (uid === auth.currentUser.uid) return aviso('No puedes borrar tu propia cuenta de administrador desde aquí', true);
+  let nClientes = '?';
+  try { nClientes = await contarClientes(uid); } catch { /* se muestra «?» */ }
+  const susPagos = datos.pagos.filter((p) => p.uid === uid);
+  const susTickets = datos.tickets.filter((t) => t.uid === uid);
+  const r = await confirmar({
+    titulo: 'Borrar asesor',
+    mensaje: `<p>Vas a borrar a <b>${esc(u.nombre || '(sin nombre)')}</b> <span class="mini">(${esc(u.correo)})</span> con todos sus datos:</p>
+      <ul class="lista-simple" style="margin:8px 0">
+        <li>Su perfil y su plan</li>
+        <li>Su cartera: <b>${nClientes}</b> cliente(s), papelera e historial</li>
+        <li>Sus conversaciones de soporte: <b>${susTickets.length}</b></li></ul>
+      ${susPagos.length ? `<label class="radio-tarjeta"><input type="checkbox" data-opcion="pagos" checked><span>Borrar también sus <b>${susPagos.length}</b> pago(s) registrados</span></label>` : ''}
+      <p class="mini" style="margin-top:8px">⚠️ No se puede deshacer. Su correo y contraseña siguen existiendo en Firebase (Authentication → Users): si entra de nuevo, empezará como cuenta nueva.</p>`,
+    ok: 'Borrar asesor',
+    escribir: 'BORRAR',
+  });
+  if (!r) return;
+  await seguro(async () => {
+    aviso('Borrando…');
+    try {
+      // Primero la cartera: si las reglas de Firebase aún no permiten borrar, se detiene aquí sin tocar nada más.
+      for (const col of ['clientes', 'papelera', 'historial', 'config']) {
+        const s = await F.getDocs(F.collection(fs, 'usuarios', uid, col));
+        await borrarDocs(s.docs.map((d) => d.ref));
+      }
+      for (const t of susTickets) {
+        const m = await F.getDocs(F.collection(fs, 'tickets', t.id, 'mensajes'));
+        await borrarDocs([...m.docs.map((d) => d.ref), F.doc(fs, 'tickets', t.id)]);
+      }
+      if (r.pagos) await borrarDocs(susPagos.map((p) => F.doc(fs, 'pagos_plan', p.id)));
+      await borrarDocs([F.doc(fs, 'planes', uid), F.doc(fs, 'usuarios', uid)]);
+    } catch (e) {
+      if (e.code === 'permission-denied') throw new Error('Firebase no dejó borrar: falta publicar las reglas nuevas (firestore.rules) en Firebase → Firestore → Reglas.');
+      throw e;
+    }
+    await registrar('borrar_asesor', `${u.correo} (${u.nombre || ''}): ${nClientes} clientes, ${susTickets.length} conversaciones${r.pagos ? `, ${susPagos.length} pagos` : ''}`);
+    datos.usuarios = datos.usuarios.filter((x) => x.uid !== uid);
+    datos.planes.delete(uid);
+    datos.conteos.delete(uid);
+    if (r.pagos) datos.pagos = datos.pagos.filter((p) => p.uid !== uid);
+    aviso('Asesor borrado');
+    pintar();
+  });
 }
 
 async function verCartera(uid) {
@@ -507,6 +608,10 @@ async function arrancar() {
     if (mp) seguro(() => masPrueba(mp.dataset.masPrueba));
     const es = e.target.closest('[data-escribir]');
     if (es) escribirA(es.dataset.escribir);
+    const bp = e.target.closest('[data-borrar-pago]');
+    if (bp) borrarPago(bp.dataset.borrarPago);
+    const ba = e.target.closest('[data-borrar-asesor]');
+    if (ba) borrarAsesor(ba.dataset.borrarAsesor);
   });
 
   F.onAuthStateChanged(auth, async (u) => {

@@ -45,13 +45,13 @@ service cloud.firestore {
       allow update: if esDueno(uid) && perfilValido()
         && request.resource.data.correo == resource.data.correo
         && request.resource.data.creado == resource.data.creado;
-      allow delete: if esDueno(uid);
+      allow delete: if esDueno(uid) || esAdmin();   // el administrador puede borrar asesores (cuentas de prueba, etc.)
 
       // Cartera: clientes, papelera, historial y configuración propia.
       match /{coleccion}/{docId} {
         allow read, write: if esDueno(uid) && verificado()
           && coleccion in ['clientes', 'papelera', 'historial', 'config'];
-        allow read: if esAdmin();
+        allow read, delete: if esAdmin();
       }
     }
 
