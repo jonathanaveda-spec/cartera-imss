@@ -48,7 +48,7 @@ async function registrar(accion, detalle) {
 function mostrarLogin(msg = '') {
   const el = $('#acceso');
   el.hidden = false;
-  el.innerHTML = `<div class="acceso-caja"><h1>Administración</h1>
+  el.innerHTML = `<div class="acceso-caja"><img src="icons/logo.png" alt="Cartera Asesor" class="logo-acceso" width="120" height="120"><h1>Administración</h1>
     <form id="f"><label>Correo<input name="c" type="email" autocomplete="username" required></label>
     <label style="margin-top:12px">Contraseña<input name="p" type="password" autocomplete="current-password" required></label>
     <div class="aviso-campo" id="m" style="min-height:1.4em;margin-top:10px">${esc(msg)}</div>
