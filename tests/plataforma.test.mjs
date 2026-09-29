@@ -105,6 +105,11 @@ test('recordatorio de cobro por WhatsApp', () => {
   assert.equal(LP.mensajeCobro(c, { codigo: 'MOROSO', diasAtraso: 2 }, { moroso: 'Oye {nombre}, debes {dias}' }), 'Oye Castañeda Menchaca Cinthia, debes 2 días');
   assert.equal(LP.enlaceWhatsApp(c.celular, 'Hola 👋'), 'https://wa.me/528662812325?text=Hola%20%F0%9F%91%8B');
   assert.equal(LP.enlaceWhatsApp('Asesor Oscar', 'x'), null);
+  // Con «+» y código de país se respeta el país (asesor o cliente fuera de México).
+  assert.equal(LP.enlaceWhatsApp('+57 300 123 4567', ''), 'https://wa.me/573001234567');
+  assert.equal(LP.telefonoInternacional('55 1234 5678'), '525512345678');
+  assert.equal(LP.telefonoInternacional('+52 55 1234 5678'), '525512345678');
+  assert.equal(LP.telefonoInternacional('+57 12'), null);
 });
 
 test('periodicidad personalizada: cada N días', () => {
