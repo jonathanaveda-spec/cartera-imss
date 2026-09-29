@@ -19,9 +19,12 @@ Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 3. ~~Confirmar el destrabe automático de publicaciones~~ ✅ funcionó el 30/09 (v21 salió sola).
 4. Seguimos en **beta** (decisión 01/10): no quitar todavía **«Acceso libre para todos»** (admin → Sistema) para activar la prueba de 7 días.
 5. ~~`privacidad.html`: domicilio y aviso BORRADOR~~ ✅ domicilio confirmado; se quitó BORRADOR de privacidad y términos (01/10).
-6. ~~Asistente para importar cualquier Excel~~ ✅ hecho (PC del local, ver abajo). Siguiente: **video corto** de cómo
-   pasar el Excel al teléfono e importarlo (lo graba Jonathan con su celular; Claude prepara Excel de prueba y guion),
-   y **capturas + cuenta de prueba** para Google Play.
+6. ~~Asistente para importar cualquier Excel~~ ✅ hecho (PC del local, ver abajo). ~~Video corto~~ ✅ v1 lista (ver abajo).
+   Siguiente: **embellecer la página carteraasesor.com** (`sitio/index.html`) con las skills de Emil Kowalski
+   (**emil-design-eng** y **mobile-native**, instaladas en la PC del local en `~/.claude/skills/`; en otra PC hay que
+   instalarlas de nuevo desde github.com/emilkowalski/skills, carpeta `skills/<nombre>/SKILL.md`). Hacerlo en una
+   conversación nueva. Después: **capturas + cuenta de prueba** para Google Play.
+   Jonathan prefiere editar él los videos en CapCut (manejar CapCut con clics gasta muchos tokens).
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
 8. ~~Publicar las reglas nuevas de Firebase~~ ✅ publicadas por Jonathan el 30/09 1:59 a.m. (verificado).
    Falta probar el borrado en el panel (Asesores → 🗑️ Borrar en «Jonathan Prueba»).
@@ -54,6 +57,12 @@ fila 1 y una columna llamada CLIENTE o NOMBRE). Ahora:
 **Video de 30 s**: guion en `tienda/video-guion.md` (escenas con IA 0–8 s + grabación real de la app + CapCut).
 Excel de clientes inventados para grabar (25 clientes: 6 🔴, 6 🟡, 13 🟢 según la fecha en que se creó): se le mandó a
 Jonathan; no está en el repo (los .xlsx no se suben). Se regenera con un script de Claude si hace falta.
+**Video v1 hecho** en CapCut de la PC del local (proyecto «0929 (1)»), exportado a `Descargas/Cartera_Asesor_video_v1.mp4`
+(31 s, 9:16, 1080p, música gratis «Summer Mood Upbeat Corporate»). Escenas 1–2 con IA de CapCut: imagen gratis +
+«Video de IA» modelo Seedance 1.0 Fast en **480p** (en 720p pide Pro; el primero fue gratis, luego 20 créditos c/u;
+quedan ~630). Luego tarjetas PNG hechas con sharp (logo / candado / cierre) y la grabación de Jonathan recortada
+(sin el registro de la cuenta: se veía su correo) a 3x y 2x. Falta: voz de Jonathan (opcional); en la grabación
+aparece el botón flotante de la grabadora de pantalla (esconderlo la próxima vez).
 
 **Números con código de país**: `logic.js → telefonoInternacional`. Un celular de 10 dígitos sigue siendo de México
 (+52); si se escribe con «+» y código de país (ej. +57 300…), WhatsApp y «Llamar» usan ese país. «Llamar» ahora
