@@ -12,6 +12,7 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 ## Al terminar cada cambio
 1. Subir `VERSION` en `plataforma/sw.js` (`cartera-asesor-vN`) si cambió algo de `plataforma/`
    (y `app/sw.js` si cambió `app/`). Sin eso los teléfonos no reciben la versión nueva.
+   Todo archivo nuevo de `plataforma/` que la app o el panel usen va también en `ARCHIVOS` de `sw.js`.
 2. Anotar en `BITACORA.md` qué se hizo, incluso lo hecho fuera del código (Cloudflare, panel admin, correos).
 3. Commit y push a **los dos** remotos: `git push origin main` y `git push cartera-imss main`
    (comparten historial).
