@@ -3,6 +3,7 @@ import { firebaseConfig } from './nube-config.js';
 import { PAISES, LIMITE_GRATIS_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
 import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
 import './pantalla.js';
+import { activarActualizaciones } from './actualizar.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -15,10 +16,8 @@ const datos = { usuarios: [], planes: new Map(), tickets: [], sistema: {}, conte
 let tab = 'resumen';
 let mensajeLogin = ''; // se muestra la próxima vez que aparezca el formulario de acceso
 
-// El mismo service worker de la app: permite instalar el panel como app ("Cartera Admin").
-if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
+// El mismo service worker de la app: permite instalar el panel como app ("Cartera Admin") y se actualiza solo.
+activarActualizaciones();
 
 // ---------- Utilidades de interfaz ----------
 function aviso(msg, mal = false) {

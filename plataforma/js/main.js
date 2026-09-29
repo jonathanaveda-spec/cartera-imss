@@ -3,13 +3,8 @@ import * as N from './nube.js';
 import * as A from './acceso.js';
 import * as I from './instalar.js';
 import './pantalla.js';
+import { activarActualizaciones } from './actualizar.js';
 import { render, enlazarEventos, refrescarTodo, alCambiarSoporte } from './ui.js';
-
-function registrarSW() {
-  if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-    navigator.serviceWorker.register('sw.js').catch(() => { /* funciona igual, solo sin modo sin conexión */ });
-  }
-}
 
 const accionesAcceso = {
   entrar: N.entrar,
@@ -22,7 +17,7 @@ async function arrancar() {
   await S.iniciar();
   enlazarEventos();
   window.__cartera_ok = true; // señal para el botón de reparación de index.html
-  registrarSW();
+  activarActualizaciones();
 
   if (!N.nubeActiva) {
     A.mostrarError('En preparación', 'La plataforma todavía no está conectada a su servidor. Vuelve pronto.');

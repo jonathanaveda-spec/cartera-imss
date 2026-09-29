@@ -36,6 +36,15 @@ jobs:
             cp -r plataforma/. _site/beta/
             rm -f _site/beta/firestore.rules _site/beta/LEEME_FIREBASE.md
           fi
+      - name: Sellar la versión de la plataforma
+        # Versión = commit y precarga = todos los archivos: los teléfonos siempre reciben la versión nueva.
+        run: |
+          if [ -d _site/app ] && [ -f _site/app/sw.js ] && grep -q "cartera-asesor" _site/app/sw.js; then
+            python3 tools/sello-sw.py _site/app "${{ github.sha }}"
+          fi
+          if [ -d _site/beta ]; then
+            python3 tools/sello-sw.py _site/beta "${{ github.sha }}"
+          fi
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

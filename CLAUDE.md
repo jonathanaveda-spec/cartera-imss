@@ -10,14 +10,15 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 3. Si falta el remoto de la app vieja: `git remote add cartera-imss https://github.com/jonathanaveda-spec/cartera-imss.git`.
 
 ## Al terminar cada cambio
-1. Subir `VERSION` en `plataforma/sw.js` (`cartera-asesor-vN`) si cambió algo de `plataforma/`
-   (y `app/sw.js` si cambió `app/`). Sin eso los teléfonos no reciben la versión nueva.
-   Todo archivo nuevo de `plataforma/` que la app o el panel usen va también en `ARCHIVOS` de `sw.js`.
+1. Versión y precarga de `plataforma/` son **automáticas**: al publicar, `tools/sello-sw.py` (desde
+   `pages.yml`) pone `VERSION = cartera-asesor-<commit>` y mete todos los archivos en `ARCHIVOS`.
+   Los teléfonos y el panel buscan la versión nueva solos (`js/actualizar.js`) y se recargan cuando
+   no hay una ventana abierta. No hace falta subir la versión a mano. (`app/` vieja: sí, a mano en `app/sw.js`.)
 2. Anotar en `BITACORA.md` qué se hizo, incluso lo hecho fuera del código (Cloudflare, panel admin, correos).
 3. Commit y push a **los dos** remotos: `git push origin main` y `git push cartera-imss main`
    (comparten historial).
-4. **Verificar que quedó en línea**: `https://carteraasesor.com/app/sw.js` debe mostrar la versión nueva
-   (1-2 minutos). También sirve la API pública de Actions del repo.
+4. **Verificar que quedó en línea**: `https://carteraasesor.com/app/sw.js` debe mostrar
+   `cartera-asesor-<primeros 10 caracteres del commit>` (1-2 minutos). También sirve la API pública de Actions.
    Si GitHub Pages dice "due to in progress deployment. Please cancel <SHA>", el flujo ya intenta
    cancelarlo solo; si aun así falla, Jonathan corre `powershell -ExecutionPolicy Bypass -File tools\destrabar-pages.ps1`.
    Claude no usa la sesión de GitHub guardada en Git para llamar a la API.
