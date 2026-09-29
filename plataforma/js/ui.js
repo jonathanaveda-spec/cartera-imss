@@ -342,6 +342,36 @@ function campoExtraHTML(x, valor) {
   return `<label>${esc(x.etiqueta)}<input type="${tipo}" name="${n}" value="${v}"></label>`;
 }
 
+// ---------- Selector de periodicidad (con «Personalizado»: cada N días) ----------
+function campoPeriodicidad(valor, { nombre = 'periodicidad', vacio = '', requerido = false } = {}) {
+  const n = L.diasDePeriodicidad(valor);
+  return `<select name="${nombre}" ${requerido ? 'required' : ''}>
+      ${vacio ? `<option value="">${vacio}</option>` : ''}
+      ${Object.keys(L.PERIODICIDADES).map((p) => `<option ${valor === p ? 'selected' : ''}>${p}</option>`).join('')}
+      <option value="personalizado" ${n ? 'selected' : ''}>Personalizado (cada cierto número de días)</option></select>
+    <span class="per-dias" data-per="${nombre}" ${n ? '' : 'hidden'}>Cada
+      <input type="number" name="${nombre}_dias" min="1" max="${L.MAX_DIAS_PERIODO}" inputmode="numeric" value="${n || ''}" placeholder="15"> días</span>`;
+}
+
+/** Devuelve la periodicidad elegida ('' si falta o si los días personalizados no son válidos). */
+function leerPeriodicidad(form, nombre = 'periodicidad') {
+  const v = form.elements[nombre].value;
+  if (v !== 'personalizado') return v;
+  const n = parseInt(form.elements[`${nombre}_dias`].value, 10);
+  return n >= 1 && n <= L.MAX_DIAS_PERIODO ? L.periodicidadDias(n) : '';
+}
+
+function enlazarPeriodicidad(form, nombre = 'periodicidad') {
+  const sel = form.elements[nombre];
+  const caja = form.querySelector(`[data-per="${nombre}"]`);
+  sel.addEventListener('change', () => {
+    caja.hidden = sel.value !== 'personalizado';
+    if (!caja.hidden) form.elements[`${nombre}_dias`].focus();
+  });
+}
+
+const AVISO_DIAS = `Escribe cada cuántos días paga (de 1 a ${L.MAX_DIAS_PERIODO})`;
+
 export function abrirFormulario(id) {
   const c = id ? S.buscar(id) : null;
   const v = c || { nombre: '', curp: '', nss: '', celular: '', fecha_inicio: '', opcion: '', proveedor: '', comision: '', periodicidad: '', proximo_pago: '', notas: '', extra: {} };
@@ -357,8 +387,7 @@ export function abrirFormulario(id) {
       <label>Opción<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
       <label>Proveedor<input name="proveedor" value="${esc(v.proveedor)}" list="lista-proveedores"></label>
       <label>Periodicidad de pago
-        <select name="periodicidad"><option value="">Sin definir</option>
-          ${Object.keys(L.PERIODICIDADES).map((p) => `<option ${v.periodicidad === p ? 'selected' : ''}>${p}</option>`).join('')}</select></label>
+        ${campoPeriodicidad(v.periodicidad, { vacio: 'Sin definir' })}</label>
       <label>Próximo pago<input type="date" name="proximo_pago" value="${esc(v.proximo_pago || '')}">
         <div class="ayuda">Se actualiza solo al registrar un pago.</div></label>
       ${extras.map((x) => campoExtraHTML(x, v.extra?.[x.clave])).join('')}
@@ -381,12 +410,16 @@ export function abrirFormulario(id) {
   };
   form.addEventListener('input', revisar);
   revisar();
+  enlazarPeriodicidad(form);
 
   form.addEventListener('submit', (ev) => {
     ev.preventDefault();
     const fd = new FormData(form);
     const datos = Object.fromEntries([...fd.entries()].filter(([k]) => !k.startsWith('x:')));
     if (!String(datos.nombre || '').trim()) { form.nombre.focus(); return aviso('El nombre es obligatorio', true); }
+    datos.periodicidad = leerPeriodicidad(form);
+    delete datos.periodicidad_dias;
+    if (form.periodicidad.value === 'personalizado' && !datos.periodicidad) return aviso(AVISO_DIAS, true);
     datos.extra = {};
     for (const [k, val] of fd.entries()) if (k.startsWith('x:')) datos.extra[k.slice(2)] = val;
     if (datos.proximo_pago && !datos.periodicidad && !c?.periodicidad) {
@@ -422,9 +455,7 @@ export function abrirPago(id) {
       <label>Fecha en que pagó *<input type="date" name="fecha_pago" value="${hoy}" required></label>
       <label>Monto (opcional)<input type="number" step="0.01" name="monto" inputmode="decimal" placeholder="0.00"></label>
       <label>Forma de pago (opcional)<input name="metodo" list="formas" placeholder="Efectivo, transferencia…"></label>
-      <label>Periodicidad *<select name="periodicidad" required>
-        ${c.periodicidad ? '' : '<option value="">Elegir…</option>'}
-        ${Object.keys(L.PERIODICIDADES).map((p) => `<option ${c.periodicidad === p ? 'selected' : ''}>${p}</option>`).join('')}</select></label>
+      <label>Periodicidad *${campoPeriodicidad(c.periodicidad, { vacio: c.periodicidad ? '' : 'Elegir…', requerido: true })}</label>
       ${c.proximo_pago ? '' : `<label class="completo">Este pago cubre a partir del<input type="date" name="cubre_desde" value="${hoy}"><div class="ayuda">Este cliente aún no tiene fecha de próximo pago; se calculará a partir de esta fecha.</div></label>`}
       <label class="completo">Nota (opcional)<input name="nota"></label>
       <label class="completo">Nuevo próximo pago<input type="date" name="nuevo_proximo">
@@ -441,7 +472,7 @@ export function abrirPago(id) {
   let manual = false;
 
   const calc = () => {
-    const per = form.periodicidad.value || null;
+    const per = leerPeriodicidad(form) || null;
     const r = S.calcularPago(c, { fecha_pago: form.fecha_pago.value, periodicidad: per, cubre_desde: form.cubre_desde?.value });
     if (!manual) form.nuevo_proximo.value = r.siguiente || '';
     const nuevo = form.nuevo_proximo.value;
@@ -452,16 +483,19 @@ export function abrirPago(id) {
          <div>Después: próximo pago el <b>${L.fmtFecha(nuevo)}</b> → <span class="insignia ${e.clase}">${e.icono} ${e.etiqueta}</span> <span class="dias ${e.clase}">${L.textoDias(e)}</span></div>`
       : '<div class="mini">Elige la periodicidad para calcular el próximo pago.</div>';
   };
-  form.addEventListener('input', (ev) => { if (ev.target.name === 'nuevo_proximo') manual = !!ev.target.value; else if (ev.target.name === 'periodicidad' || ev.target.name === 'fecha_pago' || ev.target.name === 'cubre_desde') manual = false; calc(); });
+  form.addEventListener('input', (ev) => { if (ev.target.name === 'nuevo_proximo') manual = !!ev.target.value; else if (['periodicidad', 'periodicidad_dias', 'fecha_pago', 'cubre_desde'].includes(ev.target.name)) manual = false; calc(); });
+  enlazarPeriodicidad(form);
   calc();
 
   form.addEventListener('submit', (ev) => {
     ev.preventDefault();
     if (!form.fecha_pago.value) return aviso('Indica la fecha del pago', true);
-    if (!form.periodicidad.value) return aviso('Elige la periodicidad', true);
+    if (!leerPeriodicidad(form)) return aviso(form.periodicidad.value === 'personalizado' ? AVISO_DIAS : 'Elige la periodicidad', true);
     if (!form.nuevo_proximo.value) return aviso('No se pudo calcular el próximo pago', true);
     seguro(async () => {
       const fd = Object.fromEntries(new FormData(form).entries());
+      fd.periodicidad = leerPeriodicidad(form);
+      delete fd.periodicidad_dias;
       await S.registrarPago(id, fd);
       ven.cerrar();
       aviso('Pago registrado');
@@ -692,7 +726,15 @@ export function abrirAsistente() {
   const pendientes = S.db.clientes.filter((c) => !c.proximo_pago && !c.baja);
   if (!pendientes.length) return aviso('Todos tus clientes ya tienen fecha de cobro');
   const { hoy, aviso: dias } = ctx();
-  const sel = { paso: 1, periodicidad: S.db.config.periodicidadDefecto, metodo: 'ciclo' };
+  const perDefecto = S.db.config.periodicidadDefecto;
+  const sel = {
+    paso: 1, periodicidad: perDefecto, metodo: 'ciclo',
+    // tipo: una de PERIODICIDADES o 'personalizado' (cada `dias` días)
+    tipo: L.diasDePeriodicidad(perDefecto) ? 'personalizado' : perDefecto, dias: L.diasDePeriodicidad(perDefecto) || '',
+  };
+  const elegida = () => (sel.tipo === 'personalizado'
+    ? (Number(sel.dias) >= 1 && Number(sel.dias) <= L.MAX_DIAS_PERIODO ? L.periodicidadDias(Number(sel.dias)) : null)
+    : sel.tipo);
   const ejemplo = pendientes.find((c) => !S.calcularMasivo([c], { periodicidad: 'Mensual', metodo: 'ciclo', hoy })[0]?.omitido);
   const nombreEj = ejemplo ? esc(String(ejemplo.nombre).split(/\s+/).slice(0, 2).join(' ')) : '';
   const proximoEj = (metodo) => {
@@ -717,8 +759,12 @@ export function abrirAsistente() {
     2: () => ({
       cuerpo: `${pasoDe(2)}
         <h3 style="margin-bottom:8px">¿Cada cuánto te pagan estos clientes?</h3>
-        ${Object.keys(L.PERIODICIDADES).map((p) => `<label class="radio-tarjeta"><input type="radio" name="periodicidad" value="${p}" ${sel.periodicidad === p ? 'checked' : ''}>
+        ${Object.keys(L.PERIODICIDADES).map((p) => `<label class="radio-tarjeta"><input type="radio" name="periodicidad" value="${p}" ${sel.tipo === p ? 'checked' : ''}>
           <span><b>${p}</b> <span class="mini">· ${CADA[p] || ''}</span></span></label>`).join('')}
+        <label class="radio-tarjeta"><input type="radio" name="periodicidad" value="personalizado" ${sel.tipo === 'personalizado' ? 'checked' : ''}>
+          <span><b>Personalizado</b> <span class="mini">· tú eliges cada cuántos días</span>
+            <span class="per-dias" ${sel.tipo === 'personalizado' ? '' : 'hidden'}>Cada
+              <input type="number" name="dias_per" min="1" max="${L.MAX_DIAS_PERIODO}" inputmode="numeric" value="${sel.dias}" placeholder="15"> días</span></span></label>
         <p class="mini" style="margin-top:8px">Si algunos pagan distinto, elige lo más común. A esos los cambias después uno por uno.</p>`,
       pie: `<button class="btn" data-ir="1" type="button">Atrás</button><button class="btn primario" data-ir="3" type="button">Siguiente</button>`,
     }),
@@ -732,7 +778,9 @@ export function abrirAsistente() {
         cuerpo: `${pasoDe(3)}
           <h3 style="margin-bottom:8px">¿Tus clientes van al corriente con sus pagos?</h3>
           <label class="radio-tarjeta"><input type="radio" name="metodo" value="ciclo" ${sel.metodo === 'ciclo' ? 'checked' : ''}><span><b>Sí, casi todos van al corriente</b><br>
-            <span class="mini">Les ponemos como próximo cobro su siguiente día de pago. Nadie sale atrasado.${ejemplo ? `<br>Ej.: ${nombreEj} → próximo cobro ${proximoEj('ciclo')}` : ''}</span></span></label>
+            <span class="mini">${L.diasDePeriodicidad(sel.periodicidad)
+              ? `Contamos ${sel.periodicidad.toLowerCase()} desde su fecha de inicio y les ponemos el siguiente cobro que viene.`
+              : 'Les ponemos como próximo cobro su siguiente día de pago.'} Nadie sale atrasado.${ejemplo ? `<br>Ej.: ${nombreEj} → próximo cobro ${proximoEj('ciclo')}` : ''}</span></span></label>
           <label class="radio-tarjeta"><input type="radio" name="metodo" value="inicio" ${sel.metodo === 'inicio' ? 'checked' : ''}><span><b>No estoy seguro, quiero revisarlos</b><br>
             <span class="mini">Contamos desde su fecha de inicio. Quien no tenga pagos anotados saldrá atrasado 🔴 hasta que registres lo que ya te pagó.${ejemplo ? `<br>Ej.: ${nombreEj} → próximo cobro ${proximoEj('inicio')}` : ''}</span></span></label>
           <div class="seccion" style="margin-top:12px"><h3>Así quedarían tus ${aplicables} clientes</h3>
@@ -750,12 +798,25 @@ export function abrirAsistente() {
   const v = ventana({ titulo: 'Fechas de cobro', cuerpo: '', fondoCierra: false });
   const pintar = () => v.poner(pasos[sel.paso]());
   v.el.addEventListener('change', (e) => {
-    if (e.target.name === 'periodicidad') sel.periodicidad = e.target.value;
+    if (e.target.name === 'periodicidad') {
+      sel.tipo = e.target.value;
+      const caja = v.q('.per-dias');
+      caja.hidden = sel.tipo !== 'personalizado';
+      if (!caja.hidden) v.q('[name="dias_per"]').focus();
+    }
     if (e.target.name === 'metodo') { sel.metodo = e.target.value; pintar(); }
   });
+  v.el.addEventListener('input', (e) => { if (e.target.name === 'dias_per') sel.dias = e.target.value; });
   v.el.addEventListener('click', (e) => {
     const ir = e.target.closest('[data-ir]');
-    if (ir) { sel.paso = Number(ir.dataset.ir); pintar(); v.q('.modal-cuerpo').scrollTop = 0; }
+    if (ir) {
+      const destino = Number(ir.dataset.ir);
+      if (sel.paso === 2 && destino === 3) {
+        if (!elegida()) return aviso(AVISO_DIAS, true);
+        sel.periodicidad = elegida();
+      }
+      sel.paso = destino; pintar(); v.q('.modal-cuerpo').scrollTop = 0;
+    }
     if (e.target.closest('[data-ok]')) seguro(async () => {
       const n = await S.aplicarMasivo(calculo, sel.periodicidad, sel.metodo);
       v.cerrar(); aviso(`Listo: ${n} clientes ya tienen fecha de cobro`); render();
@@ -1049,14 +1110,17 @@ export function abrirVencimientos() {
         <label>Días para marcar «Próximo a vencer»<input type="number" name="diasAviso" min="1" max="90" value="${cfg.diasAviso}" inputmode="numeric">
           <div class="ayuda">Un cliente es 🟡 cuando faltan entre 0 y este número de días para su próximo pago.</div></label>
         <label style="margin-top:12px">Periodicidad sugerida
-          <select name="periodicidadDefecto">${Object.keys(L.PERIODICIDADES).map((p) => `<option ${cfg.periodicidadDefecto === p ? 'selected' : ''}>${p}</option>`).join('')}</select>
+          ${campoPeriodicidad(cfg.periodicidadDefecto, { nombre: 'periodicidadDefecto' })}
           <div class="ayuda">La que aparece elegida al configurar el pago de un cliente nuevo.</div></label>
         <button class="btn primario" type="submit" style="margin-top:12px">Guardar</button></form>`,
   });
+  enlazarPeriodicidad(v.q('#f-cfg'), 'periodicidadDefecto');
   v.q('#f-cfg').addEventListener('submit', (e) => { e.preventDefault(); seguro(async () => {
     const f = e.target;
     const d = Math.max(1, Math.min(90, parseInt(f.diasAviso.value, 10) || 7));
-    await S.guardarConfig({ diasAviso: d, periodicidadDefecto: f.periodicidadDefecto.value });
+    const per = leerPeriodicidad(f, 'periodicidadDefecto');
+    if (!per) return aviso(AVISO_DIAS, true);
+    await S.guardarConfig({ diasAviso: d, periodicidadDefecto: per });
     aviso('Vencimientos guardados'); render(); v.cerrar();
   }); });
 }

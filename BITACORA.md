@@ -78,3 +78,9 @@ para verla, probar desde otra cuenta.
   cambió (S.calcularMasivo / S.aplicarMasivo).
 - Encabezado: "Cartera Asesor" ya no se parte en dos líneas en el celular; en pantallas
   menores a 360px solo se ve el logo. (sw v16)
+- **Periodicidad personalizada "cada N días"** (1 a 365). Se guarda como texto «Cada 15 días»
+  (logic.js: diasDePeriodicidad / periodicidadDias / esPeriodicidad; siguienteVencimiento suma
+  días; sin día fijo del mes → dia_pago = null). Disponible en: asistente Fechas de cobro (paso 2),
+  ficha del cliente, Registrar pago y Vencimientos (periodicidad sugerida). Pruebas nuevas en
+  tests/plataforma.test.mjs (no se pudieron correr aquí: esta PC no tiene Node; se verificó
+  lo mismo en el navegador). La app vieja (app/) no se tocó. (sw v17)

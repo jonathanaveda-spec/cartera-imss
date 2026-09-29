@@ -295,6 +295,11 @@ tr.fila.est-baja td { opacity: .72; }
 .chat-form textarea { min-height: 44px; flex: 1; }
 .dato-pago { font-size: 1.05rem; font-weight: 600; word-break: break-all; margin-top: 2px; }
 
+/* Periodicidad personalizada: «Cada [N] días» */
+.per-dias { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-weight: 600; }
+.per-dias[hidden] { display: none; }
+.per-dias input { width: 90px; margin: 0; }
+
 /* ---------- Marca ---------- */
 .barra { background: linear-gradient(135deg, #0b2a6f, #163f9e); }
 .barra h1 { display: flex; align-items: center; gap: 8px; min-width: 0; white-space: nowrap; }
