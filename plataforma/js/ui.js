@@ -44,7 +44,7 @@ function ventana({ titulo, cuerpo, pie = '', ancho = false, fondoCierra = true, 
       if (i < 0) return;
       pila.splice(i, 1);
       fondo.remove();
-      if (!pila.length) document.body.classList.remove('bloqueado');
+      if (!pila.length) { document.body.classList.remove('bloqueado'); soltarGuardia(); }
       onCerrar && onCerrar(resultado);
     },
     q: (s) => $(s, fondo),
@@ -55,8 +55,35 @@ function ventana({ titulo, cuerpo, pie = '', ancho = false, fondoCierra = true, 
   $('#modales').appendChild(fondo);
   document.body.classList.add('bloqueado');
   pila.push(v);
+  armarGuardia();
   return v;
 }
+
+// Gesto / botón «atrás» del teléfono: mientras haya una ventana abierta se deja una entrada en el historial.
+// Así «atrás» cierra la ventana de arriba en lugar de salir de la app (en Android la minimizaba).
+let guardia = false;      // hay una entrada nuestra en el historial
+let ignorarPop = false;   // el «atrás» lo hicimos nosotros al cerrar la última ventana con la ✕
+function armarGuardia() {
+  if (guardia) return;
+  history.pushState({ carteraVentana: true }, '');
+  guardia = true;
+}
+function soltarGuardia() {
+  // Se espera un momento: si enseguida se abre otra ventana (p. ej. del menú a una opción), se reutiliza la entrada.
+  setTimeout(() => {
+    if (pila.length || !guardia) return;
+    guardia = false;
+    ignorarPop = true;
+    history.back();
+  }, 0);
+}
+window.addEventListener('popstate', () => {
+  if (ignorarPop) { ignorarPop = false; return; }
+  guardia = false;
+  if (!pila.length) return;
+  pila[pila.length - 1].cerrar();
+  if (pila.length) armarGuardia(); // quedan ventanas: la próxima vez «atrás» cierra la siguiente
+});
 
 export function cerrarSuperior() {
   const v = pila[pila.length - 1];

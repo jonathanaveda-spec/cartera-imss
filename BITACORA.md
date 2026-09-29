@@ -75,6 +75,15 @@ WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y c
 
 **Jonathan probó el PIN y la huella en su celular: funcionan** («me encantó»).
 
+**Gesto «atrás» de Android ya no minimiza la app** (lo reportó Jonathan):
+- Antes, con un cliente abierto, el gesto de atrás salía de la app.
+- Ahora, en `ui.js` → `ventana()`, mientras haya una ventana abierta queda una entrada en el historial
+  (`history.pushState`). «Atrás» cierra la ventana de arriba, una a la vez.
+- Al cerrar la última con la ✕, la entrada se quita sola, así el siguiente «atrás» en la pantalla principal sale
+  de la app como es normal.
+- Del menú a una opción, la entrada se reutiliza.
+- Probado en la demo: abrir cliente → atrás; cliente + registrar pago → atrás, atrás; ✕; menú → Papelera → atrás.
+
 **Botones del detalle del cliente reordenados** (Jonathan: «se ven con desorganización»):
 - **💵 Registrar pago** va grande y a lo ancho. Si el cliente está de baja, en su lugar va **↩️ Reactivar cliente**.
 - Debajo, contactar: **💬 Recordar** (verde; si el cliente está al día dice «WhatsApp») y **📞 Llamar**. «Llamar» ya
