@@ -284,19 +284,25 @@ export function abrirDetalle(id, ventanaExistente) {
     <div class="seccion destacado">
       <div><span class="insignia ${e.clase}">${e.icono} ${e.etiqueta}</span>
         <div class="dias ${e.clase}" style="margin-top:6px">${L.textoDias(e)}</div></div>
-      <div style="text-align:right"><div class="mini">Próximo pago</div><div class="grande">${c.proximo_pago ? L.fmtFecha(c.proximo_pago) : '—'}</div>
+      <div class="prox"><div class="mini">Próximo pago</div><div class="grande">${c.proximo_pago ? L.fmtFecha(c.proximo_pago) : '—'}</div>
         ${c.ultimo_recordatorio ? `<div class="mini">Último recordatorio: ${L.fmtFecha(c.ultimo_recordatorio)}</div>` : ''}
         <div class="mini">${esc(c.periodicidad) || 'Sin periodicidad'}${L.textoDiaPago(c) ? ' · <b>' + L.textoDiaPago(c) + '</b>' : ''}</div></div>
     </div>
     ${e.codigo === 'BAJA' ? `<div class="banner mal"><p>Dado de baja${c.baja_fecha ? ' el ' + L.fmtFecha(c.baja_fecha) : ''}${c.baja_motivo ? ': ' + esc(c.baja_motivo) : ''}. Si vuelve a cotizar, usa «Reactivar». Este estado tiene prioridad sobre las fechas de pago.</p></div>` : ''}
-    <div class="seccion acc-fila">
-      ${e.codigo === 'BAJA' ? '' : `<button class="btn primario" data-accion="pago" data-id="${id}">Registrar pago</button>`}
-      <button class="btn" data-accion="editar" data-id="${id}">Editar</button>
-      ${tel ? `<a class="btn" href="tel:+${tel}">Llamar</a>${e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER'
-        ? `<button class="btn btn-wa" data-accion="recordar" data-id="${id}">💬 Recordar pago</button>`
-        : `<a class="btn" href="${L.enlaceWhatsApp(c.celular, '')}" target="_blank" rel="noopener">WhatsApp</a>`}` : ''}
-      ${c.baja ? `<button class="btn" data-accion="reactivar" data-id="${id}">Reactivar</button>` : `<button class="btn" data-accion="baja" data-id="${id}">Dar de baja</button>`}
-      <button class="btn peligro" data-accion="eliminar" data-id="${id}">Eliminar</button>
+    <div class="seccion acc-detalle">
+      ${c.baja
+        ? `<button class="btn primario principal" data-accion="reactivar" data-id="${id}">↩️ Reactivar cliente</button>`
+        : `<button class="btn primario principal" data-accion="pago" data-id="${id}">💵 Registrar pago</button>`}
+      ${tel ? `<div class="acc-dos">
+        ${e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER'
+          ? `<button class="btn btn-wa" data-accion="recordar" data-id="${id}">💬 Recordar</button>`
+          : `<a class="btn btn-wa" href="${L.enlaceWhatsApp(c.celular, '')}" target="_blank" rel="noopener">💬 WhatsApp</a>`}
+        <a class="btn" href="tel:+${tel}">📞 Llamar</a></div>` : ''}
+      <div class="acc-dos">
+        <button class="btn" data-accion="editar" data-id="${id}">✏️ Editar</button>
+        ${c.baja ? '' : `<button class="btn" data-accion="baja" data-id="${id}">⏸️ Dar de baja</button>`}
+      </div>
+      <button class="acc-eliminar" data-accion="eliminar" data-id="${id}">🗑️ Eliminar cliente</button>
     </div>
     ${avisos.length ? `<div class="seccion"><h3>Revisar</h3>
       ${avisos.map((a) => `<span class="etq ambar">${esc(L.TIPOS_AVISO[a])}</span>`).join('')}
