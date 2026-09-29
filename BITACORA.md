@@ -73,6 +73,25 @@ FAQ con «+» que gira y pregunta nueva sobre Excel con otro formato; textos al 
 plantilla, «cada cierto número de días»); correo de soporte en el pie; `og:image` con URL completa para que
 WhatsApp muestre el logo al compartir el enlace. Probada en celular (375 px) y computador.
 
+**Jonathan probó el PIN y la huella en su celular: funcionan** («me encantó»).
+
+**Comprobante de pago por WhatsApp**:
+- Al registrar un pago aparece «✅ Pago registrado» con el mensaje listo y editable. Ejemplo: «Hola Marta 👋 Recibí tu pago
+  de $1,500.00 del 29 de septiembre de 2026. ✅ Tu próximo pago es el 5 de noviembre de 2026. ¡Gracias por tu
+  confianza! — (nombre del asesor)». Tiene los botones «📲 Enviar por WhatsApp» y «Ahora no».
+- Si el cliente no tiene un celular válido, ofrece «Copiar mensaje».
+- La casilla «Preguntarme siempre al registrar un pago» se puede desmarcar. También se cambia en Mensajes de cobro.
+- En el historial de pagos del cliente, cada pago tiene su botón «📲 Enviar comprobante». Si ya se envió, dice
+  «Reenviar comprobante (✓ enviado)» y además queda anotado en el historial de cambios.
+- ☰ → Mensajes de cobro tiene un tercer mensaje, «Comprobante de pago». Admite las variables {nombre}, {monto} (solo si
+  se anotó), {fecha_pago}, {proximo}, {metodo} y {asesor} (la firma con el nombre del perfil).
+- Código:
+  - `logic.js`: `mensajeComprobante`, `fmtFechaLarga` y `fmtDinero`, con prueba nueva (48 en verde).
+  - `store.js`: `anotarComprobante`.
+- Probado en la **demo local** (http://localhost:8080/demo/, Firebase simulado) con una cuenta y un cliente inventados:
+  registrar pago → comprobante → enlace de WhatsApp (+52) → «✓ enviado» en el historial. Los datos se borraron después.
+  Truco para entrar a la demo sin escribir: poner en `localStorage.fakefb` un usuario con `emailVerified: true` y `current`.
+
 **Competencia revisada** (capturas de Jonathan: Cobros y Deudas, CobrApp y la búsqueda «imss asesores» en Play).
 Conclusiones e ideas pendientes en `PLAN.md` → «Ideas aprendidas de la competencia».
 
