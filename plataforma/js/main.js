@@ -2,6 +2,7 @@ import * as S from './store.js';
 import * as N from './nube.js';
 import * as A from './acceso.js';
 import * as I from './instalar.js';
+import './pantalla.js';
 import { render, enlazarEventos, refrescarTodo, alCambiarSoporte } from './ui.js';
 
 function registrarSW() {

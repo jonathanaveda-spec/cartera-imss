@@ -1,8 +1,8 @@
 // Service worker: deja la app disponible sin conexión. Los datos NO pasan por aquí (viven en IndexedDB).
-const VERSION = 'cartera-asesor-v18';
+const VERSION = 'cartera-asesor-v19';
 const ARCHIVOS = [
   './', 'index.html', 'manifest.webmanifest', 'css/styles.css',
-  'js/main.js', 'js/ui.js', 'js/store.js', 'js/excel.js', 'js/logic.js', 'js/nube.js', 'js/sincro.js', 'js/acceso.js', 'js/nube-config.js', 'js/plan.js', 'js/marca.js', 'js/instalar.js', 'privacidad.html', 'terminos.html',
+  'js/main.js', 'js/ui.js', 'js/store.js', 'js/excel.js', 'js/logic.js', 'js/nube.js', 'js/sincro.js', 'js/acceso.js', 'js/nube-config.js', 'js/plan.js', 'js/marca.js', 'js/instalar.js', 'js/pantalla.js', 'privacidad.html', 'terminos.html',
   'vendor/xlsx.full.min.js', 'vendor/firebase.js', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png', 'icons/logo.png',
 ];
 

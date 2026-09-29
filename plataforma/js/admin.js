@@ -2,6 +2,7 @@
 import { firebaseConfig } from './nube-config.js';
 import { PAISES, LIMITE_GRATIS_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
 import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
+import './pantalla.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

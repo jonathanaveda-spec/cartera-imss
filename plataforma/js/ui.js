@@ -21,9 +21,9 @@ const ctx = () => ({ hoy: L.hoyISO(), aviso: S.db.config.diasAviso });
 // =====================================================================
 const pila = [];
 
-function ventana({ titulo, cuerpo, pie = '', ancho = false, fondoCierra = true, onCerrar }) {
+function ventana({ titulo, cuerpo, pie = '', ancho = false, fondoCierra = true, onCerrar, dialogo = false }) {
   const fondo = document.createElement('div');
-  fondo.className = 'fondo-modal';
+  fondo.className = 'fondo-modal' + (dialogo ? ' dialogo' : '');
   fondo.innerHTML = `<div class="modal ${ancho ? 'ancho' : ''}" role="dialog" aria-modal="true">
       <div class="modal-cab"><h2></h2><button class="btn cerrar" data-cerrar aria-label="Cerrar" type="button">✕</button></div>
       <div class="modal-cuerpo"></div><div class="modal-pie"></div></div>`;
@@ -66,7 +66,7 @@ function confirmar({ titulo, mensaje, ok = 'Aceptar', peligro = false, cancelar 
   return new Promise((res) => {
     let hecho = false;
     const v = ventana({
-      titulo,
+      titulo, dialogo: true,
       cuerpo: `<p>${mensaje}</p>`,
       pie: `<button class="btn" data-cerrar type="button">${esc(cancelar)}</button>
             <button class="btn ${peligro ? 'peligro solido' : 'primario'}" data-ok type="button">${esc(ok)}</button>`,

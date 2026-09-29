@@ -188,25 +188,34 @@ tr.fila.est-baja td { opacity: .72; }
 .vacio .btn + .btn { margin-left: 8px; }
 
 /* ---------- Ventanas ---------- */
+/* --alto-visible / --tope-visible los pone JS (js/pantalla.js) con el área REALMENTE visible: en iPhone
+   la capa fija puede quedar más alta que la pantalla y la parte de abajo de las ventanas quedaba escondida. */
 .fondo-modal {
-  position: fixed; inset: 0; z-index: 50; background: rgba(17, 24, 39, .5);
+  position: fixed; left: 0; right: 0; top: var(--tope-visible, 0); height: var(--alto-visible, 100%);
+  z-index: 50; background: rgba(17, 24, 39, .5);
   display: flex; align-items: flex-end; justify-content: center;
+  overscroll-behavior: none;
   animation: aparece .15s ease-out;
 }
 .modal {
-  background: var(--fondo); width: 100%; max-width: 640px; max-height: 94dvh; max-height: 94vh;
+  background: var(--fondo); width: 100%; max-width: 640px;
+  max-height: calc(100% - max(16px, env(safe-area-inset-top)));
   display: flex; flex-direction: column;
   border-radius: 18px 18px 0 0; box-shadow: 0 -8px 30px rgba(0, 0, 0, .25);
   animation: sube .2s ease-out;
 }
 .modal.ancho { max-width: 860px; }
-@supports (height: 1dvh) { .modal { max-height: 94dvh; } }
+/* Confirmaciones (eliminar, anular…): centradas, para que sus botones siempre se vean. */
+.fondo-modal.dialogo { align-items: center; padding: 16px; }
+.fondo-modal.dialogo .modal { max-width: 440px; border-radius: 16px; max-height: 100%; }
+.fondo-modal.dialogo .modal-cab { border-radius: 16px 16px 0 0; }
+.fondo-modal.dialogo .modal-pie { padding-bottom: 12px; border-radius: 0 0 16px 16px; }
 .modal-cab {
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 14px 16px; border-bottom: 1px solid var(--linea); background: var(--tarjeta); border-radius: 18px 18px 0 0;
 }
 .modal-cab h2 { font-size: 1.1rem; }
-.modal-cuerpo { padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; flex: 1; }
+.modal-cuerpo { padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; flex: 1 1 auto; min-height: 0; overscroll-behavior: contain; }
 .modal-pie {
   display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;
   padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--linea); background: var(--tarjeta);
@@ -214,7 +223,7 @@ tr.fila.est-baja td { opacity: .72; }
 .cerrar { min-width: 44px; padding: 0; font-size: 1.3rem; }
 @media (min-width: 700px) {
   .fondo-modal { align-items: center; }
-  .modal { border-radius: 16px; max-height: 90vh; }
+  .modal { border-radius: 16px; max-height: 90%; }
   .modal-cab { border-radius: 16px 16px 0 0; }
 }
 @keyframes aparece { from { opacity: 0; } }
