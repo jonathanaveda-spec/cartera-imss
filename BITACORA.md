@@ -33,6 +33,14 @@ No hay contraseñas, tokens de GitHub ni llaves privadas. Pasos que hace Jonatha
 (1) Google Cloud → Credenciales → restringir la llave a los sitios carteraasesor.com, github.io,
 cartera-asesor.firebaseapp.com y localhost; (2) cerrar la alerta en GitHub como «Won't fix».
 
+**Instalar en Android: había que intentarlo varias veces** (Jonathan, 01/10). Causa: al aceptar, Chrome
+tarda hasta ~1 min en armar la app, pero la pantalla decía «¡Listo!» al instante y, al terminar
+(evento appinstalled), volvía a mostrar los pasos del menú ⋮; además el botón reaparecía y al tocarlo
+otra vez se reiniciaba la instalación. Ahora (js/instalar.js) hay estados: «Instalando… no vuelvas a
+tocar» → «✅ ¡Lista!» al terminar; si pasan 90 s sin confirmación, pregunta si ya ve el ícono. Si Chrome
+dice que la app ya está en el teléfono (manifest `related_applications` + getInstalledRelatedApps),
+muestra «Ya tienes la app» en lugar del botón.
+
 **Páginas legales**: se quitó el aviso BORRADOR de `privacidad.html` y `terminos.html`
 (Jonathan confirmó responsable y domicilio en Colombia).
 

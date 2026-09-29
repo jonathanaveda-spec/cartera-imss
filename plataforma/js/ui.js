@@ -1260,7 +1260,7 @@ export function enlazarEventos() {
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
     'guia-instalar': () => { const v = ventana({ titulo: '📲 Instalar en iPhone', cuerpo: I.guiaIOS({ flecha: true }) }); I.enlazarGuia(v.el); },
-    instalar: () => { I.instalar().then((ok) => { if (ok) aviso('¡Listo! La app quedó en tu pantalla de inicio.'); render(); }); },
+    instalar: () => { I.instalar().then((ok) => { if (ok) aviso('Instalando… puede tardar hasta 1 minuto. Luego busca el ícono «Cartera» en tu pantalla de inicio.'); render(); }); },
     abrir: (el) => abrirDetalle(el.dataset.id),
     editar: (el) => abrirFormulario(el.dataset.id),
     pago: (el) => abrirPago(el.dataset.id),

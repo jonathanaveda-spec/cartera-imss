@@ -2,11 +2,19 @@
 //  - Android / computador (Chrome, Edge, Brave…): el navegador ofrece "beforeinstallprompt" y se instala con un toque.
 //  - iPhone / iPad: Safari no lo ofrece; se muestran los pasos (Compartir → Agregar a pantalla de inicio).
 let evento = null;
+// En Android, después de aceptar, Chrome tarda hasta ~1 minuto en armar e instalar la app. Mientras tanto
+// no se vuelve a mostrar el botón (antes reaparecía y la persona lo tocaba otra vez, reiniciando la instalación).
+let estado = 'inicial'; // 'inicial' | 'instalando' | 'tardando' | 'lista' | 'ya' (ya estaba instalada)
+let reloj = null;
 const oyentes = new Set();
 const avisar = () => oyentes.forEach((f) => { try { f(); } catch { /* ignorar */ } });
 
-window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); evento = e; avisar(); });
-window.addEventListener('appinstalled', () => { evento = null; avisar(); });
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); evento = e; if (estado === 'inicial') avisar(); });
+// Chrome en Android puede decir si la app ya está instalada en el teléfono (manifest: related_applications).
+navigator.getInstalledRelatedApps?.().then((apps) => {
+  if (apps.length && estado === 'inicial') { estado = 'ya'; avisar(); }
+}).catch(() => { /* no disponible */ });
+window.addEventListener('appinstalled', () => { evento = null; clearTimeout(reloj); estado = 'lista'; avisar(); });
 
 const ua = () => navigator.userAgent;
 export const esIOS = () => /iPhone|iPad|iPod/.test(ua()) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -14,7 +22,8 @@ export const esAndroid = () => /Android/i.test(ua());
 /** Navegadores dentro de otras apps (Facebook, Instagram, TikTok…): no permiten instalar. */
 export const enNavegadorDeApp = () => /FBAN|FBAV|FB_IAB|Instagram|Line\/|TikTok|musical_ly|Snapchat|Twitter/i.test(ua());
 export const instalada = () => navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
-export const puedeInstalar = () => !!evento && !instalada();
+export const puedeInstalar = () => !!evento && !instalada() && estado === 'inicial';
+export const estadoInstalacion = () => estado;
 export const alCambiar = (f) => { oyentes.add(f); return () => oyentes.delete(f); };
 /** El visitante llegó desde el botón "Instalar la app" de la página. */
 export const pidioInstalar = () => new URLSearchParams(location.search).has('instalar');
@@ -24,8 +33,36 @@ export async function instalar() {
   evento.prompt();
   const r = await evento.userChoice.catch(() => ({ outcome: 'dismissed' }));
   evento = null;
+  const ok = r.outcome === 'accepted';
+  if (ok && estado !== 'lista') {
+    estado = 'instalando';
+    reloj = setTimeout(() => { if (estado === 'instalando') { estado = 'tardando'; avisar(); } }, 90000);
+  }
   avisar();
-  return r.outcome === 'accepted';
+  return ok;
+}
+
+/** Mensaje mientras se instala / cuando ya quedó instalada. Vacío si no aplica. */
+export function htmlEstado() {
+  if (estado === 'instalando') {
+    return `<div class="instalando"><div class="girar" aria-hidden="true"></div>
+      <p><b>Instalando…</b> El teléfono está preparando la app; puede tardar hasta 1 minuto.</p>
+      <p class="mini">No vuelvas a tocar «Instalar». Cuando termine te avisamos aquí.</p></div>`;
+  }
+  if (estado === 'tardando') {
+    return `<p><b>¿Ya ves el ícono «Cartera»?</b> Búscalo en tu pantalla de inicio o en la lista de apps.</p>
+      ${lista([
+        'Si ya está, ábrela desde el ícono.',
+        'Si no aparece, toca el menú <b>⋮</b> del navegador y elige <b>«Instalar app»</b>.',
+      ])}`;
+  }
+  if (estado === 'ya') {
+    return `<p><b>✅ Ya tienes la app en este teléfono.</b> Ábrela desde el ícono <b>Cartera</b> de tu pantalla de inicio o de la lista de apps.</p>`;
+  }
+  if (estado === 'lista') {
+    return `<p><b>✅ ¡Lista!</b> Busca el ícono <b>Cartera</b> en tu pantalla de inicio y ábrela desde ahí.</p>`;
+  }
+  return '';
 }
 
 const lista = (pasos) => `<ol class="pasos-instalar">${pasos.map((p) => `<li>${p}</li>`).join('')}</ol>`;
@@ -90,6 +127,8 @@ function pasosMenu() {
 
 /** Contenido de la pantalla dedicada a instalar (cuando la persona llegó desde "Instalar la app"). */
 export function htmlPantalla() {
+  const est = htmlEstado();
+  if (est) return est;
   if (enNavegadorDeApp()) {
     return `<p class="acceso-texto">Estás dentro de otra app (Facebook, Instagram…) y desde aquí no se puede instalar.</p>
       ${lista([
@@ -108,6 +147,8 @@ export function htmlPantalla() {
 /** Bloque para la pantalla de acceso: botón en Android/PC, pasos en iPhone, nada si ya está instalada. */
 export function htmlZona() {
   if (instalada()) return '';
+  const est = htmlEstado();
+  if (est) return `<div class="instalar-zona">${est}</div>`;
   if (puedeInstalar()) {
     return `<div class="instalar-zona"><button class="btn primario" type="button" data-instalar style="width:100%">⬇ Instalar la app</button>
       <p class="mini">Queda en tu pantalla de inicio, como cualquier app.</p></div>`;
