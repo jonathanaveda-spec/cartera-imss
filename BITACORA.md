@@ -20,6 +20,20 @@ Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 5. `privacidad.html`: revisar «persona natural con domicilio en Colombia» y el aviso BORRADOR.
 6. Siguiente tarea grande: **asistente para importar cualquier Excel** (PLAN.md, paso 13).
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
+8. **Publicar las reglas nuevas de Firebase** (`plataforma/firestore.rules`) para que el panel pueda borrar asesores.
+
+## 2026-09-30
+
+**Panel de administración: borrar pagos y asesores (v21)**
+- Pagos: botón 🗑️ Borrar en cada pago (confirmación centrada). Solo borra el registro; el plan del asesor no cambia.
+- Asesores: botón 🗑️ Borrar (no aparece en la cuenta del propio administrador). Pide escribir BORRAR.
+  Borra perfil, plan, cartera (clientes, papelera, historial, config), conversaciones de soporte y,
+  si se deja marcado, sus pagos. Queda en admin_log. El acceso (correo/contraseña) sigue en
+  Firebase Authentication: si entra de nuevo empieza como cuenta nueva (y si su teléfono aún tiene
+  datos guardados, podría volver a subirlos).
+- `firestore.rules`: el administrador ahora puede borrar `usuarios/{uid}` y su cartera.
+  **Hay que publicarlas en Firebase → Firestore → Reglas** (no se publican con GitHub).
+- No se pudo probar el borrado de punta a punta aquí (requiere entrar como administrador).
 
 ## 2026-09-28 (PC de casa)
 
