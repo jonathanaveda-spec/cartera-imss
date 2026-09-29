@@ -43,8 +43,8 @@ Claude lee `CLAUDE.md`, esta bitácora y `PLAN.md`.
 5. ~~`privacidad.html`: domicilio y aviso BORRADOR~~ ✅ domicilio confirmado; se quitó BORRADOR de privacidad y términos (01/10).
 6. ~~Asistente para importar cualquier Excel~~ ✅ hecho (PC del local, ver abajo). ~~Video corto~~ ✅ v1 lista (ver abajo).
    ~~Embellecer la página carteraasesor.com~~ ✅ hecho con las skills de Emil Kowalski (ver abajo). Las skills
-   **emil-design-eng** y **mobile-native** están instaladas en la PC del local en `~/.claude/skills/`; en otra PC hay que
-   instalarlas de nuevo desde github.com/emilkowalski/skills (carpeta `skills/<nombre>/SKILL.md`, solo texto).
+   **emil-design-eng** y **mobile-native** ya van **dentro del repo** en `.claude/skills/` (licencia MIT incluida):
+   cualquier PC o sesión en la nube las tiene con `git pull`. Los usuarios ya ven el resultado en la página y en la app.
    Siguiente: **capturas + cuenta de prueba** para Google Play.
    Jonathan prefiere editar él los videos en CapCut (manejar CapCut con clics gasta muchos tokens).
 7. En espera: **App Store** (ver «Meta pendiente: App Store» al final).
