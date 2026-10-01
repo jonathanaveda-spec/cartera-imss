@@ -38,7 +38,17 @@ Cartera Asesor es una herramienta de organización. No es una aseguradora ni rea
 ## Imágenes
 - Ícono 512×512: `plataforma/icons/icon-512.png`
 - Gráfico de funciones 1024×500: `tienda/grafico-funciones.png`
-- Capturas de teléfono (mín. 2): pendiente — se toman con la app real y una cuenta de prueba.
+- Capturas de teléfono: **listas**, 6 de 1080×1920 en `tienda/capturas/`. Se suben en este orden:
+  1. `1-inicio.png`: «Sabe al instante quién te debe».
+  2. `2-cliente.png`: «Todo de cada cliente a un toque».
+  3. `3-pago.png`: «La próxima fecha se calcula sola».
+  4. `4-comprobante.png`: «Comprobante de pago por WhatsApp».
+  5. `5-excel.png`: «Sube tu Excel tal como lo tienes».
+  6. `6-pin.png`: «Protegida con PIN y huella».
+- Las capturas se hicieron con **clientes inventados** en la demo local y en la versión de Play (sin precios).
+- Para rehacerlas después de cambiar la app:
+  1. Correr `node serve.js`.
+  2. Correr `node tools/capturas-play.mjs`. Usa Edge en modo automático y el marco de `tienda/marco.html`.
 
 ## Cuenta de prueba para el revisor de Google
 Crear una cuenta de asesor de demostración con clientes inventados y dar correo/contraseña

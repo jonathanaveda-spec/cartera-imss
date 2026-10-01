@@ -19,12 +19,19 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
 - Gesto «atrás» de Android que ya no minimiza la app: Jonathan confirmó que funciona.
 - Competencia revisada, con sus ideas en `PLAN.md`.
 
+**01/10:**
+- ✅ **Capturas para Google Play listas.** Son 6 de 1080×1920 con título y marco, en `tienda/capturas/`.
+  - Se hicieron con clientes inventados en la demo local y en la versión de Play (sin precios).
+  - Para rehacerlas: `node serve.js` y luego `node tools/capturas-play.mjs` (Edge automático por DevTools).
+    El marco está en `tienda/marco.html`.
+  - Las capturas sin marco quedan en `tienda/capturas/crudas/`, que no se sube a GitHub.
+
 **Siguiente (Jonathan elige):**
 1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan diga el **nombre de marca** del desarrollador.
 2. Entrar con Google.
 3. Filtros rápidos «Pagan hoy» / «Pagaron hoy».
 4. Google Play (cuenta el sábado 03/10):
-   - capturas de pantalla;
+   - ~~capturas de pantalla~~ ✅;
    - cuenta de prueba para el revisor;
    - juntar los Gmail de **12 personas** para la prueba cerrada de 14 días.
 5. Si algún asesor pasa de 100 clientes (por ejemplo Yamileth), darle Plan Pro en el panel.
