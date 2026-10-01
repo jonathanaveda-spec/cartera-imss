@@ -11,3 +11,6 @@ tests/excel.test.mjs
 .claude/*
 !.claude/skills/
 node_modules/
+
+# Capturas sin marco (se rehacen con tools/capturas-play.mjs)
+tienda/capturas/crudas/
