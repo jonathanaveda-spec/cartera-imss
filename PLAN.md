@@ -81,6 +81,7 @@ Cuando la plataforma esté estable: crea su cuenta, restaura su respaldo desde l
 ```
 node serve.js
 ```
-- App de Yamileth: http://localhost:8080/app/
+- App nueva (la que se desarrolla; se abre sola en http://localhost:8080): http://localhost:8080/plataforma/
+- App vieja de Yamileth (ya en desuso: Yamileth usa la nueva): http://localhost:8080/app/
 - Plataforma con Firebase **simulado**: http://localhost:8080/demo/ (administrador de prueba: cualquier correo que empiece con `admin@`)
 - Pruebas automáticas: `npm test`
