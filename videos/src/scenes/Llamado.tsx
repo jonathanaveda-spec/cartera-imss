@@ -18,8 +18,8 @@ export const Llamado: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
+          left: 140,
+          width: 800,
           top: 230,
           display: "flex",
           justifyContent: "center",
@@ -40,8 +40,8 @@ export const Llamado: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
+          left: 140,
+          width: 800,
           top: 500,
           textAlign: "center",
           fontFamily: titulos,
@@ -58,13 +58,13 @@ export const Llamado: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
+          left: 140,
+          width: 800,
           top: 650,
           textAlign: "center",
           fontFamily: titulos,
           fontWeight: 800,
-          fontSize: 112,
+          fontSize: 100,
           lineHeight: 1.04,
           letterSpacing: -2.5,
           color: C.blanco,
@@ -79,8 +79,8 @@ export const Llamado: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
+          left: 140,
+          width: 800,
           top: 985,
           display: "flex",
           justifyContent: "center",
@@ -94,9 +94,9 @@ export const Llamado: React.FC = () => {
             color: C.blanco,
             fontFamily: titulos,
             fontWeight: 800,
-            fontSize: 76,
+            fontSize: 66,
             letterSpacing: -1,
-            padding: "30px 56px 34px",
+            padding: "30px 44px 34px",
             borderRadius: 999,
             boxShadow: "0 22px 44px rgba(3,12,40,0.45)",
             border: "6px solid rgba(255,255,255,0.35)",
@@ -108,8 +108,8 @@ export const Llamado: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
+          left: 140,
+          width: 800,
           top: 1180,
           textAlign: "center",
           fontFamily: textos,
@@ -123,7 +123,9 @@ export const Llamado: React.FC = () => {
       >
         Beta gratuita · hasta 100 clientes
         <div style={{ fontWeight: 600, fontSize: 42, marginTop: 14 }}>
-          Tu cartera de clientes, organizada y al día
+          Tu cartera de clientes,
+          <br />
+          organizada y al día
         </div>
       </div>
     </AbsoluteFill>

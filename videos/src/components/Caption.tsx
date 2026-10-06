@@ -1,6 +1,6 @@
 import type React from "react";
 import { useCurrentFrame } from "remotion";
-import { C, textos, titulos } from "../brand";
+import { ANCHO_MAX, C, textos, titulos, X0 } from "../brand";
 import { ease } from "../anim";
 
 type Props = {
@@ -26,8 +26,8 @@ export const Caption: React.FC<Props> = ({
     <div
       style={{
         position: "absolute",
-        left: 60,
-        width: 880,
+        left: X0,
+        width: ANCHO_MAX,
         top,
         display: "flex",
         justifyContent: "center",
@@ -39,7 +39,8 @@ export const Caption: React.FC<Props> = ({
         style={{
           background: caja ? "rgba(11,42,111,0.82)" : "transparent",
           borderRadius: 40,
-          padding: caja ? "28px 44px 32px" : 0,
+          padding: caja ? "28px 32px 32px" : 0,
+          whiteSpace: "nowrap",
           textAlign: "center",
           fontFamily: titulos,
           fontWeight: 800,

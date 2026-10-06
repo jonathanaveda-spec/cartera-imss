@@ -5,7 +5,7 @@ import { ease } from "../anim";
 // Escena 1 (0-2.2 s): gancho. Visible desde el primer cuadro; solo se mueve, no aparece de la nada.
 export const Gancho: React.FC = () => {
   const frame = useCurrentFrame();
-  const zoomLento = interpolate(frame, [0, 66], [1, 1.05], {
+  const zoomLento = interpolate(frame, [0, 66], [1, 1.03], {
     extrapolateRight: "clamp",
   });
   const linea = (i: number) => {
@@ -20,7 +20,7 @@ export const Gancho: React.FC = () => {
   const estilo = {
     fontFamily: titulos,
     fontWeight: 800,
-    fontSize: 144,
+    fontSize: 136,
     lineHeight: 1.02,
     letterSpacing: -3,
     color: C.blanco,
@@ -32,8 +32,8 @@ export const Gancho: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
+          left: 140,
+          width: 800,
           top: 440,
           textAlign: "center",
           fontSize: 190,
@@ -44,7 +44,7 @@ export const Gancho: React.FC = () => {
       >
         📒
       </div>
-      <div style={{ position: "absolute", left: 60, width: 880, top: 710 }}>
+      <div style={{ position: "absolute", left: 140, width: 800, top: 710 }}>
         <div style={{ ...estilo, ...linea(0) }}>¿Todavía</div>
         <div style={{ ...estilo, ...linea(1) }}>cobras con</div>
         <div style={{ ...estilo, ...linea(2), color: C.oro, position: "relative" }}>

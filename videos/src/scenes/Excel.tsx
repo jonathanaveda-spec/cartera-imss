@@ -26,9 +26,9 @@ export const Excel: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 110,
+          left: 170,
           top: 270,
-          width: 780,
+          width: 740,
           background: "#FFFFFF",
           borderRadius: 24,
           overflow: "hidden",
@@ -112,7 +112,7 @@ export const Excel: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 690,
+          left: 730,
           top: 150,
           width: 190,
           height: 190,

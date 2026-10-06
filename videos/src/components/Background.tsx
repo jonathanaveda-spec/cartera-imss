@@ -1,5 +1,5 @@
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, ZONA } from "../brand";
+import { C, ZONA, CX } from "../brand";
 
 // Fondo de marca: degradado azul noche -> azul cartera con brillo celeste que se mueve despacio.
 export const Background: React.FC<{ guias?: boolean }> = ({ guias }) => {
@@ -28,6 +28,19 @@ export const Background: React.FC<{ guias?: boolean }> = ({ guias }) => {
             outline: "4px dashed rgba(255,0,200,0.9)",
             zIndex: 100,
             pointerEvents: "none",
+          }}
+        />
+      ) : null}
+      {guias ? (
+        <div
+          style={{
+            position: "absolute",
+            left: CX - 1,
+            top: 0,
+            width: 2,
+            height: 1920,
+            background: "rgba(0,255,255,0.9)",
+            zIndex: 100,
           }}
         />
       ) : null}

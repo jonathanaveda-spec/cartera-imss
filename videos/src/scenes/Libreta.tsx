@@ -28,9 +28,9 @@ export const Libreta: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 130,
+          left: 180,
           top: 250,
-          width: 740,
+          width: 720,
           height: 760,
           background: "#FFF8E6",
           borderRadius: 28,
@@ -130,7 +130,7 @@ export const Libreta: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 540,
+          left: 580,
           top: 190,
           rotate: "5deg",
           opacity: ease(frame, 26, 38),
@@ -144,7 +144,7 @@ export const Libreta: React.FC = () => {
       <Caption
         top={1090}
         delay={1}
-        size={78}
+        size={74}
         lineas={[
           [{ t: "Se te pasó cobrarle" }],
           [{ t: "a " }, { t: "3 clientes", oro: true }],

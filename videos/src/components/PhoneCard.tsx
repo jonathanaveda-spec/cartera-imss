@@ -2,7 +2,8 @@ import type React from "react";
 import { Img, staticFile } from "remotion";
 import { C } from "../brand";
 
-export const CARD_W = 800;
+// El telefono completo (con marco) mide 800 px, centrado en x = 540 (x 140-940)
+export const CARD_W = 772;
 const FRAME = 14; // grosor del marco del telefono
 const SRC_W = 1080;
 const SRC_H = 1920;

@@ -59,6 +59,9 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
 - **1080×1920, 9:16, 30 fps**, 15–25 s (máximo 45 s). Exportar MP4 H.264 + AAC.
 - **Zona segura** (TikTok tapa parte de la pantalla): todo texto y dato importante dentro de **x 60–940 px, y 180–1440 px**.
   Abajo (descripción, música) y la columna derecha (me gusta, comentarios) quedan libres de texto.
+- **Centrado:** todo va centrado en el **centro real de la pantalla (x = 540)**, no en el centro de la zona segura
+  (si no, el video se ve corrido a la izquierda; lo notó Jonathan). Para no invadir la columna derecha, lo centrado mide
+  **máximo 800 px de ancho (x 140–940)**. Las capturas de la app dentro del teléfono también: máximo 800 px.
 - **Subtítulos siempre** (mucha gente ve sin sonido): Plus Jakarta Sans 800, blancos con sombra o caja azul noche al 80 %,
   palabra clave en oro. Dentro de la zona segura, en el tercio medio-bajo.
 - Pantallas de la app: usar capturas **reales** de la app con **clientes inventados** (`node tools/capturas-play.mjs` deja

@@ -10,7 +10,7 @@ export const Recordar: React.FC = () => {
   const entra = ease(frame, 0, 14);
   const mov = ease(frame, 4, 40, Easing.bezier(0.45, 0, 0.2, 1));
   const zoom = 1 + mov * 0.12;
-  const cy = 520 + mov * 318;
+  const cy = 520 + mov * 320;
   const cx = 540;
   const anillo = ease(frame, 30, 40);
   const pulso = Math.sin(frame / 3) * 0.5 + 0.5;
@@ -25,9 +25,9 @@ export const Recordar: React.FC = () => {
     <AbsoluteFill>
       <PhoneCard
         src="2-cliente.png"
-        left={100}
+        left={154}
         top={200}
-        alto={660}
+        alto={640}
         zoom={zoom}
         cx={cx}
         cy={cy}
@@ -78,9 +78,9 @@ export const Recordar: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
-          top: 895,
+          left: 140,
+          width: 800,
+          top: 880,
           display: "flex",
           justifyContent: "center",
           opacity: listo,
@@ -102,8 +102,8 @@ export const Recordar: React.FC = () => {
         </div>
       </div>
       <Caption
-        top={1010}
-        size={68}
+        top={1000}
+        size={62}
         lineas={[
           [{ t: "Recuérdale por" }],
           [{ t: "WhatsApp", oro: true }, { t: " con un toque" }],

@@ -14,16 +14,16 @@ const ESTADOS = [
 export const Resumen: React.FC = () => {
   const frame = useCurrentFrame();
   const entra = ease(frame, 0, 14);
-  const zoom = interpolate(frame, [0, 108], [1, 1.03], {
+  const zoom = interpolate(frame, [0, 108], [1, 1.015], {
     extrapolateRight: "clamp",
   });
   return (
     <AbsoluteFill>
       <PhoneCard
         src="1-inicio.png"
-        left={100}
+        left={154}
         top={200}
-        alto={760}
+        alto={736}
         zoom={zoom}
         cx={540}
         cy={430}
@@ -52,11 +52,11 @@ export const Resumen: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
-          top: 1015,
+          left: 140,
+          width: 800,
+          top: 985,
           display: "flex",
-          gap: 20,
+          gap: 25,
           justifyContent: "center",
         }}
       >
@@ -66,7 +66,7 @@ export const Resumen: React.FC = () => {
             <div
               key={e.id}
               style={{
-                width: 280,
+                width: 250,
                 height: 160,
                 borderRadius: 32,
                 background: C.nube,
@@ -108,7 +108,7 @@ export const Resumen: React.FC = () => {
         })}
       </div>
       <Caption
-        top={1208}
+        top={1180}
         size={66}
         lineas={[
           [{ t: "Tu cartera clara" }],

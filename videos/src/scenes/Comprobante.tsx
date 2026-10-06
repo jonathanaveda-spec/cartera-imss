@@ -20,9 +20,9 @@ export const Comprobante: React.FC = () => {
     <AbsoluteFill>
       <PhoneCard
         src="4-comprobante.png"
-        left={100}
+        left={154}
         top={200}
-        alto={680}
+        alto={640}
         zoom={zoom}
         cx={540}
         cy={cy}
@@ -52,9 +52,9 @@ export const Comprobante: React.FC = () => {
       <div
         style={{
           position: "absolute",
-          left: 60,
-          width: 880,
-          top: 925,
+          left: 140,
+          width: 800,
+          top: 880,
           display: "flex",
           justifyContent: "center",
           opacity: listo,
@@ -70,7 +70,7 @@ export const Comprobante: React.FC = () => {
         </div>
       </div>
       <Caption
-        top={1040}
+        top={1000}
         size={72}
         lineas={[
           [{ t: "Y mándale su" }],
