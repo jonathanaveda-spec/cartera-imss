@@ -35,6 +35,19 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
   y copiar `skills/*` a `~/.claude/skills/`; hace falta `longpaths` porque en Windows algunas rutas son muy largas.
 - Remotion necesita Node, que la PC de la casa no tiene. Es gratis para personas y empresas de hasta 3 empleados.
 
+- **Identidad de marca aprobada:** Jonathan eligió la tipografía **A · Cercana** (Bricolage Grotesque para títulos +
+  Plus Jakarta Sans para textos). La paleta es la de la app, más un **oro acento #FFD166** para la palabra clave.
+  - Quedó como regla en la skill `.claude/skills/marca-cartera-asesor/SKILL.md`. Incluye la voz, el formato TikTok
+    1080×1920 con su zona segura, el ritmo (gancho 0–2 s, problema, app en acción, llamado) y la forma de trabajo:
+    guion aprobado → programar → revisar fotogramas → render.
+  - Tablero visual: `tienda/marca/tablero.png`, que se rehace con
+    `node tools/foto-html.mjs /tienda/marca/tablero.html tienda/marca/tablero.png`. En Git Bash hay que anteponer
+    `MSYS_NO_PATHCONV=1`.
+  - Agente `productor-videos` (`.claude/agents/productor-videos.md`, **modelo Sonnet**): hace los videos con Remotion en
+    `videos/` siguiendo la skill.
+  - Siguiente: guion del primer TikTok para que Jonathan lo apruebe.
+- El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
+
 **Siguiente (Jonathan elige):**
 1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan diga el **nombre de marca** del desarrollador.
 2. Entrar con Google.

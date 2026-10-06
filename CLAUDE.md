@@ -38,6 +38,13 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
   Usarlas al tocar la interfaz de `plataforma/` o `sitio/`: animaciones con propósito, `:active`, hover solo con mouse,
   `prefers-reduced-motion`, safe-area, sin destello al tocar.
 
+## Marca y videos
+- **Identidad de marca aprobada** (06/10/2026): skill `.claude/skills/marca-cartera-asesor` (colores, tipografía Bricolage
+  Grotesque + Plus Jakarta Sans, voz, formato TikTok, ritmo y **revisión de fotogramas antes de exportar**). Es regla para
+  todo material de la marca. Tablero visual: `tienda/marca/tablero.png`.
+- Videos: agente `productor-videos` (`.claude/agents/`, modelo Sonnet) con Remotion en `videos/`. Skills de Remotion
+  instaladas solo en la PC del local (ver `BITACORA.md`).
+
 ## Forma de trabajar con Jonathan
 - Todo en español, simple y sin tecnicismos: Jonathan no es programador.
 - Probar los cambios de interfaz en tamaño de celular (muchos usuarios usan iPhone).

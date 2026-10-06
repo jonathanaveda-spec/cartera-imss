@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<title>Tablero de marca</title>
+<!-- Tablero de marca de Cartera Asesor (borrador para elegir tipografía). Se convierte en imagen con tools/foto-html.mjs. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Plus+Jakarta+Sans:wght@400;600;800&family=Unbounded:wght@500;800&family=Manrope:wght@400;600&family=Sora:wght@500;800&family=Inter:wght@400;600&display=block" rel="stylesheet">
+<style>
+  :root { --noche: #0b2a6f; --azul: #1d4ed8; --celeste: #1aa3f5; --verde: #16a34a; --ambar: #d97706; --rojo: #dc2626; --fondo: #f5f8ff; --tinta: #0f172a; --suave: #475569; }
+  * { box-sizing: border-box; }
+  body { margin: 0; width: 1080px; background: var(--fondo); color: var(--tinta); font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif; }
+  .cab { background: linear-gradient(160deg, var(--noche), var(--azul) 65%, var(--celeste)); color: #fff; padding: 70px 70px 60px; display: flex; gap: 36px; align-items: center; }
+  .cab img { width: 150px; height: 150px; border-radius: 36px; box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+  .cab h1 { margin: 0; font-size: 58px; line-height: 1.05; font-weight: 800; }
+  .cab p { margin: 10px 0 0; font-size: 28px; color: #dbe8ff; }
+  section { padding: 50px 70px 10px; }
+  h2 { margin: 0 0 24px; font-size: 32px; letter-spacing: .5px; text-transform: uppercase; color: var(--suave); }
+  .paleta { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .color { border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 6px 18px rgba(15,23,42,.08); }
+  .color .m { height: 120px; }
+  .color div:last-child { padding: 14px 16px; font-size: 21px; line-height: 1.3; }
+  .color b { display: block; font-size: 22px; }
+  .opciones { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .op { text-align: center; }
+  .op.B, .op.C { opacity: .45; }
+  .op.A .marco { outline: 6px solid #16a34a; outline-offset: 6px; }
+  .op .marco { width: 100%; aspect-ratio: 9 / 16; border-radius: 34px; overflow: hidden; position: relative; padding: 70px 26px 0; color: #fff;
+    background: radial-gradient(500px 300px at 50% 0%, rgba(26,163,245,.6), transparent 70%), linear-gradient(170deg, var(--noche), var(--azul)); box-shadow: 0 14px 34px rgba(11,42,111,.3); }
+  .op .gancho { font-size: 44px; line-height: 1.02; margin: 0; }
+  .op .gancho em { font-style: normal; color: #ffd166; }
+  .op .sub { margin: 18px 0 0; font-size: 21px; line-height: 1.3; color: #dbe8ff; }
+  .op .chip { position: absolute; left: 26px; right: 26px; bottom: 130px; background: #fff; color: var(--tinta); border-radius: 18px; padding: 14px; font-size: 19px; text-align: left; }
+  .op .chip i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: var(--rojo); margin-right: 8px; }
+  .op .nombre { margin: 18px 0 2px; font-size: 30px; font-weight: 800; }
+  .op .desc { font-size: 20px; color: var(--suave); line-height: 1.35; }
+  .A .gancho { font-family: "Bricolage Grotesque"; font-weight: 800; letter-spacing: -1px; } .A .sub, .A .chip { font-family: "Plus Jakarta Sans"; }
+  .B .gancho { font-family: "Unbounded"; font-weight: 800; font-size: 36px; letter-spacing: -.5px; } .B .sub, .B .chip { font-family: "Manrope"; }
+  .C .gancho { font-family: "Sora"; font-weight: 800; letter-spacing: -1px; } .C .sub, .C .chip { font-family: "Inter"; }
+  .ritmo { display: grid; grid-template-columns: 1fr 1.4fr 1.4fr 1.2fr; gap: 10px; margin-bottom: 14px; }
+  .ritmo div { border-radius: 16px; padding: 16px 14px; color: #fff; font-size: 21px; line-height: 1.3; }
+  .ritmo b { display: block; font-size: 24px; }
+  .nota { font-size: 21px; color: var(--suave); line-height: 1.45; margin: 0 0 50px; }
+</style></head>
+<body>
+  <div class="cab"><img src="../../plataforma/icons/icon-512.png" alt="">
+    <div><h1>Cartera Asesor<br>Identidad de marca</h1><p>Aprobada el 06/10/2026 · Tipografía: A · Cercana</p></div></div>
+
+  <section><h2>Paleta (la misma de la app)</h2>
+    <div class="paleta">
+      <div class="color"><div class="m" style="background:#0b2a6f"></div><div><b>Azul noche</b>#0B2A6F · fondos</div></div>
+      <div class="color"><div class="m" style="background:#1d4ed8"></div><div><b>Azul cartera</b>#1D4ED8 · marca</div></div>
+      <div class="color"><div class="m" style="background:#1aa3f5"></div><div><b>Celeste</b>#1AA3F5 · brillo</div></div>
+      <div class="color"><div class="m" style="background:#ffd166"></div><div><b>Oro acento</b>#FFD166 · palabra clave</div></div>
+      <div class="color"><div class="m" style="background:#16a34a"></div><div><b>Verde al día</b>#16A34A · WhatsApp, éxito</div></div>
+      <div class="color"><div class="m" style="background:#d97706"></div><div><b>Ámbar</b>#D97706 · por vencer</div></div>
+      <div class="color"><div class="m" style="background:#dc2626"></div><div><b>Rojo moroso</b>#DC2626 · alerta</div></div>
+      <div class="color"><div class="m" style="background:#f5f8ff;border-bottom:1px solid #e2e8f0"></div><div><b>Nube</b>#F5F8FF · fondo claro</div></div>
+    </div></section>
+
+  <section><h2>Tipografía</h2>
+    <div class="opciones">
+      <div class="op A"><div class="marco"><p class="gancho">¿Todavía cobras con <em>libreta</em>?</p><p class="sub">Tu cartera IMSS organizada en el celular.</p>
+        <div class="chip"><i></i>3 clientes atrasados hoy</div></div>
+        <div class="nombre">A · Cercana <span style="background:#16a34a;color:#fff;border-radius:99px;padding:2px 12px;font-size:20px;vertical-align:middle">✓ Elegida</span></div><div class="desc">Bricolage Grotesque + Plus Jakarta Sans. Con carácter, humana, se recuerda.</div></div>
+      <div class="op B"><div class="marco"><p class="gancho">¿Todavía cobras con <em>libreta</em>?</p><p class="sub">Tu cartera IMSS organizada en el celular.</p>
+        <div class="chip"><i></i>3 clientes atrasados hoy</div></div>
+        <div class="nombre">B · Impacto</div><div class="desc">Unbounded + Manrope. Ancha y potente, muy de TikTok.</div></div>
+      <div class="op C"><div class="marco"><p class="gancho">¿Todavía cobras con <em>libreta</em>?</p><p class="sub">Tu cartera IMSS organizada en el celular.</p>
+        <div class="chip"><i></i>3 clientes atrasados hoy</div></div>
+        <div class="nombre">C · Tecnológica</div><div class="desc">Sora + Inter. Limpia y moderna, tipo app de finanzas.</div></div>
+    </div></section>
+
+  <section><h2>Ritmo de un TikTok (15–25 s)</h2>
+    <div class="ritmo">
+      <div style="background:#dc2626"><b>0–2 s</b>Gancho: el dolor</div>
+      <div style="background:#d97706"><b>2–8 s</b>Problema: libreta, Excel, olvidos</div>
+      <div style="background:#1d4ed8"><b>8–18 s</b>La app en acción (pantallas reales)</div>
+      <div style="background:#16a34a"><b>Final</b>Llamado: «Gratis en la beta»</div>
+    </div>
+    <p class="nota">Cortes cada 1.5–3 s · texto grande dentro de la zona segura (TikTok tapa arriba, abajo y la derecha) · subtítulos siempre · antes de exportar se revisan fotogramas de cada escena.</p>
+  </section>
+</body></html>

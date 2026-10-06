@@ -10,7 +10,11 @@ tests/excel.test.mjs
 # Local (menos las skills de diseño: así Claude las tiene en cualquier PC o en la nube)
 .claude/*
 !.claude/skills/
+!.claude/agents/
 node_modules/
 
 # Capturas sin marco (se rehacen con tools/capturas-play.mjs)
 tienda/capturas/crudas/
+# Proyecto de videos (Remotion): dependencias y videos exportados no se suben
+videos/node_modules/
+videos/out/
