@@ -26,6 +26,15 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
     El marco está en `tienda/marco.html`.
   - Las capturas sin marco quedan en `tienda/capturas/crudas/`, que no se sube a GitHub.
 
+**06/10:**
+- **Skills oficiales de Remotion** (videos hechos con código) instaladas en la **PC del local**, en
+  `~/.claude/skills/remotion-*`. Son 12: best-practices, create, markup, studio, render, captions, maps, saas,
+  interactivity, docs, upgrade y multimedia. Vienen de github.com/remotion-dev/skills (commit 4733526).
+- No van dentro del repo porque ese repositorio no declara licencia, así que no corresponde redistribuirlo.
+- En otra PC se instalan con `npx skills add remotion-dev/skills`. Otra forma: `git -c core.longpaths=true clone`
+  y copiar `skills/*` a `~/.claude/skills/`; hace falta `longpaths` porque en Windows algunas rutas son muy largas.
+- Remotion necesita Node, que la PC de la casa no tiene. Es gratis para personas y empresas de hasta 3 empleados.
+
 **Siguiente (Jonathan elige):**
 1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan diga el **nombre de marca** del desarrollador.
 2. Entrar con Google.
