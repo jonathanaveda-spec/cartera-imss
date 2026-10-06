@@ -51,7 +51,10 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
     - Video: `videos/out/tiktok-01-libreta.mp4`, solo local (para rehacerlo, ver los comandos en el guion o en
       `videos/renderizar-fotogramas.sh`).
     - Remotion usa Edge como navegador, así que no descarga Chrome.
-    - Falta: Jonathan aprueba o corrige, le pone música en CapCut Pro (uso comercial) y lo publica.
+    - Corregido (v2): todo centrado en x=540 con ancho máximo de 800 px. Ahora es regla de la marca.
+    - ✅ **Publicado en TikTok** (@carteraasesor) el 06/10, con la música que Jonathan puso en CapCut y la descripción
+      recomendada (la opción 1 del guion, con carteraasesor.com escrito y los hashtags #asesorimss #cobranza
+      #carteradeclientes #asesorindependiente #emprendedores #carteraasesor).
   - ✅ **Cuenta de TikTok creada: @carteraasesor**.
     - Datos: correo soporte@carteraasesor.com y una línea de celular nueva solo para la marca.
     - Perfil: foto `tienda/marca/avatar-redes.png`, nombre «Cartera Asesor» y la descripción «La app del asesor IMSS:
