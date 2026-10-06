@@ -55,6 +55,15 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
     - ✅ **Publicado en TikTok** (@carteraasesor) el 06/10, con la música que Jonathan puso en CapCut y la descripción
       recomendada (la opción 1 del guion, con carteraasesor.com escrito y los hashtags #asesorimss #cobranza
       #carteradeclientes #asesorindependiente #emprendedores #carteraasesor).
+  - **Plan de contenido** con 24 videos en 4 series (Así funciona, Tip del asesor, Antes vs. después, Te respondo):
+    `videos/plan-contenido.md`. Ritmo: 3 videos por semana.
+  - 🎬 **TikTok #2 «Pásale tu Excel en 2 minutos» (24.5 s) y #3 «Si alguien toma tu celular… ¿ve tu cartera?» (24 s)**:
+    listos sin música. Copias en Descargas: `TikTok02_excel_sin_musica.mp4` y `TikTok03_pin_sin_musica.mp4`.
+    - Los guiones, con descripciones y hashtags, están en `videos/guiones/`.
+    - Capturas nuevas de la app con datos inventados: `node tools/capturas-videos.mjs`, que guarda en
+      `videos/public/capturas/`. Necesita `node serve.js` corriendo.
+    - Detalle: en la pantalla «¡Listo!» del #2 la app muestra «Revisa 3 clientes con datos que conviene corregir»,
+      porque los CURP/NSS del Excel inventado están incompletos. Si molesta, se cambian en el script y se rehace.
   - ✅ **Cuenta de TikTok creada: @carteraasesor**.
     - Datos: correo soporte@carteraasesor.com y una línea de celular nueva solo para la marca.
     - Perfil: foto `tienda/marca/avatar-redes.png`, nombre «Cartera Asesor» y la descripción «La app del asesor IMSS:

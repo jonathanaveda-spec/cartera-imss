@@ -17,8 +17,8 @@ Todo sigue la skill `marca-cartera-asesor` (formato, ritmo, voz, revisión de fo
 | # | Serie | Gancho (0–2 s) | Qué se muestra / mensaje | Capturas |
 |---|---|---|---|---|
 | 1 ✅ | C | ¿Todavía cobras con libreta? | Problema → resumen → recordar → comprobante → beta | publicado 06/10 |
-| 2 | A | Pásale tu Excel en 2 minutos | Importar: «¿dónde tienes tu lista?» → reconoce columnas solo → revisa → «¡Listo!». Sirve cualquier Excel, también desde la compu | 5-excel + nuevas: inicio del importador, paso Revisar, «¡Listo!» |
-| 3 | A | Si alguien toma tu celular… ¿ve tu cartera? | Bloqueo con PIN y huella/Face ID; cuándo se pide; «¿olvidaste tu PIN?» | 6-pin + nueva: pantalla de activar bloqueo |
+| 2 🎬 | A | Pásale tu Excel en 2 minutos | Importar: «¿dónde tienes tu lista?» → reconoce columnas solo → revisa → «¡Listo!». Sirve cualquier Excel, también desde la compu | 5-excel + nuevas: inicio del importador, paso Revisar, «¡Listo!» |
+| 3 🎬 | A | Si alguien toma tu celular… ¿ve tu cartera? | Bloqueo con PIN y huella/Face ID; cuándo se pide; «¿olvidaste tu PIN?» | 6-pin + nueva: pantalla de activar bloqueo |
 | 4 | B | 3 mensajes para cobrar sin que se ofendan | Cómo pedir el pago con amabilidad (antes de vencer, el día, después). La app trae los mensajes listos y los puedes cambiar | nueva: Mensajes de cobro |
 | 5 | A | El semáforo de tu cartera | 🟢 al día · 🟡 por vencer · 🔴 moroso · ⚫ baja · ⚪ sin fecha: qué significa cada color y cómo se calcula solo | 1-inicio + nueva: lista con colores |
 | 6 | A | ¿Mensual, trimestral o cada 15 días? | Periodicidades y la próxima fecha que se calcula sola al registrar el pago | 3-pago + nueva: selector de periodicidad |
@@ -50,4 +50,4 @@ Todo sigue la skill `marca-cartera-asesor` (formato, ritmo, voz, revisión de fo
 ## Capturas
 - Las capturas «nuevas» se sacan con datos inventados en la demo local (como `tools/capturas-play.mjs`), con un script
   aparte para videos que guarde en `videos/public/capturas/` (sin tocar las de Google Play).
-- Cada video se anota aquí con ✅ y fecha al publicarse.
+- Cada video se anota aquí con ✅ y fecha al publicarse (🎬 = video listo, falta publicar).
