@@ -52,8 +52,10 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
       `videos/renderizar-fotogramas.sh`).
     - Remotion usa Edge como navegador, así que no descarga Chrome.
     - Falta: Jonathan aprueba o corrige, le pone música en CapCut Pro (uso comercial) y lo publica.
-  - **Cuenta de TikTok:** Jonathan la crea con soporte@carteraasesor.com. TikTok exige un celular que no esté en otra
-    cuenta, así que va a **comprar una línea nueva** para la marca.
+  - ✅ **Cuenta de TikTok creada: @carteraasesor**.
+    - Datos: correo soporte@carteraasesor.com y una línea de celular nueva solo para la marca.
+    - Perfil: foto `tienda/marca/avatar-redes.png`, nombre «Cartera Asesor» y la descripción «La app del asesor IMSS:
+      quién te debe, quién vence y cobro por WhatsApp 🟢».
 - El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
 
 **Siguiente (Jonathan elige):**
