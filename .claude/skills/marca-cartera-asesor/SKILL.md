@@ -94,7 +94,11 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
    - que el gancho se entienda en el primer cuadro y el llamado se lea completo.
    Corregir y volver a revisar hasta que todo esté en orden.
 5. **Render final** a `videos/out/` (no se sube a GitHub) y entregarlo a Jonathan para que lo vea en su celular.
-6. Jonathan publica en TikTok desde su cuenta. Anotar en `BITACORA.md` qué video se hizo y con qué música.
+   Por defecto se entrega **sin música** (o con una pista libre de prueba) para que Jonathan la ponga en CapCut.
+6. **Acabado en CapCut Pro (lo hace Jonathan, opcional):** música de la biblioteca de CapCut con el filtro **«uso
+   comercial»**, voz en off y ajustes finales. Claude no maneja CapCut a clics (gasta muchos tokens); si hace falta,
+   le da a Jonathan los pasos.
+7. Jonathan publica en TikTok desde su cuenta. Anotar en `BITACORA.md` qué video se hizo y con qué música.
 
 ## 8. Datos y privacidad
 - Nunca usar datos reales de clientes (ni de Yamileth ni de nadie). Solo los inventados de las capturas o nombres
