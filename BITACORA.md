@@ -45,7 +45,15 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
     `MSYS_NO_PATHCONV=1`.
   - Agente `productor-videos` (`.claude/agents/productor-videos.md`, **modelo Sonnet**): hace los videos con Remotion en
     `videos/` siguiendo la skill.
-  - Siguiente: guion del primer TikTok para que Jonathan lo apruebe.
+  - ✅ **TikTok #1 «¿Todavía cobras con libreta?»**: borrador listo, 21 s, sin música. Lo hizo el agente productor
+    (Sonnet) con Remotion en `videos/`; Claude revisó los fotogramas.
+    - Guion, descripciones y hashtags: `videos/guiones/tiktok-01-libreta.md`.
+    - Video: `videos/out/tiktok-01-libreta.mp4`, solo local (para rehacerlo, ver los comandos en el guion o en
+      `videos/renderizar-fotogramas.sh`).
+    - Remotion usa Edge como navegador, así que no descarga Chrome.
+    - Falta: Jonathan aprueba o corrige, le pone música en CapCut Pro (uso comercial) y lo publica.
+  - **Cuenta de TikTok:** Jonathan la crea con soporte@carteraasesor.com. TikTok exige un celular que no esté en otra
+    cuenta, así que va a **comprar una línea nueva** para la marca.
 - El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
 
 **Siguiente (Jonathan elige):**

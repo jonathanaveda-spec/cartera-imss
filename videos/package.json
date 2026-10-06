@@ -1,0 +1,22 @@
+{
+  "name": "cartera-asesor-videos",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Videos de Cartera Asesor (Remotion)",
+  "scripts": {
+    "studio": "remotion studio",
+    "render:01": "remotion render TikTok01Libreta out/tiktok-01-libreta.mp4 --codec=h264",
+    "still": "remotion still"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.533",
+    "@remotion/google-fonts": "4.0.533",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "remotion": "4.0.533"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
