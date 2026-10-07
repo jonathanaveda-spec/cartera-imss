@@ -124,7 +124,7 @@ Lo hace Jonathan:
 5. Creative Center (PC): capturas de **Canciones aprobadas para uso comercial** y de **Hashtags con filtro de industria**.
 6. Google Play **sábado 10/10**: los Gmail de 12 personas con Android + cuenta de prueba para el revisor.
 7. Firebase **Blaze** + secreto `FIREBASE_LLAVE` + clave pública **VAPID** (avisos con la app cerrada).
-8. Identidad del desarrollador: Jonathan la trae hecha y **llevará otro nombre** (no «Puente Digital»). Sesión aparte de **Puente Digital** (logo e identidad) → desbloquea la pantalla «Acerca de».
+8. ✅ (07/10) La empresa desarrolladora se llama **NeuroProyectos IA** (confirmado por Jonathan; su marca se arma en la otra sesión: skill `marca-puente-digital`, `empresa/puente-digital/`). Cuando Jonathan apruebe la marca → pantalla «Acerca de» + Compartir la app. (Antes: Sesión aparte de **Puente Digital** (logo e identidad) → desbloquea la pantalla «Acerca de».
 9. ✅ (07/10) Jonathan probó el resumen del día: quedó bien. Probar en el celular: resumen del día, Pagan hoy / Pagaron hoy, 💰 Mis comisiones.
 10. ⏰ Recordatorio programado **domingo 11/10, 9:00 a. m.** (tarea «recordatorio-domingo-buscar-videos»). «Ciclo que aprende»: guardar 5–10 virales del nicho en una colección de TikTok; cada lunes captura de analíticas.
 11. ✅ Decisión 07/10: Azure (voz) se maneja **solo en la PC del local**. (Antes: PC de la casa: si quiere voz allá, crear `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION` (y esa PC no tiene Node).)
@@ -204,7 +204,7 @@ Lo hace Claude en la sesión local:
    `videos/resultados.md`, anota vistas y convierte en serie lo que funcione. Programar en TikTok Studio (PC).
 
 **Siguiente (Jonathan elige):**
-1. Pantalla «Acerca de» + Compartir la app. **Desarrollador: Puente Digital** (elegido por Jonathan el 07/10).
+1. Pantalla «Acerca de» + Compartir la app. **Desarrollador: NeuroProyectos IA** (nombre final, 07/10; antes se pensó en Puente Digital).
    Su identidad de marca (logo, colores, etc.) se hace en una sesión aparte, en `empresa/puente-digital/`.
 2. Entrar con Google.
 3. ~~Filtros rápidos «Pagan hoy» / «Pagaron hoy»~~ ✅ hechos (07/10, ver abajo).
