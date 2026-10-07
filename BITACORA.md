@@ -96,7 +96,8 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
   y pasar la clave pública VAPID (Cloud Messaging → Certificados push web). Después Claude programa el aviso diario
   («Hoy pagan N · M morosos»), la opción de activarlo y la hora, y el despliegue automático desde GitHub Actions.
 - **Videos: 3 al día** (decisión de Jonathan). Nuevo `videos/plan-3-al-dia.md`: cada día un T (tarjeta de texto con
-  plantilla), un P (pantalla de la app) y un J (Jonathan a cámara); producción por tandas los domingos y publicaciones
+  plantilla), un P (pantalla de la app) y un H (historia animada: chat o antes/después). **Todos los hace Claude en la
+  sesión local con Remotion** (Jonathan no graba a cámara); producción por tandas los domingos y publicaciones
   programadas en TikTok Studio. Banco de 42 ideas (2 semanas) y guiones completos del día 1. Falta: plantilla T en
   Remotion y capturas de las funciones nuevas. Descripciones listas para publicar los #2 y #3 (enlaces de descarga en
   videos/entregas).
