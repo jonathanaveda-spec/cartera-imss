@@ -94,18 +94,19 @@ nuevo (54/54 pruebas) y se arreglaron 3 fallas del resumen del día (en línea `
 3. ✅ **Sin videos de noticias del IMSS** por ahora (decisión de Jonathan 07/10).
 
 Lo hace Jonathan:
-4. Revisar y publicar los 5 videos con voz (música comercial 15–25 % + «Contenido generado por IA»). Orden: #2 Excel (Jorge)
+4. ✅ (07/10) #2 Excel y #3 PIN **publicados con voz**. Faltan T01 (jue 8, 20:00), H01 (vie 9, 20:00) y #4 (dom 11, 20:00).
+   Antes: revisar y publicar los 5 videos con voz (música comercial 15–25 % + «Contenido generado por IA»). Orden: #2 Excel (Jorge)
    → T01 (Renata) → #3 PIN (Dalia) → H01 (Jorge+Marina) → #4 Mensajes (Dalia). Descripciones en los guiones.
    **#halloween** (antes del 31/10) y **#fraude** van en la próxima tanda.
 5. Creative Center (PC): capturas de **Canciones aprobadas para uso comercial** y de **Hashtags con filtro de industria**.
 6. Google Play **sábado 10/10**: los Gmail de 12 personas con Android + cuenta de prueba para el revisor.
 7. Firebase **Blaze** + secreto `FIREBASE_LLAVE` + clave pública **VAPID** (avisos con la app cerrada).
-8. Sesión aparte de **Puente Digital** (logo e identidad) → desbloquea la pantalla «Acerca de».
-9. Probar en el celular: resumen del día, Pagan hoy / Pagaron hoy, 💰 Mis comisiones.
-10. «Ciclo que aprende»: guardar 5–10 virales del nicho en una colección de TikTok; cada lunes captura de analíticas.
-11. PC de la casa: si quiere voz allá, crear `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION` (y esa PC no tiene Node).
-12. De antes, sin cerrar: que un usuario de iPhone pruebe la guía de instalación desde Safari; probar 🗑️ Borrar en el
-    panel con «Jonathan Prueba»; invitar 5–12 asesores a la beta.
+8. Identidad del desarrollador: Jonathan la trae hecha y **llevará otro nombre** (no «Puente Digital»). Sesión aparte de **Puente Digital** (logo e identidad) → desbloquea la pantalla «Acerca de».
+9. ✅ (07/10) Jonathan probó el resumen del día: quedó bien. Probar en el celular: resumen del día, Pagan hoy / Pagaron hoy, 💰 Mis comisiones.
+10. ⏰ Recordatorio programado **domingo 11/10, 9:00 a. m.** (tarea «recordatorio-domingo-buscar-videos»). «Ciclo que aprende»: guardar 5–10 virales del nicho en una colección de TikTok; cada lunes captura de analíticas.
+11. ✅ Decisión 07/10: Azure (voz) se maneja **solo en la PC del local**. (Antes: PC de la casa: si quiere voz allá, crear `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION` (y esa PC no tiene Node).)
+12. ✅ Jonathan (07/10): de los pendientes viejos **solo falta invitar a los 12 asesores a la beta**. (Antes: que un usuario de iPhone pruebe la guía de instalación desde Safari; probar 🗑️ Borrar en el
+    panel con «Jonathan Prueba»; invitar 5–12 asesores a la beta.)
 
 Lo hace Emma con el equipo:
 13. ✅ Mejoras de comisiones (07/10): «¿Ganas lo mismo con todos?» en Mis comisiones, «atrás» desde un cliente regresa
