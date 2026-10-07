@@ -162,7 +162,8 @@ Lo hace Emma con el equipo:
   sesión se borra el teléfono. En iPhone exige la app instalada. `sw.js` muestra el aviso y al tocarlo abre la app.
   `resumenAviso` en logic.js. Paquete `vendor/firebase.js` reconstruido con `firebase/messaging` (misma 11.10.0).
   Pruebas: `tests/avisos.test.mjs` (58 en total).
-- ⏳ **Para encenderlo falta 1 cosa** (la opción ☰ → ⏰ Aviso diario ya se ve; los que lo activen empiezan a recibir cuando esté la llave):
+- ✅ **FUNCIONANDO (07/10, tarde):** Jonathan puso el secreto FIREBASE_LLAVE en GitHub y activó el aviso en su Android; la prueba manual (Aviso diario #3) envió 1 aviso, 0 fallidos. Desde mañana llega solo a la hora elegida. Si a un asesor no le sale la pregunta de permiso (Chrome con «mensajes más discretos» o sitio bloqueado), la app le muestra los pasos y el botón «Ya lo activé, intentar de nuevo».
+- (Historia) Para encenderlo faltaba 1 cosa (la opción ☰ → ⏰ Aviso diario ya se ve; los que lo activen empiezan a recibir cuando esté la llave):
   1. ✅ (07/10, la sacó Emma) Clave pública VAPID → `vapidKey` en `plataforma/js/nube-config.js` (Firebase → Configuración del proyecto →
      Cloud Messaging → Certificados push web → Generar par de claves). Es pública.
   2. **Jonathan:** Firebase → Configuración del proyecto → Cuentas de servicio → «Generar nueva clave privada» (JSON) →
