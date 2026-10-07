@@ -112,6 +112,23 @@ export function aFechaISO(v) {
   return null;
 }
 
+/**
+ * Lee un MONTO de dinero («150», «$1,500», «1.500,50», «$ 200 pesos») o null si no se entiende.
+ * Un porcentaje («10%» escrito o una celda con formato de porcentaje) devuelve null: la app usa montos y no adivina.
+ */
+export function aMonto(v, cel) {
+  if (cel && /%/.test(String(cel.z || '') + String(cel.w || ''))) return null;
+  if (typeof v === 'number') return Number.isFinite(v) && v >= 0 ? v : null;
+  let s = String(v ?? '').trim();
+  if (!s || /%/.test(s)) return null;
+  s = s.replace(/mxn|pesos?|cop|usd|\$|\s/gi, '');
+  if (/^\d{1,3}(,\d{3})+(\.\d+)?$/.test(s)) s = s.replace(/,/g, '');          // 1,500.50
+  else if (/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(s)) s = s.replace(/\./g, '').replace(',', '.'); // 1.500,50
+  else s = s.replace(',', '.');                                                // 150,5
+  if (!/^\d+(\.\d+)?$/.test(s)) return null;
+  return Number(s);
+}
+
 /** Traduce lo que el asesor escribió («mensual», «cada 15 días», «quincenal»…) a una periodicidad de la app, o null. */
 export function aPeriodicidad(v) {
   const s = norm(v).replace(/\.$/, '');
@@ -249,11 +266,11 @@ export function construirImportacion(libro, h, filaTitulos, mapeo) {
   const tituloNorm = enc.map((e) => norm(e.titulo));
 
   const filas = [];
-  const avisos = { fechas: 0, periodicidades: 0, ejemplo: 0, titulosRepetidos: 0 };
+  const avisos = { fechas: 0, periodicidades: 0, comisiones: 0, ejemplo: 0, titulosRepetidos: 0 };
   for (let r = desde; r <= h.rango.e.r; r++) {
     const crudo = {}, datos = {}, extra = {}, rojas = [], partesNombre = [];
     let hayDato = false, esTitulo = true, conTexto = 0;
-    let fechaMala = false, perMala = false;
+    let fechaMala = false, perMala = false, comisionMala = false;
     for (const [i, e] of enc.entries()) {
       const cel = celda(h, r, e.col);
       if (cel && cel.s && cel.s.fgColor && esRojo(cel.s.fgColor.rgb)) rojas.push(e.nombre);
@@ -267,8 +284,10 @@ export function construirImportacion(libro, h, filaTitulos, mapeo) {
         datos[e.campo] = aFechaISO(v);
         if (!datos[e.campo]) fechaMala = true;
       } else if (e.campo === 'comision') {
-        const n = typeof v === 'number' ? v : Number(String(v).replace(',', '.'));
-        datos.comision = Number.isFinite(n) ? n : null;
+        // La app guarda la comisión como MONTO por pago. Un porcentaje («10%» o celda con formato %) no se adivina:
+        // queda vacío y se avisa en la revisión.
+        datos.comision = aMonto(v, cel);
+        if (datos.comision == null) comisionMala = true;
       } else if (e.campo === 'periodicidad') {
         datos.periodicidad = aPeriodicidad(v);
         if (!datos.periodicidad) perMala = true;
@@ -288,6 +307,7 @@ export function construirImportacion(libro, h, filaTitulos, mapeo) {
     if (/^ejemplo\b/.test(norm(datos.nombre))) { avisos.ejemplo++; continue; }
     if (fechaMala) avisos.fechas++;
     if (perMala) avisos.periodicidades++;
+    if (comisionMala) avisos.comisiones++;
     filas.push({ fila: r + 1, crudo, datos, extraCrudo: extra, rojas, fechaMala, perMala });
   }
 

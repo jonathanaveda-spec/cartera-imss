@@ -243,6 +243,30 @@ export async function agregarCliente(datos) {
   return c;
 }
 
+// Si la comisión del cliente cambia, los pagos viejos que no guardaron la suya se quedan con la anterior
+// (así una comisión nueva no reescribe lo ganado en meses pasados).
+function fijarComisionPasada(c, anterior) {
+  if (anterior == null || anterior === '') return;
+  for (const p of c.pagos || []) if (p.comision == null) p.comision = anterior;
+}
+
+/** Pone la misma comisión a varios clientes de una vez (Mis comisiones → «¿Ganas lo mismo con todos?»). */
+export async function ponerComision(ids, monto) {
+  let n = 0;
+  for (const id of ids) {
+    const c = buscar(id);
+    if (!c || (c.comision ?? '') === monto) continue;
+    const antes = c.comision ?? null;
+    fijarComisionPasada(c, antes);
+    c.comision = monto;
+    c.actualizado = ahora();
+    log(c, 'editar', 'Se modificó: Comisión', [{ campo: 'Comisión', antes, despues: monto }]);
+    n++;
+  }
+  if (n) await guardar();
+  return n;
+}
+
 export async function editarCliente(id, datos) {
   const c = buscar(id);
   const d = limpiar(datos);
@@ -253,6 +277,7 @@ export async function editarCliente(id, datos) {
     const antes = c[k] ?? null, despues = d[k] ?? null;
     if ((antes ?? '') !== (despues ?? '')) {
       cambios.push({ campo: etiqueta(k), antes, despues });
+      if (k === 'comision') fijarComisionPasada(c, antes);
       c[k] = despues;
     }
   }

@@ -87,11 +87,11 @@ nuevo (54/54 pruebas) y se arreglaron 3 fallas del resumen del día (en línea `
 `investigacion/tendencias.md`, Lucía entregó 5 videos con voz + plantillas T y H (`videos/entregas/*_con_voz.mp4`).
 
 🔴 Urgente / decisiones de Jonathan:
-1. **Comisión en porcentaje:** hoy la app solo entiende monto fijo; un Excel con «10%» queda vacío o como $0.10 sin
-   avisar. ¿La COMISIÓN de Yamileth es monto o %? Propuesta de Emma: aceptar las dos («10%» o «100»).
-2. **Yamileth y el tope de la beta:** su Excel tenía **116 clientes** y la beta permite 100 → darle **Plan Pro en el panel**
-   (admin → Asesores) para que no se le bloquee al pasar de 100.
-3. ¿Videos de **noticias del IMSS** (Modalidad 40, aguinaldo de pensionados 2/11)? Recomendación: pocos y con fuente oficial.
+1. ✅ **Comisión:** Jonathan confirmó que la de Yamileth es en **montos** (07/10). La app sigue con montos; el
+   importador ahora **avisa** si un Excel trae porcentajes (quedan vacíos, no se adivinan) y entiende «$1,500» o «1.500,50».
+2. ✅ **Yamileth tiene 86 clientes** (lo vio Jonathan en el panel; las 116 filas del Excel incluían bajas): no se topa con
+   el tope de 100. Si algún día pasa de 100 → Plan Pro en el panel.
+3. ✅ **Sin videos de noticias del IMSS** por ahora (decisión de Jonathan 07/10).
 
 Lo hace Jonathan:
 4. Revisar y publicar los 5 videos con voz (música comercial 15–25 % + «Contenido generado por IA»). Orden: #2 Excel (Jorge)
@@ -108,8 +108,9 @@ Lo hace Jonathan:
     panel con «Jonathan Prueba»; invitar 5–12 asesores a la beta.
 
 Lo hace Emma con el equipo:
-13. Comisión en % (cuando Jonathan decida) + mejoras de Tere: misma comisión para todos de un jalón, «atrás» desde
-    Mis comisiones regresa ahí, que una comisión nueva no cambie meses pasados, ver/corregir la comisión de cada pago.
+13. ✅ Mejoras de comisiones (07/10): «¿Ganas lo mismo con todos?» en Mis comisiones, «atrás» desde un cliente regresa
+    a Mis comisiones (y se refresca), una comisión nueva ya no cambia los pagos de antes, y al anotar varias seguidas no
+    se pierde el campo. Falta: ver/corregir la comisión de cada pago en el historial.
 14. **Victoria:** crear `videos/resultados.md` y el plan de la semana 12–18/10 (top 3 de Luna + Halloween + #fraude).
 15. **Lucía:** tanda de la semana con las plantillas T/H/P apenas Victoria arme el plan.
 16. **Luna:** lista de canciones cuando lleguen las capturas.

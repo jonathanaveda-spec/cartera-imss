@@ -46,7 +46,7 @@ test('títulos en la fila 3, nombre en varias columnas y títulos con otras pala
   assert.equal(b.datos.fecha_inicio, '2024-11-05');
   assert.equal(b.datos.periodicidad, 'Mensual');
   assert.deepEqual(p.camposNuevos, [{ clave: 'x_zona', etiqueta: 'Zona', tipo: 'texto' }]);
-  assert.deepEqual(p.avisos, { fechas: 0, periodicidades: 0, ejemplo: 0, titulosRepetidos: 0 });
+  assert.deepEqual(p.avisos, { fechas: 0, periodicidades: 0, comisiones: 0, ejemplo: 0, titulosRepetidos: 0 });
 });
 
 test('un dato en dos columnas: la segunda queda como dato extra', () => {
@@ -77,7 +77,7 @@ test('fechas y periodicidades que no se entienden se avisan y no se inventan', (
   assert.equal(p.filas[0].crudo['Fecha de inicio'], 'marzo');
   assert.equal(p.filas[1].datos.fecha_inicio, null); // 24 es un día, no una fecha
   assert.equal(p.filas[1].datos.periodicidad, 'Anual');
-  assert.deepEqual(p.avisos, { fechas: 2, periodicidades: 1, ejemplo: 0, titulosRepetidos: 0 });
+  assert.deepEqual(p.avisos, { fechas: 2, periodicidades: 1, comisiones: 0, ejemplo: 0, titulosRepetidos: 0 });
 });
 
 test('columna marcada «no importar» y filas que repiten los títulos', () => {
@@ -135,4 +135,26 @@ test('una columna con «Mensual», «Trimestral»… se reconoce como periodicid
   ]);
   assert.deepEqual(r.campos, ['nombre', 'periodicidad', 'notas']);
   assert.equal(r.mapeo[1].por, 'contenido');
+});
+
+test('comisión: montos en varios formatos; los porcentajes no se adivinan y se avisan', () => {
+  assert.equal(E.aMonto(150), 150);
+  assert.equal(E.aMonto('$1,500.50'), 1500.5);
+  assert.equal(E.aMonto('1.500,50'), 1500.5);
+  assert.equal(E.aMonto('150,5'), 150.5);
+  assert.equal(E.aMonto('$ 200 pesos'), 200);
+  assert.equal(E.aMonto('10%'), null);
+  assert.equal(E.aMonto(0.1, { z: '0%' }), null);
+  assert.equal(E.aMonto('mucho'), null);
+  // Celda con formato de porcentaje dentro de un Excel real.
+  const X = globalThis.XLSX;
+  const hoja = X.utils.aoa_to_sheet([['Nombre', 'Comisión'], ['Ana Ruiz', 0.1], ['Luis Gómez', '10%'], ['Eva Paz', '$120']]);
+  hoja.B2.z = '0%';
+  const wb = X.utils.book_new();
+  X.utils.book_append_sheet(wb, hoja, 'Clientes');
+  const libro = E.leerLibro(new Uint8Array(X.write(wb, { bookType: 'xlsx', type: 'array' })), 'p.xlsx');
+  const h = libro.hojas[0], fila = E.detectarFilaTitulos(h);
+  const p = E.construirImportacion(libro, h, fila, E.sugerirMapeo(E.columnasDeHoja(h, fila)));
+  assert.deepEqual(p.filas.map((f) => f.datos.comision), [null, null, 120]);
+  assert.equal(p.avisos.comisiones, 2);
 });

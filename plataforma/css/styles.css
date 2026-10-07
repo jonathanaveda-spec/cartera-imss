@@ -490,6 +490,10 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 .com-detalle { margin-top: 8px; min-height: 1.3em; }
 .com-fila { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .com-input { width: 110px; flex: none; }
+.com-todos { background: var(--marca-tenue); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; }
+.com-todos label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 6px; }
+.com-todos-fila { display: flex; gap: 8px; align-items: center; }
+.com-todos-fila .btn { min-height: 44px; }
 @media (prefers-reduced-motion: reduce) { .com-barra { transition: none; } }
 .com-nombre { background: none; border: 0; padding: 6px 0; font: inherit; color: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .com-nombre span { color: var(--suave); }

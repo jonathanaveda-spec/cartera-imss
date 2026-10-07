@@ -46,6 +46,8 @@ function ventana({ titulo, cuerpo, pie = '', ancho = false, fondoCierra = true, 
       fondo.remove();
       if (!pila.length) { document.body.classList.remove('bloqueado'); soltarGuardia(); }
       onCerrar && onCerrar(resultado);
+      // La ventana que vuelve a quedar arriba se puede refrescar (p. ej. Mis comisiones tras registrar un pago).
+      if (i === pila.length && pila.length) pila[pila.length - 1].alVolver?.();
     },
     q: (s) => $(s, fondo),
   };
@@ -972,6 +974,7 @@ function asistenteImportar(libro) {
             ${prep.repetidas.length ? `<li><b>${prep.repetidas.length}</b> fila(s) ya importadas antes: se omiten para no duplicarlas.</li>` : ''}
             ${av.fechas ? `<li class="txt-ambar">⚠️ <b>${av.fechas}</b> cliente(s) con una fecha que no se entendió: quedan sin esa fecha y se la pones después.</li>` : ''}
             ${av.periodicidades ? `<li class="txt-ambar">⚠️ <b>${av.periodicidades}</b> cliente(s) con una periodicidad que no se reconoció (se aceptan Mensual, Trimestral, Semestral, Anual o «Cada 15 días»).</li>` : ''}
+            ${av.comisiones ? `<li class="txt-ambar">⚠️ <b>${av.comisiones}</b> cliente(s) con una comisión que no es un monto (por ejemplo «10%»): quedan sin comisión. La app la guarda en pesos por pago; la anotas después en 💰 Mis comisiones.</li>` : ''}
             ${sinNombre ? `<li class="txt-ambar">⚠️ <b>${sinNombre}</b> fila(s) sin nombre.</li>` : ''}
             ${av.ejemplo ? `<li>Se omite la fila de ejemplo de la plantilla.</li>` : ''}
             ${av.titulosRepetidos ? `<li>Se omiten ${av.titulosRepetidos} fila(s) que repiten los títulos.</li>` : ''}
@@ -1667,7 +1670,10 @@ export function abrirComisiones() {
       ${r.porCliente.length ? `<div class="seccion"><h3>Por cliente en ${L.nombreMes(r.mes)}</h3><ul class="lista-simple">
         ${r.porCliente.map((x) => `<li class="com-fila"><button type="button" class="com-nombre" data-accion="abrir" data-id="${x.id}">${esc(x.nombre)} <span aria-hidden="true">›</span></button><b>${L.fmtDinero(x.total)}</b></li>`).join('')}</ul></div>` : ''}`}
       ${sinCom.length ? `<div class="seccion"><h3>Clientes sin comisión anotada (${sinCom.length})</h3>
-        <p class="mini" style="margin-bottom:8px">Escribe cuánto ganas por cada pago de ese cliente. Se guarda al salir del campo.</p>
+        ${sinCom.length > 1 ? `<div class="com-todos"><label for="com-todos">¿Ganas lo mismo con todos? Ponle a los ${sinCom.length}:</label>
+          <div class="com-todos-fila"><input id="com-todos" class="com-input" type="number" step="any" min="0" inputmode="decimal" placeholder="0.00">
+          <button type="button" class="btn primario" data-com-todos>Aplicar</button></div></div>` : ''}
+        <p class="mini" style="margin-bottom:8px">O escribe cuánto ganas por cada pago de cada cliente. Se guarda al salir del campo.</p>
         <ul class="lista-simple">${sinCom.map((c) => `<li class="com-fila"><span>${esc(c.nombre)}</span>
           <input class="com-input" type="number" step="any" min="0" inputmode="decimal" placeholder="0.00" data-id="${c.id}" aria-label="Comisión de ${esc(c.nombre)}"></li>`).join('')}</ul></div>` : ''}
       <p class="mini" style="margin-top:8px">«Te falta por cobrar» suma la comisión de los clientes que vencen este mes o ya están atrasados. Para cambiar la comisión de un cliente: ábrelo → Editar.</p>` });
@@ -1676,14 +1682,32 @@ export function abrirComisiones() {
       v.el.querySelectorAll('.com-col').forEach((x) => x.classList.toggle('elegida', x === b));
       v.q('.com-detalle').innerHTML = `<b>${L.nombreMes(m.mes).replace(/^./, (l) => l.toUpperCase())}:</b> ${L.fmtDinero(m.total)}`;
     }));
-    v.el.querySelectorAll('.com-input').forEach((inp) => inp.addEventListener('change', () => {
+    v.el.querySelectorAll('.com-input[data-id]').forEach((inp) => inp.addEventListener('change', () => {
       const n = Number(inp.value);
       if (inp.value === '' || !Number.isFinite(n) || n < 0) return;
-      seguro(async () => { await S.editarCliente(inp.dataset.id, { comision: n }); aviso('Comisión guardada'); pintar(); });
+      seguro(async () => {
+        await S.editarCliente(inp.dataset.id, { comision: n });
+        aviso('Comisión guardada');
+        // Al redibujar, el campo donde ya estaba escribiendo (el siguiente cliente) conserva el foco.
+        const foco = document.activeElement?.dataset?.id;
+        pintar();
+        if (foco) v.q(`.com-input[data-id="${foco}"]`)?.focus();
+      });
     }));
+    v.q('[data-com-todos]')?.addEventListener('click', () => {
+      const inp = v.q('#com-todos');
+      const n = Number(inp.value);
+      if (inp.value === '' || !Number.isFinite(n) || n < 0) { inp.focus(); return; }
+      seguro(async () => {
+        const k = await S.ponerComision(sinCom.map((c) => c.id), n);
+        aviso(`Comisión de ${L.fmtDinero(n)} para ${k} cliente(s)`);
+        pintar();
+      });
+    });
   };
   pintar();
-  v.el.addEventListener('click', (e) => { if (e.target.closest('[data-accion="abrir"]')) v.cerrar(); });
+  // Al volver del cliente (con «atrás» o la ✕) se queda en Mis comisiones con los números al día.
+  v.alVolver = pintar;
 }
 
 export function abrirMensajesCobro() {
