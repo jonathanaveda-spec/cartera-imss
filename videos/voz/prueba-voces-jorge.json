@@ -1,0 +1,10 @@
+{
+  "id": "prueba-voces-jorge",
+  "voz": "es-MX-JorgeNeural",
+  "velocidad": "+5%",
+  "frases": [
+    { "texto": "¿Todavía cobras con libreta?" },
+    { "texto": "Con Cartera Asesor sabes en un segundo quién está al día, quién vence y quién te debe." },
+    { "texto": "Pruébala gratis en la beta. Entra a carteraasesor punto com." }
+  ]
+}

@@ -72,8 +72,10 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
 
 **📋 LISTA PARA MAÑANA (08/10, en la oficina) — empezar por aquí:**
 Lo hace Jonathan:
-1. Azure: crear el servicio de voz (Free F0, East US, `cartera-voz`) y las variables `AZURE_SPEECH_KEY` y
-   `AZURE_SPEECH_REGION=eastus`; cerrar y abrir Claude. Nunca pegar la clave en el chat.
+1. ✅ (07/10, PC del local) Azure listo: cuenta actualizada a pago por uso («Azure subscription 1»; la prueba gratis
+   estaba bloqueada), grupo `cartera-asesor`, recurso Speech `cartera-voz` **Free F0**, East US. Variables de usuario
+   `AZURE_SPEECH_KEY` (la puso Jonathan) y `AZURE_SPEECH_REGION=eastus` en esta PC. Prueba de voces generada y
+   funcionando. **En la PC de la casa hay que volver a crear las dos variables** (misma clave). Nunca pegar la clave en el chat.
 2. Publicar los TikTok #2 (Excel) y #3 (PIN) con música comercial y las descripciones de `videos/guiones/`.
 3. Seguir juntando los Gmail de las 12 personas con Android (Google Play el sábado 10/10).
 4. Cuando pueda: Firebase Blaze + llave `FIREBASE_LLAVE` en GitHub + clave pública VAPID (para avisos con la app cerrada).
