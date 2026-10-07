@@ -350,3 +350,49 @@ export function enlaceWhatsApp(celular, texto) {
   const t = telefonoInternacional(celular);
   return t ? `https://wa.me/${t}${texto ? `?text=${encodeURIComponent(texto)}` : ''}` : null;
 }
+
+// ---------------------------------------------------------------- Comisiones
+// Cada cliente tiene su comisión (lo que el asesor gana cada vez que ese cliente paga; la escribe el asesor).
+// Cada pago guarda la comisión de ese momento (pago.comision); los pagos viejos sin ella usan la del cliente.
+const num = (v) => (v == null || v === '' || !Number.isFinite(Number(v)) ? null : Number(v));
+export const comisionDePago = (c, p) => num(p.comision) ?? num(c.comision) ?? 0;
+
+/** Mes 'YYYY-MM' desplazado n meses. */
+export const moverMes = (mes, n) => sumarMeses(`${mes}-01`, n).slice(0, 7);
+export function nombreMes(mes, corto = false) {
+  const n = MESES[Number(mes.slice(5, 7)) - 1];
+  return corto ? n.slice(0, 3) : n;
+}
+
+/**
+ * Resumen de comisiones para el mes de `hoy`:
+ * - meses: los últimos `cuantos` meses (el último es el actual) con lo ganado en cada uno;
+ * - ganado / pagos: lo del mes actual;
+ * - porCobrar: comisión de los clientes activos que todavía deben pagar este mes (vencen este mes o ya están atrasados);
+ * - porCliente: lo ganado este mes por cliente (mayor a menor);
+ * - conComision: cuántos clientes tienen su comisión anotada.
+ */
+export function resumenComisiones(clientes, hoy, cuantos = 6) {
+  const mes = hoy.slice(0, 7);
+  const meses = Array.from({ length: cuantos }, (_, i) => ({ mes: moverMes(mes, i - cuantos + 1), total: 0 }));
+  const idx = new Map(meses.map((m, i) => [m.mes, i]));
+  const finMes = `${mes}-31`;
+  let ganado = 0, pagos = 0, porCobrar = 0, nPorCobrar = 0, conComision = 0;
+  const porCliente = [];
+  for (const c of clientes) {
+    if (num(c.comision)) conComision++;
+    let delMes = 0;
+    for (const p of c.pagos || []) {
+      const i = idx.get((p.fecha_pago || '').slice(0, 7));
+      if (i == null) continue;
+      const v = comisionDePago(c, p);
+      meses[i].total += v;
+      if (i === cuantos - 1) { delMes += v; pagos++; }
+    }
+    if (delMes) { ganado += delMes; porCliente.push({ id: c.id, nombre: c.nombre, total: delMes }); }
+    const com = num(c.comision);
+    if (com && !c.baja && c.proximo_pago && c.proximo_pago <= finMes) { porCobrar += com; nPorCobrar++; }
+  }
+  porCliente.sort((a, b) => b.total - a.total || a.nombre.localeCompare(b.nombre, 'es'));
+  return { mes, meses, ganado, pagos, porCobrar, nPorCobrar, porCliente, conComision };
+}

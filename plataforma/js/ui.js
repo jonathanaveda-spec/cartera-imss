@@ -390,7 +390,7 @@ export function abrirDetalle(id, ventanaExistente) {
       <div><dt>Fecha de inicio</dt><dd>${L.fmtFecha(c.fecha_inicio)}</dd></div>
       <div><dt>Opción</dt><dd>${esc(c.opcion) || '—'}</dd></div>
       <div><dt>Proveedor</dt><dd>${esc(c.proveedor) || '—'}</dd></div>
-      <div><dt>Comisión</dt><dd>${c.comision ?? '—'}</dd></div>
+      <div><dt>Tu comisión</dt><dd>${c.comision != null ? L.fmtDinero(c.comision) + ' por pago' : '—'}</dd></div>
       ${extras.map((x) => `<div><dt>${esc(x.etiqueta)}</dt><dd>${esc(c.extra?.[x.clave]) || '—'}</dd></div>`).join('')}
       ${c.notas ? `<div style="grid-column:1/-1"><dt>Notas</dt><dd style="white-space:pre-wrap">${esc(c.notas)}</dd></div>` : ''}
     </dl>${c.origen ? `<div class="mini" style="margin-top:10px">Origen: ${esc(c.origen.archivo)} · ${esc(c.origen.hoja)} · fila ${c.origen.fila}</div>` : ''}</div>
@@ -474,7 +474,7 @@ export function abrirFormulario(id) {
       <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>
       <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
       <label>Fecha de inicio<input type="date" name="fecha_inicio" value="${esc(v.fecha_inicio || '')}"><div class="ayuda">El día de esta fecha es el día de pago (ej. 24 = paga cada 24).</div></label>
-      <label>Comisión<input type="number" step="any" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal"></label>
+      <label>Tu comisión por pago<input type="number" step="any" min="0" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal" placeholder="0.00"><div class="ayuda">Lo que tú ganas cada vez que este cliente paga. Se suma en 💰 Mis comisiones.</div></label>
       <label>Opción<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
       <label>Proveedor<input name="proveedor" value="${esc(v.proveedor)}" list="lista-proveedores"></label>
       <label>Periodicidad de pago
@@ -546,6 +546,7 @@ export function abrirPago(id) {
       <label>Fecha en que pagó *<input type="date" name="fecha_pago" value="${hoy}" required></label>
       <label>Monto (opcional)<input type="number" step="0.01" name="monto" inputmode="decimal" placeholder="0.00"></label>
       <label>Forma de pago (opcional)<input name="metodo" list="formas" placeholder="Efectivo, transferencia…"></label>
+      <label>Tu comisión de este pago<input type="number" step="any" min="0" name="comision" inputmode="decimal" value="${esc(c.comision ?? '')}" placeholder="0.00"><div class="ayuda">${c.comision != null ? 'La de este cliente; cámbiala si esta vez fue distinta.' : 'Opcional. Se suma en 💰 Mis comisiones.'}</div></label>
       <label>Periodicidad *${campoPeriodicidad(c.periodicidad, { vacio: c.periodicidad ? '' : 'Elegir…', requerido: true })}</label>
       ${c.proximo_pago ? '' : `<label class="completo">Este pago cubre a partir del<input type="date" name="cubre_desde" value="${hoy}"><div class="ayuda">Este cliente aún no tiene fecha de próximo pago; se calculará a partir de esta fecha.</div></label>`}
       <label class="completo">Nota (opcional)<input name="nota"></label>
@@ -704,6 +705,7 @@ export function abrirMenu() {
       opMenu('asistente', '🗓️', 'Fechas de cobro', sinFecha ? `<b class="txt-ambar">${sinFecha} cliente(s) sin fecha de cobro.</b> Pónsela en 3 pasos.` : 'Todos tus clientes tienen fecha de cobro.', { destacada: !!sinFecha }),
       opMenu('vencimientos', '🔔', 'Vencimientos', `🟡 cuando faltan ${S.db.config.diasAviso} días o menos · sugerida: ${esc(S.db.config.periodicidadDefecto)}`),
       opMenu('mensajes', '📲', 'Mensajes de cobro', 'Recordatorios y comprobante de pago por WhatsApp.'),
+      opMenu('comisiones', '💰', 'Mis comisiones', (() => { const r = L.resumenComisiones(S.db.clientes, L.hoyISO()); return r.conComision ? `Este mes llevas <b>${L.fmtDinero(r.ganado)}</b>` : 'Anota lo que ganas por cliente y ve cuánto llevas.'; })()),
       grupoMenu('Tus datos'),
       opMenu('archivos', '📂', 'Importar y exportar', `Excel y respaldos · ${ult ? 'último respaldo: ' + L.fmtFecha(L.hoyISO(new Date(ult))) : '<b class="txt-ambar">aún sin respaldo</b>'}`, { sub: true }),
       opMenu('bloqueo', '🔒', 'Bloqueo con PIN', B.activo() ? `Activado${B.conBiometria() ? ' · también con ' + B.nombreBiometria() : ''}.` : 'Que nadie vea tu cartera si toma tu teléfono.'),
@@ -1633,6 +1635,56 @@ export function abrirVencimientos() {
 }
 
 // ---------- Mensajes de cobro ----------
+// ---------- Mis comisiones ----------
+// El asesor anota cuánto gana por cada cliente (monto variable); aquí ve cuánto lleva este mes,
+// cuánto le falta por cobrar y una gráfica sencilla de los últimos 6 meses.
+export function abrirComisiones() {
+  const v = ventana({ titulo: '💰 Mis comisiones', cuerpo: '' });
+  const pintar = () => {
+    const hoy = L.hoyISO();
+    const r = L.resumenComisiones(S.db.clientes, hoy);
+    const sinCom = S.db.clientes.filter((c) => !c.baja && (c.comision == null || c.comision === '')).sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+    const max = Math.max(...r.meses.map((m) => m.total), 1);
+    const barras = r.meses.map((m, i) => {
+      const h = m.total ? Math.max(4, Math.round((m.total / max) * 100)) : 0;
+      const actual = i === r.meses.length - 1;
+      return `<button type="button" class="com-col${actual ? ' actual' : ''}" data-i="${i}" aria-label="${L.nombreMes(m.mes)}: ${L.fmtDinero(m.total)}">
+          <span class="com-val">${actual && m.total ? L.fmtDinero(m.total) : ''}</span>
+          <span class="com-barra-zona"><span class="com-barra" style="height:${h}%"></span></span>
+          <span class="com-mes">${L.nombreMes(m.mes, true)}</span></button>`;
+    }).join('');
+    const vacio = !r.conComision && !r.ganado;
+    v.poner({ cuerpo: `
+      ${vacio ? `<div class="banner info"><p><b>Empieza anotando cuánto ganas por cada cliente.</b> Escríbelo abajo (o al editar el cliente) y la app suma tus comisiones cada vez que registras un pago.</p></div>` : `
+      <div class="com-cifras">
+        <div class="com-cifra"><div class="mini">Llevas en ${L.nombreMes(r.mes)}</div><div class="com-grande">${L.fmtDinero(r.ganado)}</div><div class="mini">${r.pagos} pago(s) registrados</div></div>
+        <div class="com-cifra"><div class="mini">Te falta por cobrar</div><div class="com-grande ambar">${L.fmtDinero(r.porCobrar)}</div><div class="mini">${r.nPorCobrar} cliente(s) este mes</div></div>
+      </div>
+      <div class="seccion"><h3>Últimos 6 meses</h3>
+        <div class="com-grafica" role="group" aria-label="Comisiones de los últimos 6 meses">${barras}</div>
+        <p class="mini com-detalle" aria-live="polite">Toca una barra para ver el total de ese mes.</p></div>
+      ${r.porCliente.length ? `<div class="seccion"><h3>Por cliente en ${L.nombreMes(r.mes)}</h3><ul class="lista-simple">
+        ${r.porCliente.map((x) => `<li class="com-fila"><button type="button" class="com-nombre" data-accion="abrir" data-id="${x.id}">${esc(x.nombre)} <span aria-hidden="true">›</span></button><b>${L.fmtDinero(x.total)}</b></li>`).join('')}</ul></div>` : ''}`}
+      ${sinCom.length ? `<div class="seccion"><h3>Clientes sin comisión anotada (${sinCom.length})</h3>
+        <p class="mini" style="margin-bottom:8px">Escribe cuánto ganas por cada pago de ese cliente. Se guarda al salir del campo.</p>
+        <ul class="lista-simple">${sinCom.map((c) => `<li class="com-fila"><span>${esc(c.nombre)}</span>
+          <input class="com-input" type="number" step="any" min="0" inputmode="decimal" placeholder="0.00" data-id="${c.id}" aria-label="Comisión de ${esc(c.nombre)}"></li>`).join('')}</ul></div>` : ''}
+      <p class="mini" style="margin-top:8px">«Te falta por cobrar» suma la comisión de los clientes que vencen este mes o ya están atrasados. Para cambiar la comisión de un cliente: ábrelo → Editar.</p>` });
+    v.el.querySelectorAll('.com-col').forEach((b) => b.addEventListener('click', () => {
+      const m = r.meses[Number(b.dataset.i)];
+      v.el.querySelectorAll('.com-col').forEach((x) => x.classList.toggle('elegida', x === b));
+      v.q('.com-detalle').innerHTML = `<b>${L.nombreMes(m.mes).replace(/^./, (l) => l.toUpperCase())}:</b> ${L.fmtDinero(m.total)}`;
+    }));
+    v.el.querySelectorAll('.com-input').forEach((inp) => inp.addEventListener('change', () => {
+      const n = Number(inp.value);
+      if (inp.value === '' || !Number.isFinite(n) || n < 0) return;
+      seguro(async () => { await S.editarCliente(inp.dataset.id, { comision: n }); aviso('Comisión guardada'); pintar(); });
+    }));
+  };
+  pintar();
+  v.el.addEventListener('click', (e) => { if (e.target.closest('[data-accion="abrir"]')) v.cerrar(); });
+}
+
 export function abrirMensajesCobro() {
   const cfg = S.db.config;
   const v = ventana({
@@ -1746,6 +1798,7 @@ export function enlazarEventos() {
     archivos: abrirArchivos,
     vencimientos: abrirVencimientos,
     mensajes: abrirMensajesCobro,
+    comisiones: abrirComisiones,
     cuenta: abrirCuenta,
     plan: abrirPlan,
     ayuda: (el) => abrirAyuda(el.dataset.texto),

@@ -473,3 +473,23 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 @media (hover: hover) and (pointer: fine) { .resumen-dia-fila:hover { background: var(--marca-tenue); } }
 @media (prefers-reduced-motion: reduce) { .resumen-dia-fila { transition: none; } }
 .resumen-dia-nada { margin: 4px 0 0; color: var(--suave); }
+
+/* ---------- Mis comisiones ---------- */
+.com-cifras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+.com-cifra { background: var(--marca-tenue); border-radius: 12px; padding: 12px; }
+.com-grande { font-size: 1.45rem; font-weight: 800; line-height: 1.15; margin: 2px 0; color: var(--texto, #0f172a); word-break: break-word; }
+.com-grande.ambar { color: #92400e; }
+.com-grafica { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; height: 170px; align-items: stretch; border-bottom: 1px solid var(--linea); padding-bottom: 2px; }
+.com-col { display: flex; flex-direction: column; align-items: stretch; gap: 4px; background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; min-width: 0; }
+.com-val { font-size: .7rem; font-weight: 700; text-align: center; min-height: 1em; white-space: nowrap; overflow: visible; }
+.com-barra-zona { flex: 1; display: flex; align-items: flex-end; justify-content: center; }
+.com-barra { width: 70%; max-width: 34px; background: #5b86ea; border-radius: 4px 4px 0 0; transition: height .3s ease-out; }
+.com-col.actual .com-barra, .com-col.elegida .com-barra { background: var(--marca); }
+.com-mes { font-size: .75rem; color: var(--suave); text-align: center; text-transform: capitalize; }
+.com-col.actual .com-mes { font-weight: 700; color: inherit; }
+.com-detalle { margin-top: 8px; min-height: 1.3em; }
+.com-fila { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.com-input { width: 110px; flex: none; }
+@media (prefers-reduced-motion: reduce) { .com-barra { transition: none; } }
+.com-nombre { background: none; border: 0; padding: 6px 0; font: inherit; color: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.com-nombre span { color: var(--suave); }

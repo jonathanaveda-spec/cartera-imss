@@ -355,10 +355,13 @@ export async function registrarPago(id, p) {
   const calc = calcularPago(c, { fecha_pago: p.fecha_pago, periodicidad: per, cubre_desde: p.cubre_desde });
   const siguiente = p.nuevo_proximo && esISO(p.nuevo_proximo) ? p.nuevo_proximo : calc.siguiente;
   const monto = p.monto === '' || p.monto == null ? null : Number(p.monto);
+  // Comisión de este pago: la que escribió el asesor; si no, la del cliente.
+  const comision = p.comision === '' || p.comision == null ? (c.comision ?? null) : Number(p.comision);
   const pago = {
     id: uid(),
     fecha_pago: p.fecha_pago,
     monto: Number.isFinite(monto) ? monto : null,
+    comision: Number.isFinite(comision) ? comision : null,
     metodo: (p.metodo || '').trim(),
     nota: (p.nota || '').trim(),
     periodo_desde: calc.periodo_desde,

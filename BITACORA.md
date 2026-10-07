@@ -102,6 +102,15 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
   programadas en TikTok Studio. Banco de 42 ideas (2 semanas) y guiones completos del día 1. Falta: plantilla T en
   Remotion y capturas de las funciones nuevas. Descripciones listas para publicar los #2 y #3 (enlaces de descarga en
   videos/entregas).
+- **💰 Mis comisiones** (☰ → Cobranza). Jonathan: la comisión es un monto variable que pone el asesor por cliente.
+  - En el cliente: «Tu comisión por pago» (el campo `comision` que ya existía, también viene del Excel).
+  - Al registrar un pago: «Tu comisión de este pago», prellenada con la del cliente y editable; se guarda en `pago.comision`
+    (los pagos viejos sin ese dato usan la del cliente).
+  - Pantalla: «Llevas en <mes>», «Te falta por cobrar» (comisión de activos que vencen este mes o están atrasados),
+    gráfica de barras de 6 meses (un solo azul; el mes actual más oscuro; tocar una barra muestra su total),
+    lista por cliente del mes y lista de clientes sin comisión con un campo para anotarla ahí mismo.
+  - Lógica: `resumenComisiones` / `comisionDePago` / `moverMes` en logic.js; pruebas en `tests/comisiones.test.mjs`.
+  - Probado en la demo a 390 px.
 - Google Play pospuesto al **sábado 10/10**.
 - Nombres sugeridos para la marca del desarrollador: Naveda Labs, Brújula Software, Andamio Apps, Nodo Claro,
   Puente Digital (pendiente que Jonathan elija y revise disponibilidad del dominio y en Play).
