@@ -42,6 +42,9 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 - **Identidad de marca aprobada** (06/10/2026): skill `.claude/skills/marca-cartera-asesor` (colores, tipografía Bricolage
   Grotesque + Plus Jakarta Sans, voz, formato TikTok, ritmo y **revisión de fotogramas antes de exportar**). Es regla para
   todo material de la marca. Tablero visual: `tienda/marca/tablero.png`.
+- **Empresa madre NeuroProyectos IA** (07/10/2026; antes «Puente Digital»): skill `.claude/skills/marca-puente-digital`
+  (logo «A · Nodo», grafito + verde azulado, Inter). Se usa para lo de la **empresa** (perfil de Google Play, firma, LinkedIn,
+  página), no para los videos de Cartera Asesor. Archivos y tablero en `empresa/puente-digital/`.
 - Videos: agente `productor-videos` (`.claude/agents/`, modelo Sonnet) con Remotion en `videos/`. Skills de Remotion
   instaladas solo en la PC del local (ver `BITACORA.md`).
 
