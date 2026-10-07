@@ -87,6 +87,14 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
   estado elegida; se cuentan en «Filtros» y se quitan con «Quitar filtros». Mensaje propio si no hay nadie.
   Lógica en `logic.js` (cumpleRapido / contarRapidos), pruebas en `tests/rapidos.test.mjs`. Probado en la demo a
   390 px y 340 px de ancho.
+- **Resumen del día** arriba de todo al abrir la app: saludo con el nombre y la fecha, y filas tocables
+  (📅 pagan hoy, 🔴 morosos, 🟡 vencen pronto, ✅ ya pagaron hoy; solo las que tienen algo) que aplican el filtro y
+  bajan a la lista. «Ocultar» lo esconde hasta el día siguiente (`cartera:resumen-oculto`). Probado en la demo.
+- **Notificaciones con la app cerrada** (pedido de Jonathan): requieren Firebase **Blaze** + Cloud Functions +
+  Cloud Messaging. Pasos que hace Jonathan: activar Blaze con alerta de 1 USD; cuenta de servicio `github-publicar`
+  (rol Editor) con llave JSON guardada como secreto `FIREBASE_LLAVE` en el repo carteraasesor (nunca en el chat);
+  y pasar la clave pública VAPID (Cloud Messaging → Certificados push web). Después Claude programa el aviso diario
+  («Hoy pagan N · M morosos»), la opción de activarlo y la hora, y el despliegue automático desde GitHub Actions.
 - Google Play pospuesto al **sábado 10/10**.
 - Nombres sugeridos para la marca del desarrollador: Naveda Labs, Brújula Software, Andamio Apps, Nodo Claro,
   Puente Digital (pendiente que Jonathan elija y revise disponibilidad del dominio y en Play).

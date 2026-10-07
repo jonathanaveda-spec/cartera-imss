@@ -456,3 +456,20 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 @media (hover: hover) and (pointer: fine) { .chip-rapido:not(.activa):hover { border-color: var(--marca); } }
 @media (prefers-reduced-motion: reduce) { .chip-rapido { transition: none; } }
 @media (max-width: 400px) { .chip-rapido { font-size: .82rem; padding: 0 8px; gap: 4px; } .chip-rapido .n { padding: 1px 6px; } }
+
+/* ---------- Resumen del día ---------- */
+.resumen-dia { background: var(--tarjeta); border-radius: var(--radio); box-shadow: var(--sombra); padding: 14px; margin-bottom: 14px; border-top: 4px solid var(--marca); }
+.resumen-dia-cab { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+.resumen-dia-saludo { font-weight: 700; font-size: 1.05rem; }
+.resumen-dia-filas { display: grid; gap: 6px; }
+.resumen-dia-fila {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; min-height: 44px;
+  padding: 8px 12px; border-radius: 10px; border: 1px solid var(--linea); background: #f8fafc;
+  font: inherit; color: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: transform .12s ease-out, background-color .15s ease-out;
+}
+.resumen-dia-fila .ir { color: var(--suave); font-size: 1.3rem; line-height: 1; }
+.resumen-dia-fila:active { transform: scale(.98); }
+@media (hover: hover) and (pointer: fine) { .resumen-dia-fila:hover { background: var(--marca-tenue); } }
+@media (prefers-reduced-motion: reduce) { .resumen-dia-fila { transition: none; } }
+.resumen-dia-nada { margin: 4px 0 0; color: var(--suave); }

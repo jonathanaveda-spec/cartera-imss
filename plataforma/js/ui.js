@@ -163,8 +163,34 @@ function enModoApp() {
 function lsGet(k) { try { return localStorage.getItem(k); } catch { return null; } }
 function lsSet(k, v) { try { localStorage.setItem(k, v); } catch { /* opcional */ } }
 
-function renderAvisos(cnt) {
+// Resumen del día: lo primero que ve el asesor al abrir la app. Se puede ocultar hasta mañana.
+function htmlResumenDia(cnt, rap, hoy) {
+  if (!S.db.clientes.length || lsGet('cartera:resumen-oculto') === hoy) return '';
+  const h = new Date().getHours();
+  const saludo = h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches';
+  const nombre = (N.estado.perfil?.nombre || '').trim().split(/\s+/)[0];
+  const [y, m, d] = hoy.split('-').map(Number);
+  const dia = new Date(y, m - 1, d).toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' });
+  const filas = [
+    { n: rap.pagan_hoy, txt: (n) => `📅 <b>${n}</b> ${n === 1 ? 'cliente paga' : 'clientes pagan'} hoy`, attrs: 'data-tipo="rapido" data-cod="pagan_hoy"' },
+    { n: cnt.MOROSO, txt: (n) => `🔴 <b>${n}</b> ${n === 1 ? 'moroso' : 'morosos'}`, attrs: 'data-tipo="estado" data-cod="MOROSO"' },
+    { n: cnt.POR_VENCER - rap.pagan_hoy, txt: (n) => `🟡 <b>${n}</b> ${n === 1 ? 'vence' : 'vencen'} pronto`, attrs: 'data-tipo="estado" data-cod="POR_VENCER"' },
+    { n: rap.pagaron_hoy, txt: (n) => `✅ <b>${n}</b> ya ${n === 1 ? 'pagó' : 'pagaron'} hoy`, attrs: 'data-tipo="rapido" data-cod="pagaron_hoy"' },
+  ].filter((f) => f.n > 0);
+  const cuerpo = filas.length
+    ? `<div class="resumen-dia-filas">${filas.map((f) => `<button type="button" class="resumen-dia-fila" data-accion="resumen-ir" ${f.attrs}><span>${f.txt(f.n)}</span><span class="ir" aria-hidden="true">›</span></button>`).join('')}</div>`
+    : '<p class="resumen-dia-nada">Hoy no tienes cobros pendientes. 🎉</p>';
+  return `<section class="resumen-dia" aria-label="Resumen del día">
+      <div class="resumen-dia-cab"><div><div class="resumen-dia-saludo">${saludo}${nombre ? `, ${esc(nombre)}` : ''} 👋</div>
+        <div class="mini">${esc(dia.charAt(0).toUpperCase() + dia.slice(1))}</div></div>
+        <button type="button" class="btn chico" data-accion="ocultar-resumen" aria-label="Ocultar el resumen hasta mañana">Ocultar</button></div>
+      ${cuerpo}</section>`;
+}
+
+function renderAvisos(cnt, rap, hoy) {
   const a = [];
+  const resumen = htmlResumenDia(cnt, rap, hoy);
+  if (resumen) a.push(resumen);
   if (N.nubeActiva && N.estado.error) {
     a.push(`<div class="banner mal"><p><b>No se pudo sincronizar con la nube:</b> ${esc(N.estado.error)}. Tus cambios siguen guardados en este dispositivo.</p></div>`);
   } else if (N.nubeActiva && !navigator.onLine) {
@@ -243,8 +269,9 @@ export function render() {
   const { hoy, aviso: dias } = ctx();
   const cnt = L.contarPorEstado(S.db.clientes, hoy, dias);
   renderResumen(cnt);
-  renderRapidos(L.contarRapidos(S.db.clientes, hoy, dias));
-  renderAvisos(cnt);
+  const rap = L.contarRapidos(S.db.clientes, hoy, dias);
+  renderRapidos(rap);
+  renderAvisos(cnt, rap, hoy);
 
   // Etiquetas disponibles para filtrar.
   const etqs = [...new Set(S.db.clientes.flatMap((c) => c.etiquetas || []))];
@@ -1728,6 +1755,13 @@ export function enlazarEventos() {
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; F.rapido = ''; render(); },
     // Un filtro rápido muestra a todos los que cumplen, sin importar la tarjeta de estado elegida.
+    'resumen-ir': (el) => {
+      if (el.dataset.tipo === 'rapido') { F.rapido = el.dataset.cod; F.estado = 'todos'; } else { F.estado = el.dataset.cod; F.rapido = ''; }
+      render();
+      const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      $('#rapidos').scrollIntoView({ behavior: suave ? 'smooth' : 'auto', block: 'start' });
+    },
+    'ocultar-resumen': () => { lsSet('cartera:resumen-oculto', ctx().hoy); render(); },
     rapido: (el) => { F.rapido = F.rapido === el.dataset.cod ? '' : el.dataset.cod; F.estado = 'todos'; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
     'guia-instalar': () => { const v = ventana({ titulo: '📲 Instalar en iPhone', cuerpo: I.guiaIOS({ flecha: true }) }); I.enlazarGuia(v.el); },
