@@ -497,3 +497,5 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 @media (prefers-reduced-motion: reduce) { .com-barra { transition: none; } }
 .com-nombre { background: none; border: 0; padding: 6px 0; font: inherit; color: inherit; text-align: left; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .com-nombre span { color: var(--suave); }
+.aviso-botones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.aviso-botones .btn { flex: 1 1 160px; min-height: 44px; }

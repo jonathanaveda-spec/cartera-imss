@@ -8,3 +8,7 @@ export const firebaseConfig = {
   messagingSenderId: '561439338632',
   appId: '1:561439338632:web:2488b5a3e130aed383ef3d',
 };
+
+// Clave pública para el aviso diario al celular (Firebase → Configuración del proyecto → Cloud Messaging →
+// Certificados push web → «Par de claves»). Es pública. Mientras esté vacía, el aviso diario sale como «muy pronto».
+export const vapidKey = '';

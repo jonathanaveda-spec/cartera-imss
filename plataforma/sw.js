@@ -44,3 +44,29 @@ self.addEventListener('fetch', (e) => {
     })
   );
 });
+
+// ---------- Aviso diario («Hoy pagan 3 · 2 morosos») ----------
+// Lo manda GitHub Actions por Firebase Cloud Messaging (tools/enviar-avisos.mjs) como mensaje de datos:
+// { titulo, cuerpo, url }. Se muestra aunque la app esté cerrada; al tocarlo abre (o trae al frente) la app.
+self.addEventListener('push', (e) => {
+  let m = {};
+  try { m = e.data ? e.data.json() : {}; } catch { m = { data: { cuerpo: e.data && e.data.text() } }; }
+  const d = { ...(m.notification || {}), ...(m.data || {}) };
+  const titulo = d.titulo || d.title || 'Cartera Asesor';
+  e.waitUntil(self.registration.showNotification(titulo, {
+    body: d.cuerpo || d.body || 'Revisa tus cobros de hoy.',
+    icon: 'icons/icon-192.png',
+    badge: 'icons/icon-192.png',
+    tag: 'aviso-diario',          // un aviso nuevo reemplaza al de ayer
+    data: { url: d.url || './' },
+  }));
+});
+
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  const destino = new URL(e.notification.data?.url || './', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((ventanas) => {
+    const abierta = ventanas.find((v) => v.url.startsWith(self.registration.scope));
+    return abierta ? abierta.focus() : self.clients.openWindow(destino);
+  }));
+});

@@ -1,0 +1,39 @@
+# Aviso diario al celular de cada asesor («Hoy pagan 3 · 2 morosos»). Gratis: no necesita el plan Blaze de Firebase.
+# Corre cada hora; el programa (tools/enviar-avisos.mjs) decide a quién le toca según la hora y zona que eligió.
+# Solo corre en el repositorio carteraasesor (el push llega a los dos repos y no queremos avisos dobles).
+name: Aviso diario
+
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+    inputs:
+      prueba:
+        description: 'Prueba: avisar ya a todos los que tienen el aviso activo (sin mirar la hora)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aviso-diario
+  cancel-in-progress: false
+
+jobs:
+  enviar:
+    if: github.repository == 'jonathanaveda-spec/carteraasesor'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Instalar firebase-admin
+        run: npm install --no-save --no-package-lock --ignore-scripts firebase-admin@13
+      - name: Enviar avisos
+        run: node tools/enviar-avisos.mjs
+        env:
+          FIREBASE_LLAVE: ${{ secrets.FIREBASE_LLAVE }}
+          AVISOS_PRUEBA: ${{ inputs.prueba && '1' || '0' }}

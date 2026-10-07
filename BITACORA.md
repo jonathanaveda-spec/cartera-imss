@@ -121,6 +121,28 @@ Lo hace Emma con el equipo:
 20. App, después: «Acerca de» + Compartir, Entrar con Google, tour de bienvenida, aviso de vencimiento del plan, foto del
     comprobante, avisos con la app cerrada (tras Blaze), modo oscuro.
 
+**07/10 — Aviso diario al celular SIN Blaze (gratis, con GitHub Actions):**
+- Blaze no se pudo activar: Google rechazó todas las tarjetas (error OR-CBAT-14, sin documentación; probablemente el
+  perfil de pagos de Google). Quedó creada la cuenta de facturación «Cartera Asesor» (01AE7E-…) **sin tarjeta y sin
+  vincular**: no cobra nada. No reintentar seguido (empeora el bloqueo); si algún día hace falta Blaze → soporte de
+  facturación de Google Cloud con el código.
+- En su lugar: `.github/workflows/avisos.yml` corre **cada hora** (solo en el repo carteraasesor) y
+  `tools/enviar-avisos.mjs` (firebase-admin) manda «Hoy pagan 3 clientes · 2 morosos · 1 por vencer» por Firebase
+  Cloud Messaging (gratis en Spark) a quien le toque según su hora y zona (`tools/avisos-horario.mjs`; ventana de 3 h,
+  una vez al día). Solo avisa si hay algo que cobrar; borra teléfonos dados de baja; nunca imprime datos.
+- App: ☰ → **⏰ Aviso diario** (pide permiso, elige hora, «Ver cómo se ve», desactivar). Guarda en
+  `usuarios/{uid}/config/avisos` (ya permitido por las reglas; la sincronización solo usa `config/main`). Al cerrar
+  sesión se borra el teléfono. En iPhone exige la app instalada. `sw.js` muestra el aviso y al tocarlo abre la app.
+  `resumenAviso` en logic.js. Paquete `vendor/firebase.js` reconstruido con `firebase/messaging` (misma 11.10.0).
+  Pruebas: `tests/avisos.test.mjs` (58 en total).
+- ⏳ **Para encenderlo faltan 2 cosas** (la opción del menú está escondida hasta entonces):
+  1. Clave pública VAPID → `vapidKey` en `plataforma/js/nube-config.js` (Firebase → Configuración del proyecto →
+     Cloud Messaging → Certificados push web → Generar par de claves). Es pública.
+  2. **Jonathan:** Firebase → Configuración del proyecto → Cuentas de servicio → «Generar nueva clave privada» (JSON) →
+     GitHub repo **carteraasesor** → Settings → Secrets and variables → Actions → New repository secret
+     `FIREBASE_LLAVE` = todo el contenido del JSON → borrar el JSON de la PC. **Nunca en el chat.**
+  Prueba: GitHub → Actions → «Aviso diario» → Run workflow → marcar «prueba».
+
 **07/10 — Revisión de seguridad de Fernanda (guardiana-datos):**
 - 🔴 Había **nombres/teléfonos reales** de clientas de Yamileth en `tests/logic.test.mjs`, `tests/plataforma.test.mjs`
   y en un comentario de `plataforma/js/logic.js` (que se publica). Los repos son **públicos**. ✅ Cambiados por datos

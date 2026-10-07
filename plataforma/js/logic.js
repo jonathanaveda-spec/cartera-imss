@@ -191,6 +191,25 @@ export function contarRapidos(clientes, hoy, diasAviso) {
   return n;
 }
 
+/**
+ * Resumen para el aviso diario al celular («Hoy pagan 3 · 2 morosos»). Lo usa el envío automático
+ * (tools/enviar-avisos.mjs, en GitHub Actions) y la prueba de la app. `texto` vacío = no hay nada que avisar.
+ */
+export function resumenAviso(clientes, hoy, diasAviso = 7) {
+  let paganHoy = 0, morosos = 0, porVencer = 0;
+  for (const c of clientes) {
+    const e = calcularEstado(c, hoy, diasAviso);
+    if (cumpleRapido(c, e, 'pagan_hoy', hoy)) paganHoy++;
+    else if (e.codigo === 'POR_VENCER') porVencer++;
+    if (e.codigo === 'MOROSO') morosos++;
+  }
+  const partes = [];
+  if (paganHoy) partes.push(`${paganHoy} ${paganHoy === 1 ? 'cliente paga' : 'clientes pagan'} hoy`);
+  if (morosos) partes.push(`${morosos} ${morosos === 1 ? 'moroso' : 'morosos'}`);
+  if (porVencer) partes.push(`${porVencer} por vencer`);
+  return { paganHoy, morosos, porVencer, texto: partes.join(' · ') };
+}
+
 export function filtrarClientes(clientes, f, hoy, diasAviso) {
   const q = normalizar(f.busqueda || '').split(/\s+/).filter(Boolean);
   const out = [];

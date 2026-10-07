@@ -1,10 +1,12 @@
 // Nube multiusuario (Firebase Auth + Firestore). Cada asesor tiene su cartera en usuarios/{uid}/...
 // Local primero: la app trabaja sobre S.db (funciona sin internet) y este módulo sincroniza con la nube.
-import { firebaseConfig } from './nube-config.js';
+import * as CFG from './nube-config.js';
 import * as S from './store.js';
 import { calcularCambios, actualizarBase, separarConfig, limpio, estable } from './sincro.js';
 import { planEfectivo, cupo, puedeEditar } from './plan.js';
 import { alSalir as olvidarPin } from './bloqueo.js';
+
+const { firebaseConfig } = CFG;
 
 export const nubeActiva = !!firebaseConfig;
 export const estado = { usuario: null, uid: null, error: null, perfil: null, plan: null, sistema: {}, planEf: planEfectivo() };
@@ -283,6 +285,8 @@ function detener() {
 export async function salir() {
   detener();
   olvidarPin();
+  // El próximo que use este teléfono no debe recibir los avisos de esta cuenta.
+  try { if (lsLeer(LS_AVISO)) await desactivarAvisos(); } catch { /* sin internet: el envío lo limpia solo al fallar */ }
   try { await F.signOut(auth); } catch { /* ignorar */ }
   try { await F.terminate(fs); await F.clearIndexedDbPersistence(fs); } catch { /* ignorar */ }
   await S.borrarLocal();
@@ -306,3 +310,69 @@ export async function eliminarCuenta(clave) {
   try { await F.terminate(fs); await F.clearIndexedDbPersistence(fs); } catch { /* ignorar */ }
   await S.borrarLocal();
 }
+
+// ---------- Aviso diario al celular ----------
+// La app guarda en usuarios/{uid}/config/avisos: { activo, hora, zona, tokens: { clave: { token, dispositivo, actualizado } } }.
+// Cada hora, GitHub Actions (tools/enviar-avisos.mjs) revisa a quién le toca y le manda «Hoy pagan 3 · 2 morosos».
+// La sincronización de la cartera solo usa config/main, así que este documento no se mezcla con ella.
+const LS_AVISO = 'cartera:aviso-clave';
+/** El aviso diario aparece en el menú solo cuando ya está la clave pública (vapidKey en nube-config.js). */
+export const avisosConfigurados = !!CFG.vapidKey;
+const refAvisos = () => F.doc(fs, raiz + 'config/avisos');
+
+/** '' si se puede usar el aviso diario aquí; si no, el motivo: 'pronto' | 'iphone-instalar' | 'navegador' | 'sin-cuenta'. */
+export async function motivoSinAvisos() {
+  if (!nubeActiva || !estado.uid || !F) return 'sin-cuenta';
+  const iOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const instalada = navigator.standalone === true || matchMedia('(display-mode: standalone)').matches;
+  if (iOS && !instalada) return 'iphone-instalar';
+  if (!('Notification' in window) || !('serviceWorker' in navigator) || !F.avisosSoportados) return 'navegador';
+  try { if (!(await F.avisosSoportados())) return 'navegador'; } catch { return 'navegador'; }
+  if (!CFG.vapidKey) return 'pronto';
+  return '';
+}
+
+export async function leerAvisos() {
+  const d = await F.getDoc(refAvisos());
+  const x = d.exists() ? d.data() : {};
+  const clave = lsLeer(LS_AVISO);
+  return { activo: !!x.activo, hora: Number.isInteger(x.hora) ? x.hora : 8, enEste: !!(clave && x.tokens && x.tokens[clave]) };
+}
+
+async function claveDe(token) {
+  const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(token));
+  return [...new Uint8Array(h)].slice(0, 10).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** Pide permiso, registra este celular y guarda la hora. Devuelve 'ok' | 'denegado'. */
+export async function activarAvisos(hora) {
+  const permiso = await Notification.requestPermission();
+  if (permiso !== 'granted') return 'denegado';
+  const reg = await navigator.serviceWorker.ready;
+  const token = await F.getToken(F.getMessaging(), { vapidKey: CFG.vapidKey, serviceWorkerRegistration: reg });
+  const clave = await claveDe(token);
+  const dispositivo = /iPhone|iPad/.test(navigator.userAgent) ? 'iPhone' : /Android/.test(navigator.userAgent) ? 'Android' : 'Computadora';
+  await F.setDoc(refAvisos(), {
+    activo: true, hora, zona: Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Mexico_City',
+    tokens: { [clave]: { token, dispositivo, actualizado: F.serverTimestamp() } },
+  }, { merge: true });
+  lsGuardar(LS_AVISO, clave);
+  return 'ok';
+}
+
+export const cambiarHoraAvisos = (hora) => F.setDoc(refAvisos(), { hora }, { merge: true });
+
+/** Deja de avisar en este celular (y apaga el aviso si era el único registrado). */
+export async function desactivarAvisos() {
+  const clave = lsLeer(LS_AVISO);
+  try { await F.deleteToken(F.getMessaging()); } catch { /* si ya no existía, no importa */ }
+  const d = await F.getDoc(refAvisos());
+  const tokens = { ...(d.exists() ? d.data().tokens || {} : {}) };
+  if (clave) delete tokens[clave];
+  await F.setDoc(refAvisos(), { activo: Object.keys(tokens).length > 0, tokens: clave ? { [clave]: F.deleteField() } : {} }, { merge: true });
+  lsBorrar(LS_AVISO);
+}
+
+function lsLeer(k) { try { return localStorage.getItem(k); } catch { return null; } }
+function lsGuardar(k, v) { try { localStorage.setItem(k, v); } catch { /* opcional */ } }
+function lsBorrar(k) { try { localStorage.removeItem(k); } catch { /* opcional */ } }

@@ -708,6 +708,7 @@ export function abrirMenu() {
       opMenu('asistente', '🗓️', 'Fechas de cobro', sinFecha ? `<b class="txt-ambar">${sinFecha} cliente(s) sin fecha de cobro.</b> Pónsela en 3 pasos.` : 'Todos tus clientes tienen fecha de cobro.', { destacada: !!sinFecha }),
       opMenu('vencimientos', '🔔', 'Vencimientos', `🟡 cuando faltan ${S.db.config.diasAviso} días o menos · sugerida: ${esc(S.db.config.periodicidadDefecto)}`),
       opMenu('mensajes', '📲', 'Mensajes de cobro', 'Recordatorios y comprobante de pago por WhatsApp.'),
+      N.avisosConfigurados ? opMenu('avisos', '⏰', 'Aviso diario', lsGet('cartera:aviso-clave') ? 'Activado en este teléfono.' : 'Cada mañana te avisamos quién paga hoy, aunque no abras la app.') : '',
       opMenu('comisiones', '💰', 'Mis comisiones', (() => { const r = L.resumenComisiones(S.db.clientes, L.hoyISO()); return r.conComision ? `Este mes llevas <b>${L.fmtDinero(r.ganado)}</b>` : 'Anota lo que ganas por cliente y ve cuánto llevas.'; })()),
       grupoMenu('Tus datos'),
       opMenu('archivos', '📂', 'Importar y exportar', `Excel y respaldos · ${ult ? 'último respaldo: ' + L.fmtFecha(L.hoyISO(new Date(ult))) : '<b class="txt-ambar">aún sin respaldo</b>'}`, { sub: true }),
@@ -1710,6 +1711,63 @@ export function abrirComisiones() {
   v.alVolver = pintar;
 }
 
+// ---------- Aviso diario al celular ----------
+// «Hoy pagan 3 · 2 morosos» cada mañana a la hora que elija el asesor, aunque no abra la app.
+// El envío lo hace GitHub Actions (tools/enviar-avisos.mjs); aquí solo se pide permiso y se elige la hora.
+const HORAS_AVISO = [6, 7, 8, 9, 10, 11, 12, 14, 16, 18, 20];
+const etiquetaHora = (h) => (h === 12 ? '12:00 del mediodía' : h < 12 ? `${h}:00 a. m.` : `${h - 12}:00 p. m.`);
+
+export async function abrirAvisos() {
+  const v = ventana({ titulo: '⏰ Aviso diario', cuerpo: '<p class="mini">Cargando…</p>' });
+  const motivo = await N.motivoSinAvisos();
+  const explicacion = '<p>Cada mañana te llega una notificación como <b>«Hoy pagan 3 clientes · 2 morosos»</b>, aunque no abras la app. Solo llega si hay algo que cobrar.</p>';
+  if (motivo) {
+    const textos = {
+      'sin-cuenta': 'Necesitas entrar con tu cuenta para recibir el aviso diario.',
+      'iphone-instalar': 'En iPhone el aviso funciona con la app <b>instalada</b>: en Safari toca Compartir → <b>Agregar a inicio</b> y abre Cartera Asesor desde ese ícono. Luego vuelves aquí.',
+      navegador: 'Este navegador no permite avisos. Abre la app instalada en tu teléfono (Chrome en Android o la app agregada a inicio en iPhone).',
+      pronto: '<b>Muy pronto.</b> Estamos terminando de activarlo; te avisaremos cuando esté listo.',
+    };
+    v.poner({ cuerpo: `${explicacion}<div class="banner info"><p>${textos[motivo]}</p></div>` });
+    return;
+  }
+  const pintar = async () => {
+    const a = await N.leerAvisos();
+    const opciones = HORAS_AVISO.map((h) => `<option value="${h}"${h === a.hora ? ' selected' : ''}>${etiquetaHora(h)}</option>`).join('');
+    const bloqueado = Notification.permission === 'denied';
+    v.poner({ cuerpo: `${explicacion}
+      <label>¿A qué hora?<select id="aviso-hora">${opciones}</select></label>
+      ${a.enEste
+        ? `<div class="banner info"><p>✅ <b>Activado en este teléfono.</b> Te avisamos a las ${etiquetaHora(a.hora)}.</p></div>
+           <div class="aviso-botones"><button type="button" class="btn" data-aviso="probar">Ver cómo se ve</button>
+           <button type="button" class="btn peligro" data-aviso="quitar">Desactivar en este teléfono</button></div>`
+        : bloqueado
+          ? '<div class="banner mal"><p>Bloqueaste las notificaciones para esta app. Actívalas en los ajustes del teléfono (Notificaciones → Cartera Asesor) y vuelve aquí.</p></div>'
+          : '<button type="button" class="btn primario" style="width:100%" data-aviso="activar">🔔 Activar aviso diario</button><p class="mini" style="margin-top:8px">Tu teléfono te pedirá permiso: toca <b>Permitir</b>.</p>'}` });
+    v.q('#aviso-hora').addEventListener('change', (e) => seguro(async () => {
+      if (a.enEste) { await N.cambiarHoraAvisos(Number(e.target.value)); aviso('Hora guardada'); pintar(); }
+    }));
+  };
+  v.el.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-aviso]');
+    if (!b) return;
+    const hora = Number(v.q('#aviso-hora')?.value || 8);
+    if (b.dataset.aviso === 'activar') seguro(async () => {
+      b.disabled = true;
+      const r = await N.activarAvisos(hora);
+      aviso(r === 'ok' ? 'Aviso diario activado' : 'Sin permiso no podemos avisarte', r !== 'ok');
+      pintar();
+    });
+    if (b.dataset.aviso === 'quitar') seguro(async () => { await N.desactivarAvisos(); aviso('Aviso desactivado en este teléfono'); pintar(); });
+    if (b.dataset.aviso === 'probar') seguro(async () => {
+      const r = L.resumenAviso(S.db.clientes, L.hoyISO(), S.db.config.diasAviso);
+      const reg = await navigator.serviceWorker.ready;
+      await reg.showNotification('Cartera Asesor · Tu día', { body: r.texto || 'Hoy no tienes cobros pendientes 🎉', icon: 'icons/icon-192.png', tag: 'aviso-diario' });
+    });
+  });
+  pintar().catch((e) => v.poner({ cuerpo: `${explicacion}<div class="banner mal"><p>No se pudo cargar: ${esc(e.message || String(e))}</p></div>` }));
+}
+
 export function abrirMensajesCobro() {
   const cfg = S.db.config;
   const v = ventana({
@@ -1828,6 +1886,7 @@ export function enlazarEventos() {
     plan: abrirPlan,
     ayuda: (el) => abrirAyuda(el.dataset.texto),
     bloqueo: abrirBloqueo,
+    avisos: abrirAvisos,
     comprobante: (el) => abrirComprobante(el.dataset.id, el.dataset.pago),
     'ocultar-bloqueo': () => { lsSet('cartera:ocultar-aviso-bloqueo', '1'); render(); },
     limpiar,
