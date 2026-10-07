@@ -135,8 +135,8 @@ Lo hace Emma con el equipo:
   sesión se borra el teléfono. En iPhone exige la app instalada. `sw.js` muestra el aviso y al tocarlo abre la app.
   `resumenAviso` en logic.js. Paquete `vendor/firebase.js` reconstruido con `firebase/messaging` (misma 11.10.0).
   Pruebas: `tests/avisos.test.mjs` (58 en total).
-- ⏳ **Para encenderlo faltan 2 cosas** (la opción del menú está escondida hasta entonces):
-  1. Clave pública VAPID → `vapidKey` en `plataforma/js/nube-config.js` (Firebase → Configuración del proyecto →
+- ⏳ **Para encenderlo falta 1 cosa** (la opción ☰ → ⏰ Aviso diario ya se ve; los que lo activen empiezan a recibir cuando esté la llave):
+  1. ✅ (07/10, la sacó Emma) Clave pública VAPID → `vapidKey` en `plataforma/js/nube-config.js` (Firebase → Configuración del proyecto →
      Cloud Messaging → Certificados push web → Generar par de claves). Es pública.
   2. **Jonathan:** Firebase → Configuración del proyecto → Cuentas de servicio → «Generar nueva clave privada» (JSON) →
      GitHub repo **carteraasesor** → Settings → Secrets and variables → Actions → New repository secret
