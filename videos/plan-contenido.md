@@ -28,7 +28,7 @@ Todo sigue la skill `marca-cartera-asesor` (formato, ritmo, voz, revisión de fo
 | 10 | B | Error que te cuesta dinero: anotar el pago «después» | Registrar el pago el mismo día; la app guarda historial de cada pago y cada cambio | nueva: historial de cambios |
 | 11 | A | ¿Clientes sin fecha de cobro? Ponla a todos en 3 pasos | Asistente «Fechas de cobro» (masivo) | nueva: asistente de fechas |
 | 12 | A | Encuentra a cualquier cliente en 1 segundo | Búsqueda por nombre, CURP, NSS o celular + filtros y orden | nueva: búsqueda y filtros |
-| 13 | B | Cuida los datos de tus clientes | Consejo de privacidad: CURP y NSS no se mandan por cualquier chat ni se dejan en libretas a la vista; cada asesor ve solo lo suyo + PIN | 6-pin |
+| 13 | B | Cuida los datos de tus clientes | Consejo de privacidad: CURP y NSS no se mandan por cualquier chat ni se dejan en libretas a la vista; cada asesor tiene su propia cuenta + PIN en el teléfono | 6-pin |
 | 14 | A | La app te avisa si una CURP está mal | «Revisar datos»: CURP/NSS incompletos, duplicados, fechas raras (solo avisa, no cambia nada) | nueva: detalle con avisos + revisión |
 | 15 | D | Cambié de celular, ¿pierdo mis clientes? | No: entras con tu correo y ahí están (nube). También en la compu | nueva: login + versión de computadora |
 | 16 | A | Instálala como app en tu iPhone (sin tienda) | Guía de instalación en iPhone y Android | nueva: guía de instalación |

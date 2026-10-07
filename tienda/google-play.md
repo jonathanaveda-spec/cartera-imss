@@ -25,8 +25,8 @@ Registra cada pago y la próxima fecha se calcula sola: mensual, trimestral, sem
 ☁️ En la nube y sin internet
 Tus clientes quedan guardados en tu cuenta. Si pierdes el teléfono, entras desde otro y ahí están. También funciona sin conexión.
 
-🔒 Privada y segura
-Cada asesor ve solo sus propios clientes. Exporta todo a Excel cuando quieras.
+🔒 Tu propia cuenta
+Nadie más entra a tu cartera, y si soporte te ayuda, cada acceso queda registrado. Tus datos viajan protegidos y se guardan en la nube de Google. Exporta todo a Excel cuando quieras.
 
 Cartera Asesor es una herramienta de organización. No es una aseguradora ni realiza trámites ante el IMSS.
 

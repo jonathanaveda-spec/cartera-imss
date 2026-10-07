@@ -24,7 +24,7 @@ export const Historia: React.FC<HistoriaProps> = (props) => {
           <Sequence key={i} name={`${i + 1} ${e.tipo}`} from={r.ini} durationInFrames={r.dur} premountFor={fps}>
             {e.tipo === "gancho" ? <GanchoH hora={e.hora} titular={e.titular} icono={e.icono} /> : null}
             {e.tipo === "chat" ? <Chat contacto={e.contacto} items={e.items} tiempos={r.items} /> : null}
-            {e.tipo === "titulo" ? <TituloH titular={e.titular} emoji={e.emoji} /> : null}
+            {e.tipo === "titulo" ? <TituloH titular={e.titular} emoji={e.emoji} etiqueta={e.etiqueta} /> : null}
             {e.tipo === "mensaje" ? <MensajeH numero={e.numero} titular={e.titular} contacto={e.contacto} mensaje={e.mensaje} /> : null}
             {e.tipo === "frase" ? <FraseH titular={e.titular} emoji={e.emoji} /> : null}
             {e.tipo === "captura" ? <CapturaH titular={e.titular} imagenes={e.imagenes} /> : null}

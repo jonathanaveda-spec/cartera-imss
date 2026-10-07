@@ -19,7 +19,7 @@ const PERFIL = join(tmpdir(), 'cartera-capturas-videos-edge');
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 // Parte a capturar: sin argumento = todo (Excel, PIN y cobro); «excel-pin» o «cobro» = solo esa parte.
 const SOLO = process.argv[2] || '';
-const hacer = (parte) => !SOLO || SOLO === parte;
+const hacer = (parte) => (!SOLO && parte !== 'semana') || SOLO === parte; // «semana» NO entra en «todo»: son las capturas del 12 al 18 de octubre (prefijo «sem-»)
 
 // Si el servidor local no responde, se avisa y se sale (este script no lo levanta).
 try { await fetch(`${BASE}/demo/`); } catch {
@@ -262,6 +262,123 @@ try {
   await js(`(await import('/demo/js/ui.js')).abrirMensajesCobro(); await new Promise((r) => setTimeout(r, 500)); document.activeElement?.blur(); return 1;`);
   await js(arriba());
   await foto('cobro-1-mensajes.png');
+  }
+
+  if (hacer('semana')) {
+  // ---- Semana del 12 al 18 de octubre: P05–P11 y H02–H05 (todo inventado). Archivos con prefijo «sem-».
+  const esperar = (ms) => `await new Promise((r) => setTimeout(r, ${ms}));`;
+  const subirA = (sel, margen = 76) => `const el = document.querySelector(${JSON.stringify(sel)}); scrollTo(0, el.getBoundingClientRect().top + scrollY - ${margen}); ${esperar(400)} return 1;`;
+  const hoyIso = `const iso = (d) => { const f = new Date(); f.setDate(f.getDate() + d); return f.toISOString().slice(0, 10); };`;
+  const esperarApp = `for (let i = 0; i < 60 && !(window.__cartera_ok && document.querySelector('#acceso')?.hidden); i++) await new Promise((r) => setTimeout(r, 250));`;
+  await js(cerrarVentanas);
+  // Clientes extra: 2 más que pagan hoy (la quincena), Patricia Ruiz (la de «ya te pagué») y un pago de hoy.
+  await js(`${hoyIso}
+    const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    await S.agregarCliente({ nombre: 'Sandra Iturbe Cano', periodicidad: 'Mensual', proximo_pago: iso(0), fecha_inicio: iso(-300), celular: '55 0000 3301', curp: 'IUCS780415MDFTNN05', nss: '45678901234' });
+    await S.agregarCliente({ nombre: 'Mario Esquivel Lara', periodicidad: 'Trimestral', proximo_pago: iso(0), fecha_inicio: iso(-200), celular: '55 0000 3302', curp: 'EULM810203HDFSRR06', nss: '56789012345' });
+    await S.agregarCliente({ nombre: 'Patricia Ruiz Salas', periodicidad: 'Mensual', proximo_pago: iso(-4), fecha_inicio: iso(-250), celular: '55 0000 3303', curp: 'RUSP790911MDFZLT07', nss: '67890123456' });
+    const c = S.db.clientes.find((x) => x.nombre.startsWith('Miguel'));
+    await S.registrarPago(c.id, { fecha_pago: iso(0), monto: 1500, metodo: 'Transferencia' });
+    U.render(); ${esperar(500)} return S.db.clientes.length;`);
+  await js(`document.activeElement?.blur(); scrollTo(0, 0); return 1;`);
+
+  // 1. Inicio nuevo: saludo + tarjetas de estado + «Pagan hoy / Pagaron hoy»
+  await foto('sem-inicio.png');
+
+  // 2. Filtro «📅 Pagan hoy» activo
+  await js(`document.querySelector('#rapidos [data-cod="pagan_hoy"]').click(); ${esperar(500)} return 1;`);
+  await js(subirA('#rapidos'));
+  await foto('sem-pagan-hoy.png');
+  await js(`document.querySelector('#rapidos [data-cod="pagan_hoy"]').click(); ${esperar(300)} scrollTo(0,0); return 1;`);
+
+  // 3. Las tres listas del semáforo (se toca la tarjeta de cada estado)
+  for (const [cod, nombre] of [['MOROSO', 'sem-lista-rojo.png'], ['POR_VENCER', 'sem-lista-amarillo.png'], ['AL_DIA', 'sem-lista-verde.png']]) {
+    await js(`scrollTo(0,0); document.querySelector('#resumen [data-cod="${cod}"]').click(); ${esperar(500)} return 1;`);
+    await js(subirA('#lista', 80));
+    await foto(nombre);
+  }
+  await js(`scrollTo(0,0); document.querySelector('#resumen [data-cod="todos"]').click(); ${esperar(300)} scrollTo(0,0); return 1;`);
+
+  // 4. Detalle de un cliente por vencer (se ve su fecha y su color)
+  await js(`const f = [...document.querySelectorAll('.fila')].find((x) => x.textContent.includes('Juan Carlos')); f.click(); ${esperar(600)} return 1;`);
+  await js(arriba());
+  await foto('sem-cliente.png');
+
+  // 5. Registrar un pago a Patricia Ruiz (atrasada) y el comprobante por WhatsApp
+  await js(cerrarVentanas);
+  await js(`const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    U.abrirPago(S.db.clientes.find((x) => x.nombre.startsWith('Patricia Ruiz')).id); ${esperar(600)}
+    const f = document.querySelector('#modales form'); if (f.monto) f.monto.value = '1250'; if (f.metodo) f.metodo.value = 'Efectivo';
+    f.dispatchEvent(new Event('input', { bubbles: true })); document.activeElement?.blur(); ${esperar(300)} return 1;`);
+  await js(arriba());
+  await foto('sem-pago.png');
+  await js(`document.querySelector('#modales button[type=submit]')?.click(); ${esperar(900)} return 1;`);
+  await js(arriba());
+  await foto('sem-comprobante.png');
+  await js(`document.querySelector('#modales [data-cerrar]')?.click(); scrollTo(0,0); ${esperar(400)} return 1;`);
+  await js(cerrarVentanas);
+
+  // 6. Buscador: 3 letras y resultado; y los filtros abiertos
+  await js(`scrollTo(0,0); const q = document.querySelector('#q'); q.value = 'lop'; q.dispatchEvent(new Event('input', { bubbles: true })); q.blur(); ${esperar(500)} return 1;`);
+  await js(subirA('.herramientas', 76));
+  await foto('sem-buscar.png');
+  await js(`const q = document.querySelector('#q'); q.value = ''; q.dispatchEvent(new Event('input', { bubbles: true })); document.querySelector('#btnFiltros').click(); ${esperar(500)} return 1;`);
+  await js(subirA('.herramientas', 76));
+  await foto('sem-filtros.png');
+  await js(`document.querySelector('#btnFiltros').click(); ${esperar(300)} scrollTo(0,0); return 1;`);
+
+  // 7. Sin conexión
+  console.log('aviso sin conexión:', JSON.stringify(await js(`Object.defineProperty(navigator, 'onLine', { get: () => false, configurable: true }); (await import('/demo/js/ui.js')).render(); scrollTo(0,0); ${esperar(500)} return document.querySelector('#avisos').innerText;`)));
+  await foto('sem-sin-conexion.png');
+  await js(`delete navigator.onLine; (await import('/demo/js/ui.js')).render(); return navigator.onLine;`);
+
+  // 8. Aviso «Instala la app» (Android): se simula el evento del navegador
+  console.log('aviso Android:', JSON.stringify(await js(`localStorage.removeItem('cartera:ocultar-instalar');
+    const e = new Event('beforeinstallprompt'); e.prompt = () => {}; e.userChoice = Promise.resolve({ outcome: 'dismissed' }); window.dispatchEvent(e);
+    (await import('/demo/js/ui.js')).render(); scrollTo(0,0); ${esperar(500)} return document.querySelector('#avisos').innerText;`)));
+  await foto('sem-instalar-android.png');
+
+  // 9. iPhone: se recarga como si fuera un iPhone (el aviso dice «Ver cómo (4 pasos)») y se abre la guía
+  await cdp('Network.setUserAgentOverride', { userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1', platform: 'iPhone' });
+  // Edge de escritorio sí ofrece instalar: se tapa ese evento para que salga el aviso de iPhone
+  const bloqueo = await cdp('Page.addScriptToEvaluateOnNewDocument', { source: "window.addEventListener('beforeinstallprompt', (e) => e.stopImmediatePropagation(), true);" });
+  await ir(`${BASE}/demo/?origen=play`);
+  console.log('aviso iPhone:', JSON.stringify(await js(`${esperarApp} const N = await import('/demo/js/nube.js'); N.estado.perfil = { ...(N.estado.perfil || {}), nombre: 'Laura Méndez' }; (await import('/demo/js/ui.js')).render(); ${esperar(800)} return document.querySelector('#avisos').innerText;`)));
+  await foto('sem-instalar-iphone.png');
+  await js(`document.querySelector('[data-accion="guia-instalar"]')?.click(); ${esperar(600)} return 1;`);
+  await js(arriba());
+  await foto('sem-guia-iphone.png');
+  await cdp('Page.removeScriptToEvaluateOnNewDocument', { identifier: bloqueo.identifier });
+  await cdp('Network.setUserAgentOverride', { userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36', platform: 'Linux armv8l' });
+  await ir(`${BASE}/demo/?origen=play`);
+  await js(`${esperarApp} localStorage.setItem('cartera:ocultar-instalar', '1'); const N = await import('/demo/js/nube.js'); N.estado.perfil = { ...(N.estado.perfil || {}), nombre: 'Laura Méndez' }; ${esperar(500)} return 1;`);
+
+  // 10. Fechas de cobro: dos clientes sin fecha → asistente (paso 1 y paso 2 con «Personalizado: cada 15 días»)
+  await js(`${hoyIso}
+    const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    await S.agregarCliente({ nombre: 'Elena Duarte Paredes', celular: '55 0000 3304', fecha_inicio: iso(-120), curp: 'DUPE850625MDFRRL08', nss: '78901234567' });
+    await S.agregarCliente({ nombre: 'Rubén Olvera Tapia', celular: '55 0000 3305', fecha_inicio: iso(-75), curp: 'OETR880130HDFLPB09', nss: '89012345678' });
+    U.render(); ${esperar(500)} U.abrirAsistente(); ${esperar(600)} return 1;`);
+  await js(arriba());
+  await foto('sem-asistente-1.png');
+  await js(clic('[data-ir="2"]', 500));
+  await js(`const r = document.querySelector('#modales input[name=periodicidad][value=personalizado]'); r.checked = true; r.dispatchEvent(new Event('change', { bubbles: true })); ${esperar(400)}
+    const d = document.querySelector('#modales input[name=dias_per]'); d.value = '15'; d.dispatchEvent(new Event('input', { bubbles: true })); d.dispatchEvent(new Event('change', { bubbles: true })); d.blur(); ${esperar(400)} return 1;`);
+  await js(arriba());
+  await foto('sem-periodicidad.png');
+  await js(`document.querySelector('#modales [data-cerrar]')?.click(); ${esperar(300)} return 1;`);
+  await js(cerrarVentanas);
+
+  // 11. Pago de un cliente que paga «Cada 15 días»: periodicidad personalizada y próximo pago calculado
+  await js(`${hoyIso}
+    const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js'); const L = await import('/demo/js/logic.js');
+    await S.agregarCliente({ nombre: 'Daniela Fuentes Rojas', periodicidad: L.periodicidadDias(15), proximo_pago: iso(0), fecha_inicio: iso(-90), celular: '55 0000 3306', curp: 'FURD900818MDFNJN10', nss: '90123456789' });
+    U.abrirPago(S.db.clientes.find((x) => x.nombre.startsWith('Daniela')).id); ${esperar(700)}
+    const f = document.querySelector('#modales form'); if (f.monto) f.monto.value = '800'; if (f.metodo) f.metodo.value = 'Efectivo';
+    f.dispatchEvent(new Event('input', { bubbles: true })); document.activeElement?.blur(); ${esperar(400)} return 1;`);
+  await js(arriba());
+  await foto('sem-pago-15dias.png');
+  await js(cerrarVentanas);
   }
 
   // Limpieza: el navegador de pruebas se borra completo al final.

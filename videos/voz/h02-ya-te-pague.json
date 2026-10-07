@@ -1,0 +1,15 @@
+{
+  "id": "h02-ya-te-pague",
+  "voz": "es-MX-JorgeNeural",
+  "velocidad": "+5%",
+  "frases": [
+    { "texto": "Lo que nadie te cuenta de cobrar con libreta, número uno. Te dicen: ya te pagué, y no lo tienes anotado.", "estilo": "sad" },
+    { "texto": "Ya te pagué desde el martes.", "voz": "es-MX-CandelaNeural", "velocidad": "+0%" },
+    { "texto": "¿Seguro? No lo tengo anotado.", "estilo": "chat" },
+    { "texto": "Te lo di en efectivo, ¿no te acuerdas?", "voz": "es-MX-CandelaNeural", "velocidad": "+0%" },
+    { "texto": "Sin registro, es tu palabra contra la suya.", "estilo": "sad" },
+    { "texto": "Con Cartera Asesor anotas el pago en el momento, y queda con su fecha.", "estilo": "cheerful" },
+    { "texto": "Y con un toque le mandas su comprobante por WhatsApp.", "estilo": "cheerful" },
+    { "texto": "¿Te ha pasado? Cuéntamelo abajo. Pruébala gratis en la beta, en carteraasesor punto com.", "estilo": "cheerful" }
+  ]
+}

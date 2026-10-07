@@ -78,7 +78,7 @@ export const FraseH: React.FC<{ titular: string[]; emoji?: string }> = ({ titula
 };
 
 // ---------- Capturas reales de la app en un teléfono ----------
-const COLOR_ANILLO = { rojo: C.rojo, verde: C.verde, azul: C.azulCartera } as const;
+const COLOR_ANILLO = { rojo: C.rojo, verde: C.verde, azul: C.azulCartera, ambar: C.ambar } as const;
 export const CapturaH: React.FC<{ titular: string[]; imagenes: ImagenCaptura[] }> = ({ titular, imagenes }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
@@ -91,12 +91,12 @@ export const CapturaH: React.FC<{ titular: string[]; imagenes: ImagenCaptura[] }
       {imagenes.map((im, i) => {
         const t0 = i * tramo - 4;
         const p = i === 0 ? 1 : ease(frame, t0, t0 + 10);
-        const anillo = im.anillo ? ease(frame, i * tramo + 12, i * tramo + 24) : 0;
+        const lista = im.anillo ? (Array.isArray(im.anillo) ? im.anillo : [im.anillo]) : [];
         return (
           <PhoneCard key={i} src={im.src} left={154} top={200} alto={860} zoom={im.zoom} cx={im.cx} cy={im.cy} opacity={(i === 0 ? 0.3 + entra * 0.7 : p)} translateY={i === 0 ? (1 - entra) * 100 : 0}>
-            {im.anillo ? (
-              <AnilloFoco x={im.anillo.x} y={im.anillo.y} w={im.anillo.w} h={im.anillo.h} color={COLOR_ANILLO[im.anillo.color]} p={anillo} pulso={pulso} radio={im.anillo.radio ?? 30} />
-            ) : null}
+            {lista.map((a, k) => (
+              <AnilloFoco key={k} x={a.x} y={a.y} w={a.w} h={a.h} color={COLOR_ANILLO[a.color]} p={ease(frame, i * tramo + 12 + k * 18, i * tramo + 24 + k * 18)} pulso={pulso} radio={a.radio ?? 30} />
+            ))}
           </PhoneCard>
         );
       })}
@@ -166,16 +166,21 @@ export const DivididaH: React.FC<{ antes: PanelDividido; despues: PanelDividido 
 };
 
 // ---------- Título grande con emoji (gancho sencillo) ----------
-export const TituloH: React.FC<{ titular: string[]; emoji?: string }> = ({ titular, emoji }) => {
+export const TituloH: React.FC<{ titular: string[]; emoji?: string; etiqueta?: string }> = ({ titular, emoji, etiqueta }) => {
   const frame = useCurrentFrame();
   const zoom = interpolate(frame, [0, 120], [1, 1.03], { extrapolateRight: "clamp" });
   const e = 0.5 + ease(frame, 0, 16, Easing.out(Easing.back(1.4))) * 0.5;
   return (
     <AbsoluteFill style={{ scale: zoom }}>
-      {emoji ? (
-        <div style={{ position: "absolute", left: 140, width: 800, top: 360, textAlign: "center", fontSize: 220, lineHeight: 1, scale: 0.7 + e * 0.3, opacity: e }}>{emoji}</div>
+      {etiqueta ? (
+        <div style={{ position: "absolute", left: 140, width: 800, top: 230, display: "flex", justifyContent: "center", opacity: e, scale: 0.8 + e * 0.2 }}>
+          <div style={{ background: "rgba(11,42,111,0.82)", borderRadius: 999, padding: "14px 40px 18px", border: "4px solid rgba(255,255,255,0.3)", fontFamily: textos, fontWeight: 800, fontSize: 46, color: C.secundario, whiteSpace: "nowrap" }}>{etiqueta}</div>
+        </div>
       ) : null}
-      <div style={{ position: "absolute", left: 140, width: 800, top: 680, textAlign: "center", fontFamily: titulos, fontWeight: 800, fontSize: 100, lineHeight: 1.03, letterSpacing: -2.5, color: C.blanco, textShadow: "0 6px 28px rgba(5,20,60,0.45)", whiteSpace: "nowrap" }}>
+      {emoji ? (
+        <div style={{ position: "absolute", left: 140, width: 800, top: etiqueta ? 400 : 360, textAlign: "center", fontSize: etiqueta ? 190 : 220, lineHeight: 1, scale: 0.7 + e * 0.3, opacity: e }}>{emoji}</div>
+      ) : null}
+      <div style={{ position: "absolute", left: 140, width: 800, top: etiqueta ? 660 : 680, textAlign: "center", fontFamily: titulos, fontWeight: 800, fontSize: 100, lineHeight: 1.03, letterSpacing: -2.5, color: C.blanco, textShadow: "0 6px 28px rgba(5,20,60,0.45)", whiteSpace: "nowrap" }}>
         {titular.map((l, i) => {
           const p = 0.45 + ease(frame, i * 4, 12 + i * 4) * 0.55;
           return (

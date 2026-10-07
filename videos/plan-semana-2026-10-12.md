@@ -134,8 +134,8 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
 ### H03 · Mié 14 · 20:00 · «¿Dónde guardas la CURP de tus clientes?» (#fraude + #13 del plan)
 - **Gancho (seg 1):** «¿Dónde guardas la **CURP** de tus clientes? 🔒»
 - **Escenas:** gancho → antes/después: **Antes 📒 «Datos a la vista»** (la libreta abierta en el escritorio · fotos de la INE
-  en tu galería · datos reenviados a cualquier chat) / **Con la app 🔒 «Datos cuidados»** (cada asesor ve solo su cartera ·
-  bloqueo con PIN o huella · tú eliges cuándo se pide) → captura del teclado del PIN «Sin tu PIN, nadie **entra**» → cierre
+  en tu galería · datos reenviados a cualquier chat) / **Con la app 🔒 «Datos cuidados»** (cada asesor con su propia cuenta ·
+  bloqueo con PIN o huella · tú eliges cuándo se pide) → captura del teclado del PIN «Sin tu PIN, **no abre**» → cierre
   «Tus clientes te confían sus **datos**».
 - **Tono:** de cuidado, **sin alarmismo** y sin asesoría legal. No decir que la app «evita fraudes»; decir que te ayuda a
   cuidar los datos. El consejo sirve aunque no uses la app.

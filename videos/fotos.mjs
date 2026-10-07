@@ -10,7 +10,12 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
-const EDGE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
+// Navegador: Edge 154 ya no acepta el modo «headless viejo» de Remotion, así que se usa el chrome-headless-shell de la caché de puppeteer (si existe).
+import { existsSync, readdirSync } from 'node:fs';
+import { homedir } from 'node:os';
+const cacheHS = join(homedir(), '.cache/puppeteer/chrome-headless-shell');
+const hs = existsSync(cacheHS) ? readdirSync(cacheHS).map((v) => join(cacheHS, v, 'chrome-headless-shell-win64/chrome-headless-shell.exe')).find(existsSync) : null;
+const EDGE = hs || 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const [, , comp, que = '15', guias] = process.argv;
 if (!comp) { console.error('Uso: node fotos.mjs <Composición> <cada-N | cuadros> [guias]'); process.exit(1); }
 

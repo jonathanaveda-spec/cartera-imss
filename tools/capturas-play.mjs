@@ -22,7 +22,7 @@ const PANTALLAS = [
   { id: '3-pago', t: 'La próxima fecha se calcula sola', s: 'Mensual, trimestral, semestral, anual o cada N días' },
   { id: '4-comprobante', t: 'Comprobante de pago por WhatsApp', s: 'Tu cliente queda tranquilo y tú te ves profesional' },
   { id: '5-excel', t: 'Sube tu Excel tal como lo tienes', s: 'La app reconoce tus columnas; tú solo confirmas' },
-  { id: '6-pin', t: 'Protegida con PIN y huella', s: 'Nadie ve tu cartera si toma tu teléfono' },
+  { id: '6-pin', t: 'Protegida con PIN y huella', s: 'Pídele PIN o huella a quien tome tu teléfono' },
 ];
 
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));

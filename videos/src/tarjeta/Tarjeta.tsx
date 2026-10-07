@@ -15,6 +15,7 @@ import type { VozFrase } from "../voz";
 //     "titular": ["5 señales de", "que tu **cartera**", "necesita orden"],
 //     "lineas": ["No sabes quién te debe **hoy**", ...], "numerar": true,
 //     "llamado": ["¿Cuántas", "te **pasan**? 👇"],
+//     "gigante": true,                  // opcional: la 1.ª línea del titular va en tamaño enorme (serie «Cobranza en 15 segundos #1»)
 //     "voz": "t01-5-senales",            // opcional: id de public/voz/<id>/ (una frase por tramo)
 //     "seg": [2, 2, 2, 2, 2, 2, 3] }     // sin voz: segundos de cada tramo (titular, cada línea, llamado)
 // Con voz, las frases del MP3 van en este orden: titular, línea 1..N, llamado.
@@ -24,6 +25,7 @@ export type TarjetaProps = {
   titular: string[];
   lineas: string[];
   numerar?: boolean;
+  gigante?: boolean; // la primera línea del titular (p. ej. «#1») sale enorme, para las series numeradas
   llamado: string[];
   voz?: string;
   seg?: number[];
@@ -60,7 +62,7 @@ const inicios = (d: number[]) => d.map((_, i) => d.slice(0, i).reduce((a, b) => 
 
 export const Tarjeta: React.FC<TarjetaProps> = (props) => {
   const frame = useCurrentFrame();
-  const { lineas, titular, llamado, numerar, frases } = props;
+  const { lineas, titular, llamado, numerar, frases, gigante } = props;
   const dur = tramosTarjeta(props);
   const ini = inicios(dur);
   const iCall = lineas.length + 1;
@@ -81,7 +83,7 @@ export const Tarjeta: React.FC<TarjetaProps> = (props) => {
           position: "absolute",
           left: 140,
           width: 800,
-          top: interpolate(sube, [0, 1], [600, 190]),
+          top: interpolate(sube, [0, 1], [gigante ? 400 : 600, 190]),
           transformOrigin: "50% 0%",
           scale: interpolate(sube, [0, 1], [1, 0.6]),
           opacity: aparece * sale,
@@ -99,7 +101,7 @@ export const Tarjeta: React.FC<TarjetaProps> = (props) => {
         {titular.map((l, i) => {
           const p = 0.45 + ease(frame, i * 3, i * 3 + 10) * 0.55;
           return (
-            <div key={i} style={{ translate: `0px ${(1 - p) * 40}px`, opacity: p }}>
+            <div key={i} style={{ translate: `0px ${(1 - p) * 40}px`, opacity: p, ...(gigante && i === 0 ? { fontSize: 400, lineHeight: 0.95, letterSpacing: -12, marginBottom: 14 } : {}) }}>
               <Rico t={l} />
             </div>
           );
@@ -112,10 +114,10 @@ export const Tarjeta: React.FC<TarjetaProps> = (props) => {
           position: "absolute",
           left: 140,
           width: 800,
-          top: 440,
+          top: gigante ? 650 : 440,
           display: "flex",
           flexDirection: "column",
-          gap: 18,
+          gap: gigante ? 30 : 18,
           opacity: sale,
         }}
       >
@@ -132,7 +134,7 @@ export const Tarjeta: React.FC<TarjetaProps> = (props) => {
                 display: "flex",
                 alignItems: "center",
                 gap: 26,
-                padding: "22px 30px 24px 24px",
+                padding: gigante ? "34px 36px 36px 34px" : "22px 30px 24px 24px",
                 borderRadius: 40,
                 background: activa ? "rgba(255,255,255,0.2)" : "rgba(11,42,111,0.62)",
                 border: `3px solid ${activa ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.12)"}`,
@@ -166,7 +168,7 @@ export const Tarjeta: React.FC<TarjetaProps> = (props) => {
                 style={{
                   fontFamily: textos,
                   fontWeight: 800,
-                  fontSize: 48,
+                  fontSize: gigante ? 62 : 48,
                   lineHeight: 1.18,
                   letterSpacing: -0.5,
                   color: C.blanco,

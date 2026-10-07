@@ -8,7 +8,7 @@ import type { VozFrase } from "../voz";
 // Cada escena es de un tipo:
 //   gancho    { hora, titular[], icono? }                    reloj + libreta + titular
 //   chat      { contacto{nombre, iniciales}, items[] }       burbujas, «escribiendo…», horas y palomitas
-//   titulo    { titular[], emoji? }                          título grande con un emoji (gancho sencillo)
+//   titulo    { titular[], emoji?, etiqueta? }               título grande con un emoji (gancho sencillo); etiqueta = chip chico arriba
 //   mensaje   { numero, titular[], contacto, mensaje }       un mensaje de cobro que se escribe y se envía (#4)
 //   frase     { titular[], emoji? }                          frase grande con hojas de libreta que pasan
 //   captura   { titular[], imagenes[{src,zoom,cx,cy,anillo?}] } capturas reales de la app en un teléfono
@@ -31,15 +31,16 @@ export type Mensaje = {
 export type Escribiendo = { escribiendo: "cliente" | "asesor"; seg: number };
 export type ItemChat = Mensaje | Escribiendo;
 
-export type Anillo = { x: number; y: number; w: number; h: number; color: "rojo" | "verde" | "azul"; radio?: number };
-export type ImagenCaptura = { src: string; zoom: number; cx: number; cy: number; anillo?: Anillo };
+export type Anillo = { x: number; y: number; w: number; h: number; color: "rojo" | "verde" | "azul" | "ambar"; radio?: number };
+// `anillo` puede ser uno o varios (varios entran uno tras otro, cada ~0.6 s)
+export type ImagenCaptura = { src: string; zoom: number; cx: number; cy: number; anillo?: Anillo | Anillo[] };
 export type PanelDividido = { etiqueta: string; emoji: string; titulo: string; lineas: string[] };
 
 type Base = { seg?: number; sinVoz?: boolean };
 export type EscenaH =
   | (Base & { tipo: "gancho"; hora: string; titular: string[]; icono?: string })
   | (Base & { tipo: "chat"; contacto: { nombre: string; iniciales: string }; items: ItemChat[] })
-  | (Base & { tipo: "titulo"; titular: string[]; emoji?: string })
+  | (Base & { tipo: "titulo"; titular: string[]; emoji?: string; etiqueta?: string })
   | (Base & { tipo: "mensaje"; numero: number; titular: string[]; contacto: { nombre: string; iniciales: string }; mensaje: Mensaje })
   | (Base & { tipo: "frase"; titular: string[]; emoji?: string })
   | (Base & { tipo: "captura"; titular: string[]; imagenes: ImagenCaptura[] })
