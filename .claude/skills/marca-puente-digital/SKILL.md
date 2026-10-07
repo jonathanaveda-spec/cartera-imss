@@ -21,6 +21,7 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
 - **Dominios** (revisados el 07/10/2026, todavía **sin comprar**): neuroproyectos.com, neuroproyectosia.com y
   neuroproyectosia.app aparecían libres. Sitio y correo irán en **neuroproyectos.com** (más corto). Sin revisar: .co, .mx,
   redes, Play Store y registro de marca (IMPI México, SIC Colombia). Confirmar antes de imprimir nada con el dominio.
+  Lo que le toca hacer a Jonathan, en orden y con costos: `empresa/puente-digital/PENDIENTES-JONATHAN.md`.
 
 ## 2. Personalidad
 - **Inteligente, pero sin presumir:** sabe de tecnología y la explica como un amigo.

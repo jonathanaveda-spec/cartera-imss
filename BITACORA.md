@@ -24,7 +24,9 @@ Jonathan quiere una empresa «madre» que desarrolle sus apps (Cartera Asesor es
 - **Paso 6 hecho (falta que Jonathan lo revise):** logos finales en `empresa/puente-digital/logos/final/`, perfil de Google Play en
   `google-play/`, redes en `redes/`, firma en `firma-correo/` y página en `web/` (`herramientas/hacer_piezas.py` las regenera).
   La cuenta de desarrollador de Google Play solo se puede crear con al menos una app publicada.
-- **Falta:** lista de pendientes de Jonathan (paso 7): dominio, correo, redes, publicar la página y registro de marca.
+- **Paso 7 hecho:** lista ordenada de lo que le toca a Jonathan en `empresa/puente-digital/PENDIENTES-JONATHAN.md` (dominio en Cloudflare
+  ~US$10,46/año, correo gratis con Email Routing, redes, página en Cloudflare Pages y registro de marca en IMPI y SIC con costos y fuentes del 07/10/2026).
+- **Pendiente de Jonathan:** todo lo de esa lista. Al avanzar, actualizar dominio real, redes y correo en la web, la firma, Google Play y la skill.
 - No se tocó la app Cartera Asesor.
 
 ## ▶ Estado actual y próximos pasos (actualizado 07/10 tarde, PC del local)
