@@ -1719,10 +1719,11 @@ export async function abrirAvisos() {
     v.poner({ cuerpo: `${explicacion}<div class="banner info"><p>${textos[motivo]}</p></div>` });
     return;
   }
+  let sinRespuesta = false; // pidió permiso y el teléfono nunca mostró la pregunta
   const pintar = async () => {
     const a = await N.leerAvisos();
     const opciones = HORAS_AVISO.map((h) => `<option value="${h}"${h === a.hora ? ' selected' : ''}>${etiquetaHora(h)}</option>`).join('');
-    const bloqueado = Notification.permission === 'denied';
+    const bloqueado = Notification.permission === 'denied' || (sinRespuesta && Notification.permission !== 'granted');
     v.poner({ cuerpo: `${explicacion}
       <label>¿A qué hora?<select id="aviso-hora">${opciones}</select></label>
       ${a.enEste
@@ -1730,7 +1731,7 @@ export async function abrirAvisos() {
            <div class="aviso-botones"><button type="button" class="btn" data-aviso="probar">Ver cómo se ve</button>
            <button type="button" class="btn peligro" data-aviso="quitar">Desactivar en este teléfono</button></div>`
         : bloqueado
-          ? `<div class="banner mal"><p><b>Tu teléfono tiene bloqueados los avisos para esta app</b>, por eso no te pregunta. Actívalos y vuelve aquí:</p>
+          ? `<div class="banner mal"><p><b>${sinRespuesta ? 'Tu teléfono no mostró la pregunta de permiso' : 'Tu teléfono tiene bloqueados los avisos para esta app'}</b>, por eso no te pregunta. Actívalos a mano y vuelve aquí:</p>
               <ul style="margin:6px 0 0 18px">${esIOS()
                 ? '<li>iPhone: Ajustes → Notificaciones → <b>Cartera Asesor</b> → Permitir notificaciones.</li>'
                 : '<li>Mantén presionado el ícono de <b>Cartera Asesor</b> → Información de la app (ⓘ) → <b>Notificaciones</b> → Permitir.</li><li>Si la usas en Chrome: ⋮ → Configuración → Configuración de sitios → Notificaciones → <b>carteraasesor.com</b> → Permitir.</li>'}</ul></div>`
@@ -1743,12 +1744,16 @@ export async function abrirAvisos() {
     const b = e.target.closest('[data-aviso]');
     if (!b) return;
     const hora = Number(v.q('#aviso-hora')?.value || 8);
-    if (b.dataset.aviso === 'activar') seguro(async () => {
+    if (b.dataset.aviso === 'activar') {
       b.disabled = true;
-      const r = await N.activarAvisos(hora);
-      aviso(r === 'ok' ? 'Aviso diario activado' : 'Sin permiso no podemos avisarte', r !== 'ok');
-      pintar();
-    });
+      b.textContent = 'Activando…';
+      seguro(async () => {
+        const r = await N.activarAvisos(hora);
+        if (r === 'ok') aviso('Aviso diario activado');
+        else if (r === 'denegado') aviso('Sin permiso no podemos avisarte', true);
+        else sinRespuesta = true; // el teléfono no mostró la pregunta: se explican los pasos
+      }).finally(() => pintar());
+    }
     if (b.dataset.aviso === 'quitar') seguro(async () => { await N.desactivarAvisos(); aviso('Aviso desactivado en este teléfono'); pintar(); });
     if (b.dataset.aviso === 'probar') seguro(async () => {
       const r = L.resumenAviso(S.db.clientes, L.hoyISO(), S.db.config.diasAviso);

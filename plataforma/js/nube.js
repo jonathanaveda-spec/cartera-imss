@@ -344,12 +344,21 @@ async function claveDe(token) {
   return [...new Uint8Array(h)].slice(0, 10).map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-/** Pide permiso, registra este celular y guarda la hora. Devuelve 'ok' | 'denegado'. */
+// Si un paso no responde (p. ej. Chrome esconde la pregunta de permiso en la app instalada), no se queda colgado:
+// falla con un mensaje que dice qué paso fue.
+const conTiempo = (promesa, ms, mensaje) => Promise.race([promesa, new Promise((_, no) => setTimeout(() => no(new Error(mensaje)), ms))]);
+
+/** Pide permiso, registra este celular y guarda la hora. Devuelve 'ok' | 'denegado' | 'sin-respuesta'. */
 export async function activarAvisos(hora) {
-  const permiso = await Notification.requestPermission();
+  let permiso = Notification.permission;
+  if (permiso !== 'granted') {
+    try { permiso = await conTiempo(Notification.requestPermission(), 20000, 'sin-respuesta'); } catch { return 'sin-respuesta'; }
+  }
   if (permiso !== 'granted') return 'denegado';
-  const reg = await navigator.serviceWorker.ready;
-  const token = await F.getToken(F.getMessaging(), { vapidKey: CFG.vapidKey, serviceWorkerRegistration: reg });
+  const reg = await conTiempo(navigator.serviceWorker.ready, 15000,
+    'La app no terminó de prepararse. Ciérrala por completo, ábrela de nuevo e inténtalo otra vez.');
+  const token = await conTiempo(F.getToken(F.getMessaging(), { vapidKey: CFG.vapidKey, serviceWorkerRegistration: reg }), 30000,
+    'No se pudo conectar con el servicio de avisos de Google. Revisa tu internet e inténtalo otra vez.');
   const clave = await claveDe(token);
   const dispositivo = /iPhone|iPad/.test(navigator.userAgent) ? 'iPhone' : /Android/.test(navigator.userAgent) ? 'Android' : 'Computadora';
   await F.setDoc(refAvisos(), {
