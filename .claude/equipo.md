@@ -50,6 +50,7 @@ Después, el detalle. Siempre en **español, simple y sin tecnicismos**.
 ## El equipo (a quién le pasas qué)
 | Nombre | Agente | Área |
 |---|---|---|
+| **Emma** | sesión principal (no es agente) | Jefa de equipo: habla con Jonathan, reparte el trabajo, revisa lo que entregan, sube a GitHub y lleva la bitácora |
 | **Lucía** | `productor-videos` | Hace los videos (Remotion, voz, fotogramas) |
 | **Victoria** | `estratega-redes` | Decide qué videos hacer, mide resultados, plan semanal |
 | **Luna** | `cazadora-tendencias` | Tendencias, sonidos y formatos que funcionan |
