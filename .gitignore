@@ -11,6 +11,7 @@ tests/excel.test.mjs
 .claude/*
 !.claude/skills/
 !.claude/agents/
+!.claude/equipo.md
 node_modules/
 
 # Capturas sin marco (se rehacen con tools/capturas-play.mjs)

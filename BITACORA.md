@@ -70,6 +70,16 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
       quién te debe, quién vence y cobro por WhatsApp 🟢».
 - El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
 
+**07/10 (PC del local, tarde) — Equipo de agentes:** Jonathan pidió más agentes «como la productora» que piensen y
+trabajen como empleadas super inteligentes, y les puso nombre. Se crearon 10 nuevas en `.claude/agents/` + el manual
+`.claude/equipo.md` (todas lo leen primero): Tere (probadora-app), Victoria (estratega-redes, Opus), Clara
+(soporte-clientes), Fernanda (guardiana-datos, Opus), Julieta (redactora), Andrea (gestora-tiendas), Mariana
+(investigadora-mercado), Luna (cazadora-tendencias), Frida (directora-creativa, ideas visuales) y Ximena
+(disenadora-avatares: personajes inventados realistas con ficha; nunca personas reales ni testimonios falsos). La
+productora es Lucía. Voz: muestrarios de 24 voces (México + emociones) y 38 (Latinoamérica); regla de **variedad de
+voces** en la skill `voz-cartera-asesor`. Lucía está haciendo T01, H01 y P#4 con voz + versiones con voz del #2 (Jorge)
+y #3 (Dalia): Jonathan **solo publicará las versiones con voz**.
+
 **📋 LISTA PARA MAÑANA (08/10, en la oficina) — empezar por aquí:**
 Lo hace Jonathan:
 1. ✅ (07/10, PC del local) Azure listo: cuenta actualizada a pago por uso («Azure subscription 1»; la prueba gratis

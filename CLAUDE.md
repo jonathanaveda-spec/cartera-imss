@@ -45,6 +45,14 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 - Videos: agente `productor-videos` (`.claude/agents/`, modelo Sonnet) con Remotion en `videos/`. Skills de Remotion
   instaladas solo en la PC del local (ver `BITACORA.md`).
 
+## Equipo de agentes
+- 11 agentes en `.claude/agents/` que trabajan como **empleadas expertas** (pedido de Jonathan 07/10/2026). Todas leen
+  primero el **manual del equipo** `.claude/equipo.md` (meta del negocio, mentalidad, cómo reportar, reglas de la casa).
+- Jonathan llama a Claude **Emma**: coordina al equipo, revisa lo que entregan y hace commit/push.
+- Nombres: Lucía (videos), Victoria (estrategia de redes, Opus), Luna (tendencias), Frida (ideas visuales), Ximena
+  (avatares), Julieta (textos), Clara (soporte), Tere (pruebas), Fernanda (datos y privacidad, Opus), Andrea (tiendas),
+  Mariana (mercado). Las demás usan Sonnet.
+
 ## Forma de trabajar con Jonathan
 - Todo en español, simple y sin tecnicismos: Jonathan no es programador.
 - Probar los cambios de interfaz en tamaño de celular (muchos usuarios usan iPhone).
