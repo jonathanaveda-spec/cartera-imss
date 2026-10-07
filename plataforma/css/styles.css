@@ -67,7 +67,7 @@ h1, h2, h3, p { margin: 0; }
 .btn.primario:active { background: var(--marca-osc); }
 .btn.peligro { color: var(--peligro); border-color: #f1c4c4; }
 .btn.peligro.solido { background: var(--peligro); border-color: var(--peligro); color: #fff; }
-.btn.chico { min-height: 36px; padding: 0 12px; font-size: .9rem; }
+.btn.chico { min-height: 40px; padding: 0 12px; font-size: .9rem; }
 .btn:disabled { opacity: .5; cursor: default; }
 .btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .tarjeta-stat:focus-visible, tr.fila:focus-visible {
   outline: 3px solid #93c5fd; outline-offset: 1px;
@@ -95,7 +95,7 @@ label > input, label > select, label > textarea { margin-top: 4px; font-weight: 
 .banner p { flex: 1 1 260px; }
 
 /* ---------- Resumen ---------- */
-.resumen { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+.resumen { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; scroll-margin-top: 80px; }
 .tarjeta-stat {
   background: var(--tarjeta); border-radius: var(--radio); box-shadow: var(--sombra);
   padding: 12px 14px; text-align: left; border: 2px solid transparent; cursor: pointer;
@@ -439,11 +439,11 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 @media (prefers-reduced-motion: reduce) { .bloqueo-puntos.sacudir { animation: none; } }
 
 /* ---------- Filtros rápidos del día ---------- */
-.rapidos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: -6px 0 14px; }
+.rapidos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: -6px 0 14px; scroll-margin-top: 80px; }
 @media (min-width: 700px) { .rapidos { display: flex; } }
 .rapidos:empty { display: none; }
 .chip-rapido {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 42px; padding: 0 12px; white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 12px; white-space: nowrap;
   border-radius: 999px; border: 1.5px solid var(--linea); background: var(--tarjeta);
   font: inherit; font-size: .9rem; font-weight: 600; color: inherit; cursor: pointer;
   -webkit-tap-highlight-color: transparent; user-select: none;
