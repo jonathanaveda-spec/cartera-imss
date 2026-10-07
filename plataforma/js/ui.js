@@ -1730,7 +1730,10 @@ export async function abrirAvisos() {
            <div class="aviso-botones"><button type="button" class="btn" data-aviso="probar">Ver cómo se ve</button>
            <button type="button" class="btn peligro" data-aviso="quitar">Desactivar en este teléfono</button></div>`
         : bloqueado
-          ? '<div class="banner mal"><p>Bloqueaste las notificaciones para esta app. Actívalas en los ajustes del teléfono (Notificaciones → Cartera Asesor) y vuelve aquí.</p></div>'
+          ? `<div class="banner mal"><p><b>Tu teléfono tiene bloqueados los avisos para esta app</b>, por eso no te pregunta. Actívalos y vuelve aquí:</p>
+              <ul style="margin:6px 0 0 18px">${esIOS()
+                ? '<li>iPhone: Ajustes → Notificaciones → <b>Cartera Asesor</b> → Permitir notificaciones.</li>'
+                : '<li>Mantén presionado el ícono de <b>Cartera Asesor</b> → Información de la app (ⓘ) → <b>Notificaciones</b> → Permitir.</li><li>Si la usas en Chrome: ⋮ → Configuración → Configuración de sitios → Notificaciones → <b>carteraasesor.com</b> → Permitir.</li>'}</ul></div>`
           : '<button type="button" class="btn primario" style="width:100%" data-aviso="activar">🔔 Activar aviso diario</button><p class="mini" style="margin-top:8px">Tu teléfono te pedirá permiso: toca <b>Permitir</b>.</p>'}` });
     v.q('#aviso-hora').addEventListener('change', (e) => seguro(async () => {
       if (a.enEste) { await N.cambiarHoraAvisos(Number(e.target.value)); aviso('Hora guardada'); pintar(); }
