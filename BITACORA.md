@@ -13,10 +13,13 @@ Jonathan quiere una empresa «madre» que desarrolle sus apps (Cartera Asesor es
   neuroproyectos.com, neuroproyectosia.com y neuroproyectosia.app. Sin revisar: .co, .mx, redes, Play Store y registro de marca (IMPI/SIC).
 - **Identidad aprobada:** personalidad cercana, práctica, honesta; habla de tú. Lema: «Tecnología inteligente para tu negocio»,
   con «Software con IA que sí se entiende» como frase de apoyo. Descriptor: «Desarrollo de software con IA».
-- **Logo (paso 3, falta que Jonathan elija):** 3 propuestas en `empresa/puente-digital/logos/propuestas/` y tablero
-  `logos/propuestas-tablero.png`. Se rehacen con `python3 empresa/puente-digital/herramientas/hacer_logos.py` y `tablero_logos.py`
+- **Logo elegido por Jonathan (07/10): A · Nodo** (una N hecha de puntos conectados). Las 3 propuestas siguen en
+  `empresa/puente-digital/logos/propuestas/` y el tablero en `logos/propuestas-tablero.png`.
+- **Colores y tipografías (paso 4, falta aprobar):** lámina en `empresa/puente-digital/paleta/paleta-tipografias-propuesta.png`
+  (se rehace con `herramientas/tablero_paleta.py`). Propuesta: grafito `#17212B`, verde azulado `#0A7C73`, menta `#2DD4BF`
+  (solo sobre fondo oscuro), niebla `#F3F5F7`, gris pizarra `#5B6672`, blanco. Tipografía recomendada: Inter en todo. Se rehacen con `python3 empresa/puente-digital/herramientas/hacer_logos.py` y `tablero_logos.py`
   (usan la tipografía Inter y los colores provisionales grafito `#17212B` y verde azulado `#0A7C73`).
-- **Falta:** elegir logo, paleta y tipografías (paso 4), skill de marca y tablero (paso 5), piezas (paso 6) y lista de pendientes (paso 7).
+- **Falta:** aprobar paleta y tipografías (paso 4), skill de marca y tablero (paso 5), piezas (paso 6) y lista de pendientes (paso 7).
 - No se tocó la app Cartera Asesor.
 
 ## ▶ Estado actual y próximos pasos (actualizado 07/10 tarde, PC del local)
