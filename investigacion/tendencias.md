@@ -236,3 +236,12 @@ No es el Creative Center (ese sigue pendiente, desde la PC). Datos **verificados
 El guion que propone ese asistente es genérico (para cualquier negocio, «registrar una visita») y no se usa: nuestro ángulo
 es el asesor que cobra mensualidades (libreta, quincena, «ya te pagué»). Su estructura (gancho → contexto → idea →
 mostrar → pico → cierre con pregunta) sí coincide con lo que ya hacemos.
+
+## Agregado 07/10 (tarde) — Creative Center, Hashtags México (general, sin filtro de industria) — captura de Jonathan
+- Lista dominada por noticias/entretenimiento (#octubre, #2deoctubre, #usa…): no aplica.
+- **#halloween** — 100.4 K publicaciones · 784.4 M vistas · subiendo → video T/H «Los clientes que dan más miedo que
+  Halloween» (variante de «4 tipos de clientes»). Publicar antes del 31/10.
+- **#fraude** — 7.5 K publicaciones · 64.4 M vistas · subida fuerte al final → video «No mandes la CURP de tus clientes por
+  cualquier chat» (#13 del plan) + PIN de la app. Tono de cuidado, sin alarmismo.
+- Top Ads (anuncios pagados de otras industrias): no aplica por ahora; referencia para cuando haya publicidad pagada.
+- Pendiente: Hashtags con filtro de industria (Servicios financieros / Negocios) y **Canciones aprobadas para uso comercial**.
