@@ -85,6 +85,9 @@ Lo hace Claude en la sesión local:
 8. Videos (`videos/plan-diario.md`): plantilla T (tarjetas) y H (chat de WhatsApp y antes/después); capturas nuevas del
    resumen del día, los filtros y Mis comisiones; producir los 2 videos del día 1 **con voz**; revisar fotogramas y
    dejarlos en `videos/entregas/`.
+9. «Ciclo que aprende» (`videos/plan-diario.md` §5, sacado del video de @morfeoacademy, versión gratis): Jonathan
+   guarda 5–10 virales del nicho en una colección de TikTok y cada lunes manda captura de las analíticas; Claude crea
+   `videos/resultados.md`, anota vistas y convierte en serie lo que funcione. Programar en TikTok Studio (PC).
 
 **Siguiente (Jonathan elige):**
 1. Pantalla «Acerca de» + Compartir la app. **Desarrollador: Puente Digital** (elegido por Jonathan el 07/10).

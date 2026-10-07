@@ -109,3 +109,23 @@ carteraasesor.com #asesorimss #cobranza #asesorindependiente #carteradeclientes 
 - [ ] Recortes de 10–12 s de los videos largos (#2, #3) para reciclarlos como P.
 - Todo se hace en la **sesión local de la PC del local** (tiene Node y las skills de Remotion). Desde la nube solo se
   escriben guiones e ideas.
+
+## 5. El ciclo que aprende (versión gratis del video «Le di a Claude 100 dólares para hacerme viral», @morfeoacademy)
+Ese video hizo 1,5 M de vistas con un ciclo **buscar → crear → editar → publicar → medir → aprender** y pagó 89 USD en
+herramientas (Scrape Creators para buscar virales, Seedance para clonar su cara, Postiz para programar, Composio para leer
+vistas). La lección que más pesa no es la herramienta: **cuando un formato funciona, se repite cambiando el contenido**
+(hizo «¿Qué IA edita mejor?» 3 veces: 578 mil, 293 mil y 324 mil vistas). Nuestra versión, a 0 USD:
+
+| Paso | Ellos (pago) | Nosotros (gratis) |
+|---|---|---|
+| Buscar | Scrape Creators | Jonathan guarda en una colección de TikTok 5–10 videos virales del nicho (busca «asesor IMSS», «modalidad 40», «pensión IMSS», «seguros», «cobranza») y manda los enlaces o capturas; también TikTok Creative Center (tendencias, gratis). |
+| Elegir formato | Claude | Claude analiza por qué funcionaron (gancho del segundo 1, número grande, serie) y elige formatos. |
+| Crear | Seedance (clon de su cara) | Remotion + voz Azure (gratis hasta 500 mil letras al mes). Sin cara. |
+| Publicar | Postiz | Programar desde **TikTok Studio** en la computadora (gratis, hasta 10 días antes). Instagram/Facebook: Meta Business Suite (gratis). |
+| Medir | Composio | Cada lunes Jonathan manda captura de TikTok Studio → Analíticas → Contenido. Claude lo anota en `videos/resultados.md`. |
+| Aprender | Claude | Lo que pasó de 2× el promedio se vuelve **serie** (parte 2, parte 3…); lo que quedó abajo se cambia de gancho o se deja. |
+
+Estilo que copiar del video: frase corta en mayúsculas abajo, un número enorme al centro, fondos crema/oscuro alternados,
+un solo color de acento, cortes cada 1–2 s y cierre con «link en mi perfil». Ya encaja con nuestra marca.
+Idea de video «meta» (como el suyo): **«Le pedí a una IA que me hiciera la app para mi cartera de clientes»** — la historia
+real de cómo se hizo Cartera Asesor.
