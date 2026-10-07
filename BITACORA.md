@@ -4,9 +4,9 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
-## ▶ Estado actual y próximos pasos (actualizado 07/10 desde la nube)
+## ▶ Estado actual y próximos pasos (actualizado 07/10 tarde, PC del local)
 
-**En línea:** carteraasesor.com/app → versión `cartera-asesor-efc2163…` (la versión ya se pone sola
+**En línea:** carteraasesor.com/app → versión `cartera-asesor-027ec073ff` (la versión ya se pone sola
 con cada publicación). Panel: carteraasesor.com/app/admin.html.
 
 **Lo hecho en esta sesión** (detalle en «PC del local» más abajo):
@@ -80,7 +80,46 @@ productora es Lucía. Voz: muestrarios de 24 voces (México + emociones) y 38 (L
 voces** en la skill `voz-cartera-asesor`. Lucía está haciendo T01, H01 y P#4 con voz + versiones con voz del #2 (Jorge)
 y #3 (Dalia): Jonathan **solo publicará las versiones con voz**.
 
-**📋 LISTA PARA MAÑANA (08/10, en la oficina) — empezar por aquí:**
+**📋 PENDIENTES CONSOLIDADOS (07/10, tarde) — EMPEZAR POR AQUÍ** (revisados contra esta bitácora, `PLAN.md` y la memoria)
+
+Hecho hoy 07/10 (PC del local): Azure + voces (muestrarios, variedad), equipo de 11 agentes con manual, Tere probó lo
+nuevo (54/54 pruebas) y se arreglaron 3 fallas del resumen del día (en línea `027ec073ff`), Luna hizo
+`investigacion/tendencias.md`, Lucía entregó 5 videos con voz + plantillas T y H (`videos/entregas/*_con_voz.mp4`).
+
+🔴 Urgente / decisiones de Jonathan:
+1. **Comisión en porcentaje:** hoy la app solo entiende monto fijo; un Excel con «10%» queda vacío o como $0.10 sin
+   avisar. ¿La COMISIÓN de Yamileth es monto o %? Propuesta de Emma: aceptar las dos («10%» o «100»).
+2. **Yamileth y el tope de la beta:** su Excel tenía **116 clientes** y la beta permite 100 → darle **Plan Pro en el panel**
+   (admin → Asesores) para que no se le bloquee al pasar de 100.
+3. ¿Videos de **noticias del IMSS** (Modalidad 40, aguinaldo de pensionados 2/11)? Recomendación: pocos y con fuente oficial.
+
+Lo hace Jonathan:
+4. Revisar y publicar los 5 videos con voz (música comercial 15–25 % + «Contenido generado por IA»). Orden: #2 Excel (Jorge)
+   → T01 (Renata) → #3 PIN (Dalia) → H01 (Jorge+Marina) → #4 Mensajes (Dalia). Descripciones en los guiones.
+   **#halloween** (antes del 31/10) y **#fraude** van en la próxima tanda.
+5. Creative Center (PC): capturas de **Canciones aprobadas para uso comercial** y de **Hashtags con filtro de industria**.
+6. Google Play **sábado 10/10**: los Gmail de 12 personas con Android + cuenta de prueba para el revisor.
+7. Firebase **Blaze** + secreto `FIREBASE_LLAVE` + clave pública **VAPID** (avisos con la app cerrada).
+8. Sesión aparte de **Puente Digital** (logo e identidad) → desbloquea la pantalla «Acerca de».
+9. Probar en el celular: resumen del día, Pagan hoy / Pagaron hoy, 💰 Mis comisiones.
+10. «Ciclo que aprende»: guardar 5–10 virales del nicho en una colección de TikTok; cada lunes captura de analíticas.
+11. PC de la casa: si quiere voz allá, crear `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION` (y esa PC no tiene Node).
+12. De antes, sin cerrar: que un usuario de iPhone pruebe la guía de instalación desde Safari; probar 🗑️ Borrar en el
+    panel con «Jonathan Prueba»; invitar 5–12 asesores a la beta.
+
+Lo hace Emma con el equipo:
+13. Comisión en % (cuando Jonathan decida) + mejoras de Tere: misma comisión para todos de un jalón, «atrás» desde
+    Mis comisiones regresa ahí, que una comisión nueva no cambie meses pasados, ver/corregir la comisión de cada pago.
+14. **Victoria:** crear `videos/resultados.md` y el plan de la semana 12–18/10 (top 3 de Luna + Halloween + #fraude).
+15. **Lucía:** tanda de la semana con las plantillas T/H/P apenas Victoria arme el plan.
+16. **Luna:** lista de canciones cuando lleguen las capturas.
+17. **Fernanda:** primera revisión general de datos y seguridad (antes de invitar más asesores).
+18. **Andrea + Julieta:** lista y textos de la ficha de Google Play para el sábado.
+19. **Ximena:** elenco de personajes (necesita una herramienta de imágenes; Canva está conectado).
+20. App, después: «Acerca de» + Compartir, Entrar con Google, tour de bienvenida, aviso de vencimiento del plan, foto del
+    comprobante, avisos con la app cerrada (tras Blaze), modo oscuro.
+
+**📋 LISTA PARA MAÑANA (08/10) — (histórica; lo vigente está arriba):**
 Lo hace Jonathan:
 1. ✅ (07/10, PC del local) Azure listo: cuenta actualizada a pago por uso («Azure subscription 1»; la prueba gratis
    estaba bloqueada), grupo `cartera-asesor`, recurso Speech `cartera-voz` **Free F0**, East US. Variables de usuario

@@ -61,7 +61,7 @@ quedamos en el nicho de asesores IMSS (después: otros oficios de cobro recurren
 | Comprobante de pago por WhatsApp con el nombre del asesor | ✅ 29/09 |
 | Pantalla «Acerca de» con marca del desarrollador + botón Compartir la app | pendiente: Jonathan elige el nombre de marca |
 | Entrar con Google | pendiente |
-| Filtros rápidos «Pagan hoy» / «Pagaron hoy» | pendiente |
+| Filtros rápidos «Pagan hoy» / «Pagaron hoy» | ✅ 07/10 |
 | Tour de bienvenida corto y tutoriales (video) dentro de la app | pendiente |
 | «Usada por N asesores» (prueba social) cuando haya usuarios | después |
 | Notificaciones «hoy vencen N clientes» (necesita servidor pagado) | después |
