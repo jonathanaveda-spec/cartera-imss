@@ -1,0 +1,196 @@
+{
+  "id": "muestrario-latam",
+  "velocidad": "+5%",
+  "frases": [
+    {
+      "voz": "es-AR-ElenaNeural",
+      "texto": "Soy Elena, de Argentina. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-AR-TomasNeural",
+      "texto": "Y yo soy Tomás, de Argentina. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-BO-SofiaNeural",
+      "texto": "Soy Sofía, de Bolivia. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-BO-MarceloNeural",
+      "texto": "Y yo soy Marcelo, de Bolivia. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-CL-CatalinaNeural",
+      "texto": "Soy Catalina, de Chile. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-CL-LorenzoNeural",
+      "texto": "Y yo soy Lorenzo, de Chile. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-CO-SalomeNeural",
+      "texto": "Soy Salomé, de Colombia. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-CO-GonzaloNeural",
+      "texto": "Y yo soy Gonzalo, de Colombia. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-CR-MariaNeural",
+      "texto": "Soy María, de Costa Rica. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-CR-JuanNeural",
+      "texto": "Y yo soy Juan, de Costa Rica. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-CU-BelkysNeural",
+      "texto": "Soy Belkys, de Cuba. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-CU-ManuelNeural",
+      "texto": "Y yo soy Manuel, de Cuba. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-DO-RamonaNeural",
+      "texto": "Soy Ramona, de República Dominicana. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-DO-EmilioNeural",
+      "texto": "Y yo soy Emilio, de República Dominicana. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-EC-AndreaNeural",
+      "texto": "Soy Andrea, de Ecuador. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-EC-LuisNeural",
+      "texto": "Y yo soy Luis, de Ecuador. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-GT-MartaNeural",
+      "texto": "Soy Marta, de Guatemala. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-GT-AndresNeural",
+      "texto": "Y yo soy Andrés, de Guatemala. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-HN-KarlaNeural",
+      "texto": "Soy Karla, de Honduras. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-HN-CarlosNeural",
+      "texto": "Y yo soy Carlos, de Honduras. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-NI-YolandaNeural",
+      "texto": "Soy Yolanda, de Nicaragua. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-NI-FedericoNeural",
+      "texto": "Y yo soy Federico, de Nicaragua. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-PA-MargaritaNeural",
+      "texto": "Soy Margarita, de Panamá. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-PA-RobertoNeural",
+      "texto": "Y yo soy Roberto, de Panamá. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-PE-CamilaNeural",
+      "texto": "Soy Camila, de Perú. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-PE-AlexNeural",
+      "texto": "Y yo soy Alex, de Perú. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-PR-KarinaNeural",
+      "texto": "Soy Karina, de Puerto Rico. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-PR-VictorNeural",
+      "texto": "Y yo soy Víctor, de Puerto Rico. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-PY-TaniaNeural",
+      "texto": "Soy Tania, de Paraguay. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-PY-MarioNeural",
+      "texto": "Y yo soy Mario, de Paraguay. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-SV-LorenaNeural",
+      "texto": "Soy Lorena, de El Salvador. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-SV-RodrigoNeural",
+      "texto": "Y yo soy Rodrigo, de El Salvador. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-US-PalomaNeural",
+      "texto": "Soy Paloma, de Estados Unidos. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-US-AlonsoNeural",
+      "texto": "Y yo soy Alonso, de Estados Unidos. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-UY-ValentinaNeural",
+      "texto": "Soy Valentina, de Uruguay. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-UY-MateoNeural",
+      "texto": "Y yo soy Mateo, de Uruguay. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    },
+    {
+      "voz": "es-VE-PaolaNeural",
+      "texto": "Soy Paola, de Venezuela. ¿Todavía cobras con libreta?",
+      "pausa": 400
+    },
+    {
+      "voz": "es-VE-SebastianNeural",
+      "texto": "Y yo soy Sebastián, de Venezuela. Mejor usa Cartera Asesor.",
+      "pausa": 600
+    }
+  ]
+}

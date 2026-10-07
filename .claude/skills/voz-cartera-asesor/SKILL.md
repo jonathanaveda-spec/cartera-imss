@@ -17,8 +17,20 @@ Complementa a la skill `marca-cartera-asesor` (ritmo, subtítulos, zona segura, 
   Jonathan que revise las variables, no pedírsela.
 
 ## 2. La voz de la marca
-- Voz por defecto: **`es-MX-DaliaNeural`** (mujer, México, cálida y clara). Alternativa masculina: `es-MX-JorgeNeural`.
-  Usar siempre la misma en todos los videos (la elige Jonathan oyendo `voz/prueba-voces.json`; anotar aquí cuál quedó).
+- **Variedad, no una sola voz** (decisión de Jonathan 07/10: «un video Dalia y otro Jorge, y si hay más voces mejor,
+  eso entretiene a la gente»; regla general: pensamiento diverso). Voces principales que se **alternan**:
+  **`es-MX-DaliaNeural`** (mujer) y **`es-MX-JorgeNeural`** (hombre). No repetir la misma voz dos videos seguidos.
+- Recursos extra para variar (oírlos en `public/voz/Muestrario_24_voces.mp3` y `Muestrario_Latinoamerica_38_voces.mp3`,
+  se regeneran con `voz/muestrario-voces.json` y `voz/muestrario-latam.json`):
+  - Otras 13 voces de México: Beatriz, Candela, Carlota, Marina, Nuria, Renata, Larissa (mujeres); Cecilio, Gerardo,
+    Liberto, Luciano, Pelayo, Yago (hombres) → `es-MX-<Nombre>Neural`.
+  - **Emociones** (`"estilo"` en la frase): Dalia `cheerful`, `sad`, `whispering`; Jorge `cheerful`, `chat`,
+    `excited`, `sad`, `whispering`. Útiles para el gancho («Jorge triste: perdí la libreta») y el remate alegre.
+  - **Diálogos**: cada frase puede llevar su propia `"voz"` (dos asesores platicando, cliente vs. asesor, antes/después).
+  - Acentos de 19 países (`es-AR`, `es-CO`, `es-PE`, `es-VE`, `es-CL`, `es-US`… una mujer y un hombre por país) para
+    personajes o videos dirigidos a otro país. El público principal es México: el narrador siempre `es-MX`.
+  - No usar voces «HD», «DragonHD» ni «MAI-Voice»: no entran en el plan gratis.
+- Anotar en `videos/resultados.md` qué voz llevó cada video, para ver cuáles funcionan mejor.
 - Velocidad `+5%` (TikTok es rápido). Tono de colega asesor, de tú, frases cortas (voz de la skill de marca).
 - Las frases de voz **no repiten letra por letra** el texto en pantalla: lo acompañan (la pantalla dice la idea en 3–6
   palabras; la voz la dice completa y natural).
@@ -40,6 +52,7 @@ Complementa a la skill `marca-cartera-asesor` (ritmo, subtítulos, zona segura, 
    de la biblioteca comercial con volumen bajo (≈ 15–25 %) para que se escuche la voz.
 
 ## 4. Costos y límites
+- Free F0 acepta ~20 frases por minuto: el script espera y reintenta solo (mensaje «Azure pide esperar»).
 - Free F0: si se pasa del límite del mes, Azure deja de responder (no cobra) hasta el mes siguiente. El script muestra
   el error 429/401; avisar a Jonathan.
 - Los MP3 generados quedan en `videos/public/voz/` (no se suben a GitHub; se regeneran con el script).

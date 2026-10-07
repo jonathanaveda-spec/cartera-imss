@@ -7,6 +7,7 @@
 // Formato del guion (voz/<video>.json):
 // { "id": "tiktok-04-mensajes", "voz": "es-MX-DaliaNeural", "velocidad": "+5%",
 //   "frases": [ { "texto": "Tres mensajes para cobrar sin que se ofendan." }, { "texto": "...", "pausa": 300 } ] }
+// Opcional en cada frase: "voz" (otra voz, para diálogos), "estilo" (cheerful, excited, whispering…) y "velocidad".
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -32,22 +33,33 @@ const duracionMp3 = (buf) => (buf.length * 8) / 192000;
 
 const tiempos = [];
 for (const [i, f] of g.frases.entries()) {
-  const ssml = `<speak version="1.0" xml:lang="es-MX"><voice name="${voz}"><prosody rate="${velocidad}">${xml(f.texto)}</prosody>${f.pausa ? `<break time="${f.pausa}ms"/>` : ''}</voice></speak>`;
-  const r = await fetch(`https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`, {
-    method: 'POST',
-    headers: {
-      'Ocp-Apim-Subscription-Key': clave,
-      'Content-Type': 'application/ssml+xml',
-      'X-Microsoft-OutputFormat': 'audio-48khz-192kbitrate-mono-mp3',
-      'User-Agent': 'cartera-asesor-videos',
-    },
-    body: ssml,
-  });
+  // Cada frase puede cambiar de voz (diálogos) y de estilo (solo las voces que lo traen, p. ej. Dalia y Jorge).
+  const vozFrase = f.voz || voz, estilo = f.estilo || g.estilo;
+  let cuerpo = `<prosody rate="${f.velocidad || velocidad}">${xml(f.texto)}</prosody>`;
+  if (estilo) cuerpo = `<mstts:express-as style="${estilo}">${cuerpo}</mstts:express-as>`;
+  const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xml:lang="es-MX"><voice name="${vozFrase}">${cuerpo}${f.pausa ? `<break time="${f.pausa}ms"/>` : ''}</voice></speak>`;
+  // El plan gratis (F0) acepta ~20 frases por minuto: si responde 429, esperar y reintentar.
+  let r;
+  for (let intento = 1; ; intento++) {
+    r = await fetch(`https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+      method: 'POST',
+      headers: {
+        'Ocp-Apim-Subscription-Key': clave,
+        'Content-Type': 'application/ssml+xml',
+        'X-Microsoft-OutputFormat': 'audio-48khz-192kbitrate-mono-mp3',
+        'User-Agent': 'cartera-asesor-videos',
+      },
+      body: ssml,
+    });
+    if (r.status !== 429 || intento === 8) break;
+    console.log(`  (Azure pide esperar; reintento en 15 s…)`);
+    await new Promise((ok) => setTimeout(ok, 15000));
+  }
   if (!r.ok) { console.error(`Azure respondió ${r.status} en la frase ${i + 1}: ${await r.text()}`); process.exit(1); }
   const buf = Buffer.from(await r.arrayBuffer());
   const nombre = `${String(i + 1).padStart(2, '0')}.mp3`;
   writeFileSync(join(salida, nombre), buf);
-  tiempos.push({ archivo: `voz/${g.id}/${nombre}`, texto: f.texto, segundos: Number(duracionMp3(buf).toFixed(2)) });
+  tiempos.push({ archivo: `voz/${g.id}/${nombre}`, voz: vozFrase, texto: f.texto, segundos: Number(duracionMp3(buf).toFixed(2)) });
   console.log(`✓ ${nombre} · ${tiempos.at(-1).segundos} s · ${f.texto}`);
 }
 writeFileSync(join(salida, 'tiempos.json'), JSON.stringify({ voz, velocidad, frases: tiempos }, null, 2));

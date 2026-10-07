@@ -1,0 +1,132 @@
+{
+  "id": "muestrario-voces",
+  "velocidad": "+5%",
+  "frases": [
+    {
+      "voz": "es-MX-DaliaNeural",
+      "texto": "Hola, soy Dalia. ¿Todavía cobras con libreta?",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-JorgeNeural",
+      "texto": "Hola, soy Jorge. Con Cartera Asesor sabes quién te debe en un segundo.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-BeatrizNeural",
+      "texto": "Hola, soy Beatriz. Tus clientes, tus cobros y tus comisiones en un solo lugar.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-CandelaNeural",
+      "texto": "Hola, soy Candela. Cobra por WhatsApp sin que se ofendan.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-CarlotaNeural",
+      "texto": "Hola, soy Carlota. Pruébala gratis en carteraasesor punto com.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-CecilioNeural",
+      "texto": "Hola, soy Cecilio. ¿Todavía cobras con libreta?",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-GerardoNeural",
+      "texto": "Hola, soy Gerardo. Con Cartera Asesor sabes quién te debe en un segundo.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-LarissaNeural",
+      "texto": "Hola, soy Larissa. Tus clientes, tus cobros y tus comisiones en un solo lugar.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-LibertoNeural",
+      "texto": "Hola, soy Liberto. Cobra por WhatsApp sin que se ofendan.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-LucianoNeural",
+      "texto": "Hola, soy Luciano. Pruébala gratis en carteraasesor punto com.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-MarinaNeural",
+      "texto": "Hola, soy Marina. ¿Todavía cobras con libreta?",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-NuriaNeural",
+      "texto": "Hola, soy Nuria. Con Cartera Asesor sabes quién te debe en un segundo.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-PelayoNeural",
+      "texto": "Hola, soy Pelayo. Tus clientes, tus cobros y tus comisiones en un solo lugar.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-RenataNeural",
+      "texto": "Hola, soy Renata. Cobra por WhatsApp sin que se ofendan.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-YagoNeural",
+      "texto": "Hola, soy Yago. Pruébala gratis en carteraasesor punto com.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-DaliaNeural",
+      "estilo": "cheerful",
+      "texto": "Soy Dalia, pero alegre. ¡Ya cobré a todos mis clientes del mes!",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-DaliaNeural",
+      "estilo": "whispering",
+      "texto": "Y así, en secreto: tus clientes nunca se van a enterar de que usas una app.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-JorgeNeural",
+      "estilo": "excited",
+      "texto": "¡Soy Jorge, emocionado! ¡Importé todo mi Excel en un minuto!",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-JorgeNeural",
+      "estilo": "chat",
+      "texto": "Jorge, modo plática: oye, ¿y tú cómo llevas tus cobros?",
+      "pausa": 500
+    },
+    {
+      "voz": "es-MX-JorgeNeural",
+      "estilo": "sad",
+      "texto": "Jorge triste: perdí la libreta con todos mis clientes.",
+      "pausa": 500
+    },
+    {
+      "voz": "es-CO-SalomeNeural",
+      "texto": "Hola, soy Salomé, de Colombia. ¿Y usted ya organizó su cartera?",
+      "pausa": 500
+    },
+    {
+      "voz": "es-AR-TomasNeural",
+      "texto": "Hola, soy Tomás, de Argentina. Che, ¿seguís cobrando con libreta?",
+      "pausa": 500
+    },
+    {
+      "voz": "es-ES-AlvaroNeural",
+      "estilo": "cheerful",
+      "texto": "Hola, soy Álvaro, de España. ¡Qué maravilla de aplicación!",
+      "pausa": 500
+    },
+    {
+      "voz": "es-US-PalomaNeural",
+      "texto": "Hola, soy Paloma, latina en Estados Unidos. Todo en tu celular.",
+      "pausa": 500
+    }
+  ]
+}
