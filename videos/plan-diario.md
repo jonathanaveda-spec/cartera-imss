@@ -1,36 +1,37 @@
-# Plan «3 videos al día» — TikTok @carteraasesor
+# Plan «2 videos al día» — TikTok @carteraasesor
 
-Decisión de Jonathan (07/10/2026): pasar de 3 por semana a **3 por día**. Este plan complementa
-`plan-contenido.md` (la lista de 24 sigue valiendo; aquí va el sistema para sostener 21 videos por semana).
+Decisión de Jonathan (07/10/2026): primero 3 por día, luego ajustado a **2 por día** (14 por semana). Este plan
+complementa `plan-contenido.md` (la lista de 24 sigue valiendo; aquí va el sistema para sostener el ritmo).
 Todo sigue la skill `marca-cartera-asesor` (zona segura, centrado x=540, voz, nada de prometer ganancias ni
 hablar como el IMSS).
 
-## 1. El sistema: 3 formatos por día
-Hacer 21 videos de 25 s con animación completa cada semana no es sostenible. Por eso cada día lleva
-**un video de cada tipo**, y cada tipo cuesta distinto:
+## 1. El sistema: 2 videos por día, 3 formatos
+Cada día: **un P (pantalla de la app) a mediodía** + **por la noche, un T o un H alternados**
+(H los lunes, miércoles, viernes y domingo; T los martes, jueves y sábado) = 7 P + 4 H + 3 T por semana.
 
 | Hora sugerida | Tipo | Qué es | Quién lo hace | Duración |
 |---|---|---|---|---|
-| 7:00 a. m. | **T · Tarjeta** | Frase, tip o lista corta en texto animado sobre el fondo de marca. **Una plantilla** que se llena con texto (se hacen 7 en una sola tanda) | Claude (Remotion, plantilla) | 8–15 s |
+| 8:00 p. m. (mar, jue, sáb) | **T · Tarjeta** | Frase, tip o lista corta en texto animado sobre el fondo de marca. **Una plantilla** que se llena con texto (se hacen 7 en una sola tanda) | Claude (Remotion, plantilla) | 8–15 s |
 | 1:00 p. m. | **P · Pantalla** | Una función de la app con capturas reales (clientes inventados), como los #2 y #3 | Claude (Remotion) | 18–25 s |
-| 8:00 p. m. | **H · Historia animada** | Una escena de la vida del asesor contada como **chat de WhatsApp animado** o **antes vs. después** en pantalla dividida (cliente que dice «ya te pagué», el que se atrasa, el lunes de cobranza…). Plantilla de chat + plantilla de pantalla dividida | Claude (Remotion, plantilla) | 15–25 s |
+| 8:00 p. m. (lun, mié, vie, dom) | **H · Historia animada** | Una escena de la vida del asesor contada como **chat de WhatsApp animado** o **antes vs. después** en pantalla dividida (cliente que dice «ya te pagué», el que se atrasa, el lunes de cobranza…). Plantilla de chat + plantilla de pantalla dividida | Claude (Remotion, plantilla) | 15–25 s |
 
-Horarios = cuando el asesor revisa el celular (antes de salir, comida, noche). Ajustar con las estadísticas de TikTok
+Horarios = cuando el asesor revisa el celular (comida y noche). Ajustar con las estadísticas de TikTok
 después de 2 semanas (Herramientas para creadores → Estadísticas → Seguidores → horas de actividad).
 
-**Decisión 07/10:** los 21 videos los hace **Claude en la sesión local** (PC del local) con las skills de Remotion
+**Decisión 07/10:** los videos los hace **Claude en la sesión local** (PC del local) con las skills de Remotion
 (`remotion-*`) y la skill de marca; Jonathan no graba a cámara. Jonathan solo revisa, pone música en CapCut y programa.
 
 **Producción por tandas (1 vez por semana):**
-- Domingo (o el día que Jonathan esté en el local): Claude produce los 7 **T**, 7 **P** y 7 **H** de la semana, revisa
+- Domingo (o el día que Jonathan esté en el local): Claude produce los 7 **P**, 4 **H** y 3 **T** de la semana, revisa
   fotogramas y los deja en `videos/entregas/` (sin música).
 - Jonathan los ve en el celular, les pone música en CapCut (filtro «uso comercial»).
 - TikTok permite **programar publicaciones** (desde la compu: tiktok.com/tiktokstudio → Subir → Programar): se dejan
-  los 21 programados y no hay que estar pendiente cada día.
+  los 14 programados y no hay que estar pendiente cada día.
 
 **Regla de calidad:** si un día no hay 3 buenos, se publican 2. Un video flojo baja el alcance de los siguientes.
 
-## 2. Banco de ideas — 2 semanas (42)
+## 2. Banco de ideas (42) — con 2 al día alcanza para unas 3 semanas
+De cada fila se usan el P y el H o el T según el día; lo que sobra pasa a la semana siguiente.
 Leyenda: T = tarjeta · P = pantalla de la app · H = historia animada (chat o antes/después). ✳ = función nueva (07/10).
 
 ### Semana 1
