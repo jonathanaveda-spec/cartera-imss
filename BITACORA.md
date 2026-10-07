@@ -120,6 +120,20 @@ Lo hace Emma con el equipo:
 20. App, después: «Acerca de» + Compartir, Entrar con Google, tour de bienvenida, aviso de vencimiento del plan, foto del
     comprobante, avisos con la app cerrada (tras Blaze), modo oscuro.
 
+**07/10 — Revisión de seguridad de Fernanda (guardiana-datos):**
+- 🔴 Había **nombres/teléfonos reales** de clientas de Yamileth en `tests/logic.test.mjs`, `tests/plataforma.test.mjs`
+  y en un comentario de `plataforma/js/logic.js` (que se publica). Los repos son **públicos**. ✅ Cambiados por datos
+  inventados (commit f196929). ⏳ **Falta limpiar el historial** de GitHub (camino A: `git filter-repo --replace-text`
+  en todas las ramas + push forzado a los dos repos; la lista de textos se arma solo en la PC, nunca se sube). Necesita
+  la autorización de Jonathan y que ninguna otra PC tenga cambios pendientes.
+- ✅ `.gitignore`: `imagenes/*` (salvo el logo; ahí hay una grabación con el celular y correos de Jonathan que nunca debe
+  subirse) y llaves (`*.jks`, `*.keystore`, `.env*`, `google-services.json`…). ✅ Quitado el Gmail personal de la bitácora.
+- 🟡 Pendientes: frases de publicidad que prometen de más («100 % privada», «nadie puede ver», «encriptados» → Julieta),
+  el admin puede leer carteras (opción: quitarlo antes de cobrar), PIN con esperas crecientes, actualizar SheetJS 0.18.5
+  → 0.20.3, `Cartera_Asesor_video_v1.mp4` muestra 2 correos cerca del seg 13, verificación en dos pasos en la cuenta de
+  Google del admin, confirmar que la llave de Firebase está restringida a los dominios.
+- 🟢 Sin claves expuestas; ALTAS.xlsx y respaldos nunca se subieron; reglas de la nube bien; cerrar sesión borra todo.
+
 **📋 LISTA PARA MAÑANA (08/10) — (histórica; lo vigente está arriba):**
 Lo hace Jonathan:
 1. ✅ (07/10, PC del local) Azure listo: cuenta actualizada a pago por uso («Azure subscription 1»; la prueba gratis
