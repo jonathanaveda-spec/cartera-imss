@@ -111,6 +111,11 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
     lista por cliente del mes y lista de clientes sin comisión con un campo para anotarla ahí mismo.
   - Lógica: `resumenComisiones` / `comisionDePago` / `moverMes` en logic.js; pruebas en `tests/comisiones.test.mjs`.
   - Probado en la demo a 390 px.
+- **Voz en off con Azure Speech** (decisión de Jonathan; la música la sigue poniendo él en TikTok). Nueva skill
+  `.claude/skills/voz-cartera-asesor` y script `videos/voz.mjs` (genera un MP3 por frase + `tiempos.json` en
+  `videos/public/voz/<id>/`, que no se sube). Falta que Jonathan cree el recurso Speech (Free F0) y ponga
+  `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION` como variables de entorno en la PC del local; luego en la sesión local:
+  `cd videos && node voz.mjs voz/prueba-voces.json` para que elija entre Dalia y Jorge.
 - Google Play pospuesto al **sábado 10/10**.
 - Nombres sugeridos para la marca del desarrollador: Naveda Labs, Brújula Software, Andamio Apps, Nodo Claro,
   Puente Digital (pendiente que Jonathan elija y revise disponibilidad del dominio y en Play).

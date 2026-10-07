@@ -18,3 +18,5 @@ tienda/capturas/crudas/
 # Proyecto de videos (Remotion): dependencias y videos exportados no se suben
 videos/node_modules/
 videos/out/
+# Voz en off generada con Azure (se rehace con: cd videos && node voz.mjs voz/<video>.json)
+videos/public/voz/
