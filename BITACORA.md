@@ -121,6 +121,8 @@ Lo hace Emma con el equipo:
 20. App, después: «Acerca de» + Compartir, Entrar con Google, tour de bienvenida, aviso de vencimiento del plan, foto del
     comprobante, avisos con la app cerrada (tras Blaze), modo oscuro.
 
+**07/10 — Saludo en vez del resumen del día:** Jonathan vio repetidos los números (resumen arriba + tarjetas abajo) y eligió la opción A: arriba solo una línea «Buenas tardes, Jonathan 👋 · Miércoles, 7 de octubre»; los números quedan en las tarjetas y en Pagan hoy / Pagaron hoy, y lo del día llega con el aviso diario.
+
 **07/10 — Aviso diario al celular SIN Blaze (gratis, con GitHub Actions):**
 - Blaze no se pudo activar: Google rechazó todas las tarjetas (error OR-CBAT-14, sin documentación; probablemente el
   perfil de pagos de Google). Quedó creada la cuenta de facturación «Cartera Asesor» (01AE7E-…) **sin tarjeta y sin
