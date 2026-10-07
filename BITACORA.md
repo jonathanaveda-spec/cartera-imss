@@ -146,6 +146,30 @@ Lo hace Emma con el equipo:
 20. App, después: «Acerca de» + Compartir, Entrar con Google, tour de bienvenida, aviso de vencimiento del plan, foto del
     comprobante, avisos con la app cerrada (tras Blaze), modo oscuro.
 
+**🔁 RELEVO A LA SESIÓN EN LA NUBE (07/10, noche) — EMPEZAR POR AQUÍ**
+Jonathan apagó la PC del local. Quedó a medias:
+1. **Rama `trabajo-oficina-07-10`** (NO está en main, nada de eso se publicó): textos de privacidad corregidos por
+   Julieta (sitio/index.html, plataforma/js/ui.js —solo 2 textos—, tienda/google-play.md, tienda/video-guion.md,
+   tools/capturas-play.mjs, videos/plan-contenido.md, videos/plan-semana-2026-10-12.md), las 3 propuestas de avatar de
+   Ximena (`tienda/marca/avatares/` marisol, emiliano, itzel —imágenes grandes en el Canva de Jonathan—), capturas nuevas
+   de Lucía (`videos/public/capturas/sem-*.png`, `tienda/capturas/*`) y su avance de la tanda (h02, p05 sin renderizar).
+   Cuando Jonathan **apruebe los textos de Julieta** → llevarlos a main (cherry-pick del commit) y publicar.
+   Pendiente de Jonathan: elegir avatar (Ximena recomienda **Itzel** ilustrada, nivel gratis animado en Remotion).
+2. **Limpieza del historial (datos reales de clientas en commits viejos) — AUTORIZADA por Jonathan, SIN SUBIR**:
+   Emma reescribió las 3 ramas (main, main-xlpub0, plataforma-beta) con `git filter-branch` (0 datos reales, árbol final
+   idéntico) en una copia local, pero el push forzado lo bloqueó el sistema de permisos: lo hace Jonathan o se le da
+   permiso. Para repetirlo: reemplazar en todo el historial los nombres/teléfonos reales de `tests/logic.test.mjs`,
+   `tests/plataforma.test.mjs`, el comentario de `plataforma/js/logic.js` y la bitácora (lista armada desde
+   `Respaldo_inicial.json`, que solo está en la PC — la lista NUNCA se sube). **Después del push forzado, TODAS las copias
+   (PC de la casa, PC del local, nube) deben hacer `git fetch` + `git reset --hard origin/main`** y la rama
+   `trabajo-oficina-07-10` se pasa con cherry-pick (no merge: si no, vuelve el historial viejo). La PR #1 de
+   cartera-imss guarda una copia congelada con teléfonos: solo el soporte de GitHub la borra (pedirlo).
+3. **Interrumpidos al apagar la PC:** Lucía (tanda de la semana 12–18, ahora **3 videos por día** por pedido de
+   Jonathan; empezaba por P05, H02 y P06/T02) y Andrea (Google Play para el sábado 10/10 con NeuroProyectos IA:
+   lista de pasos, TWA/Bubblewrap, Seguridad de datos, cuenta de prueba, gráfico 1024×500). Los videos y la voz solo
+   se pueden hacer en la PC del local (Node, Remotion, Azure); Andrea puede seguir desde la nube.
+4. Aviso diario: ✅ funcionando. Saludo de una línea: ✅ publicado.
+
 **07/10 — Saludo en vez del resumen del día:** Jonathan vio repetidos los números (resumen arriba + tarjetas abajo) y eligió la opción A: arriba solo una línea «Buenas tardes, Jonathan 👋 · Miércoles, 7 de octubre»; los números quedan en las tarjetas y en Pagan hoy / Pagaron hoy, y lo del día llega con el aviso diario.
 
 **07/10 — Aviso diario al celular SIN Blaze (gratis, con GitHub Actions):**
