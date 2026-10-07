@@ -6,14 +6,16 @@
   "scripts": {
     "studio": "remotion studio",
     "render:01": "remotion render TikTok01Libreta out/tiktok-01-libreta.mp4 --codec=h264",
-    "still": "remotion still"
+    "still": "remotion still",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@remotion/cli": "4.0.533",
     "@remotion/google-fonts": "4.0.533",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "remotion": "4.0.533"
+    "remotion": "4.0.533",
+    "@remotion/media": "4.0.533"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",

@@ -17,6 +17,9 @@ const PUERTO = 9334;
 const PERFIL = join(tmpdir(), 'cartera-capturas-videos-edge');
 
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
+// Parte a capturar: sin argumento = todo (Excel, PIN y cobro); «excel-pin» o «cobro» = solo esa parte.
+const SOLO = process.argv[2] || '';
+const hacer = (parte) => !SOLO || SOLO === parte;
 
 // Si el servidor local no responde, se avisa y se sale (este script no lo levanta).
 try { await fetch(`${BASE}/demo/`); } catch {
@@ -171,8 +174,9 @@ try {
   console.log('clientes inventados:', await js(cargarClientes));
   await espera(800);
   await js(cerrarVentanas);
-  await js(crearExcel);
+  if (hacer('excel-pin')) await js(crearExcel);
 
+  if (hacer('excel-pin')) {
   // ---- TikTok 2: importar Excel
   // 1. Paso 1: «¿Dónde tienes tu lista de clientes?»
   await js(`(await import('/demo/js/ui.js')).abrirImportar(); await new Promise((r) => setTimeout(r, 500)); return 1;`);
@@ -228,6 +232,37 @@ try {
   // 4. «¿Olvidaste tu PIN?»
   await js(`document.querySelector('#bloqueo [data-olvide]').click(); return 1;`);
   await foto('pin-2-olvide.png');
+  }
+
+  if (hacer('cobro')) {
+  // ---- TikTok 4 y H1: mensajes de cobro, resumen del día y cliente moroso (todo inventado)
+  // Un pago registrado hoy, para que el resumen del día también muestre «ya pagó hoy».
+  await js(`const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    const c = S.db.clientes.find((x) => x.nombre.startsWith('Miguel'));
+    await S.registrarPago(c.id, { fecha_pago: new Date().toISOString().slice(0, 10), monto: 1500, metodo: 'Transferencia' });
+    U.render(); await new Promise((r) => setTimeout(r, 400)); return 1;`);
+
+  // 1. Resumen del día (lo primero que se ve al abrir la app)
+  await js(cerrarVentanas);
+  await js(`document.activeElement?.blur(); scrollTo(0, 0); return 1;`);
+  await foto('cobro-3-resumen-dia.png');
+
+  // 2. Solo morosos: tarjetas en rojo con su botón «Recordar»
+  await js(`document.querySelector('#resumen [data-estado="MOROSO"], #resumen [data-cod="MOROSO"]')?.click(); await new Promise((r) => setTimeout(r, 500));
+    const f = document.querySelector('.fila.est-moroso'); if (f) scrollTo(0, f.getBoundingClientRect().top + scrollY - 190); await new Promise((r) => setTimeout(r, 300)); return 1;`);
+  await foto('cobro-4-morosos.png');
+
+  // 3. Detalle de un cliente moroso, con «💬 Recordar»
+  await js(`document.querySelector('tr.fila.est-moroso, .fila.est-moroso')?.click(); await new Promise((r) => setTimeout(r, 600)); return 1;`);
+  await js(arriba());
+  await foto('cobro-2-cliente.png');
+
+  // 4. Ajustes → «📲 Mensajes de cobro»
+  await js(cerrarVentanas);
+  await js(`(await import('/demo/js/ui.js')).abrirMensajesCobro(); await new Promise((r) => setTimeout(r, 500)); document.activeElement?.blur(); return 1;`);
+  await js(arriba());
+  await foto('cobro-1-mensajes.png');
+  }
 
   // Limpieza: el navegador de pruebas se borra completo al final.
   await js(`localStorage.clear(); return 1;`);

@@ -1,0 +1,13 @@
+{
+  "id": "tiktok-04-mensajes",
+  "voz": "es-MX-DaliaNeural",
+  "velocidad": "+5%",
+  "frases": [
+    { "texto": "Tres mensajes para cobrar sin que se ofendan.", "estilo": "cheerful" },
+    { "texto": "El primero, antes de que venza: un recordatorio amable." },
+    { "texto": "El segundo, el mismo día: directo, pero con respeto." },
+    { "texto": "Y el tercero, si ya se atrasó: sin regañar, preguntando cómo está." },
+    { "texto": "En la app ya vienen mensajes listos, los cambias a tu estilo y los mandas con un toque." },
+    { "texto": "Pruébala gratis en la beta. Entra a carteraasesor punto com.", "estilo": "cheerful" }
+  ]
+}

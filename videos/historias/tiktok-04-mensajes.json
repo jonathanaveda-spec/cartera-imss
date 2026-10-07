@@ -1,0 +1,63 @@
+{
+  "id": "tiktok-04-mensajes",
+  "voz": "tiktok-04-mensajes",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "titulo",
+      "seg": 3,
+      "emoji": "💬",
+      "titular": ["3 mensajes para", "**cobrar** sin que", "se ofendan"]
+    },
+    {
+      "tipo": "mensaje",
+      "seg": 4,
+      "numero": 1,
+      "titular": ["**Antes**", "de que venza"],
+      "contacto": { "nombre": "Luis Ramos", "iniciales": "LR" },
+      "mensaje": { "de": "asesor", "texto": "Hola, te recuerdo que tu pago es el viernes 😊", "hora": "10:15 a. m.", "leido": true, "color": "#16A34A" }
+    },
+    {
+      "tipo": "mensaje",
+      "seg": 4,
+      "numero": 2,
+      "titular": ["**El día**", "que vence"],
+      "contacto": { "nombre": "Luis Ramos", "iniciales": "LR" },
+      "mensaje": { "de": "asesor", "texto": "Hoy es tu fecha de pago. ¿Te paso los datos?", "hora": "9:00 a. m.", "leido": true, "color": "#16A34A" }
+    },
+    {
+      "tipo": "mensaje",
+      "seg": 4,
+      "numero": 3,
+      "titular": ["**Después**,", "sin regañar"],
+      "contacto": { "nombre": "Luis Ramos", "iniciales": "LR" },
+      "mensaje": { "de": "asesor", "texto": "¿Todo bien? Quedó pendiente tu pago, cuando puedas me avisas", "hora": "9:30 a. m.", "leido": true, "color": "#D97706" }
+    },
+    {
+      "tipo": "captura",
+      "seg": 5,
+      "titular": ["La app los trae", "**listos**"],
+      "imagenes": [
+        {
+          "src": "capturas/cobro-1-mensajes.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 600,
+          "anillo": { "x": 75, "y": 476, "w": 930, "h": 278, "color": "azul", "radio": 40 }
+        },
+        {
+          "src": "capturas/cobro-2-cliente.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 900,
+          "anillo": { "x": 75, "y": 930, "w": 455, "h": 122, "color": "verde", "radio": 30 }
+        }
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "seg": 4,
+      "frase": ["Mensajes de cobro", "listos para tu estilo"]
+    }
+  ]
+}

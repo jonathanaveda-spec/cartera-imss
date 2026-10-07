@@ -42,6 +42,11 @@ Complementa a la skill `marca-cartera-asesor` (ritmo, subtítulos, zona segura, 
    junto con el resto del guion.
 2. Crear `videos/voz/<id-del-video>.json` con una frase por escena (formato en el encabezado de `videos/voz.mjs`).
 3. Generar: `cd videos && node voz.mjs voz/<id>.json` → `public/voz/<id>/NN.mp3` + `tiempos.json`.
+3b. Medir la voz real: `node medir-voz.mjs <id-del-video>` anota en `tiempos.json` el `inicio` y el `fin` de lo que se oye de
+   verdad (Azure agrega ≈ 0.8 s de silencio al final de cada MP3, así que `segundos` es más largo que la frase). La plantilla
+   usa `fin`. Después del render, `node medir-voz.mjs --video entregas/<archivo>.mp4` lista los tramos con voz y su volumen,
+   para revisar sin escuchar que nada se corta ni se encima y que el llamado final termina antes del último cuadro.
+   Para revisar fotogramas de cualquier composición: `node fotos.mjs <Composición> <cada-N>` y `node hojas.mjs <Composición> <cada-N>`.
 4. En la composición de Remotion: cada escena dura **lo que dure su frase + 0.3–0.6 s** (leer `tiempos.json`);
    colocar cada MP3 con `<Audio src={staticFile('voz/<id>/NN.mp3')} />` dentro de su `<Sequence>`; volumen 1.
    Los subtítulos (Plus Jakarta Sans 800, palabra clave en oro) siguen a la frase que se escucha.

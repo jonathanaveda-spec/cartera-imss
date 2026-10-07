@@ -1,0 +1,15 @@
+{
+  "id": "tiktok-03-pin",
+  "voz": "es-MX-DaliaNeural",
+  "velocidad": "+10%",
+  "frases": [
+    { "texto": "Si alguien toma tu celular, ¿ve tu cartera?" },
+    { "texto": "Ahí están nombres, CURP, NSS y celulares de tus clientes." },
+    { "texto": "Activas el bloqueo con un PIN de cuatro números." },
+    { "texto": "Y si quieres, también con tu huella o con Face ID." },
+    { "texto": "Tú eliges cuándo se pide: al salir, o a uno, cinco o veinte minutos." },
+    { "texto": "Sin tu PIN, nadie entra, ni aunque tengan tu celular." },
+    { "texto": "¿Olvidaste el PIN? Entras con tu correo y tus clientes siguen ahí." },
+    { "texto": "Pruébala gratis en la beta. Entra a carteraasesor punto com.", "estilo": "cheerful" }
+  ]
+}

@@ -24,6 +24,25 @@ columnas sola (con cualquier nombre y orden), él solo revisa; sirve desde el ce
 Un cambio visual cada 2.5–3.6 s (la escena 5 tiene dos: caja «Ya reconocimos» y luego las insignias). Todo dentro de la
 zona segura y centrado en x = 540 con máximo 800 px. Todos los nombres, celulares, CURP y NSS son inventados.
 
+## Versión con voz (composición `TikTok02ExcelVoz`)
+
+**Voz:** `es-MX-JorgeNeural` (hombre, +8 %; alegre en el cierre) · **Duración:** 29.7 s (890 cuadros) · **Archivo:** `videos/entregas/TikTok02_excel_con_voz.mp4`
+La versión sin voz (`TikTok02Excel`, 24.5 s) no cambia. En la versión con voz cada escena dura lo que su frase + 0.35 s (el cierre, +0.9 s),
+sin bajar del mínimo que necesita su animación. Voz en `videos/voz/tiktok-02-excel.json`.
+
+| # | Tiempo con voz | Voz (Jorge) |
+|---|---|---|
+| 1 Gancho | 0.0–2.8 s | «Pásale tu Excel a la app en dos minutos.» |
+| 2 Tal cual | 2.8–7.2 s | «Sirve tal cual lo tienes: cualquier nombre de columna, cualquier orden.» |
+| 3 Dónde | 7.2–10.6 s | «Dices dónde está tu lista: en el celular o en la compu.» |
+| 4 Archivo | 10.6–13.5 s | «Eliges tu archivo de Excel, el de siempre.» |
+| 5 Columnas | 13.5–17.3 s | «La app reconoce tus columnas solita, aunque se llamen distinto.» |
+| 6 Revisar | 17.3–21.6 s | «Tú solo revisas. No se borra nada de lo que ya tienes.» |
+| 7 Listo | 21.6–24.4 s | «Listo: ya importaste tus clientes.» |
+| 8 Llamado | 24.4–29.7 s | «Pruébala gratis en la beta. Entra a carteraasesor punto com.» |
+
+Al publicar: activar «Contenido generado por IA» y poner música comercial con volumen bajo (15–25 %).
+
 ## Música
 Ninguna en el archivo. Jonathan la pone en CapCut Pro (biblioteca con el filtro «uso comercial») y puede grabar la voz
 con la columna de voz.

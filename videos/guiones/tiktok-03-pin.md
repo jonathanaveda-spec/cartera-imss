@@ -24,6 +24,25 @@ se pide, y que si olvidas el PIN entras con tu correo y tus clientes siguen en l
 Un cambio visual cada 2.4–3.4 s. Todo dentro de la zona segura y centrado en x = 540 con máximo 800 px. Todo inventado:
 el PIN que se ve no es de nadie y la huella de las capturas es simulada.
 
+## Versión con voz (composición `TikTok03PinVoz`)
+
+**Voz:** `es-MX-DaliaNeural` (mujer, +10 %; alegre en el cierre) · **Duración:** 31.8 s (955 cuadros) · **Archivo:** `videos/entregas/TikTok03_pin_con_voz.mp4`
+La versión sin voz (`TikTok03Pin`, 24 s) no cambia. En la versión con voz cada escena dura lo que su frase + 0.35 s (el cierre, +0.9 s),
+sin bajar del mínimo que necesita su animación. Voz en `videos/voz/tiktok-03-pin.json`.
+
+| # | Tiempo con voz | Voz (Dalia) |
+|---|---|---|
+| 1 Gancho | 0.0–2.9 s | «Si alguien toma tu celular, ¿ve tu cartera?» |
+| 2 Expuesta | 2.9–7.5 s | «Ahí están nombres, CURP, NSS y celulares de tus clientes.» |
+| 3 PIN | 7.5–10.5 s | «Activas el bloqueo con un PIN de cuatro números.» |
+| 4 Huella | 10.5–13.7 s | «Y si quieres, también con tu huella o con Face ID.» |
+| 5 Cuándo | 13.7–18.6 s | «Tú eliges cuándo se pide: al salir, o a uno, cinco o veinte minutos.» |
+| 6 Teclado | 18.6–22.2 s | «Sin tu PIN, nadie entra, ni aunque tengan tu celular.» |
+| 7 Olvidé | 22.2–26.9 s | «¿Olvidaste el PIN? Entras con tu correo y tus clientes siguen ahí.» |
+| 8 Llamado | 26.9–31.8 s | «Pruébala gratis en la beta. Entra a carteraasesor punto com.» |
+
+Al publicar: activar «Contenido generado por IA» y poner música comercial con volumen bajo (15–25 %).
+
 ## Música
 Ninguna en el archivo. Jonathan la pone en CapCut Pro (filtro «uso comercial») y puede grabar la voz con la columna de voz.
 

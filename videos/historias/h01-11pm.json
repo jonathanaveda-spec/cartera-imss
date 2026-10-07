@@ -1,0 +1,56 @@
+{
+  "id": "h01-11pm",
+  "voz": "h01-11pm",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "gancho",
+      "seg": 3,
+      "hora": "11 p. m.",
+      "icono": "🌙",
+      "titular": ["Y sigues", "buscando quién", "te **debe**"]
+    },
+    {
+      "tipo": "chat",
+      "contacto": { "nombre": "Rosa Jiménez", "iniciales": "RJ" },
+      "items": [
+        { "de": "cliente", "texto": "Oye, ¿cuánto te debo?", "hora": "11:02 p. m.", "voz": true },
+        { "escribiendo": "asesor", "seg": 0.9 },
+        { "de": "asesor", "texto": "Deja reviso…", "hora": "11:03 p. m.", "leido": true, "voz": true },
+        { "escribiendo": "asesor", "seg": 1.5 },
+        { "de": "asesor", "texto": "Mañana te digo 😅", "hora": "11:09 p. m.", "leido": true, "voz": true }
+      ]
+    },
+    {
+      "tipo": "frase",
+      "seg": 2.5,
+      "titular": ["¿Te suena", "**conocido**?"]
+    },
+    {
+      "tipo": "captura",
+      "seg": 5,
+      "titular": ["Con la app lo ves", "en **1 segundo**"],
+      "imagenes": [
+        {
+          "src": "capturas/cobro-3-resumen-dia.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 600,
+          "anillo": { "x": 75, "y": 500, "w": 930, "h": 110, "color": "rojo", "radio": 40 }
+        },
+        {
+          "src": "capturas/cobro-4-morosos.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 900,
+          "anillo": { "x": 80, "y": 640, "w": 560, "h": 60, "color": "rojo", "radio": 30 }
+        }
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "seg": 4,
+      "frase": ["Sabe quién te debe", "en 1 segundo"]
+    }
+  ]
+}

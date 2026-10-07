@@ -1,0 +1,29 @@
+{
+  "id": "ejemplo-antes-despues",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "titulo",
+      "seg": 2.5,
+      "emoji": "🤔",
+      "titular": ["Anotar el pago", "«al **rato**»", "o al momento"]
+    },
+    {
+      "tipo": "dividida",
+      "seg": 6,
+      "antes": {
+        "etiqueta": "Antes",
+        "emoji": "📒",
+        "titulo": "Lo anoto **al rato**",
+        "lineas": ["Se te olvida quién ya pagó", "Cobras dos veces o ninguna", "Todo en tu memoria"]
+      },
+      "despues": {
+        "etiqueta": "Con la app",
+        "emoji": "📱",
+        "titulo": "Lo registro **al momento**",
+        "lineas": ["Un toque y queda guardado", "Fecha y comprobante listos", "Tu cartera siempre al día"]
+      }
+    },
+    { "tipo": "cierre", "seg": 4, "frase": ["Registra cada pago", "al momento"] }
+  ]
+}

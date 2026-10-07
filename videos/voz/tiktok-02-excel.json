@@ -1,0 +1,15 @@
+{
+  "id": "tiktok-02-excel",
+  "voz": "es-MX-JorgeNeural",
+  "velocidad": "+8%",
+  "frases": [
+    { "texto": "Pásale tu Excel a la app en dos minutos." },
+    { "texto": "Sirve tal cual lo tienes: cualquier nombre de columna, cualquier orden." },
+    { "texto": "Dices dónde está tu lista: en el celular o en la compu." },
+    { "texto": "Eliges tu archivo de Excel, el de siempre." },
+    { "texto": "La app reconoce tus columnas solita, aunque se llamen distinto." },
+    { "texto": "Tú solo revisas. No se borra nada de lo que ya tienes." },
+    { "texto": "Listo: ya importaste tus clientes." },
+    { "texto": "Pruébala gratis en la beta. Entra a carteraasesor punto com.", "estilo": "cheerful" }
+  ]
+}

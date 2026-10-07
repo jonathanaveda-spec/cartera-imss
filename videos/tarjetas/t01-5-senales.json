@@ -1,0 +1,16 @@
+{
+  "id": "t01-5-senales",
+  "titular": ["5 señales de", "que tu **cartera**", "necesita orden"],
+  "lineas": [
+    "No sabes quién te debe **hoy**",
+    "Te enteras del atraso cuando ya es **tarde**",
+    "Tienes clientes en la libreta, el Excel y el **WhatsApp**",
+    "Un cliente te dijo «ya te pagué» y no tenías **cómo** comprobarlo",
+    "Te da pena **cobrar**"
+  ],
+  "numerar": true,
+  "llamado": ["¿Cuántas", "te **pasan**? 👇"],
+  "voz": "t01-5-senales",
+  "seg": [2, 2, 2, 2, 2, 2, 3],
+  "guias": false
+}

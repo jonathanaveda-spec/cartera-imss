@@ -1,0 +1,14 @@
+{
+  "id": "t01-5-senales",
+  "voz": "es-MX-RenataNeural",
+  "velocidad": "+15%",
+  "frases": [
+    { "texto": "Cinco señales de que tu cartera necesita orden." },
+    { "texto": "No sabes quién te debe hoy." },
+    { "texto": "Te enteras del atraso cuando ya es tarde." },
+    { "texto": "Clientes en la libreta, en el Excel y en el WhatsApp." },
+    { "texto": "Te dicen: ya pagué, y no puedes comprobarlo." },
+    { "texto": "Te da pena cobrar." },
+    { "texto": "¿Cuántas te pasan? Pruébala gratis en carteraasesor punto com." }
+  ]
+}
