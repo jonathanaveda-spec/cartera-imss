@@ -71,8 +71,8 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
 - El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
 
 **Siguiente (Jonathan elige):**
-1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan elija el **nombre de marca** del desarrollador
-   (07/10 se le sugirieron opciones; ver abajo).
+1. Pantalla «Acerca de» + Compartir la app. **Desarrollador: Puente Digital** (elegido por Jonathan el 07/10).
+   Su identidad de marca (logo, colores, etc.) se hace en una sesión aparte, en `empresa/puente-digital/`.
 2. Entrar con Google.
 3. ~~Filtros rápidos «Pagan hoy» / «Pagaron hoy»~~ ✅ hechos (07/10, ver abajo).
 4. Google Play — **pospuesto al sábado 10/10** (Jonathan está buscando a las 12 personas):
