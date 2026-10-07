@@ -4,7 +4,7 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
-## ▶ Estado actual y próximos pasos (actualizado: cierre de la sesión larga en la PC del local)
+## ▶ Estado actual y próximos pasos (actualizado 07/10 desde la nube)
 
 **En línea:** carteraasesor.com/app → versión `cartera-asesor-efc2163…` (la versión ya se pone sola
 con cada publicación). Panel: carteraasesor.com/app/admin.html.
@@ -69,6 +69,22 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
     - Perfil: foto `tienda/marca/avatar-redes.png`, nombre «Cartera Asesor» y la descripción «La app del asesor IMSS:
       quién te debe, quién vence y cobro por WhatsApp 🟢».
 - El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
+
+**📋 LISTA PARA MAÑANA (08/10, en la oficina) — empezar por aquí:**
+Lo hace Jonathan:
+1. Azure: crear el servicio de voz (Free F0, East US, `cartera-voz`) y las variables `AZURE_SPEECH_KEY` y
+   `AZURE_SPEECH_REGION=eastus`; cerrar y abrir Claude. Nunca pegar la clave en el chat.
+2. Publicar los TikTok #2 (Excel) y #3 (PIN) con música comercial y las descripciones de `videos/guiones/`.
+3. Seguir juntando los Gmail de las 12 personas con Android (Google Play el sábado 10/10).
+4. Cuando pueda: Firebase Blaze + llave `FIREBASE_LLAVE` en GitHub + clave pública VAPID (para avisos con la app cerrada).
+5. Abrir la sesión aparte de Puente Digital con el mensaje que se le dio (logo e identidad).
+6. Probar en su celular lo nuevo: resumen del día, filtros Pagan hoy / Pagaron hoy y 💰 Mis comisiones (y avisar si
+   la columna COMISIÓN del Excel de Yamileth era un monto o un porcentaje).
+Lo hace Claude en la sesión local:
+7. Prueba de voces (Dalia / Jorge) → Jonathan elige → anotarla en la skill `voz-cartera-asesor`.
+8. Videos (`videos/plan-diario.md`): plantilla T (tarjetas) y H (chat de WhatsApp y antes/después); capturas nuevas del
+   resumen del día, los filtros y Mis comisiones; producir los 2 videos del día 1 **con voz**; revisar fotogramas y
+   dejarlos en `videos/entregas/`.
 
 **Siguiente (Jonathan elige):**
 1. Pantalla «Acerca de» + Compartir la app. **Desarrollador: Puente Digital** (elegido por Jonathan el 07/10).
