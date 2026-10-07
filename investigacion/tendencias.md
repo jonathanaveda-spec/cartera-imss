@@ -221,3 +221,18 @@ Sugerencia de calendario: lo del miércoles 14 puede ser el «Cobranza en 15 seg
 - Cuesta de enero y crédito al consumo (Xataka México): https://www.xataka.com.mx/otros-1/credito-tarjetas-se-disparo-mexico-deja-pregunta-incomoda-gastamos-dinero-no-alcanza
 - Cuesta de enero 2026 (Publimetro): https://www.publimetro.com.mx/noticias/2026/01/01/como-evitar-que-la-cuesta-de-enero-llegue-en-este-2026/
 - Semana Nacional de Educación Financiera 2025 (BBVA): https://www.bbva.mx/educacion-financiera/semana-nacional-de-educacion-financiera.html
+
+## Agregado 07/10 — Capturas de Jonathan (asistente de ideas con IA de TikTok, búsqueda «app de gestión de clientes»)
+No es el Creative Center (ese sigue pendiente, desde la PC). Datos **verificados** en la app de TikTok (conteo de publicaciones):
+
+| Hashtag | Publicaciones | Uso recomendado |
+|---|---|---|
+| #marketingdigital | 7.57 M | Grande: solo ocasional (mucha competencia) |
+| #automatización | 80.0 K | Mediano: videos de «la app trabaja por ti» (recordatorios, resumen del día) |
+| #fidelización | 3.28 K | Nicho: videos de trato con el cliente (mensajes de cobro amables, comprobante) |
+| #gestiónclientes | 1.07 K | Nicho casi vacío: **usar seguido** para posicionarnos |
+| #appsnegocios | 1.03 K | Nicho casi vacío: usar en videos P (pantalla de la app) |
+
+El guion que propone ese asistente es genérico (para cualquier negocio, «registrar una visita») y no se usa: nuestro ángulo
+es el asesor que cobra mensualidades (libreta, quincena, «ya te pagué»). Su estructura (gancho → contexto → idea →
+mostrar → pico → cierre con pregunta) sí coincide con lo que ya hacemos.
