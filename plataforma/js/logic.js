@@ -173,12 +173,31 @@ function textoBusqueda(c) {
 }
 
 // ---------- Filtros y orden ----------
+/** Filtros rápidos del día: «pagan_hoy» (su próximo pago es hoy) y «pagaron_hoy» (tienen un pago con fecha de hoy). */
+export function cumpleRapido(c, e, rapido, hoy) {
+  if (rapido === 'pagan_hoy') return e.codigo !== 'BAJA' && c.proximo_pago === hoy;
+  if (rapido === 'pagaron_hoy') return (c.pagos || []).some((p) => p.fecha_pago === hoy);
+  return true;
+}
+
+/** Cuántos clientes hay en cada filtro rápido. */
+export function contarRapidos(clientes, hoy, diasAviso) {
+  const n = { pagan_hoy: 0, pagaron_hoy: 0 };
+  for (const c of clientes) {
+    const e = calcularEstado(c, hoy, diasAviso);
+    if (cumpleRapido(c, e, 'pagan_hoy', hoy)) n.pagan_hoy++;
+    if (cumpleRapido(c, e, 'pagaron_hoy', hoy)) n.pagaron_hoy++;
+  }
+  return n;
+}
+
 export function filtrarClientes(clientes, f, hoy, diasAviso) {
   const q = normalizar(f.busqueda || '').split(/\s+/).filter(Boolean);
   const out = [];
   for (const c of clientes) {
     const e = calcularEstado(c, hoy, diasAviso);
     if (f.estado && f.estado !== 'todos' && e.codigo !== f.estado) continue;
+    if (f.rapido && !cumpleRapido(c, e, f.rapido, hoy)) continue;
     if (f.etiqueta && !(c.etiquetas || []).includes(f.etiqueta)) continue;
     if (f.pDesde && (!c.proximo_pago || c.proximo_pago < f.pDesde)) continue;
     if (f.pHasta && (!c.proximo_pago || c.proximo_pago > f.pHasta)) continue;

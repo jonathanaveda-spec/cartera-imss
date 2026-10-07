@@ -437,3 +437,22 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 .campo-pin { display: block; width: 100%; max-width: 200px; margin-top: 4px; letter-spacing: .5em; font-size: 1.3rem; text-align: center; }
 @media (max-height: 640px) { .tecla { width: 62px; height: 62px; } .teclado { grid-template-columns: repeat(3, 62px); gap: 10px 20px; } .bloqueo-puntos { margin: 12px 0 16px; } }
 @media (prefers-reduced-motion: reduce) { .bloqueo-puntos.sacudir { animation: none; } }
+
+/* ---------- Filtros rápidos del día ---------- */
+.rapidos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: -6px 0 14px; }
+@media (min-width: 700px) { .rapidos { display: flex; } }
+.rapidos:empty { display: none; }
+.chip-rapido {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 42px; padding: 0 12px; white-space: nowrap;
+  border-radius: 999px; border: 1.5px solid var(--linea); background: var(--tarjeta);
+  font: inherit; font-size: .9rem; font-weight: 600; color: inherit; cursor: pointer;
+  -webkit-tap-highlight-color: transparent; user-select: none;
+  transition: transform .12s ease-out, background-color .15s ease-out, border-color .15s ease-out;
+}
+.chip-rapido .n { background: var(--marca-tenue); color: var(--marca); border-radius: 999px; padding: 1px 8px; font-size: .8rem; }
+.chip-rapido.activa { border-color: var(--marca); background: var(--marca); color: #fff; }
+.chip-rapido.activa .n { background: rgba(255,255,255,.22); color: #fff; }
+.chip-rapido:active { transform: scale(.97); }
+@media (hover: hover) and (pointer: fine) { .chip-rapido:not(.activa):hover { border-color: var(--marca); } }
+@media (prefers-reduced-motion: reduce) { .chip-rapido { transition: none; } }
+@media (max-width: 400px) { .chip-rapido { font-size: .82rem; padding: 0 8px; gap: 4px; } .chip-rapido .n { padding: 1px 6px; } }

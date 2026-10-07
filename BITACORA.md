@@ -71,14 +71,25 @@ con cada publicación). Panel: carteraasesor.com/app/admin.html.
 - El servidor local (`node serve.js`) ahora abre la app nueva (`/plataforma/`). La app vieja de Yamileth ya no se usa.
 
 **Siguiente (Jonathan elige):**
-1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan diga el **nombre de marca** del desarrollador.
+1. Pantalla «Acerca de» + Compartir la app: falta que Jonathan elija el **nombre de marca** del desarrollador
+   (07/10 se le sugirieron opciones; ver abajo).
 2. Entrar con Google.
-3. Filtros rápidos «Pagan hoy» / «Pagaron hoy».
-4. Google Play (cuenta el sábado 03/10):
+3. ~~Filtros rápidos «Pagan hoy» / «Pagaron hoy»~~ ✅ hechos (07/10, ver abajo).
+4. Google Play — **pospuesto al sábado 10/10** (Jonathan está buscando a las 12 personas):
    - ~~capturas de pantalla~~ ✅;
    - cuenta de prueba para el revisor;
    - juntar los Gmail de **12 personas** para la prueba cerrada de 14 días.
 5. Si algún asesor pasa de 100 clientes (por ejemplo Yamileth), darle Plan Pro en el panel.
+
+**07/10 (desde la nube):**
+- **Filtros rápidos del día**: dos botones debajo de las tarjetas, «📅 Pagan hoy» (próximo pago = hoy, sin los de
+  baja) y «✅ Pagaron hoy» (algún pago con fecha de hoy), cada uno con su número. Al tocar uno se quita la tarjeta de
+  estado elegida; se cuentan en «Filtros» y se quitan con «Quitar filtros». Mensaje propio si no hay nadie.
+  Lógica en `logic.js` (cumpleRapido / contarRapidos), pruebas en `tests/rapidos.test.mjs`. Probado en la demo a
+  390 px y 340 px de ancho.
+- Google Play pospuesto al **sábado 10/10**.
+- Nombres sugeridos para la marca del desarrollador: Naveda Labs, Brújula Software, Andamio Apps, Nodo Claro,
+  Puente Digital (pendiente que Jonathan elija y revise disponibilidad del dominio y en Play).
 
 **Pruebas locales sin cuenta real:** http://localhost:8080/demo/ (Firebase simulado; ver la nota del comprobante más
 abajo para entrar sin escribir contraseña). Borrar después los datos inventados del navegador.

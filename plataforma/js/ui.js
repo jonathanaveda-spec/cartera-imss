@@ -15,7 +15,7 @@ const dinero = (n) => (n == null ? '—' : new Intl.NumberFormat('es-MX', { styl
 const MIME_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
 // Filtros de la lista (solo en memoria).
-const F = { busqueda: '', estado: 'todos', etiqueta: '', pDesde: '', pHasta: '', iDesde: '', iHasta: '', orden: 'vencimiento', dir: 'asc' };
+const F = { busqueda: '', estado: 'todos', rapido: '', etiqueta: '', pDesde: '', pHasta: '', iDesde: '', iHasta: '', orden: 'vencimiento', dir: 'asc' };
 const ctx = () => ({ hoy: L.hoyISO(), aviso: S.db.config.diasAviso });
 
 // =====================================================================
@@ -137,9 +137,21 @@ function renderResumen(cnt) {
   const tarjetas = [...TARJETAS];
   if (cnt.SIN_CONFIG) tarjetas.push({ cod: 'SIN_CONFIG', rot: '⚪ Sin configurar', clase: 'sinconfig', n: (c) => c.SIN_CONFIG });
   $('#resumen').innerHTML = tarjetas
-    .map((t) => `<button class="tarjeta-stat ${t.clase} ${F.estado === t.cod ? 'activa' : ''}" data-accion="estado" data-cod="${t.cod}" aria-pressed="${F.estado === t.cod}">
+    .map((t) => `<button class="tarjeta-stat ${t.clase} ${F.estado === t.cod && !F.rapido ? 'activa' : ''}" data-accion="estado" data-cod="${t.cod}" aria-pressed="${F.estado === t.cod && !F.rapido}">
         <div class="num">${t.n(cnt)}</div><div class="rot">${t.rot}</div></button>`)
     .join('');
+}
+
+// Filtros rápidos del día, debajo de las tarjetas de estado.
+const RAPIDOS = [
+  { cod: 'pagan_hoy', rot: '📅 Pagan hoy' },
+  { cod: 'pagaron_hoy', rot: '✅ Pagaron hoy' },
+];
+function renderRapidos(n) {
+  const el = $('#rapidos');
+  if (!S.db.clientes.length) { el.innerHTML = ''; return; }
+  el.innerHTML = RAPIDOS.map((r) => `<button type="button" class="chip-rapido ${F.rapido === r.cod ? 'activa' : ''}" data-accion="rapido" data-cod="${r.cod}" aria-pressed="${F.rapido === r.cod}">
+      ${r.rot} <span class="n">${n[r.cod]}</span></button>`).join('');
 }
 
 function esIOS() {
@@ -231,6 +243,7 @@ export function render() {
   const { hoy, aviso: dias } = ctx();
   const cnt = L.contarPorEstado(S.db.clientes, hoy, dias);
   renderResumen(cnt);
+  renderRapidos(L.contarRapidos(S.db.clientes, hoy, dias));
   renderAvisos(cnt);
 
   // Etiquetas disponibles para filtrar.
@@ -238,7 +251,7 @@ export function render() {
   $('#lblEtiqueta').hidden = !etqs.length;
   $('#fEtiqueta').innerHTML = `<option value="">Todas</option>` + etqs.map((e) => `<option ${F.etiqueta === e ? 'selected' : ''}>${esc(e)}</option>`).join('');
 
-  const activos = [F.estado !== 'todos', F.etiqueta, F.pDesde, F.pHasta, F.iDesde, F.iHasta].filter(Boolean).length;
+  const activos = [F.estado !== 'todos', F.rapido, F.etiqueta, F.pDesde, F.pHasta, F.iDesde, F.iHasta].filter(Boolean).length;
   $('#nFiltros').hidden = !activos;
   $('#nFiltros').textContent = activos;
   $('#dir').textContent = (F.dir === 'asc' ? '↑ ' : '↓ ') + etiquetaOrden();
@@ -257,6 +270,14 @@ function renderLista(items) {
       <button class="btn primario" data-accion="importar">📥 Traer mis clientes de Excel</button>
       <button class="btn" data-accion="nuevo">Agregar uno por uno</button>
       <p class="mini" style="margin:14px 0 0">¿Dudas? <a href="#" data-accion="ayuda" data-texto="Necesito ayuda para importar mi Excel: ">Escríbenos</a> y te ayudamos.</p></div>`;
+    return;
+  }
+  if (!items.length && F.rapido && !F.busqueda) {
+    const t = F.rapido === 'pagan_hoy'
+      ? ['Hoy nadie tiene pago programado', 'Cuando un cliente tenga su próximo pago hoy, aparecerá aquí.']
+      : ['Todavía no registras pagos hoy', 'Los pagos que registres hoy aparecerán aquí.'];
+    cont.innerHTML = `<div class="vacio"><h2>${t[0]}</h2><p>${t[1]}</p>
+      <button class="btn" data-accion="limpiar">Ver todos los clientes</button></div>`;
     return;
   }
   if (!items.length) {
@@ -1678,7 +1699,7 @@ export function enlazarEventos() {
   bind('#fIDesde', 'iDesde'); bind('#fIHasta', 'iHasta'); bind('#fEtiqueta', 'etiqueta'); bind('#orden', 'orden');
   $('#dir').addEventListener('click', () => { F.dir = F.dir === 'asc' ? 'desc' : 'asc'; render(); });
   const limpiar = () => {
-    Object.assign(F, { estado: 'todos', etiqueta: '', pDesde: '', pHasta: '', iDesde: '', iHasta: '' });
+    Object.assign(F, { estado: 'todos', rapido: '', etiqueta: '', pDesde: '', pHasta: '', iDesde: '', iHasta: '' });
     ['#fPDesde', '#fPHasta', '#fIDesde', '#fIHasta'].forEach((s) => ($(s).value = ''));
     render();
   };
@@ -1705,7 +1726,9 @@ export function enlazarEventos() {
     comprobante: (el) => abrirComprobante(el.dataset.id, el.dataset.pago),
     'ocultar-bloqueo': () => { lsSet('cartera:ocultar-aviso-bloqueo', '1'); render(); },
     limpiar,
-    estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; render(); },
+    estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; F.rapido = ''; render(); },
+    // Un filtro rápido muestra a todos los que cumplen, sin importar la tarjeta de estado elegida.
+    rapido: (el) => { F.rapido = F.rapido === el.dataset.cod ? '' : el.dataset.cod; F.estado = 'todos'; render(); },
     'ocultar-instalar': () => { lsSet('cartera:ocultar-instalar', '1'); render(); },
     'guia-instalar': () => { const v = ventana({ titulo: '📲 Instalar en iPhone', cuerpo: I.guiaIOS({ flecha: true }) }); I.enlazarGuia(v.el); },
     instalar: () => { I.instalar().then((ok) => { if (ok) aviso('Instalando… puede tardar hasta 1 minuto.'); render(); }); },
