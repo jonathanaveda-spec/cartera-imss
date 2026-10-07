@@ -423,9 +423,9 @@ Empaquetado previsto con PWABuilder (pasos en PLAN.md).
 - `plataforma/sw.js`: versión del service worker `cartera-asesor-v10` → `v11`.
 
 **Fuera del código**
-- Cloudflare Email Routing: reenvío de soporte@carteraasesor.com → jonathanaveda@gmail.com
+- Cloudflare Email Routing: reenvío de soporte@carteraasesor.com → el Gmail personal de Jonathan
   (activado, destino verificado, regla "soporte"). Lo hizo Jonathan.
-- Correo de prueba enviado desde jonathanaveda@gmail.com a soporte@carteraasesor.com
+- Correo de prueba enviado desde el Gmail personal de Jonathan a soporte@carteraasesor.com
   (asunto "Prueba reenvio soporte"). **REBOTÓ**: `550 5.1.1 Address does not exist`.
   El DNS está bien (MX route1/2/3.mx.cloudflare.net, SPF de Cloudflare), así que Cloudflare
   recibe el correo pero no encuentra una regla activa para "soporte".
@@ -436,7 +436,7 @@ Empaquetado previsto con PWABuilder (pasos en PLAN.md).
 **Pendiente**
 - Cloudflare → carteraasesor.com → Enrutamiento de correo electrónico → Reglas: revisar que
   la regla sea exactamente "soporte", acción "Enviar a un correo electrónico" →
-  jonathanaveda@gmail.com, que esté ACTIVADA y que el destino figure como Verificado.
+  el Gmail personal de Jonathan, que esté ACTIVADA y que el destino figure como Verificado.
   Después mandar otra prueba. (El panel de Cloudflare no cargó desde Claude in Chrome.)
 - admin.html → Sistema: quitar "Acceso libre para todos" (activa la prueba de 7 días).
   No se tocó: falta que Jonathan decida si ya se empieza a cobrar.
@@ -466,7 +466,7 @@ Empaquetado previsto con PWABuilder (pasos en PLAN.md).
 
 **Correo de soporte: RESUELTO.** Causa: en Cloudflare no existía ninguna regla ("Reglas de
 enrutamiento: 0"); solo estaba la regla general "Para todo" (Descartar, desactivada). Se creó la
-regla soporte@carteraasesor.com → Enviar a jonathanaveda@gmail.com (Activa; destino Verificado).
+regla soporte@carteraasesor.com → Enviar a el Gmail personal de Jonathan (Activa; destino Verificado).
 Prueba 3 sin rebote y el Registro de actividad de Cloudflare la muestra como "Forwarded".
 Nota: si la prueba se manda desde el mismo Gmail, Gmail no muestra la copia reenviada en Recibidos;
 para verla, probar desde otra cuenta.

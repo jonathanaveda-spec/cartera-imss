@@ -47,14 +47,14 @@ test('diasEntre y sumarDias (cruce de año y bisiesto)', () => {
   assert.equal(L.sumarDias('2026-12-31', 1), '2027-01-01');
 });
 test('teléfono', () => {
-  assert.equal(L.telefonoDe('00 0000 0000 MORENO asesor'), '0000000000');
-  assert.equal(L.telefonoDe('(000) 000-0000'), '0000000000');
+  assert.equal(L.telefonoDe('55 0000 1111 PEREZ asesor'), '5500001111');
+  assert.equal(L.telefonoDe('(618) 000-2222'), '6180002222');
   assert.equal(L.telefonoDe('Asesor Oscar'), null);
-  assert.equal(L.telefonoDe(0000000000), '0000000000');
+  assert.equal(L.telefonoDe(5500003333), '5500003333');
 });
 test('búsqueda sin acentos ni mayúsculas', () => {
-  const cs = [cli({ id: '1', nombre: 'NOMBRE DE EJEMPLO' }), cli({ id: '2', nombre: 'Otro' })];
-  assert.equal(L.filtrarClientes(cs, { busqueda: 'nunez diaz' }, hoy, 7).length, 1);
+  const cs = [cli({ id: '1', nombre: 'ROCÍO ÁVILA NÚÑEZ' }), cli({ id: '2', nombre: 'Otro' })];
+  assert.equal(L.filtrarClientes(cs, { busqueda: 'avila nunez' }, hoy, 7).length, 1);
 });
 test('filtro por fechas y orden con vacíos al final', () => {
   const cs = [

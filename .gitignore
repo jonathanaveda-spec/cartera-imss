@@ -21,3 +21,18 @@ videos/node_modules/
 videos/out/
 # Voz en off generada con Azure (se rehace con: cd videos && node voz.mjs voz/<video>.json)
 videos/public/voz/
+
+# Carpeta de trabajo con grabaciones y material crudo (puede tener datos personales): no se sube.
+# Solo queda el logo que ya estaba en el repo. (Revisión de Fernanda, 07/10/2026)
+imagenes/*
+!imagenes/c65ea44d-f569-4876-89ee-174ced93b80e.png
+
+# Llaves y secretos (sobre todo la llave de firma de Google Play: si se sube, se pierde el control de la app)
+*.jks
+*.keystore
+*.pem
+*.p12
+*.key
+.env*
+google-services.json
+GoogleService-Info.plist

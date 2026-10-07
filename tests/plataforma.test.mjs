@@ -101,14 +101,14 @@ test('solo lectura con plan vencido y más clientes que el límite', () => {
 
 import * as LP from '../plataforma/js/logic.js';
 test('recordatorio de cobro por WhatsApp', () => {
-  const c = { nombre: 'NOMBRE DE EJEMPLO', proximo_pago: '2026-10-24', celular: '000 000 0000' };
-  assert.equal(LP.nombreBonito(c.nombre), 'NOMBRE DE EJEMPLO');
+  const c = { nombre: 'ESPAÑA ROBLEDO MARINA', proximo_pago: '2026-10-24', celular: '866 000 4444' };
+  assert.equal(LP.nombreBonito(c.nombre), 'España Robledo Marina');
   const pv = LP.mensajeCobro(c, { codigo: 'POR_VENCER', diasRestantes: 3 });
-  assert.match(pv, /^Hola NOMBRE DE EJEMPLO 👋 Te recuerdo que tu pago vence el 24\/10\/2026 \(faltan 3 días\)/);
+  assert.match(pv, /^Hola España Robledo Marina 👋 Te recuerdo que tu pago vence el 24\/10\/2026 \(faltan 3 días\)/);
   assert.match(LP.mensajeCobro(c, { codigo: 'POR_VENCER', diasRestantes: 0 }), /\(hoy\)/);
   assert.match(LP.mensajeCobro(c, { codigo: 'MOROSO', diasAtraso: 1 }), /venció el 24\/10\/2026 \(1 día de atraso\)/);
-  assert.equal(LP.mensajeCobro(c, { codigo: 'MOROSO', diasAtraso: 2 }, { moroso: 'Oye {nombre}, debes {dias}' }), 'Oye NOMBRE DE EJEMPLO, debes 2 días');
-  assert.equal(LP.enlaceWhatsApp(c.celular, 'Hola 👋'), 'https://wa.me/520000000000?text=Hola%20%F0%9F%91%8B');
+  assert.equal(LP.mensajeCobro(c, { codigo: 'MOROSO', diasAtraso: 2 }, { moroso: 'Oye {nombre}, debes {dias}' }), 'Oye España Robledo Marina, debes 2 días');
+  assert.equal(LP.enlaceWhatsApp(c.celular, 'Hola 👋'), 'https://wa.me/528660004444?text=Hola%20%F0%9F%91%8B');
   assert.equal(LP.enlaceWhatsApp('Asesor Oscar', 'x'), null);
   // Con «+» y código de país se respeta el país (asesor o cliente fuera de México).
   assert.equal(LP.enlaceWhatsApp('+57 300 123 4567', ''), 'https://wa.me/573001234567');
@@ -131,10 +131,10 @@ test('periodicidad personalizada: cada N días', () => {
   assert.equal(LP.textoDiaPago({ periodicidad: 'Cada 15 días', dia_pago: 5 }), '');
 });
 test('comprobante de pago por WhatsApp', () => {
-  const c = { nombre: 'NOMBRE DE EJEMPLO', periodicidad: 'Mensual' };
+  const c = { nombre: 'ESPAÑA ROBLEDO MARINA', periodicidad: 'Mensual' };
   const pago = { fecha_pago: '2026-10-03', monto: 1500, metodo: 'Transferencia', periodo_hasta: '2026-11-15' };
   const m = LP.mensajeComprobante(c, pago, '', 'Jonathan Aveda');
-  assert.match(m, /^Hola NOMBRE DE EJEMPLO 👋 Recibí tu pago de \$1,500\.00 del 3 de octubre de 2026\. ✅/);
+  assert.match(m, /^Hola España Robledo Marina 👋 Recibí tu pago de \$1,500\.00 del 3 de octubre de 2026\. ✅/);
   assert.match(m, /Tu próximo pago es el 15 de noviembre de 2026\./);
   assert.match(m, /— Jonathan Aveda$/);
   // Sin monto ni firma: no quedan huecos raros.

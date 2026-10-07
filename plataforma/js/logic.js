@@ -300,7 +300,7 @@ export const PLANTILLAS_COBRO = {
   moroso: 'Hola {nombre} 👋 Tu pago venció el {fecha} ({dias} de atraso). ¿Me confirmas cuándo puedes pagar? ¡Gracias!',
 };
 
-/** "NOMBRE DE EJEMPLO" → "NOMBRE DE EJEMPLO". */
+/** "ESPAÑA ROBLEDO MARINA" → "España Robledo Marina". */
 export function nombreBonito(n) {
   return String(n || '').trim().toLowerCase().replace(/(^|[\s-])(\p{L})/gu, (_, a, b) => a + b.toUpperCase());
 }
