@@ -30,11 +30,8 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
 
 ## 3. Logo (elegido: «A · Nodo»)
 Una **N hecha de puntos conectados** (red neuronal y equipo de proyecto). Planos, sin brillos ni sombras.
-- **Archivos:** `empresa/puente-digital/logos/propuestas/A-Nodo_*.svg` (`simbolo-color`, `icono-512`, `completo-color`,
-  `completo-oscuro`, `completo-negro`, `completo-blanco`). Las otras dos propuestas (B y C) quedaron descartadas.
-- **Se regeneran** con `python3 -I empresa/puente-digital/herramientas/hacer_logos.py` (las letras están convertidas a trazos
-  con Inter, no dependen de ninguna fuente instalada). Tablero: `empresa/puente-digital/tablero.png`
-  (`herramientas/tablero_marca.py`).
+- **Archivos finales:** `empresa/puente-digital/logos/final/` (carpetas `svg/` y `png/`): `neuroproyectos-ia_color`, `_para-fondo-oscuro`, `_negro`, `_blanco` (cada uno también `_sin-descriptor`), `simbolo_color|negro|blanco` e `icono-512` (redondeado) o `icono-512-cuadrado` (sin esquinas, para sitios que ya recortan). Las propuestas B y C quedaron descartadas (siguen en `logos/propuestas/`).
+- **Se regeneran** con `python3 -I empresa/puente-digital/herramientas/hacer_logos.py` y `hacer_piezas.py` (las letras están convertidas a trazos con Inter, no dependen de ninguna fuente instalada). Tablero: `empresa/puente-digital/tablero.png` (`herramientas/tablero_marca.py`).
 - **Versiones:** color sobre blanco o niebla · «oscuro» (blanco con menta) sobre grafito · todo blanco sobre verde azulado o
   fotos · todo negro para impresión de un solo color.
 - **Tamaños mínimos:** logo completo, **240 px de ancho** (con menos se usa solo el símbolo); símbolo o ícono, **24 px**.
@@ -86,13 +83,17 @@ Una **N hecha de puntos conectados** (red neuronal y equipo de proyecto). Planos
 - Los dos logos no se parecen a propósito: Cartera Asesor es azul, brillante y con billetera; NeuroProyectos IA es grafito
   y verde azulado, plano y con la «N» de nodos.
 
-## 8. Formatos de referencia
-- **Ícono cuadrado:** 512×512, esquinas redondeadas, fondo grafito y la N en blanco con menta (`A-Nodo_icono-512.svg`).
-- **Foto de perfil de redes:** el ícono, centrado, con margen del 12 % (las redes recortan en círculo).
-- **Portadas:** fondo grafito, logo completo oscuro a la izquierda, lema a la derecha; texto dentro de la zona segura de
-  cada red y nunca pegado a los bordes.
-- **Firma de correo:** ancho máximo 600 px, logo de 160–200 px de ancho, nombre y cargo en Inter (o Arial como respaldo),
-  sin imágenes pesadas.
+## 8. Piezas ya hechas (en `empresa/puente-digital/`)
+- **Google Play:** `google-play/` (ícono 512 PNG de 32 bits, encabezado 4096×2304 sin transparencia, textos y pasos). Solo se
+  puede crear cuando ya hay una app publicada.
+- **Redes:** `redes/` (foto de perfil 1080 con el símbolo dentro de la zona que no recorta el círculo, portada de Facebook
+  1640×624, portada de LinkedIn empresa 2256×382 y personal 3168×792). Contenido centrado o a la derecha para que el logo de
+  perfil de LinkedIn y los recortes del celular no lo tapen.
+- **Firma de correo:** `firma-correo/` (HTML con tabla, Arial, colores de la marca; el logo se inserta con el botón de imagen de
+  Gmail). Ancho máximo 600 px.
+- **Página web:** `web/` (una sola hoja con enlace a Cartera Asesor; publicar en Cloudflare Pages).
+- Piezas nuevas siguen la misma receta: fondo grafito, logo «para fondo oscuro», lema con «negocio» en menta y red de puntos
+  muy tenue a los lados (sin tocar el texto).
 
 ## 9. Forma de trabajo
 1. Para piezas nuevas: brief corto → propuesta → **Jonathan aprueba** → exportar.

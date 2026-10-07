@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>NeuroProyectos IA · Desarrollo de software con IA</title>
+<meta name="description" content="Creamos apps y herramientas con inteligencia artificial que se entienden y trabajan por ti. Primer producto: Cartera Asesor.">
+<meta name="theme-color" content="#17212B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="NeuroProyectos IA · Tecnología inteligente para tu negocio">
+<meta property="og:description" content="Software con IA que sí se entiende. Primer producto: Cartera Asesor.">
+<meta property="og:image" content="https://neuroproyectos.com/og-imagen.png">
+<meta property="og:locale" content="es_MX">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grafito:#17212B; --verde:#0A7C73; --menta:#2DD4BF; --niebla:#F3F5F7; --gris:#5B6672; --blanco:#fff; --linea:#DDE2E7;
+  --radio:16px; --max:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--grafito);background:var(--niebla);line-height:1.55;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--menta);outline-offset:3px;border-radius:6px}
+
+/* Cabecera + portada (oscuras) */
+.hero{background:var(--grafito);color:var(--blanco);padding-top:env(safe-area-inset-top);position:relative;overflow:hidden}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.nav img{height:38px;width:auto;display:block}
+.nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0}
+.nav a{display:inline-block;padding:10px 12px;border-radius:10px;text-decoration:none;font-weight:600;font-size:15px;color:#DDE6EE}
+.nav a:active{transform:scale(.97)}
+.hero-body{padding:56px 0 76px;max-width:680px;position:relative;z-index:1}
+h1{font-size:clamp(34px,7vw,56px);line-height:1.06;letter-spacing:-.03em;font-weight:800;margin:0 0 16px}
+h1 span{color:var(--menta)}
+.lead{font-size:clamp(17px,2.4vw,20px);color:#C7D2DC;margin:0 0 28px;max-width:560px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:14px 22px;border-radius:12px;font-weight:800;font-size:16px;text-decoration:none;transition:transform .16s ease-out,background-color .16s ease-out}
+.btn:active{transform:scale(.97)}
+.btn-main{background:var(--menta);color:var(--grafito)}
+.btn-sec{border:2px solid #4B5B69;color:var(--blanco)}
+.red{position:absolute;right:-40px;top:64px;width:420px;opacity:.5;pointer-events:none}
+@media (hover:hover){.btn-main:hover{background:#5BE3D1}.btn-sec:hover{border-color:var(--menta)}.nav a:hover{color:#fff}}
+
+/* Secciones claras */
+section{padding:64px 0}
+h2{font-size:clamp(26px,4.4vw,36px);line-height:1.12;letter-spacing:-.02em;margin:0 0 8px;font-weight:800}
+.sub{color:var(--gris);margin:0 0 30px;max-width:600px}
+.grid{display:grid;gap:16px}
+.card{background:var(--blanco);border:1px solid var(--linea);border-radius:var(--radio);padding:24px}
+.prod{display:grid;gap:18px;grid-template-columns:1fr}
+.prod-top{display:flex;gap:16px;align-items:center}
+.prod img{width:72px;height:72px;border-radius:16px;flex:none}
+.prod h3{margin:0;font-size:22px}
+.badge{display:inline-block;margin-top:6px;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--verde);padding:4px 10px;border-radius:99px}
+.prod p{margin:0;color:#2A3744}
+.link{font-weight:800;color:var(--verde);text-decoration:none}
+.link:active{opacity:.7}
+.soon{border-style:dashed;background:transparent;display:flex;flex-direction:column;justify-content:center}
+.soon h3{margin:0 0 6px}.soon p{margin:0;color:var(--gris)}
+.how{background:var(--blanco);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.how .grid{margin-top:8px}
+.how .item{padding:4px 0}
+.how h3{margin:0 0 6px;font-size:19px}.how p{margin:0;color:var(--gris)}
+.num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--grafito);color:var(--menta);font-weight:800;align-items:center;justify-content:center;margin-bottom:12px}
+.contact{background:var(--grafito);color:#fff;text-align:center;padding:64px 0}
+.contact p{color:#C7D2DC;max-width:520px;margin:0 auto 24px}
+footer{background:var(--grafito);color:#9AA7B4;font-size:14px;padding:0 0 calc(32px + env(safe-area-inset-bottom));text-align:center;border-top:1px solid #26333F}
+footer .wrap{padding-top:24px}
+footer a{color:#DDE6EE}
+@media (min-width:760px){
+  .prod{grid-template-columns:1.4fr 1fr}
+  .grid.three{grid-template-columns:repeat(3,1fr);gap:28px}
+  .hero-body{padding:84px 0 110px}
+}
+@media (max-width:560px){.red{top:auto;bottom:-24px;right:-110px;width:300px;opacity:.3}.nav ul li:first-child{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="red" viewBox="0 0 460 300" aria-hidden="true" fill="none">
+    <g stroke="#0A7C73" stroke-width="3" stroke-linecap="round">
+      <line x1="40" y1="70" x2="125" y2="150"/><line x1="125" y1="150" x2="70" y2="245"/><line x1="125" y1="150" x2="215" y2="95"/>
+      <line x1="215" y1="95" x2="265" y2="205"/><line x1="265" y1="205" x2="350" y2="125"/><line x1="215" y1="95" x2="350" y2="125"/>
+      <line x1="350" y1="125" x2="420" y2="230"/><line x1="265" y1="205" x2="420" y2="230"/>
+    </g>
+    <g fill="#2DD4BF"><circle cx="40" cy="70" r="9"/><circle cx="125" cy="150" r="9"/><circle cx="70" cy="245" r="9"/><circle cx="215" cy="95" r="9"/>
+      <circle cx="265" cy="205" r="9"/><circle cx="350" cy="125" r="9"/><circle cx="420" cy="230" r="9"/></g>
+  </svg>
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal">
+      <a href="#" aria-label="NeuroProyectos IA, inicio"><img src="logo-oscuro.svg" alt="NeuroProyectos IA"></a>
+      <ul><li><a href="#productos">Productos</a></li><li><a href="#contacto">Contacto</a></li></ul>
+    </nav>
+    <div class="hero-body">
+      <h1>Tecnología inteligente para tu <span>negocio</span></h1>
+      <p class="lead">Somos NeuroProyectos IA. Creamos apps y herramientas con inteligencia artificial que se entienden y trabajan por ti. Software con IA que sí se entiende.</p>
+      <div class="btns">
+        <a class="btn btn-main" href="https://carteraasesor.com">Conoce Cartera Asesor</a>
+        <a class="btn btn-sec" href="#contacto">Escríbenos</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="productos">
+  <div class="wrap">
+    <h2>Nuestros productos</h2>
+    <p class="sub">Empezamos resolviendo un problema real. Vendrán más herramientas.</p>
+    <div class="grid prod">
+      <article class="card">
+        <div class="prod-top">
+          <img src="cartera-asesor-icono.png" alt="Ícono de Cartera Asesor" width="72" height="72">
+          <div><h3>Cartera Asesor</h3><span class="badge">Beta gratuita · Pronto en Google Play</span></div>
+        </div>
+        <p style="margin-top:16px">Para asesores de seguros e IMSS en México, Colombia y Venezuela: organiza tu cartera de clientes, sabe quién está al día y cobra a tiempo.</p>
+        <p style="margin-top:14px"><a class="link" href="https://carteraasesor.com">Entrar a carteraasesor.com →</a></p>
+      </article>
+      <article class="card soon">
+        <h3>Próximamente</h3>
+        <p>Estamos preparando más herramientas. Cuando estén listas, las verás aquí.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <h2>Cómo trabajamos</h2>
+    <p class="sub">Tres reglas que no cambian.</p>
+    <div class="grid three">
+      <div class="item"><span class="num">1</span><h3>Claro</h3><p>Sin tecnicismos. Si no se entiende, no está terminado.</p></div>
+      <div class="item"><span class="num">2</span><h3>Práctico</h3><p>Cada herramienta resuelve un problema real de un negocio real.</p></div>
+      <div class="item"><span class="num">3</span><h3>Honesto</h3><p>La IA ayuda; tú decides. No prometemos magia ni resultados que no podemos cumplir.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contacto">
+  <div class="wrap">
+    <h2>Hablemos</h2>
+    <p>¿Preguntas, ideas o alianzas? Escríbenos y te respondemos.</p>
+    <a class="btn btn-main" href="mailto:contacto@neuroproyectos.com">contacto@neuroproyectos.com</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 NeuroProyectos IA · Desarrollo de software con IA</div>
+    <div style="margin-top:6px">Cartera Asesor es un producto de NeuroProyectos IA · <a href="https://carteraasesor.com">carteraasesor.com</a></div>
+  </div>
+</footer>
+</body>
+</html>

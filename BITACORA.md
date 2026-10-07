@@ -21,7 +21,10 @@ Jonathan quiere una empresa «madre» que desarrolle sus apps (Cartera Asesor es
   (usan la tipografía Inter y los colores provisionales grafito `#17212B` y verde azulado `#0A7C73`).
 - **Paso 5 hecho:** skill `.claude/skills/marca-puente-digital/SKILL.md` y tablero `empresa/puente-digital/tablero.png`
   (`herramientas/tablero_marca.py`). Falta que Jonathan los revise.
-- **Falta:** piezas (paso 6: logos PNG/SVG, perfil de Google Play, firma de correo, redes, página web) y lista de pendientes de Jonathan (paso 7).
+- **Paso 6 hecho (falta que Jonathan lo revise):** logos finales en `empresa/puente-digital/logos/final/`, perfil de Google Play en
+  `google-play/`, redes en `redes/`, firma en `firma-correo/` y página en `web/` (`herramientas/hacer_piezas.py` las regenera).
+  La cuenta de desarrollador de Google Play solo se puede crear con al menos una app publicada.
+- **Falta:** lista de pendientes de Jonathan (paso 7): dominio, correo, redes, publicar la página y registro de marca.
 - No se tocó la app Cartera Asesor.
 
 ## ▶ Estado actual y próximos pasos (actualizado 07/10 tarde, PC del local)
