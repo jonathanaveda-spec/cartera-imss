@@ -21,7 +21,14 @@ if (!llave) {
   console.log('Falta el secreto FIREBASE_LLAVE: no se envía nada (ver BITACORA.md, «Aviso diario»).');
   process.exit(0);
 }
-initializeApp({ credential: cert(JSON.parse(llave)) });
+let cuenta;
+try { cuenta = JSON.parse(llave); } catch { cuenta = null; }
+if (!cuenta || cuenta.type !== 'service_account') {
+  console.error('El secreto FIREBASE_LLAVE no es el archivo .json de la cuenta de servicio (debe empezar con ' +
+    '{ "type": "service_account" ). Vuelve a pegarlo en GitHub → Settings → Secrets → Actions.');
+  process.exit(1);
+}
+initializeApp({ credential: cert(cuenta) });
 const db = getFirestore();
 const fcm = getMessaging();
 const PRUEBA = process.env.AVISOS_PRUEBA === '1';
