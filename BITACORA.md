@@ -19,8 +19,8 @@ Jonathan quiere una empresa «madre» que desarrolle sus apps (Cartera Asesor es
   (se rehace con `herramientas/tablero_paleta.py`). Propuesta: grafito `#17212B`, verde azulado `#0A7C73`, menta `#2DD4BF`
   (solo sobre fondo oscuro), niebla `#F3F5F7`, gris pizarra `#5B6672`, blanco. Tipografía recomendada: Inter en todo. Se rehacen con `python3 empresa/puente-digital/herramientas/hacer_logos.py` y `tablero_logos.py`
   (usan la tipografía Inter y los colores provisionales grafito `#17212B` y verde azulado `#0A7C73`).
-- **Paso 5 hecho:** skill `.claude/skills/marca-puente-digital/SKILL.md` y tablero `empresa/puente-digital/tablero.png`
-  (`herramientas/tablero_marca.py`). Falta que Jonathan los revise.
+- **Paso 5 hecho y aprobado:** skill `.claude/skills/marca-puente-digital/SKILL.md` y tablero `empresa/puente-digital/tablero.png`
+  (`herramientas/tablero_marca.py`). ✅ **Aprobados por Jonathan el 08/10** («me gustó la identidad de marca»).
 - **Paso 6 hecho (falta que Jonathan lo revise):** logos finales en `empresa/puente-digital/logos/final/`, perfil de Google Play en
   `google-play/`, redes en `redes/`, firma en `firma-correo/` y página en `web/` (`herramientas/hacer_piezas.py` las regenera).
   La cuenta de desarrollador de Google Play solo se puede crear con al menos una app publicada.
