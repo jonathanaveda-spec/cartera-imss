@@ -1,6 +1,6 @@
 # Citlali Moreno — la presentadora de la cafetería
 
-**Estado:** propuesta nueva (08/10/2026), estilo UGC realista, pendiente de que Jonathan elija. Personaje 100 % inventado.
+**Estado:** ✅ **ELEGIDA por Jonathan el 08/10/2026** como avatar (presentadora) de la marca. Estilo UGC realista. Personaje 100 % inventado.
 Reemplaza a las propuestas del 07/10 (Marisol, Emiliano, Itzel), que no pegaron con la marca.
 
 | | |

@@ -1,6 +1,6 @@
 # Daniela «Dani» Rangel — la presentadora de la oficinita
 
-**Estado:** propuesta nueva (08/10/2026), estilo UGC realista, pendiente de que Jonathan elija. Personaje 100 % inventado.
+**Estado:** propuesta nueva (08/10/2026), estilo UGC realista, no elegida el 08/10 (Jonathan eligió a Citlali); queda de reserva. Personaje 100 % inventado.
 Reemplaza a las propuestas del 07/10 (Marisol, Emiliano, Itzel), que no pegaron con la marca.
 
 | | |

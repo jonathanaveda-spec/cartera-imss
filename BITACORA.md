@@ -167,6 +167,12 @@ plan-semana) del commit c1d21ea; lo demás de la rama `trabajo-oficina-07-10` (a
 Se comprobó que «cada acceso de soporte queda registrado» es cierto (admin.js). **3 videos por día: confirmado por
 Jonathan** (Victoria arma los 7 de la mañana). Avatar: Jonathan los está viendo.
 
+**08/10 (nube) — Avatar elegido: Citlali Moreno** (la de lentes, cafetería, voz `es-MX-DaliaNeural`; ficha en
+`tienda/marca/avatares/citlali/`, imagen en Canva `MAHXYBU6Dwg`). Ximena hizo 3 avatares UGC realistas porque los del
+07/10 no pegaron con la marca (Itzel era caricatura). Daniela y Gerardo quedan de reserva. Falta: Jonathan descarga la
+imagen en tamaño completo (`retrato-selfie.png`), revisar ojos/dientes, 2.ª imagen con otra expresión y prueba hablando
+en CapCut. Regla: presentadora de la marca con IA, nunca testimonio; «Contenido generado por IA» en TikTok.
+
 **🔁 RELEVO A LA SESIÓN EN LA NUBE (07/10, noche) — EMPEZAR POR AQUÍ**
 Jonathan apagó la PC del local. Quedó a medias:
 1. **Rama `trabajo-oficina-07-10`** (NO está en main, nada de eso se publicó): textos de privacidad corregidos por
