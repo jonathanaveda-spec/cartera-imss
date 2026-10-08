@@ -1,15 +1,18 @@
 # Plan de la semana 12–18 de octubre de 2026 — TikTok @carteraasesor
 
 Responsable: Victoria (estrategia). Producción: Lucía (`productor-videos`). Publica y programa: Jonathan.
-Base: `plan-diario.md` (2 al día: **P a las 13:00** + **por la noche, a las 20:00, H lun/mié/vie/dom y T mar/jue/sáb**),
+Base: `plan-diario.md` (**P a las 13:00** + **por la noche, a las 20:00, H lun/mié/vie/dom y T mar/jue/sáb**),
 `investigacion/tendencias.md` (Luna), skills `marca-cartera-asesor` y `voz-cartera-asesor`. Resultados en `resultados.md`.
+**Cambio del 08/10 (Jonathan): esta semana van 3 por día = 21 videos.** Se agrega **un video de mañana a las 7:30**
+(M01–M07), hecho con plantilla y **sin capturas nuevas**.
 
 **Decisiones que respeta este plan**
-- Jonathan (07/10): **nada de videos de noticias del IMSS** por ahora. Ninguno de los 14 lo es (la quincena es una fecha
+- Jonathan (07/10): **nada de videos de noticias del IMSS** por ahora. Ninguno de los 21 lo es (la quincena es una fecha
   de cobro, no una noticia del IMSS).
 - Entran el **top 3 de Luna** (P08 quincena, T04 «4 tipos de clientes», H02 «Lo que nadie te cuenta #1»), un video de
   **Halloween** (H05) y uno de **#fraude / cuidar datos** (H03).
-- **Variedad:** ninguna voz, formato ni tipo de gancho se repite dos veces seguidas (contando el #4 del domingo 11, Dalia).
+- **Variedad:** ninguna voz, formato ni tipo de gancho se repite dos veces seguidas, **contando los 21 en orden** (mañana →
+  mediodía → noche → mañana del día siguiente…) y empezando por el #4 del domingo 11 (P, Dalia, lista con número).
 - Hashtags: 5 por video = **1 grande + 2 medianos + 2 de nicho**; #carteraasesor siempre es uno de los de nicho.
 - Toda pieza: zona segura, centrado en x = 540, palabra clave en oro, nada de prometer ganancias ni hablar como el IMSS,
   solo clientes inventados.
@@ -24,39 +27,72 @@ jueves 15 cae en quincena y es el día más fuerte para hablar de cobrar. El sá
 sábado «4 tipos de clientes» pregunta «¿cuál es el tuyo?» y el domingo cuenta la historia de terror del más temido, el
 fantasma.
 
+**La mañana (nuevo, 08/10).** Cada mañana es un video **útil y rápido de guardar**: el asesor lo ve antes de salir a cobrar y
+lo guarda para usarlo en la calle. Arranca la serie **«Dato para guardar»** (checklists que sirven aunque no uses la app) y
+entra un **«número que pica»** el jueves de quincena. Dos mañanas (miércoles 14 y sábado 17) buscan a los **12 testers con
+Android** para Google Play. Cada mañana prepara lo que viene ese día: el jueves en la mañana duele el cobro que se pasa
+(M04), al mediodía se muestra «Pagan hoy» (P08); el martes en la mañana los «4 datos de cada cliente» (M02) abren el
+miércoles de la CURP (H03); el domingo «la nube» (M07) va antes de «ponla en tu pantalla de inicio» (P11).
+
+- **Por qué a las 7:30:** TikTok le enseña cada video nuevo primero a un grupo chico y lo reparte en la primera hora; a las
+  7:30 ese reparto cae justo cuando el asesor desayuna o va en camino, antes de salir a cobrar (8–9). Es una estimación: a
+  las 2 semanas se confirma en TikTok Studio → Seguidores → horas de actividad.
+- **Por qué 4 T y 3 H (y no 7 T):** antes del **miércoles, viernes y domingo** en la mañana, la noche anterior fue una
+  **T** (T02, T03, T04). Una tarjeta en la mañana pondría dos T seguidas, así que esas 3 mañanas
+  van con la **plantilla H** (frases, chat o antes/después **sin capturas**), que sale igual de rápido y barata.
+- **Ojo honesto sobre 3 al día:** subir más da **más intentos** de pegar uno, pero con una cuenta nueva los videos también
+  compiten entre sí y la calidad pesa más que la cantidad. Esta semana lo tomamos como **prueba medible**: el lunes 19 se
+  compara el promedio de las mañanas contra el de mediodía y noche. Si las mañanas quedan muy abajo, se regresa a 2.
+  Sigue la regla de calidad: si una mañana no pasa la revisión de fotogramas, **no se publica**.
+
 ---
 
 ## 1. Calendario (para programar en TikTok Studio)
 
 | Día | Hora | ID | Formato | Título | Voz | ¿Se puede hacer ya? |
 |---|---|---|---|---|---|---|
+| Lun 12 | 07:30 | M01 | T | Dato para guardar #1: checklist del lunes antes de salir a cobrar | Larissa | ✅ Sí |
 | Lun 12 | 13:00 | P05 | P | El semáforo de tu cartera 🟢🟡🔴 | Gerardo | 🟡 Sí con capturas que ya hay; mejor con 1 nueva |
 | Lun 12 | 20:00 | H02 | H · chat | Lo que nadie te cuenta de cobrar con libreta #1 | Jorge + Candela | ✅ Sí |
+| Mar 13 | 07:30 | M02 | T | Dato para guardar #2: 4 datos que siempre pides a cada cliente | Larissa | ✅ Sí |
 | Mar 13 | 13:00 | P06 | P | ¿Mensual, trimestral o cada 15 días? La fecha se pone sola | Dalia | 🔴 Captura nueva |
 | Mar 13 | 20:00 | T02 | T | Cobranza en 15 segundos #1: avisa 3 días antes | Renata | ✅ Sí |
+| Mié 14 | 07:30 | M03 | H · frases | Busco 12 asesores con Android (testers de Google Play) | Marina | ✅ Sí — **solo si la prueba cerrada ya está abierta** (si no, plan B) |
 | Mié 14 | 13:00 | P07 | P | Abres la app y esto es lo primero que ves (resumen del día) | Luciano | ✅ Sí |
 | Mié 14 | 20:00 | H03 | H · antes/después | ¿Dónde guardas la CURP de tus clientes? (#fraude) | Dalia | ✅ Sí |
+| Jue 15 | 07:30 | M04 | T | El número que pica: $1,350 sin cobrar (ejemplo) | Pelayo | ✅ Sí |
 | Jue 15 | 13:00 | P08 | P | Hoy es quincena: ¿quién te paga hoy? | Jorge (alegre) | 🟡 Sí con plan B; mejor con 1 nueva — **fecha fija** |
 | Jue 15 | 20:00 | T03 | T | Mito: «Yo me acuerdo de todos mis clientes» | Nuria | ✅ Sí |
+| Vie 16 | 07:30 | M05 | H · chat | El mensaje del viernes que te ahorra la vuelta del lunes | Carlota | ✅ Sí |
 | Vie 16 | 13:00 | P09 | P | Encuentra a cualquier cliente en 1 segundo | Gerardo | 🔴 Captura nueva |
 | Vie 16 | 20:00 | H04 | H · chat (2 colegas) | «Soy nuevo, ¿cómo organizo a mis clientes?» | Marina + Cecilio | ✅ Sí |
+| Sáb 17 | 07:30 | M06 | T | Dato para guardar #3: antes de elegir una app para tu cartera, revisa esto (+ testers Android) | Larissa | ✅ Sí (el cierre de testers solo si la prueba cerrada está abierta) |
 | Sáb 17 | 13:00 | P10 | P | Sin señal, la app sigue funcionando | Dalia (alegre) | 🔴 Captura nueva |
 | Sáb 17 | 20:00 | T04 | T | 4 tipos de clientes que todo asesor conoce | Yago | ✅ Sí |
+| Dom 18 | 07:30 | M07 | H · antes/después | ¿Y si se te moja la libreta? (tu cartera en la nube) | Liberto | ✅ Sí |
 | Dom 18 | 13:00 | P11 | P | Ponla en tu pantalla de inicio sin tienda de apps | Nuria | 🔴 Captura nueva |
 | Dom 18 | 20:00 | H05 | H · chat | Una historia de terror para asesores 👻 (Halloween) | Jorge (susurro) | ✅ Sí |
 
-**Cuenta:** 8 ✅ listos para hacer con plantillas y capturas que ya existen · 2 🟡 se pueden hacer ya y quedan mejor con una
-captura nueva · 4 🔴 necesitan capturas nuevas. Las 6 capturas nuevas salen en **una sola corrida** de
-`node tools/capturas-videos.mjs` (Lucía agrega los conjuntos nuevos, con clientes inventados).
+**Cuenta (21):** **15 ✅** listos para hacer con plantillas y capturas que ya existen (los 7 de la mañana no usan ninguna
+captura) · 2 🟡 se pueden hacer ya y quedan mejor con una captura nueva · 4 🔴 necesitan capturas nuevas. Las 6 capturas
+nuevas salen en **una sola corrida** de `node tools/capturas-videos.mjs` (Lucía agrega los conjuntos nuevos, con clientes
+inventados). M03 y el cierre de M06 dependen de que Jonathan deje abierta la **prueba cerrada de Google Play** (sábado 10).
 
-**Orden de voces:** (Dalia dom 11) → Gerardo → Jorge → Dalia → Renata → Luciano → Dalia → Jorge → Nuria → Gerardo → Marina →
-Dalia → Yago → Nuria → Jorge. Dalia y Jorge (las voces de la casa) 3 veces cada una; Gerardo y Nuria 2 veces para poder
-compararlas; Renata sigue como voz de las tarjetas de consejo. Antes de producir, Lucía escucha a Gerardo, Luciano, Nuria, Yago,
-Candela y Cecilio en `public/voz/Muestrario_24_voces.mp3`; si alguna suena robótica, la cambia por otra de México del mismo
-sexo (Beatriz, Carlota, Larissa, Liberto, Pelayo) sin poner dos iguales seguidas.
+**Orden de voces (21):** (Dalia dom 11) → **Larissa** → Gerardo → Jorge → **Larissa** → Dalia → Renata → **Marina** → Luciano →
+Dalia → **Pelayo** → Jorge → Nuria → **Carlota** → Gerardo → Marina → **Larissa** → Dalia → Yago → **Liberto** → Nuria → Jorge.
+Ninguna se repite seguida. **Larissa** es la voz fija de la serie «Dato para guardar» (como Renata en «Cobranza en 15
+segundos»), para que la serie se reconozca. Las mañanas también sirven para **probar voces nuevas** (Larissa, Pelayo,
+Carlota, Liberto) contra las de la casa. Antes de producir, Lucía escucha a Gerardo, Luciano, Nuria, Yago, Candela, Cecilio,
+**Larissa, Pelayo, Carlota y Liberto** en `public/voz/Muestrario_24_voces.mp3`; si alguna suena robótica, la cambia por otra de
+México del mismo sexo (mujer: **Beatriz**; hombre: Gerardo o Luciano donde no queden juntos) sin poner dos iguales seguidas.
 
-**Tipos de gancho en orden:** pregunta → confesión → beneficio → serie numerada → curiosidad → pregunta de cuidado → fecha →
-mito → número → pregunta de novato → beneficio → humor → tutorial → terror.
+**Tipos de gancho en orden (21):** (#4 lista con número) → **guárdalo/checklist** → pregunta → confesión → **lista con número**
+→ beneficio → serie numerada → **petición directa (detrás de cámaras)** → curiosidad → pregunta de cuidado → **número (cifra de
+ejemplo)** → fecha → mito → **escena con hora** → número → pregunta de novato → **checklist para elegir** → beneficio → humor →
+**pregunta «¿y si…?»** → tutorial → terror.
+
+**Formatos en orden (21):** (#4 P) → T → P → H → T → P → T → H → P → H → T → P → T → H → P → H → T → P → T → H → P → H.
+Ninguno se repite seguido.
 
 **Plantillas (lo que ya existe en `videos/src/`):**
 - **T** = `src/tarjeta/Tarjeta.tsx`, se llena con `videos/tarjetas/<id>.json` (titular + líneas + llamado; `numerar` sí/no).
@@ -70,6 +106,26 @@ mito → número → pregunta de novato → beneficio → humor → tutorial →
 
 Formato de cada ficha: gancho del segundo 1 · escenas en breve · voz · capturas · descripción · hashtags.
 Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/guiones/`), que Jonathan aprueba.
+
+**Reglas de las mañanas (M01–M07):** cortas (**12–18 s**), sin capturas, voz a +10 %. En las T, cada renglón del titular
+cabe en una línea (unas 15 letras como máximo, como en `t01-5-senales.json`). Los checklists sirven **aunque no uses la app**
+(por eso se guardan); la app aparece solo en la voz del llamado y en la descripción. Cierre con «Guárdalo», nunca «dale like».
+**Testers (M03 y M06):** quien quiera probar manda su Gmail **por mensaje directo o a soporte@carteraasesor.com**, nunca en
+los comentarios (es dato personal). Jonathan los mete a la lista de la prueba cerrada en Play Console; los correos no se
+anotan en el repositorio ni en ningún archivo del proyecto. No se promete nada que no exista: ni «acceso de por vida», ni
+premios, ni fecha de salida a la tienda.
+
+### M01 · Lun 12 · 07:30 · «Dato para guardar #1: checklist del lunes antes de salir a cobrar» (T6 de Luna + día 10 del banco)
+- **Gancho (seg 1):** «Antes de salir a cobrar, revisa **esto** 📌»
+- **Tarjeta** (`videos/tarjetas/m01-checklist-lunes.json`): titular `["Antes de salir", "a cobrar,", "revisa **esto** 📌"]` ·
+  líneas (**numeradas**): «Mira quién te paga **hoy**» · «Separa a los **atrasados**» · «Avisa a los que vencen **mañana**» ·
+  «Arma tu **ruta** de cobro» · llamado `["Guárdalo para", "el **lunes** 📌"]`. ~13 s.
+- **Voz:** Larissa (+10 %), tono de colega que te pasa el dato. En el llamado puede decir: «Guárdalo para el lunes. Los tres
+  primeros, Cartera Asesor te los enseña al abrir la app».
+- **Capturas:** ninguna. ✅
+- **Descripción:** Checklist del lunes del asesor 📌 1) quién te paga hoy 2) los atrasados 3) avisa a los que vencen mañana
+  4) arma tu ruta. Guárdalo para el lunes. En Cartera Asesor los 3 primeros los ves al abrir la app: carteraasesor.com
+- **Hashtags:** #emprendedores #cobranza #educacionfinanciera #asesorindependiente #carteraasesor
 
 ### P05 · Lun 12 · 13:00 · «El semáforo de tu cartera 🟢🟡🔴» (#5 del plan)
 - **Gancho (seg 1):** «¿Qué significa el **rojo** en tu cartera? 🔴»
@@ -97,6 +153,18 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
   carteraasesor.com
 - **Hashtags:** #dinero #cobranza #clientes #asesorimss #carteraasesor
 
+### M02 · Mar 13 · 07:30 · «Dato para guardar #2: 4 datos que siempre pides a cada cliente» (día 8 del banco)
+- **Gancho (seg 1):** «**4 datos** que siempre pides a cada cliente»
+- **Tarjeta** (`videos/tarjetas/m02-4-datos.json`): titular `["4 datos que", "**siempre** pides", "a cada cliente"]` ·
+  líneas (**numeradas**): «Nombre **completo**» · «Celular con **WhatsApp**» · «Su día de **cobro**» · «Cada cuándo te **paga**» ·
+  llamado `["¿Te falta", "**alguno**? 👇"]`. ~12 s.
+- **A propósito:** no lleva CURP ni NSS; esos datos se cuidan aparte y son el tema de esa misma noche (H03).
+- **Voz:** Larissa (+10 %).
+- **Capturas:** ninguna. ✅
+- **Descripción:** Con estos 4 datos ya puedes cobrar a tiempo 📌 Nombre completo, celular con WhatsApp, día de cobro y cada
+  cuándo te paga. ¿Te falta alguno? 👇 Guárdalo. En Cartera Asesor cada cliente lleva los 4: carteraasesor.com
+- **Hashtags:** #mexico #clientes #cobranza #carteradeclientes #carteraasesor
+
 ### P06 · Mar 13 · 13:00 · «¿Mensual, trimestral o cada 15 días? La fecha se pone sola» (#6)
 - **Gancho (seg 1):** «Registras el pago y la próxima **fecha** se pone sola»
 - **Escenas:** gancho → selector de periodicidad (Mensual · Trimestral · Semestral · Anual · **Personalizado: cada N días**, p. ej. cada 15) → registrar pago → la próxima
@@ -120,6 +188,23 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
 - **Descripción:** Cobranza en 15 segundos #1 ⏱️ Avisar antes de que venza le da tiempo a tu cliente de apartar el pago.
   ¿Tú cuántos días antes avisas? 👇 Guárdalo para la quincena. carteraasesor.com
 - **Hashtags:** #finanzas #cobranza #educacionfinanciera #fidelización #carteraasesor
+
+### M03 · Mié 14 · 07:30 · «Busco 12 asesores con Android» (testers de Google Play · «dosis de realidad», T1 de Luna)
+- **Gancho (seg 1):** «Busco **12** asesores con Android 🙋»
+- **Escenas** (plantilla H, `videos/historias/m03-testers-android.json`, **sin capturas**): `titulo` «Busco **12** asesores con
+  Android» (emoji 🙋) → `frase` «Estamos preparando Cartera Asesor para **Google Play**» → `frase` «Antes de salir, Google pide
+  que **12 personas** la prueben 14 días» → `frase` «Es **gratis**: la usas y nos dices qué mejorar» → `frase` «Escríbeme por
+  **mensaje** y te mando la invitación 📩» → `cierre` `["¿Tienes Android?", "Escríbeme"]`. ~16 s.
+- **Por qué funciona:** es una petición honesta, de «detrás de cámaras»; a la gente le gusta ayudar a algo que empieza y
+  sentirse de los primeros. Sirve aunque no sean asesores: cualquier persona con Android cuenta para los 12.
+- **Voz:** Marina, sin estilo, cercana («entre colegas»).
+- **Capturas:** ninguna. ✅ **Condición:** se publica solo si la prueba cerrada de Google Play ya está abierta (Jonathan,
+  sábado 10). **Plan B:** publicar R3 «Libreta vs. app» (es H, así que no rompe la variedad) cambiando «Sábado» por
+  «Día» en el gancho, y pasar este video al miércoles siguiente.
+- **Descripción:** Busco 12 personas con celular Android para probar Cartera Asesor en Google Play antes de que salga 🙋 Es
+  gratis: la pruebas 14 días y nos dices qué mejorar. Escríbeme por mensaje directo o a soporte@carteraasesor.com y te mando
+  la invitación (no pongas tu correo en los comentarios). ¿Tú usas Android o iPhone? 👇
+- **Hashtags:** #android #negocios #cobranza #asesorimss #carteraasesor
 
 ### P07 · Mié 14 · 13:00 · «Abres la app y esto es lo primero que ves» (resumen del día ✳)
 - **Gancho (seg 1):** «Abres la app y esto es lo **primero** que ves 👀»
@@ -146,6 +231,20 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
   carteraasesor.com
 - **Hashtags:** #finanzas #fraude #educacionfinanciera #asesorimss #carteraasesor
 
+### M04 · Jue 15 · 07:30 · «El número que pica: $1,350 sin cobrar (ejemplo)» (T4 de Luna, mañana de quincena)
+- **Gancho (seg 1):** número enorme: «Ejemplo: **$1,350** sin cobrar»
+- **Tarjeta** (`videos/tarjetas/m04-numero-que-pica.json`): titular `["Ejemplo:", "**$1,350**", "sin cobrar"]` · líneas (sin
+  numerar): «3 clientes de **$450**» · «Se les pasó la fecha y no les **avisaste**» · «Una semana después, cuesta más
+  **pedirlo**» · «Avísales **antes** de que venza» · llamado `["¿Cuántos se te", "pasaron este **mes**? 👇"]`. ~14 s.
+- **Cuidado:** la cifra es **inventada y dice «Ejemplo» desde el primer cuadro** (3 × $450 = $1,350). No es una estadística, no
+  promete que con la app «ganas más» ni usa cifras del IMSS. No dice «Hoy es 15» para no pisar el gancho de P08.
+- **La jugada del día:** en la mañana duele (lo que se pasa), al mediodía P08 enseña la salida («Pagan hoy»).
+- **Voz:** Pelayo (+10 %), serio pero tranquilo.
+- **Capturas:** ninguna. ✅
+- **Descripción:** Es un ejemplo, pero ¿te suena? 💸 3 clientes de $450 a los que se les pasó la fecha = $1,350 que ahora tienes
+  que perseguir. Hoy es quincena: buen día para avisar a tiempo. ¿Cuántos se te pasaron este mes? 👇 carteraasesor.com
+- **Hashtags:** #dinero #educacionfinanciera #clientes #asesorindependiente #carteraasesor
+
 ### P08 · Jue 15 · 13:00 · «Hoy es quincena: ¿quién te paga hoy?» (top 1 de Luna) — FECHA FIJA, se produce primero
 - **Gancho (seg 1):** «Hoy es **15** 📅 ¿Ya sabes quién te paga?»
 - **Escenas:** gancho → filtro **«📅 Pagan hoy»** (los clientes cuyo próximo pago es hoy) → cliente → 💬 Recordar → mensaje
@@ -167,6 +266,21 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
 - **Descripción:** ¿Mito o realidad? 🤔 Con pocos clientes te acuerdas de todo; con muchos, alguno se te pasa. Lo que no se
   anota, no se cobra. ¿Cuántos clientes llevas tú? 👇 carteraasesor.com
 - **Hashtags:** #emprendedores #clientes #educacionfinanciera #asesorindependiente #carteraasesor
+
+### M05 · Vie 16 · 07:30 · «El mensaje del viernes que te ahorra la vuelta del lunes» (chat, sin capturas)
+- **Gancho (seg 1):** `gancho` con hora «☀️ Vie 7:30 a. m.» y titular «El mensaje que te ahorra la **vuelta** del lunes»
+- **Escenas** (plantilla H, `videos/historias/m05-mensaje-viernes.json`): gancho → `chat` con «Sra. Lupita» (inventada):
+  asesor «Buenos días, Sra. Lupita 😊 El lunes le toca su pago. ¿Paso a las 10?» · escribiendo… · Lupita «Sí, aquí se lo
+  tengo listo 👍» · asesor «¡Gracias! Buen fin de semana» → `frase` «Un aviso el **viernes** y el lunes ya te esperan» →
+  `frase` «En la app ese mensaje ya viene **listo**» → `cierre` `["¿Tú avisas antes", "del fin de semana? 👇"]`. ~17 s.
+- **Por qué esa noche no choca:** el martes T02 dice «avisa 3 días antes» (la regla); este video muestra **la escena** de hacerlo
+  el viernes. Mismo mensaje de marca, otro ángulo.
+- **Voz:** Carlota como narradora (gancho y frases); las burbujas sin voz.
+- **Capturas:** ninguna. ✅ (Si Lucía quiere, la segunda frase puede llevar `cobro-1-mensajes`, que ya existe; no es obligatorio.)
+- **Descripción:** Un mensaje el viernes en la mañana y el lunes tu cliente ya te espera con su pago ☀️ En Cartera Asesor el
+  mensaje de recordatorio ya viene listo y lo mandas por WhatsApp en 1 toque. ¿Tú avisas antes del fin de semana? 👇
+  carteraasesor.com
+- **Hashtags:** #whatsapp #cobranza #clientes #fidelización #carteraasesor
 
 ### P09 · Vie 16 · 13:00 · «Encuentra a cualquier cliente en 1 segundo» (#12)
 - **Gancho (seg 1):** «Encuentra a cualquier cliente en **1 segundo**»
@@ -192,6 +306,23 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
   cada mañana. ¿Qué consejo le darías tú a un asesor nuevo? Pruébala gratis en la beta: carteraasesor.com
 - **Hashtags:** #mexico #negocios #clientes #asesorimss #carteraasesor
 
+### M06 · Sáb 17 · 07:30 · «Dato para guardar #3: antes de elegir una app para tu cartera, revisa esto» (+ testers Android)
+- **Gancho (seg 1):** «¿Una app para tu cartera? Revisa **esto** 📌»
+- **Tarjeta** (`videos/tarjetas/m06-elegir-app.json`): titular `["¿Una app para", "tu cartera?", "Revisa **esto** 📌"]` · líneas
+  (**numeradas**): «Que funcione sin **internet**» · «Que la cuides con **PIN**» · «Que te diga quién **vence**» · «Que saques tu
+  lista a **Excel**» · llamado `["¿Tienes **Android**?", "Escríbeme 📩"]`. ~15 s.
+- **Por qué así:** es un checklist que sirve para revisar **cualquier** app (por eso se guarda) y las 4 cosas son ciertas en
+  Cartera Asesor hoy: funciona sin conexión, bloqueo con PIN o huella, resumen del día y vencimientos, y ☰ → Importar y
+  exportar → Exportar a Excel. No se nombra ni se critica a ninguna otra app.
+- **Voz:** Larissa (+10 %). En el llamado: «Cartera Asesor tiene las cuatro. ¿Tienes Android? Escríbeme y pruébala en Google
+  Play antes que nadie».
+- **Capturas:** ninguna. ✅ **Si la prueba cerrada no está abierta:** el llamado cambia a `["Pruébala **gratis**", "en la beta 👇"]`
+  y la descripción quita lo de Android.
+- **Descripción:** Antes de pasar tu cartera a una app, revisa estas 4 cosas 📌 Guárdalo. Cartera Asesor tiene las 4 y estamos
+  por llegar a Google Play: busco personas con Android para probarla gratis 14 días. Escríbeme por mensaje directo o a
+  soporte@carteraasesor.com (no pongas tu correo en los comentarios).
+- **Hashtags:** #android #automatización #negocios #gestiónclientes #carteraasesor
+
 ### P10 · Sáb 17 · 13:00 · «Sin señal, la app sigue funcionando» (#9, pregunta frecuente)
 - **Gancho (seg 1):** «Sin señal, la app **sigue** funcionando 📶» con etiqueta «Pregunta frecuente: ¿y si no tengo internet?»
 - **Escenas:** gancho → aviso de la app «Sin conexión. Puedes seguir trabajando…» → registrar un pago sin señal → vuelve la
@@ -215,6 +346,21 @@ Las frases exactas de voz y los tiempos los escribe Lucía en el guion (`videos/
 - **Descripción:** Todo asesor los conoce 😅 ¿Cuál es el tuyo? Cuéntame en los comentarios 👇 Y si tienes al cuarto, ya sabes
   el secreto: avisar antes. carteraasesor.com
 - **Hashtags:** #mexico #cobranza #clientes #asesorimss #carteraasesor
+
+### M07 · Dom 18 · 07:30 · «¿Y si se te moja la libreta?» (antes/después, tu cartera en la nube; idea #15 sin capturas)
+- **Gancho (seg 1):** «¿Y si se te **moja** la libreta? 🌧️»
+- **Escenas** (plantilla H, `videos/historias/m07-libreta-mojada.json`): `titulo` «¿Y si se te **moja** la libreta?» (emoji 🌧️) →
+  `dividida`: **Antes 📒 «Tu cartera en papel»** (se moja, se pierde o se queda en el carro · no hay copia · **con ella** se va tu
+  cartera) / **Con la app ☁️ «Tu cartera en la nube»** (se sube sola cuando hay señal · cambias de celular y entras con tu
+  cuenta · tus clientes **ahí están**) → `cierre` `["¿A ti ya se te", "perdió una? 👇"]`. ~15 s.
+- **La jugada del día:** en la mañana, «tu cartera no se pierde»; al mediodía P11, «ponla en tu pantalla de inicio»; en la
+  noche, el fantasma (H05). Tono ligero, sin dramatizar.
+- **Voz:** Liberto (+10 %).
+- **Capturas:** ninguna. ✅
+- **Descripción:** Se moja, se pierde o se queda olvidada… y con ella tu cartera 📒 En Cartera Asesor tus clientes se guardan
+  en la nube: cambias de celular, entras con tu cuenta y ahí están. ¿A ti ya se te perdió una libreta? 👇 Pruébala gratis en
+  la beta: carteraasesor.com
+- **Hashtags:** #emprendedores #clientes #negocios #carteradeclientes #carteraasesor
 
 ### P11 · Dom 18 · 13:00 · «Ponla en tu pantalla de inicio sin tienda de apps» (#16)
 - **Gancho (seg 1):** «Ponla en tu celular **sin** tienda de apps 📲»
@@ -255,7 +401,8 @@ mejor 1 bueno que 2 flojos.
 1. **P08 (quincena)**: tiene fecha fija del jueves 15. Primero con plan B; si después sale la captura «Pagan hoy», se rehace.
 2. Una sola corrida de capturas nuevas (clientes inventados): lista con colores, selector de periodicidad + próxima fecha,
    filtro «📅 Pagan hoy», buscador + filtros, aviso «Sin conexión», avisos de instalación (Android e iPhone).
-3. Los 8 ✅ (T02, T03, T04 en una tanda de tarjetas; H02, H03, H04, H05 con la plantilla H; P07).
+3. Los 15 ✅: **una tanda de 7 tarjetas** (M01, M02, M04, M06 + T02, T03, T04) y **una tanda de plantilla H** (M03, M05, M07 +
+   H02, H03, H04, H05); después P07. Las mañanas son las más rápidas: sin capturas y de 12–18 s.
 4. Los 🔴 con sus capturas nuevas (P06, P09, P10, P11) y P05 con la lista de colores.
 5. Revisión de fotogramas de todos (skill de marca) y entregar en `videos/entregas/` con nombre `<ID>_<tema>_con_voz.mp4`.
 Fecha límite sugerida: **domingo 11 en la noche**, para que Jonathan programe la semana completa (TikTok Studio deja programar
@@ -263,15 +410,21 @@ hasta 10 días antes).
 
 ## 5. Lo que hace Jonathan
 - Aprobar esta lista (sirve como brief); Lucía después le pasa los guiones con la columna de voz para el visto bueno.
-- Poner música comercial al 15–25 % y **activar «Contenido generado por IA» en los 14** (todos llevan voz sintética).
-- Programar en TikTok Studio (compu) con las horas de la tabla de arriba y copiar descripción y hashtags de cada ficha.
+- Poner música comercial al 15–25 % y **activar «Contenido generado por IA» en los 21** (todos llevan voz sintética).
+- Programar en TikTok Studio (compu) con las horas de la tabla de arriba (**07:30**, 13:00 y 20:00) y copiar descripción y
+  hashtags de cada ficha.
+- **Testers (M03 y M06):** dejar abierta la prueba cerrada de Google Play el sábado 10; revisar en TikTok que cualquiera le
+  pueda mandar mensaje directo; contestar a quien escriba y meter su Gmail en Play Console (Clara puede dejarle lista la
+  respuesta). Si el miércoles 14 la prueba todavía no está abierta, usar el plan B de M03.
 - Lunes 12 en la mañana: mandar las capturas de analíticas (ver `resultados.md`). Si llega un comentario real con una duda,
   avisar: se convierte en un video «Respondo» y reemplaza a P10.
 
 ## 6. Las tres jugadas siguientes (para no improvisar)
 - **Semana 19–25 oct:** «Cobranza en 15 segundos #2» (anota el pago al momento), «Lo que nadie te cuenta #2» si el #1 llegó al
   promedio, los primeros «Respondo» con comentarios reales y la función ✳ «Pagaron hoy». Luna confirma si hay fechas 2026
-  de la Semana Nacional de Educación Financiera (Condusef) para sumarnos con #educacionfinanciera.
+  de la Semana Nacional de Educación Financiera (Condusef) para sumarnos con #educacionfinanciera. Si las mañanas
+  aguantaron, «Dato para guardar #4–#6» (Larissa) y otro «número que pica» para la quincena del viernes 30; si ya están
+  los 12 testers, las mañanas dejan de pedirlos.
 - **Semana 26 oct–1 nov:** Halloween parte 2 (vie 30 o sáb 31) si H05 o T04 pegaron; viernes 30 «Fin de mes: revisa quién no
   te ha pagado»; Día de Muertos con el mismo personaje del fantasma (serie).
 - **Noviembre:** Buen Fin (13–17) con «aviso antes del puente». Las fechas de pagos del IMSS **no** se tocan mientras siga la
