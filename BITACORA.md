@@ -8,7 +8,7 @@ con `git pull`.
 - 🔒 **Historial de GitHub LIMPIO** (Jonathan corrió el push forzado): sin nombres ni teléfonos reales en ninguna rama
   (main, main-xlpub0, plataforma-beta, trabajo-oficina-07-10) de los dos repos; el estado final del código quedó idéntico.
   ⚠️ **Toda copia vieja (nube, PC de la casa) debe hacer `git fetch origin` + `git reset --hard origin/main`** (guardando
-  antes lo que tenga sin subir) y **nunca** hacer merge de una copia vieja. Falta: Jonathan pide al soporte de GitHub
+  antes lo que tenga sin subir) y **nunca** hacer merge de una copia vieja. ✅ Ticket enviado al soporte de GitHub el 08/10 (desde la cuenta de Jonathan; respuesta llega a su Gmail) para
   (support.github.com/contact → cartera-imss → Remove sensitive data) borrar la copia congelada de la **PR #1**.
 - 🎬 Lucía entregó **M01, P05 y H02** (lunes 12) con voz en `videos/entregas/`. Jonathan oyó M01: **la voz Larissa suena
   muy robótica** → se probaron 5 voces más humanas (`videos/public/voz/Comparar_voces_humanas.mp3`; A Dalia normal,
