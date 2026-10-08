@@ -36,3 +36,12 @@ imagenes/*
 .env*
 google-services.json
 GoogleService-Info.plist
+
+# Única excepción a *.xlsx: clientes 100 % INVENTADOS para la cuenta de prueba del revisor de Google Play
+# (se genera con tools/clientes-demo-revisor.mjs; nunca poner aquí datos reales)
+!tienda/cuenta-prueba/clientes-demo.xlsx
+
+# Paquetes de Android y datos de la llave de firma (PWABuilder los entrega en un .zip: guardarlos FUERA del repositorio)
+signing-key-info*
+*.aab
+*.apk

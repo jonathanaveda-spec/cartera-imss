@@ -1,0 +1,29 @@
+{
+ "id": "prueba-humana-C",
+ "voz": "es-MX-Valeria:MAI-Voice-2",
+ "velocidad": "+0%",
+ "frases": [
+  {
+   "texto": "Opción C.",
+   "pausa": 400
+  },
+  {
+   "texto": "Antes de salir a cobrar, revisa esto."
+  },
+  {
+   "texto": "Uno: mira quién te paga hoy."
+  },
+  {
+   "texto": "Dos: separa a los atrasados."
+  },
+  {
+   "texto": "Tres: avisa a los que vencen mañana."
+  },
+  {
+   "texto": "Cuatro: arma tu ruta de cobro."
+  },
+  {
+   "texto": "Guárdalo para el lunes. Los primeros tres los ves al abrir Cartera Asesor."
+  }
+ ]
+}

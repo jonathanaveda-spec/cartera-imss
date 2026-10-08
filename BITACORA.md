@@ -4,6 +4,25 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
+## ✅ 08/10 (PC de la oficina, jueves) — lo hecho hoy
+- 🔒 **Historial de GitHub LIMPIO** (Jonathan corrió el push forzado): sin nombres ni teléfonos reales en ninguna rama
+  (main, main-xlpub0, plataforma-beta, trabajo-oficina-07-10) de los dos repos; el estado final del código quedó idéntico.
+  ⚠️ **Toda copia vieja (nube, PC de la casa) debe hacer `git fetch origin` + `git reset --hard origin/main`** (guardando
+  antes lo que tenga sin subir) y **nunca** hacer merge de una copia vieja. Falta: Jonathan pide al soporte de GitHub
+  (support.github.com/contact → cartera-imss → Remove sensitive data) borrar la copia congelada de la **PR #1**.
+- 🎬 Lucía entregó **M01, P05 y H02** (lunes 12) con voz en `videos/entregas/`. Jonathan oyó M01: **la voz Larissa suena
+  muy robótica** → se probaron 5 voces más humanas (`videos/public/voz/Comparar_voces_humanas.mp3`; A Dalia normal,
+  B Dalia HD `es-MX-Dalia:DragonHDLatestNeural`, C Valeria `es-MX-Valeria:MAI-Voice-2`, D Jorge HD, E Alejo
+  `es-MX-Alejo:MAI-Voice-2`). **Las HD y MAI funcionan en el plan gratis F0.** Pendiente: Jonathan elige → rehacer los 3.
+- 🏪 Andrea dejó **Google Play listo para el sábado** en `tienda/google-play.md` (pasos, fuentes oficiales 08/10, Seguridad de
+  datos, clasificación, cuenta de prueba): `tienda/grafico-funciones.png` 1024×500, `tienda/icono-play-512.png`,
+  `sitio/eliminar-cuenta.html` (Google la exige), `sitio/.well-known/assetlinks.json` = `[]` (la huella va cuando haya
+  llave), `tools/clientes-demo-revisor.mjs` → `tienda/cuenta-prueba/clientes-demo.xlsx` (inventados). **Riesgos:**
+  PWABuilder podría empaquetar con Android API 35 y Google exige 36 desde el 31/08/2026 → ensayo con llave desechable el
+  viernes; la prueba cerrada no estará abierta el 14/10 (M03 y M06 usan reserva); con cuenta personal Google puede mostrar
+  el nombre legal de Jonathan. Encontró un **error al importar .csv** (fechas un día antes y día/mes volteados) → pendiente.
+- Eliminar cuenta ahora también borra el aviso diario (`config/avisos`) y el token del teléfono.
+
 ## 🟢 ORDEN PARA LA SESIÓN LOCAL (PC de la oficina, viernes 09/10) — HACER PRIMERO
 Jonathan la dejó armada desde el celular. Después de `git pull`, Emma pone a trabajar al equipo así:
 

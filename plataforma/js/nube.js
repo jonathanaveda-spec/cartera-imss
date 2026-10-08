@@ -299,6 +299,9 @@ export async function eliminarCuenta(clave) {
   await F.reauthenticateWithCredential(u, F.EmailAuthProvider.credential(u.email, clave));
   detener();
   const claves = new Set([...base.keys(), ...calcularCambios(S.db, new Map()).escribir.map((e) => e.key)]);
+  claves.add('config/avisos'); // aviso diario: hora, zona y teléfonos registrados (no lo maneja la sincronización)
+  try { await F.deleteToken(F.getMessaging()); } catch { /* sin aviso activo en este teléfono */ }
+  try { localStorage.removeItem(LS_AVISO); } catch { /* opcional */ }
   const todas = [...claves];
   for (let i = 0; i < todas.length; i += LOTE) {
     const b = F.writeBatch(fs);

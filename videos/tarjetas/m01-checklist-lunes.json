@@ -1,0 +1,14 @@
+{
+  "id": "m01-checklist-lunes",
+  "titular": ["Antes de salir", "a cobrar,", "revisa **esto** 📌"],
+  "lineas": [
+    "Mira quién te paga **hoy**",
+    "Separa a los **atrasados**",
+    "Avisa a los que vencen **mañana**",
+    "Arma tu **ruta** de cobro"
+  ],
+  "numerar": true,
+  "llamado": ["Guárdalo para", "el **lunes** 📌"],
+  "voz": "m01-checklist-lunes",
+  "guias": false
+}

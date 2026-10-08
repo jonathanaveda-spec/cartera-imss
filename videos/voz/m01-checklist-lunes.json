@@ -1,0 +1,13 @@
+{
+  "id": "m01-checklist-lunes",
+  "voz": "es-MX-LarissaNeural",
+  "velocidad": "+10%",
+  "frases": [
+    { "texto": "Antes de salir a cobrar, revisa esto." },
+    { "texto": "Uno: mira quién te paga hoy." },
+    { "texto": "Dos: separa a los atrasados." },
+    { "texto": "Tres: avisa a los que vencen mañana." },
+    { "texto": "Cuatro: arma tu ruta de cobro." },
+    { "texto": "Guárdalo para el lunes. Los primeros tres los ves al abrir Cartera Asesor." }
+  ]
+}

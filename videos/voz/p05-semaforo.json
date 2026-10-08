@@ -3,12 +3,26 @@
   "voz": "es-MX-GerardoNeural",
   "velocidad": "+5%",
   "frases": [
-    { "texto": "¿Qué significa el rojo en tu cartera? Es un semáforo, y se pinta solo." },
-    { "texto": "Cada cliente es verde, amarillo o rojo." },
-    { "texto": "Verde: va al corriente." },
-    { "texto": "Amarillo: su fecha de pago ya está cerca." },
-    { "texto": "Rojo: ya pasó su fecha. Ves cuántos días lleva de atraso." },
-    { "texto": "Y el color sale solo, de su fecha de cobro." },
-    { "texto": "¿Cuántos rojos tienes hoy? Cuéntamelo abajo. Pruébala gratis en la beta, en carteraasesor punto com." }
+    {
+      "texto": "¿Qué significa el rojo en tu cartera?"
+    },
+    {
+      "texto": "Es un semáforo, y se pinta solo: verde, amarillo o rojo."
+    },
+    {
+      "texto": "Verde: va al corriente."
+    },
+    {
+      "texto": "Amarillo: su fecha de pago ya está cerca."
+    },
+    {
+      "texto": "Rojo: ya pasó su fecha. Ves cuántos días lleva de atraso."
+    },
+    {
+      "texto": "Y el color sale solo, de su fecha de cobro."
+    },
+    {
+      "texto": "¿Cuántos rojos tienes hoy? Cuéntamelo abajo. Pruébala gratis en la beta, en carteraasesor punto com."
+    }
   ]
 }

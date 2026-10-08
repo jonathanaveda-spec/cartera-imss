@@ -3,52 +3,164 @@
   "voz": "p05-semaforo",
   "guias": false,
   "escenas": [
-    { "tipo": "titulo", "emoji": "🔴", "titular": ["¿Qué significa", "el **rojo** en", "tu cartera?"] },
+    {
+      "tipo": "titulo",
+      "emoji": "🔴",
+      "titular": [
+        "¿Qué significa",
+        "el **rojo** en",
+        "tu cartera?"
+      ]
+    },
     {
       "tipo": "captura",
-      "titular": ["Verde, amarillo", "o **rojo**"],
+      "titular": [
+        "Verde, amarillo",
+        "o **rojo**"
+      ],
       "imagenes": [
         {
-          "src": "capturas/sem-inicio.png", "zoom": 1, "cx": 540, "cy": 620,
+          "src": "capturas/sem-inicio.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 620,
           "anillo": [
-            { "x": 553, "y": 295, "w": 487, "h": 202, "color": "verde", "radio": 36 },
-            { "x": 40, "y": 522, "w": 487, "h": 201, "color": "ambar", "radio": 36 },
-            { "x": 553, "y": 522, "w": 487, "h": 200, "color": "rojo", "radio": 36 }
+            {
+              "x": 553,
+              "y": 295,
+              "w": 487,
+              "h": 202,
+              "color": "verde",
+              "radio": 36
+            },
+            {
+              "x": 40,
+              "y": 522,
+              "w": 487,
+              "h": 201,
+              "color": "ambar",
+              "radio": 36
+            },
+            {
+              "x": 553,
+              "y": 522,
+              "w": 487,
+              "h": 200,
+              "color": "rojo",
+              "radio": 36
+            }
           ]
         }
       ]
     },
     {
       "tipo": "captura",
-      "titular": ["🟢 Verde:", "**al corriente**"],
+      "titular": [
+        "🟢 Verde:",
+        "**al corriente**"
+      ],
       "imagenes": [
-        { "src": "capturas/sem-lista-verde.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 598, "y": 260, "w": 408, "h": 60, "color": "verde", "radio": 30 } }
+        {
+          "src": "capturas/sem-lista-verde.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 640,
+          "anillo": {
+            "x": 788,
+            "y": 252,
+            "w": 227,
+            "h": 76,
+            "color": "verde",
+            "radio": 38
+          }
+        }
       ]
     },
     {
       "tipo": "captura",
-      "titular": ["🟡 Amarillo:", "**por vencer**"],
+      "titular": [
+        "🟡 Amarillo:",
+        "**por vencer**"
+      ],
       "imagenes": [
-        { "src": "capturas/sem-lista-amarillo.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 598, "y": 260, "w": 408, "h": 60, "color": "ambar", "radio": 30 } }
+        {
+          "src": "capturas/sem-lista-amarillo.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 640,
+          "anillo": {
+            "x": 582,
+            "y": 279,
+            "w": 431,
+            "h": 76,
+            "color": "ambar",
+            "radio": 38
+          }
+        }
       ]
     },
     {
       "tipo": "captura",
-      "titular": ["🔴 Rojo:", "**moroso**"],
+      "titular": [
+        "🔴 Rojo:",
+        "**moroso**"
+      ],
       "imagenes": [
-        { "src": "capturas/sem-lista-rojo.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": [
-          { "x": 598, "y": 260, "w": 408, "h": 60, "color": "rojo", "radio": 30 },
-          { "x": 80, "y": 355, "w": 545, "h": 55, "color": "rojo", "radio": 28 }
-        ] }
+        {
+          "src": "capturas/sem-lista-rojo.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 640,
+          "anillo": [
+            {
+              "x": 590,
+              "y": 252,
+              "w": 423,
+              "h": 76,
+              "color": "rojo",
+              "radio": 38
+            },
+            {
+              "x": 80,
+              "y": 355,
+              "w": 545,
+              "h": 55,
+              "color": "rojo",
+              "radio": 28
+            }
+          ]
+        }
       ]
     },
     {
       "tipo": "captura",
-      "titular": ["Se pinta **solo**", "con su fecha de cobro"],
+      "titular": [
+        "Se pinta **solo**",
+        "con su fecha de cobro"
+      ],
       "imagenes": [
-        { "src": "capturas/sem-cliente.png", "zoom": 1, "cx": 540, "cy": 620, "anillo": { "x": 75, "y": 490, "w": 930, "h": 190, "color": "azul", "radio": 36 } }
+        {
+          "src": "capturas/sem-cliente.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 620,
+          "anillo": {
+            "x": 75,
+            "y": 490,
+            "w": 930,
+            "h": 190,
+            "color": "azul",
+            "radio": 36
+          }
+        }
       ]
     },
-    { "tipo": "cierre", "frase": ["¿Cuántos rojos", "tienes hoy? 👇"] }
+    {
+      "tipo": "cierre",
+      "frase": [
+        "¿Cuántos rojos",
+        "tienes hoy? 👇"
+      ]
+    }
   ]
 }

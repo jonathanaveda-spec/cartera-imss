@@ -15,10 +15,11 @@ import p04 from "../historias/tiktok-04-mensajes.json";
 import p05 from "../historias/p05-semaforo.json";
 import h02 from "../historias/h02-ya-te-pague.json";
 import t02 from "../tarjetas/t02-cobranza15s-1.json";
+import m01 from "../tarjetas/m01-checklist-lunes.json";
 
 // Cada archivo de videos/tarjetas/*.json y videos/historias/*.json es una composición:
 // para sumar una, importa su JSON arriba y agrégalo a estas listas.
-const TARJETAS = [t01, t02] as unknown as TarjetaProps[];
+const TARJETAS = [t01, t02, m01] as unknown as TarjetaProps[];
 const HISTORIAS = [h01, ejemplo, p05, h02] as unknown as HistoriaProps[];
 const MENSAJES = p04 as unknown as HistoriaProps; // TikTok #4 (misma plantilla de historia)
 
