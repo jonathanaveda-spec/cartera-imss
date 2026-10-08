@@ -1,0 +1,11 @@
+{
+  "id": "citlali-prueba",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Hola, soy Citlali.", "pausa": 300 },
+    { "texto": "Oye… ¿todavía buscas en la libreta quién te debe?", "pausa": 350 },
+    { "texto": "Te lo explico fácil, sin complicarte: con Cartera Asesor abres la app y en un segundo sabes quién te paga hoy y quién ya se atrasó.", "pausa": 350 },
+    { "texto": "Pruébala gratis en carteraasesor punto com." }
+  ]
+}
