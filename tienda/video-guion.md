@@ -13,7 +13,7 @@ Idea: primero el problema («ese soy yo 😩»), después la app **real** («est
 | 10–14 s | Importar el Excel: columnas ✓ reconocidas → Importar | Grabación real | Sube tu Excel tal como lo tienes | Sube tu Excel como lo tienes… |
 | 14–20 s | Resumen 🟢🟡🔴 y la lista de clientes; toca «Morosos» | Grabación real | Al día · Por vencer · Morosos. Al instante. | …y ves al instante quién está al día y quién te debe. |
 | 20–24 s | Toca 💬 Recordar → WhatsApp con el mensaje listo | Grabación real | Recordatorio por WhatsApp con un toque | Y le recuerdas el pago por WhatsApp con un toque. |
-| 24–27 s | Candado 🔒 sobre fondo azul | CapCut | 🔒 Solo tú ves tus clientes. Cada asesor tiene su propia cuenta. | Tus clientes, solo tuyos. |
+| 24–27 s | Candado 🔒 sobre fondo azul | CapCut | 🔒 Cada asesor tiene su propia cuenta. Nadie más entra a tu cartera. | Tu cartera, en tu propia cuenta. |
 | 27–30 s | Logo + dirección | CapCut | Pruébala GRATIS · carteraasesor.com | Pruébala gratis en carteraasesor.com |
 
 Música: algo alegre y suave de la biblioteca de CapCut (busca «corporate» o «upbeat»), bajita debajo de la voz.

@@ -161,6 +161,12 @@ Lo hace Emma con el equipo:
 - **Idea nueva (otra sesión, otro proyecto):** la app de finanzas/ventas hecha para MotoGrafix → pulir la interfaz y
   volverla para **cualquier negocio** (llevar las ventas de un local). Sería el 2.º producto de NeuroProyectos IA.
 
+**08/10 (nube) — Textos de privacidad de Julieta APROBADOS y publicados:** Jonathan dijo que sí. Se trajeron a main solo
+los textos (ui.js, sitio/index.html, tienda/google-play.md, tienda/video-guion.md, videos/plan-contenido.md y
+plan-semana) del commit c1d21ea; lo demás de la rama `trabajo-oficina-07-10` (avatares, capturas, videos de Lucía) sigue allá.
+Se comprobó que «cada acceso de soporte queda registrado» es cierto (admin.js). **3 videos por día: confirmado por
+Jonathan** (Victoria arma los 7 de la mañana). Avatar: Jonathan los está viendo.
+
 **🔁 RELEVO A LA SESIÓN EN LA NUBE (07/10, noche) — EMPEZAR POR AQUÍ**
 Jonathan apagó la PC del local. Quedó a medias:
 1. **Rama `trabajo-oficina-07-10`** (NO está en main, nada de eso se publicó): textos de privacidad corregidos por
