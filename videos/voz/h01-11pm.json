@@ -1,14 +1,14 @@
 {
   "id": "h01-11pm",
-  "voz": "es-MX-JorgeNeural",
-  "velocidad": "+5%",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
   "frases": [
-    { "texto": "Once de la noche, y sigues buscando en la libreta quién te debe.", "estilo": "sad" },
-    { "texto": "Oye, ¿cuánto te debo?", "voz": "es-MX-MarinaNeural", "velocidad": "+0%" },
-    { "texto": "Deja reviso.", "estilo": "chat" },
-    { "texto": "Mañana te digo.", "estilo": "sad" },
-    { "texto": "¿Te suena conocido?", "estilo": "chat" },
-    { "texto": "Con Cartera Asesor abres el resumen del día y ves quién te debe, y desde cuándo.", "estilo": "cheerful" },
-    { "texto": "Pruébala gratis en la beta. Entra a carteraasesor punto com.", "estilo": "cheerful" }
+    { "texto": "Son las once de la noche, y sigues buscando en la libreta quién te debe." },
+    { "texto": "Oye, ¿cuánto te debo?", "voz": "es-MX-Valeria:MAI-Voice-2" },
+    { "texto": "Eh, deja reviso." },
+    { "texto": "Mejor, mañana te digo." },
+    { "texto": "¿Te suena conocido?" },
+    { "texto": "Con Cartera Asesor abres el resumen del día, y ves quién te debe, y desde cuándo." },
+    { "texto": "Pruébala gratis en la beta. Entra a carteraasesor punto com." }
   ]
 }

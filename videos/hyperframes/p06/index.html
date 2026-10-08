@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>P06 fecha sola</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("assets/fonts/bricolage-800.woff2") format("woff2"); font-weight: 800; font-display: block; }
+@font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/jakarta.woff2") format("woff2"); font-weight: 200 800; font-display: block; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0B2A6F; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Plus Jakarta Sans", sans-serif; color: #fff;
+  background: linear-gradient(170deg, #0B2A6F, #1D4ED8); }
+.clip { position: absolute; inset: 0; }
+#glow { position: absolute; left: -240px; top: -300px; width: 1800px; height: 1400px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(26,163,245,0.55), rgba(26,163,245,0) 100%); }
+.oro { color: #FFD166; }
+.caja { position: absolute; left: 140px; width: 800px; }
+.titulo { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; text-align: center; white-space: nowrap; color: #fff;
+  letter-spacing: -2.5px; text-shadow: 0 6px 28px rgba(5,20,60,0.45); }
+.titulo > div { will-change: transform; }
+/* Tarjeta (M02, T02) */
+#tit { top: 600px; font-size: 112px; line-height: 1.04; transform-origin: 50% 0%; }
+#tit.gigante { top: 400px; }
+#tit .l0g { font-size: 400px; line-height: 0.95; letter-spacing: -12px; margin-bottom: 14px; }
+#lineas { top: 440px; display: flex; flex-direction: column; gap: 18px; }
+#lineas.gigante { top: 650px; gap: 30px; }
+.linea { display: flex; align-items: center; gap: 26px; padding: 22px 30px 24px 24px; border-radius: 40px;
+  background: rgba(11,42,111,0.62); border: 3px solid rgba(255,255,255,0.12); box-shadow: 0 18px 36px rgba(3,12,40,0.28); }
+.gigante .linea { padding: 34px 36px 36px 34px; }
+.num { flex: none; width: 76px; height: 76px; border-radius: 999px; background: #fff; color: #0B2A6F;
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 48px; display: flex; align-items: center; justify-content: center; }
+.txt { font-weight: 800; font-size: 48px; line-height: 1.18; letter-spacing: -0.5px; }
+.gigante .txt { font-size: 62px; }
+/* Llamado final / cierre */
+.logo { position: absolute; left: 440px; width: 200px; height: 200px; border-radius: 48px; box-shadow: 0 28px 56px rgba(3,12,40,0.5); }
+.nombre { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; text-align: center; letter-spacing: -1.5px; color: #fff; }
+.boton { display: flex; justify-content: center; }
+.boton > div { background: #16A34A; color: #fff; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; letter-spacing: -1px;
+  border-radius: 999px; box-shadow: 0 22px 44px rgba(3,12,40,0.45); border: 6px solid rgba(255,255,255,0.35); white-space: nowrap; }
+.resto { text-align: center; font-weight: 800; color: #DBE8FF; line-height: 1.3; }
+/* Teléfono con captura real (P06) */
+.tel { position: absolute; left: 140px; top: 186px; width: 800px; height: 888px; border-radius: 64px; background: #0F172A;
+  box-shadow: 0 40px 80px rgba(3,12,40,0.5), 0 0 0 3px rgba(255,255,255,0.18); }
+.pantalla { position: absolute; left: 14px; top: 14px; width: 772px; height: 860px; border-radius: 50px; overflow: hidden; background: #F5F8FF; }
+.cap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.cap img { width: 1080px; height: 1920px; display: block; }
+.anillo { position: absolute; border: 10px solid #1D4ED8; box-shadow: 0 0 0 8px rgba(255,255,255,0.35), 0 0 40px #1D4ED8; }
+.anillo.verde { border-color: #16A34A; box-shadow: 0 0 0 8px rgba(255,255,255,0.35), 0 0 40px #16A34A; }
+.subt { position: absolute; left: 140px; width: 800px; display: flex; justify-content: center; }
+.subt > div { background: rgba(11,42,111,0.82); border-radius: 40px; padding: 28px 32px 32px; white-space: nowrap; text-align: center;
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 64px; line-height: 1.08; letter-spacing: -1.5px;
+  color: #fff; text-shadow: 0 4px 18px rgba(5,20,60,0.45); }
+.emoji { text-align: center; line-height: 1; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="29.333" data-width="1080" data-height="1920">
+  <div id="glow"></div>
+  <section id="s1" class="clip" data-start="0" data-duration="5.767" data-track-index="1">
+    <div id="s1-emoji" class="caja emoji" style="top:330px;font-size:190px">🗓️</div>
+    <div id="s1-tit" class="caja titulo" style="top:600px;font-size:100px;line-height:1.03">
+      <div>Registras</div><div>el pago y la</div><div>próxima <span class="oro">fecha</span></div><div>se pone sola</div>
+    </div>
+  </section>
+  <section id="s2" class="clip" data-start="5.767" data-duration="8.2" data-track-index="1">
+    <div id="s2-tel" class="tel">
+      <div class="pantalla"><div id="s2-cap" class="cap" data-layout-allow-overflow style="transform:translate(0px,-299.111px) scale(0.715)"><img src="assets/capturas/sem-periodicidad.png" alt="">
+        <div id="s2-a" class="anillo " data-layout-allow-overflow style="left:32px;top:817px;width:1016px;height:536px;border-radius:48px"></div>
+        <div id="s2-b" class="anillo verde" data-layout-allow-overflow style="left:32px;top:1357px;width:1016px;height:241px;border-radius:48px"></div>
+      </div></div>
+    </div>
+    <div id="s2-subt" class="subt" style="top:1150px"><div><div>Elige <span class="oro">cada cuánto</span></div><div>te paga</div></div></div>
+  </section>
+  <section id="s3" class="clip" data-start="13.967" data-duration="4.533" data-track-index="1">
+    <div id="s3-tel" class="tel">
+      <div class="pantalla"><div id="s3-cap" class="cap" data-layout-allow-overflow style="transform:translate(0px,-512.444px) scale(0.715)"><img src="assets/capturas/sem-pago.png" alt="">
+        <div id="s3-a" class="anillo verde" data-layout-allow-overflow style="left:32px;top:1565px;width:1016px;height:126px;border-radius:44px"></div>
+      </div></div>
+    </div>
+    <div id="s3-subt" class="subt" style="top:1150px"><div><div>La próxima fecha</div><div>se calcula <span class="oro">sola</span></div></div></div>
+  </section>
+  <section id="s4" class="clip" data-start="18.5" data-duration="5.6" data-track-index="1">
+    <div id="s4-tel" class="tel">
+      <div class="pantalla"><div id="s4-cap" class="cap" data-layout-allow-overflow style="transform:translate(0px,-313.407px) scale(0.715)"><img src="assets/capturas/sem-pago-15dias.png" alt="">
+        <div id="s4-a" class="anillo " data-layout-allow-overflow style="left:14px;top:1167px;width:1052px;height:256px;border-radius:44px"></div>
+      </div></div>
+    </div>
+    <div id="s4-subt" class="subt" style="top:1150px"><div><div>También <span class="oro">cada 15 días</span></div></div></div>
+  </section>
+  <section id="ll" class="clip" data-start="24.1" data-duration="5.233" data-track-index="2">
+    <img id="ll-logo" class="logo" src="assets/logo.png" style="top:250px" alt="">
+    <div id="ll-nombre" class="caja nombre" style="top:500px;font-size:84px">Cartera Asesor</div>
+    <div id="ll-texto" class="caja titulo" style="top:630px;font-size:100px;line-height:1.04;letter-spacing:-3px">
+      <div id="ll-t0">Pruébala <span class="oro">gratis</span></div>
+      <div id="ll-t1">en la beta</div>
+    </div>
+    <div id="ll-boton" class="caja boton" style="top:960px"><div id="ll-boton-in" style="font-size:66px;padding:28px 42px 32px">carteraasesor.com</div></div>
+    <div id="ll-resto" class="caja resto" style="top:1150px;font-size:46px">Beta gratuita · hasta 100 clientes<div style="font-weight:600;font-size:42px;margin-top:14px"><div>¿Tus clientes cómo te pagan?</div><div>Cuéntamelo 👇</div></div></div>
+  </section>
+  <audio id="voz-1" src="assets/voz/01.mp3" data-start="0.133" data-duration="5.43" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-2" src="assets/voz/02.mp3" data-start="5.9" data-duration="7.87" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-3" src="assets/voz/03.mp3" data-start="14.1" data-duration="4.21" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-4" src="assets/voz/04.mp3" data-start="18.633" data-duration="5.27" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-5" src="assets/voz/05.mp3" data-start="24.433" data-duration="4.15" data-track-index="9" data-volume="1"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const E = "expo.out";
+tl.fromTo("#glow", { x: -70, y: 0 }, { x: 70, y: 40, duration: 29.333, ease: "none" }, 0);
+// Escena 1: gancho
+tl.fromTo("#s1-emoji", { scale: 0.7, opacity: 0.5 }, { scale: 1, opacity: 1, duration: 0.533, ease: "back.out(1.4)" }, 0);
+tl.fromTo("#s1-tit > div:nth-child(1)", { opacity: 0.4, y: 55 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0);
+tl.fromTo("#s1-tit > div:nth-child(2)", { opacity: 0.4, y: 55 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.133);
+tl.fromTo("#s1-tit > div:nth-child(3)", { opacity: 0.4, y: 55 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.267);
+tl.fromTo("#s1-tit > div:nth-child(4)", { opacity: 0.4, y: 55 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 0.4);
+tl.fromTo("#s1", { scale: 1 }, { scale: 1.03, duration: 5.767, ease: "none" }, 0);
+// Capturas: el recorte (zoom 1 hacia un punto) va en el CSS de cada captura; aquí solo entran desde abajo
+tl.fromTo("#s2-tel", { opacity: 0.3, y: 100 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 5.767);
+tl.fromTo("#s2-subt", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 5.9);
+tl.fromTo("#s3-tel", { opacity: 0.3, y: 100 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 13.967);
+tl.fromTo("#s3-subt", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 14.1);
+tl.fromTo("#s4-tel", { opacity: 0.3, y: 100 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 18.5);
+tl.fromTo("#s4-subt", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.4, ease: E }, 18.633);
+tl.fromTo("#s2-a", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, 6.3);
+tl.to("#s2-a", { scale: 1.02, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 5 }, 6.75);
+tl.to("#s2-a", { opacity: 0, duration: 0.2 }, 10.553);
+tl.fromTo("#s2-b", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, 10.653);
+tl.to("#s2-b", { scale: 1.02, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 5 }, 11.103);
+tl.fromTo("#s3-a", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, 14.7);
+tl.to("#s3-a", { scale: 1.02, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 5 }, 15.15);
+tl.fromTo("#s4-a", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.4, ease: E }, 19.233);
+tl.to("#s4-a", { scale: 1.02, duration: 0.35, ease: "sine.inOut", yoyo: true, repeat: 5 }, 19.683);
+// ll: llamado final
+tl.fromTo("#ll-logo", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.533, ease: "back.out(1.2)" }, 24.1);
+tl.fromTo("#ll-nombre", { opacity: 0 }, { opacity: 1, duration: 0.467, ease: E }, 24.233);
+tl.fromTo("#ll-t0", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 24.367);
+tl.fromTo("#ll-t1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 24.567);
+tl.fromTo("#ll-boton", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.467, ease: "back.out(1.3)" }, 25.233);
+tl.fromTo("#ll-resto", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 25.567);
+tl.to("#ll-boton-in", { scale: 1.03, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 5 }, 25.933);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

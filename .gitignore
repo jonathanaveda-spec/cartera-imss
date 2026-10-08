@@ -45,3 +45,8 @@ GoogleService-Info.plist
 signing-key-info*
 *.aab
 *.apk
+
+# HyperFrames: capturas de revisión y renders (se regeneran)
+videos/hyperframes/**/snapshots/
+videos/hyperframes/**/renders/
+videos/hyperframes/**/node_modules/

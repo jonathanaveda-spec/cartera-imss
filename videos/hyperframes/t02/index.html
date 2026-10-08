@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>T02 aviso 3 dias</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("assets/fonts/bricolage-800.woff2") format("woff2"); font-weight: 800; font-display: block; }
+@font-face { font-family: "Plus Jakarta Sans"; src: url("assets/fonts/jakarta.woff2") format("woff2"); font-weight: 200 800; font-display: block; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0B2A6F; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Plus Jakarta Sans", sans-serif; color: #fff;
+  background: linear-gradient(170deg, #0B2A6F, #1D4ED8); }
+.clip { position: absolute; inset: 0; }
+#glow { position: absolute; left: -240px; top: -300px; width: 1800px; height: 1400px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(26,163,245,0.55), rgba(26,163,245,0) 100%); }
+.oro { color: #FFD166; }
+.caja { position: absolute; left: 140px; width: 800px; }
+.titulo { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; text-align: center; white-space: nowrap; color: #fff;
+  letter-spacing: -2.5px; text-shadow: 0 6px 28px rgba(5,20,60,0.45); }
+.titulo > div { will-change: transform; }
+/* Tarjeta (M02, T02) */
+#tit { top: 600px; font-size: 112px; line-height: 1.04; transform-origin: 50% 0%; }
+#tit.gigante { top: 400px; }
+#tit .l0g { font-size: 400px; line-height: 0.95; letter-spacing: -12px; margin-bottom: 14px; }
+#lineas { top: 440px; display: flex; flex-direction: column; gap: 18px; }
+#lineas.gigante { top: 650px; gap: 30px; }
+.linea { display: flex; align-items: center; gap: 26px; padding: 22px 30px 24px 24px; border-radius: 40px;
+  background: rgba(11,42,111,0.62); border: 3px solid rgba(255,255,255,0.12); box-shadow: 0 18px 36px rgba(3,12,40,0.28); }
+.gigante .linea { padding: 34px 36px 36px 34px; }
+.num { flex: none; width: 76px; height: 76px; border-radius: 999px; background: #fff; color: #0B2A6F;
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 48px; display: flex; align-items: center; justify-content: center; }
+.txt { font-weight: 800; font-size: 48px; line-height: 1.18; letter-spacing: -0.5px; }
+.gigante .txt { font-size: 62px; }
+/* Llamado final / cierre */
+.logo { position: absolute; left: 440px; width: 200px; height: 200px; border-radius: 48px; box-shadow: 0 28px 56px rgba(3,12,40,0.5); }
+.nombre { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; text-align: center; letter-spacing: -1.5px; color: #fff; }
+.boton { display: flex; justify-content: center; }
+.boton > div { background: #16A34A; color: #fff; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; letter-spacing: -1px;
+  border-radius: 999px; box-shadow: 0 22px 44px rgba(3,12,40,0.45); border: 6px solid rgba(255,255,255,0.35); white-space: nowrap; }
+.resto { text-align: center; font-weight: 800; color: #DBE8FF; line-height: 1.3; }
+/* Teléfono con captura real (P06) */
+.tel { position: absolute; left: 140px; top: 186px; width: 800px; height: 888px; border-radius: 64px; background: #0F172A;
+  box-shadow: 0 40px 80px rgba(3,12,40,0.5), 0 0 0 3px rgba(255,255,255,0.18); }
+.pantalla { position: absolute; left: 14px; top: 14px; width: 772px; height: 860px; border-radius: 50px; overflow: hidden; background: #F5F8FF; }
+.cap { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; transform-origin: 0 0; }
+.cap img { width: 1080px; height: 1920px; display: block; }
+.anillo { position: absolute; border: 10px solid #1D4ED8; box-shadow: 0 0 0 8px rgba(255,255,255,0.35), 0 0 40px #1D4ED8; }
+.anillo.verde { border-color: #16A34A; box-shadow: 0 0 0 8px rgba(255,255,255,0.35), 0 0 40px #16A34A; }
+.subt { position: absolute; left: 140px; width: 800px; display: flex; justify-content: center; }
+.subt > div { background: rgba(11,42,111,0.82); border-radius: 40px; padding: 28px 32px 32px; white-space: nowrap; text-align: center;
+  font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 64px; line-height: 1.08; letter-spacing: -1.5px;
+  color: #fff; text-shadow: 0 4px 18px rgba(5,20,60,0.45); }
+.emoji { text-align: center; line-height: 1; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-duration="13.8" data-width="1080" data-height="1920">
+  <div id="glow"></div>
+  <section id="cuerpo" class="clip" data-start="0" data-duration="11.067" data-track-index="1">
+    <div id="cuerpo-in" style="position:absolute;inset:0">
+    <div id="tit" class="caja titulo gigante">
+      <div class="t0 l0g"><span class="oro">#1</span></div>
+      <div class="t1">Cobranza en</div>
+      <div class="t2">15 segundos</div>
+    </div>
+    <div id="lineas" class="caja gigante">
+      <div class="linea" id="l0"><div class="txt">Avisa <span class="oro">3 días</span> antes de que venza</div></div>
+      <div class="linea" id="l1"><div class="txt">Un mensaje corto y <span class="oro">amable</span></div></div>
+      <div class="linea" id="l2"><div class="txt">Así tu cliente aparta el <span class="oro">dinero</span></div></div>
+    </div>
+    </div>
+  </section>
+  <section id="ll" class="clip" data-start="10.867" data-duration="2.933" data-track-index="2">
+    <img id="ll-logo" class="logo" src="assets/logo.png" style="top:230px" alt="">
+    <div id="ll-nombre" class="caja nombre" style="top:470px;font-size:70px">Cartera Asesor</div>
+    <div id="ll-texto" class="caja titulo" style="top:620px;font-size:124px;line-height:1.04;letter-spacing:-3px">
+      <div id="ll-t0">¿Tú cuándo</div>
+      <div id="ll-t1"><span class="oro">avisas</span>? 👇</div>
+    </div>
+    <div id="ll-boton" class="caja boton" style="top:1010px"><div id="ll-boton-in" style="font-size:62px;padding:28px 42px 32px">carteraasesor.com</div></div>
+    <div id="ll-resto" class="caja resto" style="top:1190px;font-size:46px">Pruébala <span class="oro">gratis</span> en la beta</div>
+  </section>
+  <audio id="voz-1" src="assets/voz/01.mp3" data-start="0.133" data-duration="3.33" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-2" src="assets/voz/02.mp3" data-start="4" data-duration="2.51" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-3" src="assets/voz/03.mp3" data-start="6.7" data-duration="2.11" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-4" src="assets/voz/04.mp3" data-start="9" data-duration="1.79" data-track-index="9" data-volume="1"></audio>
+  <audio id="voz-5" src="assets/voz/05.mp3" data-start="11" data-duration="2.17" data-track-index="9" data-volume="1"></audio>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+const E = "expo.out";
+tl.fromTo("#glow", { x: -70, y: 0 }, { x: 70, y: 40, duration: 13.8, ease: "none" }, 0);
+// Titular: entra línea por línea, grande al centro; sube y se achica cuando llega la primera línea
+tl.fromTo("#tit .t0", { opacity: 0.45, y: 40 }, { opacity: 1, y: 0, duration: 0.333, ease: E }, 0);
+tl.fromTo("#tit .t1", { opacity: 0.45, y: 40 }, { opacity: 1, y: 0, duration: 0.333, ease: E }, 0.1);
+tl.fromTo("#tit .t2", { opacity: 0.45, y: 40 }, { opacity: 1, y: 0, duration: 0.333, ease: E }, 0.2);
+tl.to("#tit", { y: -210, scale: 0.6, duration: 0.533, ease: "power2.inOut" }, 3.533);
+tl.fromTo("#l0", { opacity: 0, y: 70, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.467, ease: E }, 4);
+tl.to("#l0", { backgroundColor: "rgba(6,24,74,0.92)", borderColor: "rgba(255,255,255,0.8)", duration: 0.15 }, 4);
+tl.to("#l0", { backgroundColor: "rgba(11,42,111,0.62)", borderColor: "rgba(255,255,255,0.12)", duration: 0.2 }, 6.567);
+tl.fromTo("#l1", { opacity: 0, y: 70, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.467, ease: E }, 6.667);
+tl.to("#l1", { backgroundColor: "rgba(6,24,74,0.92)", borderColor: "rgba(255,255,255,0.8)", duration: 0.15 }, 6.667);
+tl.to("#l1", { backgroundColor: "rgba(11,42,111,0.62)", borderColor: "rgba(255,255,255,0.12)", duration: 0.2 }, 8.867);
+tl.fromTo("#l2", { opacity: 0, y: 70, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.467, ease: E }, 8.967);
+tl.to("#l2", { backgroundColor: "rgba(6,24,74,0.92)", borderColor: "rgba(255,255,255,0.8)", duration: 0.15 }, 8.967);
+tl.to("#l2", { backgroundColor: "rgba(11,42,111,0.62)", borderColor: "rgba(255,255,255,0.12)", duration: 0.2 }, 10.867);
+// el contenido se va justo antes del llamado
+tl.to("#cuerpo-in", { opacity: 0, duration: 0.333, ease: "power1.in" }, 10.6);
+// ll: llamado final
+tl.fromTo("#ll-logo", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.533, ease: "back.out(1.2)" }, 10.867);
+tl.fromTo("#ll-nombre", { opacity: 0 }, { opacity: 1, duration: 0.467, ease: E }, 11);
+tl.fromTo("#ll-t0", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 11.134);
+tl.fromTo("#ll-t1", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 11.334);
+tl.fromTo("#ll-boton", { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.467, ease: "back.out(1.3)" }, 12);
+tl.fromTo("#ll-resto", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.467, ease: E }, 12.334);
+tl.to("#ll-boton-in", { scale: 1.03, duration: 0.4, ease: "sine.inOut", yoyo: true, repeat: 1 }, 12.7);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

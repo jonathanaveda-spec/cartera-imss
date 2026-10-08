@@ -1,0 +1,12 @@
+{
+  "id": "t02-aviso-3-dias",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Cobranza en quince segundos, número uno." },
+    { "texto": "Avisa tres días antes de que venza." },
+    { "texto": "Un mensaje corto, y amable." },
+    { "texto": "Así tu cliente aparta el dinero." },
+    { "texto": "¿Tú cuándo avisas? Cuéntamelo abajo." }
+  ]
+}

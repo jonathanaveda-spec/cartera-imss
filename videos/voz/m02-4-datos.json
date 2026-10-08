@@ -1,0 +1,13 @@
+{
+  "id": "m02-4-datos",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Guarda esto: cuatro datos que siempre le pides a cada cliente." },
+    { "texto": "Primero, su nombre completo." },
+    { "texto": "Segundo, su celular, y que tenga WhatsApp." },
+    { "texto": "Tercero, el día que te toca cobrarle." },
+    { "texto": "Y cuarto, cada cuánto te paga." },
+    { "texto": "¿Te falta alguno? Cuéntamelo abajo. En Cartera Asesor, cada cliente lleva los cuatro." }
+  ]
+}

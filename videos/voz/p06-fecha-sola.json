@@ -1,0 +1,12 @@
+{
+  "id": "p06-fecha-sola",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "¿Mensual, trimestral, o cada quince días? Da igual: la próxima fecha se pone sola." },
+    { "texto": "Primero eliges cada cuánto te paga el cliente: cada mes, cada tres meses, cada seis, cada año, o los días que tú quieras." },
+    { "texto": "Luego registras el pago, y la próxima fecha ya aparece calculada." },
+    { "texto": "Y si te pagan cada quince días, lo pones una vez, y ya no tienes que contar los días." },
+    { "texto": "¿Tus clientes cómo te pagan? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}
