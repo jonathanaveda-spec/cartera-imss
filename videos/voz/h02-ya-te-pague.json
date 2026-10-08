@@ -1,41 +1,15 @@
 {
   "id": "h02-ya-te-pague",
-  "voz": "es-MX-JorgeNeural",
-  "velocidad": "+5%",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
   "frases": [
-    {
-      "texto": "Lo que nadie te cuenta, número uno. Te dicen: ya te pagué, y no lo tienes anotado.",
-      "estilo": "sad"
-    },
-    {
-      "texto": "Ya te pagué desde el martes.",
-      "voz": "es-MX-CandelaNeural",
-      "velocidad": "+0%"
-    },
-    {
-      "texto": "¿Seguro? No lo tengo anotado.",
-      "estilo": "chat"
-    },
-    {
-      "texto": "Te lo di en efectivo, ¿no te acuerdas?",
-      "voz": "es-MX-CandelaNeural",
-      "velocidad": "+0%"
-    },
-    {
-      "texto": "Sin registro, es tu palabra contra la suya.",
-      "estilo": "sad"
-    },
-    {
-      "texto": "Con Cartera Asesor anotas el pago en el momento, y queda con su fecha.",
-      "estilo": "cheerful"
-    },
-    {
-      "texto": "Y con un toque le mandas su comprobante por WhatsApp.",
-      "estilo": "cheerful"
-    },
-    {
-      "texto": "¿Te ha pasado? Cuéntamelo abajo. Pruébala gratis en la beta.",
-      "estilo": "cheerful"
-    }
+    { "texto": "Lo que nadie te cuenta, número uno… Te dicen: «ya te pagué»… y tú no lo tienes anotado." },
+    { "texto": "Oye, ya te pagué desde el martes.", "voz": "es-MX-Dalia:DragonHDLatestNeural" },
+    { "texto": "¿Seguro? Es que no lo tengo anotado." },
+    { "texto": "Te lo di en efectivo… ¿no te acuerdas?", "voz": "es-MX-Dalia:DragonHDLatestNeural" },
+    { "texto": "Y sin registro… es tu palabra contra la suya." },
+    { "texto": "Con Cartera Asesor, anotas el pago en el momento, y queda con su fecha." },
+    { "texto": "Y con un toque, le mandas su comprobante por WhatsApp." },
+    { "texto": "¿Te ha pasado? Cuéntamelo abajo. Pruébala gratis en la beta." }
   ]
 }

@@ -60,9 +60,9 @@ miércoles de la CURP (H03); el domingo «la nube» (M07) va antes de «ponla en
 
 | Día | Hora | ID | Formato | Título | Voz | ¿Se puede hacer ya? |
 |---|---|---|---|---|---|---|
-| Lun 12 | 07:30 | M01 | T | Dato para guardar #1: checklist del lunes antes de salir a cobrar | Larissa | ✅ Sí |
-| Lun 12 | 13:00 | P05 | P | El semáforo de tu cartera 🟢🟡🔴 | Gerardo | 🟡 Sí con capturas que ya hay; mejor con 1 nueva |
-| Lun 12 | 20:00 | H02 | H · chat | Lo que nadie te cuenta de cobrar con libreta #1 | Jorge + Candela | ✅ Sí |
+| Lun 12 | 07:30 | M01 | T | Dato para guardar #1: checklist del lunes antes de salir a cobrar | Valeria (hecho) | ✅ Sí |
+| Lun 12 | 13:00 | P05 | P | El semáforo de tu cartera 🟢🟡🔴 | Alejo (hecho) | 🟡 Sí con capturas que ya hay; mejor con 1 nueva |
+| Lun 12 | 20:00 | H02 | H · chat | Lo que nadie te cuenta de cobrar con libreta #1 | Jorge HD + Dalia HD (hecho) | ✅ Sí |
 | Mar 13 | 07:30 | M02 | T | Dato para guardar #2: 4 datos que siempre pides a cada cliente | Larissa | ✅ Sí |
 | Mar 13 | 13:00 | P06 | P | ¿Mensual, trimestral o cada 15 días? La fecha se pone sola | Dalia | 🔴 Captura nueva |
 | Mar 13 | 20:00 | T02 | T | Cobranza en 15 segundos #1: avisa 3 días antes | Renata | ✅ Sí |
