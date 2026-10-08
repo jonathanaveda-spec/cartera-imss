@@ -16,6 +16,9 @@ Base: `plan-diario.md` (**P a las 13:00** + **por la noche, a las 20:00, H lun/m
 - Hashtags: 5 por video = **1 grande + 2 medianos + 2 de nicho**; #carteraasesor siempre es uno de los de nicho.
 - Toda pieza: zona segura, centrado en x = 540, palabra clave en oro, nada de prometer ganancias ni hablar como el IMSS,
   solo clientes inventados.
+- **Ajuste del 08/10 (Victoria, por `plan-crecimiento.md`):** las mañanas quedan como **«el video de todos»** (México y
+  Venezuela; 7:30 México = 9:30 Venezuela). No cambia ningún video, voz ni horario: solo **M01 y M07** prueban un hashtag de
+  Venezuela y **M03 y M06** piden testers «desde México, Venezuela o donde estés».
 
 ## La jugada de la semana (por qué así)
 La cuenta casi no tiene datos todavía, así que esta semana tiene dos trabajos: **probar** y **abrir conversación**. Por eso
@@ -125,7 +128,8 @@ premios, ni fecha de salida a la tienda.
 - **Capturas:** ninguna. ✅
 - **Descripción:** Checklist del lunes del asesor 📌 1) quién te paga hoy 2) los atrasados 3) avisa a los que vencen mañana
   4) arma tu ruta. Guárdalo para el lunes. En Cartera Asesor los 3 primeros los ves al abrir la app: carteraasesor.com
-- **Hashtags:** #emprendedores #cobranza #educacionfinanciera #asesorindependiente #carteraasesor
+- **Hashtags:** #emprendedores #cobranza #emprendedoresvenezolanos #asesorindependiente #carteraasesor (08/10: prueba de
+  Venezuela en lugar de #educacionfinanciera; se mide el 19)
 
 ### P05 · Lun 12 · 13:00 · «El semáforo de tu cartera 🟢🟡🔴» (#5 del plan)
 - **Gancho (seg 1):** «¿Qué significa el **rojo** en tu cartera? 🔴»
@@ -201,7 +205,7 @@ premios, ni fecha de salida a la tienda.
 - **Capturas:** ninguna. ✅ **Condición:** se publica solo si la prueba cerrada de Google Play ya está abierta (Jonathan,
   sábado 10). **Plan B:** publicar R3 «Libreta vs. app» (es H, así que no rompe la variedad) cambiando «Sábado» por
   «Día» en el gancho, y pasar este video al miércoles siguiente.
-- **Descripción:** Busco 12 personas con celular Android para probar Cartera Asesor en Google Play antes de que salga 🙋 Es
+- **Descripción:** Busco 12 personas con celular Android (desde México, Venezuela o donde estés) para probar Cartera Asesor en Google Play antes de que salga 🙋 Es
   gratis: la pruebas 14 días y nos dices qué mejorar. Escríbeme por mensaje directo o a soporte@carteraasesor.com y te mando
   la invitación (no pongas tu correo en los comentarios). ¿Tú usas Android o iPhone? 👇
 - **Hashtags:** #android #negocios #cobranza #asesorimss #carteraasesor
@@ -319,7 +323,7 @@ premios, ni fecha de salida a la tienda.
 - **Capturas:** ninguna. ✅ **Si la prueba cerrada no está abierta:** el llamado cambia a `["Pruébala **gratis**", "en la beta 👇"]`
   y la descripción quita lo de Android.
 - **Descripción:** Antes de pasar tu cartera a una app, revisa estas 4 cosas 📌 Guárdalo. Cartera Asesor tiene las 4 y estamos
-  por llegar a Google Play: busco personas con Android para probarla gratis 14 días. Escríbeme por mensaje directo o a
+  por llegar a Google Play: busco personas con Android (desde México, Venezuela o donde estés) para probarla gratis 14 días. Escríbeme por mensaje directo o a
   soporte@carteraasesor.com (no pongas tu correo en los comentarios).
 - **Hashtags:** #android #automatización #negocios #gestiónclientes #carteraasesor
 
@@ -360,7 +364,8 @@ premios, ni fecha de salida a la tienda.
 - **Descripción:** Se moja, se pierde o se queda olvidada… y con ella tu cartera 📒 En Cartera Asesor tus clientes se guardan
   en la nube: cambias de celular, entras con tu cuenta y ahí están. ¿A ti ya se te perdió una libreta? 👇 Pruébala gratis en
   la beta: carteraasesor.com
-- **Hashtags:** #emprendedores #clientes #negocios #carteradeclientes #carteraasesor
+- **Hashtags:** #venezuela #clientes #negocios #carteradeclientes #carteraasesor (08/10: prueba de Venezuela en lugar de
+  #emprendedores; se mide el 19)
 
 ### P11 · Dom 18 · 13:00 · «Ponla en tu pantalla de inicio sin tienda de apps» (#16)
 - **Gancho (seg 1):** «Ponla en tu celular **sin** tienda de apps 📲»

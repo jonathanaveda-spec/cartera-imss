@@ -245,3 +245,122 @@ mostrar → pico → cierre con pregunta) sí coincide con lo que ya hacemos.
   cualquier chat» (#13 del plan) + PIN de la app. Tono de cuidado, sin alarmismo.
 - Top Ads (anuncios pagados de otras industrias): no aplica por ahora; referencia para cuando haya publicidad pagada.
 - Pendiente: Hashtags con filtro de industria (Servicios financieros / Negocios) y **Canciones aprobadas para uso comercial**.
+
+---
+
+## Creadores para comentar (08/10)
+Investigación de Luna para el plan de crecimiento orgánico de @carteraasesor: Jonathan comenta 10–15 videos al día de creadores
+grandes del nicho; quien lee esos comentarios puede entrar al perfil.
+
+### Cómo se verificó (leer primero)
+- Todas las cuentas de abajo **aparecieron en resultados reales de búsqueda** (un video suyo en tiktok.com o una nota de prensa
+  que las nombra). El @usuario es el que se vio ahí.
+- **No pude abrir TikTok ni Instagram desde aquí** (el acceso está bloqueado en esta máquina). Por eso **ningún perfil quedó
+  confirmado en pantalla** y **no hay seguidores**: no los vi y no los invento. Jonathan debe abrir cada enlace una vez,
+  mirar seguidores y fecha del último video, y descartar las cuentas inactivas.
+- Enlace de perfil = `https://www.tiktok.com/@usuario`. Donde se vio un video exacto, va el enlace del video como prueba.
+- No encontré cuentas de Instagram con el mismo nivel de evidencia; no incluyo ninguna.
+- Los asesores de pensiones también venden servicios: sus videos sirven para comentar, pero **no repetir sus promesas** (pensiones
+  «de 100 mil», «aumentar tu pensión»). Ni IMSS ni CONSAR cobran por trámites y hay fraudes documentados con «gestores».
+
+### México (21 cuentas vistas)
+| # | @usuario | Enlace de perfil | Tema | Tamaño | Por qué nos sirve | Prueba vista |
+|---|---|---|---|---|---|---|
+| 1 | @lasenorajafra | https://www.tiktok.com/@lasenorajafra | Venta por catálogo (Jafra México) y **cobranza respetuosa** | sin confirmar | Su video da mensajes para cobrar; su público son vendedoras que fían: el cliente ideal | https://www.tiktok.com/@lasenorajafra/video/7560870670410796309 |
+| 2 | @seguros.y.pensiones | https://www.tiktok.com/@seguros.y.pensiones | Afore, retiro, Modalidad 40 (Monterrey) | sin confirmar | Seguros + pensiones: público de asesores y de gente con clientes | https://www.tiktok.com/@seguros.y.pensiones/video/7478562868640714002 |
+| 3 | @lhmagalasesor | https://www.tiktok.com/@lhmagalasesor | Asesor de Modalidad 40 / Ley 73 | sin confirmar | Asesor IMSS: lo leen otros asesores y personas con trámite | https://www.tiktok.com/@lhmagalasesor/video/7461120075441949958 |
+| 4 | @campeonesfinancieros | https://www.tiktok.com/@campeonesfinancieros | Afore, educación financiera | sin confirmar | Público de ahorro y retiro, tono amable | https://www.tiktok.com/@campeonesfinancieros/video/7338816124047346950 |
+| 5 | @luisminegocios (Luis Miguel Altamirano) | https://www.tiktok.com/@luisminegocios | Inversión, ahorro, negocios (Guadalajara, según Favikon) | sin confirmar | Público emprendedor y de finanzas | Perfil público en Favikon que lo nombra; nota de lista de cuentas |
+| 6 | @queondaconlaadultez | https://www.tiktok.com/@queondaconlaadultez | Finanzas personales, Afore | sin confirmar | Público joven con trabajo formal | https://www.tiktok.com/@queondaconlaadultez/video/7317490916804136197 |
+| 7 | @manueltrejove | https://www.tiktok.com/@manueltrejove | Cobranza a clientes morosos | ~20 mil «me gusta» en ese video; país **sin confirmar** | Habla justo de cobrar: comentarios de cobranza encajan perfecto | https://www.tiktok.com/@manueltrejove/video/7511331697523297542 |
+| 8 | @raulpensiones | https://www.tiktok.com/@raulpensiones | Ley de pensiones | sin confirmar | Asesor de pensiones | https://www.tiktok.com/@raulpensiones/video/7550174637448056069 |
+| 9 | @arroyo_rosario | https://www.tiktok.com/@arroyo_rosario | Asesoría Modalidad 40 / Ley 73 | sin confirmar | Asesora IMSS | https://www.tiktok.com/@arroyo_rosario/video/7554547400770129170 |
+| 10 | @anelpuertogongora | https://www.tiktok.com/@anelpuertogongora | Pensión, Afore, Modalidad 40 | sin confirmar | Asesora de pensiones (ojo: promete montos altos, no imitar) | https://www.tiktok.com/@anelpuertogongora/video/7367510795716021509 |
+| 11 | @pensionateconalonso | https://www.tiktok.com/@pensionateconalonso | Seguridad para tramitar pensión Ley 73 / Mod. 40 | sin confirmar | Público de pensiones | https://www.tiktok.com/@pensionateconalonso/video/7512954361698422023 |
+| 12 | @ajconsultoresmx | https://www.tiktok.com/@ajconsultoresmx | Consultora de pensiones IMSS | sin confirmar | Empresa; lectores son asesores y público | https://www.tiktok.com/@ajconsultoresmx/video/7549689337345002758 |
+| 13 | @pensionesdoradas | https://www.tiktok.com/@pensionesdoradas | Trámites Modalidad 40 | sin confirmar | Público de pensiones | https://www.tiktok.com/@pensionesdoradas/video/7372012880998321413 |
+| 14 | @pensiones_mx | (mismo formato) https://www.tiktok.com/@pensiones_mx | Cuánto pensión a los 60 | sin confirmar | Público de pensiones | Citado por búsqueda; sin enlace de video |
+| 15 | @fernandovargas.pensiones | https://www.tiktok.com/@fernandovargas.pensiones | Requisitos Ley 73 | sin confirmar | Asesor de pensiones | Citado por búsqueda; sin enlace de video |
+| 16 | @roble.seguros | https://www.tiktok.com/@roble.seguros | Seguros y pensiones IMSS | sin confirmar | Agencia de seguros | Citado por búsqueda; sin enlace de video |
+| 17 | @interproseguro (César Saldivar) | https://www.tiktok.com/@interproseguro | Pagar semanas Modalidad 40 | sin confirmar | Asesor de seguros/pensiones | Citado por búsqueda |
+| 18 | @cesarmontejanob | https://www.tiktok.com/@cesarmontejanob | Semanas Modalidad 40 | sin confirmar | Asesor | Citado por búsqueda |
+| 19 | @capital_inteligente (Andrés Garza) | https://www.tiktok.com/@capital_inteligente | Finanzas, negocios | sin confirmar (la búsqueda directa no lo mostró) | Lo nombran listas de «mejores cuentas» | Solo en nota de lista (2023–2024) |
+| 20 | @lagodelosbusiness | https://www.tiktok.com/@lagodelosbusiness | Afore, tarjetas, bancos (letra chiquita) | sin confirmar | Público de finanzas | Solo en nota de lista; otra cuenta lo etiqueta en un video de Afore |
+| 21 | @morisdieck | https://www.tiktok.com/@morisdieck | Finanzas para emprendedores/freelancers | sin confirmar | Público emprendedor | Solo en nota de lista; la búsqueda directa no lo mostró |
+
+**Cuentas 19–21: sin confirmar** (solo salieron en listas de prensa de 1–3 años; pueden haber cambiado de nombre o estar inactivas).
+Cuentas 14–18: se vio el @ en la búsqueda pero no un video con enlace.
+
+### Venezuela (11 cuentas vistas)
+| # | @usuario | Enlace de perfil | Tema | Tamaño | Por qué nos sirve | Prueba vista |
+|---|---|---|---|---|---|---|
+| 1 | @el.cesaraugusto | https://www.tiktok.com/@el.cesaraugusto | Vender con **Cashea** (cuotas): comisión, plazos, colchón de caja | sin confirmar | Público de comerciantes que venden en cuotas: nuestro tema exacto | Citado por búsqueda sobre Cashea (sin enlace de video) |
+| 2 | @elprofeheiberg | https://www.tiktok.com/@elprofeheiberg | Emprendimiento, márgenes con Cashea | sin confirmar | Público de emprendedores | Citado por búsqueda (sin enlace de video) |
+| 3 | @mariajelitzaseguros | https://www.tiktok.com/@mariajelitzaseguros | Asesora de seguros en Venezuela (dice 20 años de experiencia) | ~3.7 mil «me gusta» y 55 comentarios en un video | Asesora como Jonathan describe a su cliente | Citada por búsqueda |
+| 4 | @indizap (Indira Zapata) | https://www.tiktok.com/@indizap | «Cómo cobrarle a mi cliente en Venezuela» | sin confirmar | Habla de cobrar; la creadora es venezolana según el resultado | Citada por búsqueda |
+| 5 | @inaki______ | https://www.tiktok.com/@inaki______ | App de finanzas personales para Venezuela | 47.5 mil «me gusta» y 994 comentarios en el video | Video con muchos comentarios; público de finanzas | https://www.tiktok.com/@inaki______/video/7575690378368568587 |
+| 6 | @ivannavalentinaa | https://www.tiktok.com/@ivannavalentinaa | Cashea, marketing digital | sin confirmar | Público de comercios | https://www.tiktok.com/@ivannavalentinaa/video/7634322036483018004 |
+| 7 | @nanilozada_ | https://www.tiktok.com/@nanilozada_ | Humor sobre ahorrar en bolívares | sin confirmar | Público amplio, comentarios con humor funcionan | https://www.tiktok.com/@nanilozada_/video/7570102966393359627 |
+| 8 | @yazird | https://www.tiktok.com/@yazird | Créditos para emprendedores (Banco de Venezuela) | sin confirmar | Público de emprendedores | https://www.tiktok.com/@yazird/video/7475883150908919045 |
+| 9 | @dalimeramali | https://www.tiktok.com/@dalimeramali | Emprender y monetizar en Venezuela | sin confirmar | Público emprendedor | https://www.tiktok.com/@dalimeramali/video/7436458416496856375 |
+| 10 | @stagedesign | https://www.tiktok.com/@stagedesign | Mayorista que vende en cuotas con Cashea | sin confirmar | Comerciante real que fía: público ideal | Citada por búsqueda (sin enlace de video) |
+| 11 | JL Camejo Asesores | **sin confirmar** (no se vio el @) | Pólizas de salud en Venezuela | sin confirmar | Asesores de seguros | Solo el nombre en la búsqueda |
+
+El país de cada cuenta venezolana sale del contexto del video (bolívares, Cashea, Banco de Venezuela), no de su perfil: **confirmar al abrir**.
+
+### Los mejores para empezar (según el público que leen)
+- **México:** @lasenorajafra, @manueltrejove (confirmar país), @seguros.y.pensiones, @lhmagalasesor, @campeonesfinancieros.
+- **Venezuela:** @el.cesaraugusto, @elprofeheiberg, @stagedesign, @mariajelitzaseguros, @indizap.
+- Razón: sus lectores **fían y cobran en cuotas** (vendedoras, comerciantes, asesores), es decir, nuestros usuarios. Los
+  creadores de finanzas grandes (@luisminegocios) dan alcance, pero el público es más general.
+
+### Plantillas de comentarios (15)
+Reglas de uso: **cambiar siempre algo** (la palabra, el ejemplo o el cierre) y **leer el video antes**; si el comentario no
+cuadra con el video, no se pone. Sin links, sin «descarga», sin mencionar la app.
+
+México
+1. «Lo que más me funcionó para cobrar: avisar un día antes del pago, en vez de esperar a que se pase. Casi nadie se ofende por un recordatorio amable.»
+2. «Pregunta de asesor a asesor: ¿ustedes cobran por quincena o por mes? A mí el cambio a quincena me bajó mucho los atrasos.»
+3. «Algo que aprendí: si el cliente no paga, casi nunca es por mala fe, es que se le olvidó. Un mensaje corto con su fecha lo resuelve.»
+4. «Buen punto. Yo anoto cada pago en el momento, porque «ya te pagué» sin fecha apuntada es la pelea más cara del mundo.»
+5. «Con 30 clientes la libreta aún alcanza; con 100 ya no sé ni a quién le escribí ayer. ¿Cómo le hacen ustedes?»
+6. «Ojo con pedir pagos por transferencia y guardar solo el mensaje: la captura del comprobante es lo que te salva después.»
+7. «Mi regla: nunca mando datos de un cliente por chat grupal. CURP, NSS y teléfonos, solo en privado. Mejor prevenir.»
+8. «Yo antes cobraba cuando me acordaba. Ahora tengo un día fijo a la semana solo para cobranza y se acabó el estrés.»
+9. «Qué buen consejo. Algo que suma: confirmar el pago por escrito cuando te lo entregan. Nadie discute con un comprobante.»
+
+Venezuela
+10. «En mi experiencia, al fiar en dólares conviene dejar escrito el monto en dólares y la fecha, para que nadie discuta el cambio al cobrar.»
+11. «Con ventas en cuotas lo que más duele es el flujo: vendes hoy y cobras en semanas. Yo siempre dejo un colchón para el mes.»
+12. «Pregunta: ¿cuántas cuotas ofrecen ustedes? Yo noté que más de 3 o 4 y ya me cuesta controlar quién debe qué.»
+13. «Algo que me funcionó: recordar la cuota por WhatsApp el día anterior, con tono de amigo, no de cobrador. Responden más rápido.»
+
+Cualquier país
+14. «La parte que nadie dice: anotar cada abono. No es desconfianza, es cuidar la amistad con el cliente.»
+15. «Gran video. ¿Qué es lo más difícil para ustedes: cobrar a tiempo o acordarse de a quién le toca?» (pregunta abierta: genera respuestas)
+
+No usar nunca: «te paso mi app», «escríbeme por privado», cifras de ganancia, promesas de pensión, frases como «el IMSS te da…».
+
+### Regla de seguridad para no ser marcado como spam
+TikTok **no publica un número oficial** de comentarios permitidos. Lo de abajo es prudencia (lo que suele cuidarse en cuentas
+nuevas), no regla oficial. Si TikTok avisa de alguna limitación, parar ese día.
+1. **Cantidad:** semana 1 → 5 por día; semana 2 → 8 por día; luego 10–15. Nunca los 15 de golpe: repartidos en 3 momentos
+   del día (por ejemplo mañana, tarde y noche), con al menos 3–5 minutos entre uno y otro.
+2. **Que no sean iguales:** ninguna plantilla se pega tal cual; cambiar palabras y ejemplos. Dos comentarios idénticos el mismo
+   día son la señal más fácil de bot. Una plantilla no debe repetirse en la misma semana.
+3. **Dar valor primero:** ver el video, comentar algo que tenga que ver con lo que dicen. Responder a otros comentarios también cuenta.
+4. **Cero enlaces, cero «sígueme», cero repetir el nombre de la app.** El perfil ya hace el trabajo.
+5. **Un comentario por video y por creador al día.** Y no ir solo a los mismos tres creadores: rotar.
+6. **Si hay señales de problema** (comentarios que desaparecen, aviso de TikTok, «acción restringida»), parar 24–48 horas y bajar la cantidad.
+7. **Cuenta recomendada: @carteraasesor** (la de la marca), por tres razones: (a) quien se interesa entra al perfil correcto, no a una cuenta
+   personal sin nada; (b) si Jonathan comenta desde su personal, el interés se queda ahí y hay que pasarlo; (c) comentar con la
+   marca da constancia (con el tiempo, nombre conocido). **Riesgo:** una cuenta de empresa nueva que comenta mucho se ve más
+   comercial. Para compensar: foto y biografía claras y humanas, y comentarios que suenen a persona («yo», «en mi experiencia»),
+   no a empresa («nosotros te ofrecemos»). Si TikTok limita la cuenta de la marca, usar una personal de Jonathan como plan B.
+8. **Cuidar el tono de Venezuela:** hablar de «cuotas», «fiado» y «cobrar en dólares» sin afirmar tasas, comisiones ni dar consejos
+   de cambio de moneda; cada país con sus palabras.
+
+### Lo que le pido a Jonathan
+1. Abrir cada enlace, anotar seguidores y fecha del último video, y quedarse con las cuentas **activas esta semana**.
+2. Mandarme captura de 2–3 de esas cuentas para que yo confirme las que dicen «sin confirmar» y arme una lista final con tamaños.
+3. Decidir desde qué cuenta comenta (mi recomendación: @carteraasesor).
