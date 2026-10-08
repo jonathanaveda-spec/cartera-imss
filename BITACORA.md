@@ -4,6 +4,26 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
+## 🟢 ORDEN PARA LA SESIÓN LOCAL (PC de la oficina, viernes 09/10) — HACER PRIMERO
+Jonathan la dejó armada desde el celular. Después de `git pull`, Emma pone a trabajar al equipo así:
+
+1. **Lucía (productor-videos): tanda de la semana 12–18/10 = 21 videos (3 por día).** Fichas en
+   `videos/plan-semana-2026-10-12.md` (7:30 M01–M07 · 13:00 P05–P11 · 20:00 T/H). Orden de producción: primero los del
+   **lunes 12** (M01, P05, H02), luego martes, y así. Su avance del 07/10 (capturas `sem-*`, h02, p05, t02, plantillas y
+   voces) **ya está en main** (se trajo el 08/10 desde la nube): **no** hace falta usar la rama `trabajo-oficina-07-10`.
+   - Voz: Azure (solo en esta PC). Cada video revisado por fotogramas → `videos/entregas/<ID>_con_voz.mp4` → commit y push
+     al terminar cada día de la semana (así Jonathan los baja desde el celular).
+   - Avisos ya programados en la nube para publicar a las 7:25, 12:55 y 19:55 (del 12 al 18): dicen qué video toca y
+     avisan si falta en `entregas/`. **El lunes 12 a las 7:30 tiene que estar M01.**
+   - Los videos que piden testers (M03 mié 14, M06 sáb 17) solo salen si la prueba cerrada de Google Play ya está abierta;
+     si no, usar el de reserva que dejó Victoria.
+2. **Citlali (avatar elegido, `tienda/marca/avatares/citlali/`)**: Jonathan la está probando en HeyGen. Si le gusta,
+   Ximena hace 2–3 imágenes más con la misma cara (otros gestos). No usar avatar en la tanda hasta que Jonathan apruebe.
+3. **Andrea (gestora-tiendas): Google Play para el sábado 10/10** (cuenta personal, nombre visible NeuroProyectos IA;
+   ver `empresa/puente-digital/google-play/LEEME.md` y `PLAN.md`): lista de pasos, TWA/PWABuilder, Seguridad de datos,
+   cuenta de prueba para el revisor, gráfico 1024×500.
+4. Pendiente de decisión de Jonathan (no hacer sin su OK): limpieza del historial (push forzado), ver «RELEVO» más abajo.
+
 ## 🏢 Empresa madre: NeuroProyectos IA (07/10, borrador en curso)
 
 Jonathan quiere una empresa «madre» que desarrolle sus apps (Cartera Asesor es su primer producto). Todo vive en

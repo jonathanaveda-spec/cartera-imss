@@ -1,0 +1,12 @@
+{
+  "id": "t02-cobranza15s-1",
+  "voz": "es-MX-RenataNeural",
+  "velocidad": "+15%",
+  "frases": [
+    { "texto": "Cobranza en quince segundos, número uno." },
+    { "texto": "Avisa tres días antes de que venza." },
+    { "texto": "Un mensaje corto y amable." },
+    { "texto": "Así tu cliente aparta el dinero." },
+    { "texto": "¿Tú cuándo avisas? Pruébala gratis en carteraasesor punto com." }
+  ]
+}

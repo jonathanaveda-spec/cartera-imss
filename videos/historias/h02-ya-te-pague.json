@@ -1,0 +1,35 @@
+{
+  "id": "h02-ya-te-pague",
+  "voz": "h02-ya-te-pague",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "etiqueta": "Lo que nadie te cuenta #1", "emoji": "🙄", "titular": ["«Ya te pagué»…", "y no lo tienes", "**anotado**"] },
+    {
+      "tipo": "chat",
+      "contacto": { "nombre": "Paty Ruiz", "iniciales": "PR" },
+      "items": [
+        { "de": "cliente", "texto": "Ya te pagué desde el martes 🙄", "hora": "10:42 a. m.", "voz": true },
+        { "escribiendo": "asesor", "seg": 0.9 },
+        { "de": "asesor", "texto": "¿Seguro? No lo tengo anotado 😬", "hora": "10:44 a. m.", "leido": true, "voz": true },
+        { "escribiendo": "cliente", "seg": 1.1 },
+        { "de": "cliente", "texto": "Te lo di en efectivo, ¿no te acuerdas?", "hora": "10:45 a. m.", "voz": true }
+      ]
+    },
+    { "tipo": "frase", "titular": ["Sin registro,", "es tu palabra", "contra la **suya**"] },
+    {
+      "tipo": "captura",
+      "titular": ["Anota el pago", "al **momento**"],
+      "imagenes": [
+        { "src": "capturas/sem-pago.png", "zoom": 1, "cx": 540, "cy": 600, "anillo": { "x": 60, "y": 323, "w": 960, "h": 110, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Y le mandas su", "**comprobante**"],
+      "imagenes": [
+        { "src": "capturas/sem-comprobante.png", "zoom": 1, "cx": 540, "cy": 1320, "anillo": { "x": 505, "y": 1780, "w": 535, "h": 110, "color": "verde", "radio": 36 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Te ha pasado?", "Cuéntamelo 👇"] }
+  ]
+}
