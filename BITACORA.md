@@ -24,6 +24,12 @@ Jonathan la dejó armada desde el celular. Después de `git pull`, Emma pone a t
    cuenta de prueba para el revisor, gráfico 1024×500.
 4. Pendiente de decisión de Jonathan (no hacer sin su OK): limpieza del historial (push forzado), ver «RELEVO» más abajo.
 
+## 🕐 Horarios (08/10): Jonathan vive en **Cali, Colombia** (UTC−5); es venezolano, 32 años
+Los videos se publican con **hora de Ciudad de México** (UTC−6, donde está el público): 7:30 / 13:00 / 20:00 de México =
+**8:30 a. m. / 2:00 p. m. / 9:00 p. m. de Cali**. Avisos en la nube (5 min antes, hora Cali): semana 12–18/10 a las 8:25,
+1:55 y 8:55; H01 vie 9 y #4 dom 11 a las 8:55 p. m.; rato de comentarios 9:15 p. m. (10–19/10); lunes 19 a las 9:00
+revisar resultados. TikTok Studio programa con la hora de la compu: en la de Cali, sumar 1 hora a la de México.
+
 ## 🏢 Empresa madre: NeuroProyectos IA (07/10, borrador en curso)
 
 Jonathan quiere una empresa «madre» que desarrolle sus apps (Cartera Asesor es su primer producto). Todo vive en
