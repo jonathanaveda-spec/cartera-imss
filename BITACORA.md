@@ -119,7 +119,7 @@ nuevo (54/54 pruebas) y se arreglaron 3 fallas del resumen del día (en línea `
 3. ✅ **Sin videos de noticias del IMSS** por ahora (decisión de Jonathan 07/10).
 
 Lo hace Jonathan:
-4. ✅ (07/10) #2 Excel y #3 PIN **publicados con voz**. Faltan T01 (jue 8, 20:00), H01 (vie 9, 20:00) y #4 (dom 11, 20:00).
+4. ✅ (07/10) #2 Excel y #3 PIN **publicados con voz**. ✅ T01 publicado (jue 08/10, 20:00). Faltan H01 (vie 9, 20:00) y #4 (dom 11, 20:00).
    Antes: revisar y publicar los 5 videos con voz (música comercial 15–25 % + «Contenido generado por IA»). Orden: #2 Excel (Jorge)
    → T01 (Renata) → #3 PIN (Dalia) → H01 (Jorge+Marina) → #4 Mensajes (Dalia). Descripciones en los guiones.
    **#halloween** (antes del 31/10) y **#fraude** van en la próxima tanda.
