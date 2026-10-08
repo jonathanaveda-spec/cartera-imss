@@ -706,6 +706,7 @@ export function abrirMenu() {
       grupoMenu('Ayuda y cuenta'),
       opMenu('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
       opMenu('cuenta', '👤', 'Mi cuenta', `${N.estado.usuario ? esc(N.estado.usuario) + ' · ' : ''}cerrar sesión o eliminar cuenta.`),
+      opMenu('acerca', '🤝', 'Compartir y acerca de', `Recomiéndala a un colega · versión ${esc(MARCA.version)}`),
     ].join(''),
   });
   v.el.addEventListener('click', (e) => { if (e.target.closest('.opcion-menu')) v.cerrar(); });
@@ -1331,6 +1332,34 @@ export async function abrirBloqueo() {
   pintar();
 }
 
+// Símbolo de NeuroProyectos IA (la «N» de puntos conectados), igual que empresa/puente-digital/logos/final/svg/simbolo_color.svg.
+const SIMBOLO_EMPRESA = '<svg viewBox="0 0 100 100" width="40" height="40" aria-hidden="true"><path d="M24 26V74M76 26V74M24 26L76 74" stroke="#17212B" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="24" cy="26" r="10.5" fill="#0A7C73"/><circle cx="24" cy="74" r="10.5" fill="#0A7C73"/><circle cx="76" cy="26" r="10.5" fill="#0A7C73"/><circle cx="76" cy="74" r="10.5" fill="#0A7C73"/></svg>';
+const ENLACE_COMPARTIR = 'https://carteraasesor.com';
+const TEXTO_COMPARTIR = 'Te recomiendo Cartera Asesor: ves quién te paga hoy, quién está atrasado y cobras por WhatsApp. Es gratis en la beta:';
+
+function abrirAcercaDe() {
+  const v = ventana({
+    titulo: 'Compartir y acerca de',
+    cuerpo: `<div class="acerca-app">
+        <img src="icons/logo.png" alt="" width="72" height="72">
+        <div><b>${esc(MARCA.nombre)}</b><div class="mini">${esc(MARCA.lema)}</div><div class="mini">Versión ${esc(MARCA.version)}</div></div></div>
+      <div class="seccion"><h3>¿Conoces a otro asesor?</h3>
+        <p class="mini" style="margin-bottom:10px">Compártele la app. Le llega el enlace para instalarla y crear su cuenta.</p>
+        <button class="btn primario" type="button" data-compartir style="width:100%">📲 Compartir la app</button></div>
+      <div class="seccion acerca-empresa">${SIMBOLO_EMPRESA}
+        <div><div class="mini">Un producto de</div><b>NeuroProyectos IA</b><div class="mini">Desarrollo de software con IA</div></div></div>
+      <p class="mini">¿Dudas o ideas? Escríbenos desde ☰ → Ayuda y soporte o a <a href="mailto:${esc(MARCA.correoSoporte)}">${esc(MARCA.correoSoporte)}</a>.</p>
+      <p class="mini" style="margin-top:6px"><a href="privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a> · <a href="terminos.html" target="_blank" rel="noopener">Términos de uso</a></p>`,
+  });
+  v.q('[data-compartir]').addEventListener('click', async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title: MARCA.nombre, text: TEXTO_COMPARTIR, url: ENLACE_COMPARTIR }); return; }
+      catch (err) { if (err?.name === 'AbortError') return; }
+    }
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${TEXTO_COMPARTIR} ${ENLACE_COMPARTIR}`)}`, '_blank', 'noopener');
+  });
+}
+
 function abrirCuenta() {
   const p = N.estado.perfil || {};
   const v = ventana({
@@ -1880,6 +1909,7 @@ export function enlazarEventos() {
     mensajes: abrirMensajesCobro,
     comisiones: abrirComisiones,
     cuenta: abrirCuenta,
+    acerca: abrirAcercaDe,
     plan: abrirPlan,
     ayuda: (el) => abrirAyuda(el.dataset.texto),
     bloqueo: abrirBloqueo,

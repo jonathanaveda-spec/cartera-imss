@@ -3,6 +3,18 @@
 > **Antes de empezar:** Google Play solo deja crear la página de desarrollador cuando ya hay **al menos una app publicada**.
 > Cartera Asesor todavía no está publicada, así que este paquete queda listo para usarse el día que salga.
 
+## El sábado, al CREAR la cuenta de desarrollador (cuenta personal)
+Google pide unos datos al abrir la cuenta. Así quedas como empresa desde el primer día:
+| Campo | Qué poner |
+|---|---|
+| **Nombre del desarrollador** (lo ven los usuarios bajo el nombre de la app) | **NeuroProyectos IA** |
+| Nombre legal y dirección (para verificar tu identidad) | Tus datos reales, como en tu identificación. Fíjate en pantalla cuáles de estos datos dice Google que serán públicos |
+| **Correo de contacto público** | contacto@neuroproyectos.com si ya compraste el dominio y creaste el correo; si no, soporte@carteraasesor.com (se cambia después) |
+| Sitio web (opcional) | https://carteraasesor.com por ahora |
+| Teléfono | El de la línea nueva de la marca (Google lo verifica con un código) |
+
+Los nombres de los campos pueden cambiar un poco; revisa lo que Google te muestra en pantalla. Pagas tú (US$25, una sola vez).
+
 ## Archivos (en esta carpeta)
 | Qué | Archivo | Medida que pide Google |
 |---|---|---|

@@ -487,3 +487,10 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 .com-nombre span { color: var(--suave); }
 .aviso-botones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .aviso-botones .btn { flex: 1 1 160px; min-height: 44px; }
+
+/* Compartir y acerca de */
+.acerca-app { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.acerca-app img { border-radius: 16px; flex: none; }
+.acerca-app b { font-size: 1.1rem; }
+.acerca-empresa { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--linea); border-radius: 12px; }
+.acerca-empresa svg { flex: none; }

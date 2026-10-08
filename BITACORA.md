@@ -146,6 +146,15 @@ Lo hace Emma con el equipo:
 20. App, después: «Acerca de» + Compartir, Entrar con Google, tour de bienvenida, aviso de vencimiento del plan, foto del
     comprobante, avisos con la app cerrada (tras Blaze), modo oscuro.
 
+**08/10 (nube) — Compartir y acerca de + NeuroProyectos IA:**
+- App: ☰ → **🤝 Compartir y acerca de** (al final del menú): logo y versión, botón **📲 Compartir la app** (menú de
+  compartir del teléfono; si no hay, abre WhatsApp con el texto y carteraasesor.com), «Un producto de **NeuroProyectos IA**»
+  con el símbolo de la N, correo de soporte, privacidad y términos. Probado en la demo a 390 px. 58/58 pruebas.
+- `empresa/puente-digital/google-play/LEEME.md`: tabla de qué poner el **sábado al crear la cuenta** (nombre del
+  desarrollador NeuroProyectos IA, correo público, sitio, teléfono).
+- Respuestas con audio desde la nube: no se puede todavía (la red bloquea las voces). Para activarlo, Jonathan agrega en
+  el entorno en la nube el dominio `eastus.tts.speech.microsoft.com` y las variables `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION`.
+
 **🔁 RELEVO A LA SESIÓN EN LA NUBE (07/10, noche) — EMPEZAR POR AQUÍ**
 Jonathan apagó la PC del local. Quedó a medias:
 1. **Rama `trabajo-oficina-07-10`** (NO está en main, nada de eso se publicó): textos de privacidad corregidos por
