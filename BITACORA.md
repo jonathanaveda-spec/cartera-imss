@@ -155,6 +155,12 @@ Lo hace Emma con el equipo:
 - Respuestas con audio desde la nube: no se puede todavía (la red bloquea las voces). Para activarlo, Jonathan agrega en
   el entorno en la nube el dominio `eastus.tts.speech.microsoft.com` y las variables `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION`.
 
+**08/10 (nube) — Decisiones de Jonathan:**
+- **NeuroProyectos IA en pausa** hasta pagar Google Play (US$25): después se compra el dominio y se publica la página para
+  presentar los proyectos.
+- **Idea nueva (otra sesión, otro proyecto):** la app de finanzas/ventas hecha para MotoGrafix → pulir la interfaz y
+  volverla para **cualquier negocio** (llevar las ventas de un local). Sería el 2.º producto de NeuroProyectos IA.
+
 **🔁 RELEVO A LA SESIÓN EN LA NUBE (07/10, noche) — EMPEZAR POR AQUÍ**
 Jonathan apagó la PC del local. Quedó a medias:
 1. **Rama `trabajo-oficina-07-10`** (NO está en main, nada de eso se publicó): textos de privacidad corregidos por
