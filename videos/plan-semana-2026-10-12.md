@@ -1,6 +1,12 @@
 # Plan de la semana 12–18 de octubre de 2026 — TikTok @carteraasesor
 
 Responsable: Victoria (estrategia). Producción: Lucía (`productor-videos`). Publica y programa: Jonathan.
+
+> **⚠️ Voces cambiadas el 08/10 (manda sobre las fichas de abajo):** Jonathan sintió robótica a Larissa. Solo se usan
+> **Valeria** (`es-MX-Valeria:MAI-Voice-2`), **Alejo** (`es-MX-Alejo:MAI-Voice-2`), **Dalia HD** y **Jorge HD**, a
+> velocidad +0 % y con guion conversacional (skill `voz-cartera-asesor`). Equivalencias: voces de mujer de las fichas
+> (Larissa, Nuria, Renata, Beatriz, Candela, Marina, Dalia) → Valeria o Dalia HD; voces de hombre (Gerardo, Luciano,
+> Yago, Cecilio, Jorge) → Alejo o Jorge HD. Alternarlas sin repetir la misma dos videos seguidos.
 Base: `plan-diario.md` (**P a las 13:00** + **por la noche, a las 20:00, H lun/mié/vie/dom y T mar/jue/sáb**),
 `investigacion/tendencias.md` (Luna), skills `marca-cartera-asesor` y `voz-cartera-asesor`. Resultados en `resultados.md`.
 **Cambio del 08/10 (Jonathan): esta semana van 3 por día = 21 videos.** Se agrega **un video de mañana a las 7:30**

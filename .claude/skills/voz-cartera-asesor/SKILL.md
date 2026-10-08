@@ -17,21 +17,27 @@ Complementa a la skill `marca-cartera-asesor` (ritmo, subtítulos, zona segura, 
   Jonathan que revise las variables, no pedírsela.
 
 ## 2. La voz de la marca
-- **Variedad, no una sola voz** (decisión de Jonathan 07/10: «un video Dalia y otro Jorge, y si hay más voces mejor,
-  eso entretiene a la gente»; regla general: pensamiento diverso). Voces principales que se **alternan**:
-  **`es-MX-DaliaNeural`** (mujer) y **`es-MX-JorgeNeural`** (hombre). No repetir la misma voz dos videos seguidos.
-- Recursos extra para variar (oírlos en `public/voz/Muestrario_24_voces.mp3` y `Muestrario_Latinoamerica_38_voces.mp3`,
-  se regeneran con `voz/muestrario-voces.json` y `voz/muestrario-latam.json`):
-  - Otras 13 voces de México: Beatriz, Candela, Carlota, Marina, Nuria, Renata, Larissa (mujeres); Cecilio, Gerardo,
-    Liberto, Luciano, Pelayo, Yago (hombres) → `es-MX-<Nombre>Neural`.
-  - **Emociones** (`"estilo"` en la frase): Dalia `cheerful`, `sad`, `whispering`; Jorge `cheerful`, `chat`,
-    `excited`, `sad`, `whispering`. Útiles para el gancho («Jorge triste: perdí la libreta») y el remate alegre.
-  - **Diálogos**: cada frase puede llevar su propia `"voz"` (dos asesores platicando, cliente vs. asesor, antes/después).
-  - Acentos de 19 países (`es-AR`, `es-CO`, `es-PE`, `es-VE`, `es-CL`, `es-US`… una mujer y un hombre por país) para
-    personajes o videos dirigidos a otro país. El público principal es México: el narrador siempre `es-MX`.
-  - No usar voces «HD», «DragonHD» ni «MAI-Voice»: no entran en el plan gratis.
+- **SOLO VOCES HUMANAS (decisión 08/10/2026):** Jonathan oyó Larissa en el M01 y la sintió «muy robótica». Desde ahí
+  **solo** se usan estas 4 voces (las más naturales de Azure; **sí funcionan en el plan gratis F0**, probado el 08/10):
+  | Rol | Voz (valor de `"voz"`) |
+  |---|---|
+  | Mujer principal | **`es-MX-Valeria:MAI-Voice-2`** (Valeria) |
+  | Hombre principal | **`es-MX-Alejo:MAI-Voice-2`** (Alejo) |
+  | Mujer, para variar | `es-MX-Dalia:DragonHDLatestNeural` (Dalia HD) |
+  | Hombre, para variar | `es-MX-Jorge:DragonHDLatestNeural` (Jorge HD) |
+  Comparación oída por Jonathan: `public/voz/Comparar_voces_humanas.mp3` (se regenera con `voz/prueba-humana-*.json`).
+  **Prohibidas** las voces neuronales «normales» secundarias (Larissa, Gerardo, Nuria, Yago, Luciano, Candela, Cecilio,
+  Beatriz, Renata, Marina…) y también `es-MX-DaliaNeural`/`es-MX-JorgeNeural` sin «HD».
+- **Variedad** (pensamiento diverso): alternar las 4; no repetir la misma voz dos videos seguidos; en diálogos, cada
+  personaje con una de las 4 (`"voz"` por frase). Valeria y Alejo traen emociones (`"estilo"`: `happy`, `hopeful`,
+  `excited`, `sad`, `surprised`, `softvoice`, `whispering`, `determined`…); Dalia/Jorge HD ponen la emoción solos según
+  el texto (no usar `"estilo"`). Si un estilo no suena bien, quitarlo.
+- **Para que suene humano, el guion importa tanto como la voz:** escribir como se habla («Oye, antes de salir a
+  cobrar… revisa esto»), con muletillas suaves y pausas (`"pausa": 250–400`), nada de listas leídas tipo robot
+  («Uno: …, Dos: …» → «Primero…, luego…, y por último…»). Velocidad **`+0%`** (más rápido suena a máquina).
+- Acentos de otros países (`es-AR`, `es-CO`…) solo para personajes de otro país; el narrador siempre es de México.
 - Anotar en `videos/resultados.md` qué voz llevó cada video, para ver cuáles funcionan mejor.
-- Velocidad `+5%` (TikTok es rápido). Tono de colega asesor, de tú, frases cortas (voz de la skill de marca).
+- Velocidad `+0%` (ver arriba; antes era `+5%`). Tono de colega asesor, de tú, frases cortas (voz de la skill de marca).
 - Las frases de voz **no repiten letra por letra** el texto en pantalla: lo acompañan (la pantalla dice la idea en 3–6
   palabras; la voz la dice completa y natural).
 - Escribir para el oído: números con letra si se leen raro («cien clientes»), «carteraasesor punto com», sin siglas
