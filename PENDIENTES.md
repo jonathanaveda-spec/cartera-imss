@@ -53,9 +53,10 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - [ ] Todo en `videos/entregas/` **antes de cada día** (los avisos de 8:25 / 1:55 / 8:55 avisan si falta).
 
 ## 👩 AVATAR CITLALI
-- [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. Falta: Jonathan aprueba o no. Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
+- [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. ✅ **APROBADA por Jonathan el 09/10** (boca sincronizada; la mano le parece natural). Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
       (`retrato-selfie.png`). Revisar ojos y dientes.
-- [ ] Emma revisa el video cuadro por cuadro → si Jonathan lo aprueba, Ximena hace 2–3 fotos más con la misma cara.
+- [x] ✅ 09/10 Emma revisó el video. **Siguiente:** Ximena hace 2–3 fotos más con la misma cara (necesita reconectar Canva: pide autorización en los conectores de claude.ai).
+- [ ] Quitar la marca de agua «HeyGen» antes de publicar (plan pago de HeyGen o taparla en CapCut). Primer video con Citlali: elegirlo con Victoria (gancho del banco `videos/ganchos.md`).
 - [ ] Decidir herramienta para que hable: HeyGen (plan gratis), Hedra/Vidnoz o CapCut Pro (pagar **después** de Google Play).
 - Regla: presentadora de la marca, **nunca testimonio**; «Contenido generado por IA».
 

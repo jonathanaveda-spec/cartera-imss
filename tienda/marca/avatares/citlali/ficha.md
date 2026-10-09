@@ -1,6 +1,6 @@
 # Citlali Moreno — la presentadora de la cafetería
 
-**Estado:** ✅ **ELEGIDA por Jonathan el 08/10/2026** como avatar (presentadora) de la marca. Estilo UGC realista. Personaje 100 % inventado.
+**Estado:** ✅ **APROBADA por Jonathan el 09/10/2026** como avatar (presentadora) de la marca, tras probarla hablando en HeyGen con la voz Valeria (`es-MX-Valeria:MAI-Voice-2`): «la boca va bien» y el movimiento de la mano le pareció natural. Estilo UGC realista. Personaje 100 % inventado.
 Reemplaza a las propuestas del 07/10 (Marisol, Emiliano, Itzel), que no pegaron con la marca.
 
 | | |
