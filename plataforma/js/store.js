@@ -410,6 +410,28 @@ export async function registrarPago(id, p) {
   return pago;
 }
 
+/**
+ * Corrige la comisión de un pago ya registrado (historial de pagos del cliente).
+ * `monto` en pesos (0 = en ese pago no hubo comisión); vacío = que ese pago use la comisión del cliente.
+ * Deja el cambio en el historial de cambios. Devuelve el pago.
+ */
+export async function corregirComisionPago(id, pagoId, monto) {
+  const c = buscar(id);
+  const p = c?.pagos.find((x) => x.id === pagoId);
+  if (!p) throw new Error('No se encontró el pago');
+  const n = monto === '' || monto == null ? null : Number(monto);
+  if (n !== null && (!Number.isFinite(n) || n < 0)) throw new Error('La comisión debe ser un monto de 0 o más');
+  const antes = p.comision ?? null;
+  if (antes === n) return p;
+  p.comision = n;
+  c.actualizado = ahora();
+  log(c, 'pago', `Comisión del pago del ${p.fecha_pago} corregida`, [
+    { campo: `Comisión del pago (${p.fecha_pago})`, antes, despues: n },
+  ]);
+  await guardar();
+  return p;
+}
+
 export function ultimoPagoRegistrado(c) {
   return c.pagos.length ? c.pagos[c.pagos.length - 1] : null;
 }

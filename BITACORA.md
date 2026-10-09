@@ -6,6 +6,13 @@ con `git pull`.
 
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## ✅ 09/10 (PC de la oficina, viernes)
+- Google Play: ensayo de PWABuilder OK (Bubblewrap 1.25.0 → targetSdk/compileSdk 36); en el formulario poner App name «Cartera Asesor» y elegir Package ID (sugerido com.carteraasesor.app). Manifiesto con id fijo y categorías.
+- revisor@carteraasesor.com creado en Cloudflare Email Routing → Gmail de Jonathan.
+- Seguridad: llave de Firebase restringida a 6 sitios (probado: otra página 403, las nuestras 200); alertas de secret scanning cerradas en los 2 repos («Won't fix»).
+- App: PIN con esperas crecientes y cierre de sesión a los 25 fallos (bloqueo.js); SheetJS 0.20.3; comisión de cada pago visible y corregible (store.corregirComisionPago). 65 pruebas.
+- Citlali: 3 variantes aprobadas; primer video «cobrar por WhatsApp no es de mala educación» (gancho #9, voz Valeria, audio en videos/entregas/Citlali01_whatsapp_audio.mp3) para HeyGen.
+
 ## ✅ 08/10 (PC de la oficina, jueves) — lo hecho hoy
 - 🔒 **Historial de GitHub LIMPIO** (Jonathan corrió el push forzado): sin nombres ni teléfonos reales en ninguna rama
   (main, main-xlpub0, plataforma-beta, trabajo-oficina-07-10) de los dos repos; el estado final del código quedó idéntico.

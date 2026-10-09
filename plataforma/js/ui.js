@@ -389,7 +389,9 @@ export function abrirDetalle(id, ventanaExistente) {
       ${c.pagos.length ? `<ul class="lista-simple">${[...c.pagos].reverse().map((p) => `<li>
         <b>${L.fmtFecha(p.fecha_pago)}</b> · ${dinero(p.monto)}${p.metodo ? ' · ' + esc(p.metodo) : ''}
         <div class="mini">Cubre desde ${L.fmtFecha(p.periodo_desde)} · siguiente vencimiento ${L.fmtFecha(p.periodo_hasta)}${p.nota ? ' · ' + esc(p.nota) : ''}</div>
-        <button class="btn chico" data-accion="comprobante" data-id="${id}" data-pago="${esc(p.id)}" style="margin-top:6px">📲 ${p.comprobante_enviado ? 'Reenviar comprobante <span class="mini">(✓ enviado)</span>' : 'Enviar comprobante'}</button></li>`).join('')}</ul>
+        <div class="pago-acc">
+          <button class="btn chico btn-comision" data-accion="comision-pago" data-id="${id}" data-pago="${esc(p.id)}" aria-label="Corregir la comisión de este pago">${textoComisionPago(c, p)}</button>
+          <button class="btn chico" data-accion="comprobante" data-id="${id}" data-pago="${esc(p.id)}">📲 ${p.comprobante_enviado ? 'Reenviar comprobante <span class="mini">(✓ enviado)</span>' : 'Enviar comprobante'}</button></div></li>`).join('')}</ul>
         <button class="btn chico peligro" data-accion="anular" data-id="${id}" style="margin-top:8px">Anular último pago (${L.fmtFecha(ult.fecha_pago)})</button>`
       : '<p class="mini">Aún no hay pagos registrados.</p>'}</div>
     <div class="seccion"><h3>Historial de cambios</h3>
@@ -587,6 +589,49 @@ export function abrirPago(id) {
       else abrirComprobante(id, pago.id, { recienRegistrado: true });
     });
   });
+}
+
+// Comisión de cada pago: se ve en el historial del cliente y se corrige con un toque.
+function textoComisionPago(c, p) {
+  const v = L.comisionDePago(c, p);
+  return `💰 ${v > 0 ? 'Comisión ' + esc(L.fmtDinero(v)) : 'Sin comisión'} ✏️`;
+}
+
+export function abrirComisionPago(id, pagoId) {
+  const c = S.buscar(id);
+  const p = c?.pagos.find((x) => x.id === pagoId);
+  if (!p) return;
+  const deCliente = Number(c.comision) > 0 ? Number(c.comision) : 0;
+  const ini = p.comision ?? c.comision ?? '';
+  const ven = ventana({
+    titulo: '💰 Comisión de este pago', fondoCierra: false,
+    cuerpo: `<p style="margin-bottom:10px">Pago del <b>${L.fmtFecha(p.fecha_pago)}</b> de <b>${esc(L.nombreBonito(c.nombre))}</b>${p.monto != null ? ' · ' + dinero(p.monto) : ''}.</p>
+      <form id="f-comision-pago" novalidate>
+        <label>Lo que ganaste en este pago<input type="number" step="any" min="0" name="comision" inputmode="decimal" value="${esc(ini)}" placeholder="0.00" required>
+          <div class="ayuda">Solo cambia este pago; la comisión del cliente y los demás pagos se quedan igual. Se actualiza 💰 Mis comisiones.</div></label>
+        <div class="acc-fila" style="margin-top:10px">
+          <button class="btn chico" type="button" data-poner="0">Sin comisión</button>
+          ${deCliente > 0 ? `<button class="btn chico" type="button" data-poner="${deCliente}">Usar la del cliente (${esc(L.fmtDinero(deCliente))})</button>` : ''}
+        </div>
+      </form>`,
+    pie: '<button class="btn" data-cerrar type="button">Cancelar</button><button class="btn primario" type="submit" form="f-comision-pago">Guardar</button>',
+  });
+  const form = ven.q('#f-comision-pago');
+  ven.el.querySelectorAll('[data-poner]').forEach((b) => b.addEventListener('click', () => { form.comision.value = b.dataset.poner; form.comision.focus(); }));
+  form.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    const n = Number(form.comision.value);
+    if (form.comision.value === '' || !Number.isFinite(n) || n < 0) return aviso('Escribe un monto de 0 o más (0 si no hubo comisión)', true);
+    seguro(async () => {
+      await S.corregirComisionPago(id, pagoId, n);
+      ven.cerrar();
+      aviso('Comisión corregida');
+      render();
+      refrescarDetalleAbierto(id);
+    });
+  });
+  form.comision.focus({ preventScroll: true });
+  form.comision.select();
 }
 
 // Comprobante de pago por WhatsApp: se ofrece al registrar un pago y se puede reenviar desde el historial.
@@ -1915,6 +1960,7 @@ export function enlazarEventos() {
     bloqueo: abrirBloqueo,
     avisos: abrirAvisos,
     comprobante: (el) => abrirComprobante(el.dataset.id, el.dataset.pago),
+    'comision-pago': (el) => abrirComisionPago(el.dataset.id, el.dataset.pago),
     'ocultar-bloqueo': () => { lsSet('cartera:ocultar-aviso-bloqueo', '1'); render(); },
     limpiar,
     estado: (el) => { F.estado = F.estado === el.dataset.cod ? 'todos' : el.dataset.cod; F.rapido = ''; render(); },

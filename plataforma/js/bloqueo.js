@@ -4,8 +4,29 @@
 // Si se olvida el PIN: cerrar sesión y volver a entrar con correo y contraseña (los clientes están en la nube).
 
 const CLAVE = 'cartera:bloqueo';
-const INTENTOS_ANTES_DE_ESPERAR = 5;
-const ESPERA_MS = 30000;
+// Esperas que crecen con los fallos seguidos (el contador solo se reinicia al acertar):
+// con 5 fallos → 30 s, 10 → 1 min, 15 → 5 min, 20 → 15 min y con 25 se cierra la sesión y se borra lo local.
+// Así un PIN de 4 dígitos no se puede adivinar probando horas seguidas.
+const ESPERAS = { 5: 30000, 10: 60000, 15: 300000, 20: 900000 };
+export const FALLOS_PARA_CERRAR = 25;
+const AVISAR_DESDE = 15; // desde aquí se muestra cuántos intentos quedan antes de cerrar la sesión
+
+/** Texto de un tiempo de espera: «30 segundos», «1 minuto», «4 min 12 s». */
+export function textoEspera(ms) {
+  const s = Math.max(1, Math.ceil(ms / 1000));
+  if (s < 60) return `${s} ${s === 1 ? 'segundo' : 'segundos'}`;
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  if (!r) return `${m} ${m === 1 ? 'minuto' : 'minutos'}`;
+  return `${m} min ${r} s`;
+}
+
+/** Aviso de intentos restantes antes de cerrar la sesión (vacío si todavía falta mucho). */
+export function textoQuedan(fallos) {
+  const quedan = FALLOS_PARA_CERRAR - fallos;
+  if (fallos < AVISAR_DESDE || quedan <= 0) return '';
+  return `Te ${quedan === 1 ? 'queda 1 intento' : `quedan ${quedan} intentos`} antes de cerrar la sesión.`;
+}
 
 export const TIEMPOS = [
   [0, 'Cada vez que salgo de la app'],
@@ -157,11 +178,40 @@ function mostrar() {
     caja.classList.add('sacudir');
     navigator.vibrate?.(120);
   };
+  const faltaEspera = () => (config()?.esperaHasta || 0) - Date.now();
+  // Mientras dura la espera el mensaje cuenta hacia atrás solo; al terminar avisa que ya se puede intentar.
+  const cuentaAtras = () => {
+    clearInterval(el.reloj);
+    const pintarEspera = () => {
+      const falta = faltaEspera();
+      const m = msj();
+      if (!m) return;
+      if (falta <= 0) {
+        clearInterval(el.reloj);
+        m.classList.remove('mal');
+        m.textContent = 'Ya puedes intentar de nuevo. Ingresa tu PIN.';
+        return;
+      }
+      m.classList.add('mal');
+      const quedan = textoQuedan(config()?.fallos || 0);
+      m.textContent = `Demasiados intentos. Espera ${textoEspera(falta)}.${quedan ? ' ' + quedan : ''}`;
+    };
+    pintarEspera();
+    el.reloj = setInterval(pintarEspera, 1000);
+  };
   const enEspera = () => {
-    const c = config();
-    const falta = (c?.esperaHasta || 0) - Date.now();
-    if (falta > 0) { error(`Demasiados intentos. Espera ${Math.ceil(falta / 1000)} segundos.`); return true; }
+    if (faltaEspera() > 0) { error(''); cuentaAtras(); return true; }
     return false;
+  };
+  // Con 25 fallos seguidos: se cierra la sesión y se borra lo local (el mismo camino que «¿Olvidaste tu PIN?»).
+  const cerrarPorFallos = async () => {
+    clearInterval(el.reloj);
+    escribir(null);
+    const caja = el.querySelector('.bloqueo-caja');
+    caja.innerHTML = `<h2>Sesión cerrada por seguridad</h2>
+      <p class="bloqueo-texto">Fueron demasiados intentos con un PIN incorrecto. Por seguridad se cerró tu sesión en este teléfono.</p>
+      <p class="bloqueo-texto">Tus clientes siguen en la nube: vuelve a entrar con tu <b>correo y contraseña</b>.</p>`;
+    await alOlvidar?.();
   };
 
   const comprobar = async () => {
@@ -169,22 +219,37 @@ function mostrar() {
     if (await pinCorrecto(pin)) { escribir({ ...config(), fallos: 0, esperaHasta: 0 }); ocultar(); return; }
     const c = config();
     const fallos = (c.fallos || 0) + 1;
-    const espera = fallos >= INTENTOS_ANTES_DE_ESPERAR;
-    escribir({ ...c, fallos: espera ? 0 : fallos, esperaHasta: espera ? Date.now() + ESPERA_MS : 0 });
     pin = '';
     pintar();
-    error(espera ? 'Demasiados intentos. Espera 30 segundos.' : 'PIN incorrecto. Intenta de nuevo.');
+    if (fallos >= FALLOS_PARA_CERRAR) { await cerrarPorFallos(); return; }
+    const espera = ESPERAS[fallos] || 0;
+    escribir({ ...c, fallos, esperaHasta: espera ? Date.now() + espera : 0 });
+    if (espera) {
+      error('');
+      cuentaAtras();
+    } else {
+      error(`PIN incorrecto. Intenta de nuevo.${textoQuedan(fallos) ? ' ' + textoQuedan(fallos) : ''}`);
+    }
   };
+
+  // Si la pantalla se vuelve a bloquear en plena espera (o con pocos intentos), se muestra el estado de una vez.
+  if (faltaEspera() > 0) { msj().classList.add('mal'); cuentaAtras(); } else if (textoQuedan(config()?.fallos || 0)) msj().textContent = `Ingresa tu PIN. ${textoQuedan(config().fallos)}`;
 
   const teclear = (t) => {
     if (pin.length >= 4 || !el.querySelector('.bloqueo-puntos')) return;
+    if (faltaEspera() > 0) { enEspera(); return; }
     pin += t;
     pintar();
     msj()?.classList.remove('mal');
     if (pin.length === 4) setTimeout(comprobar, 120);
   };
   const borrar = () => { pin = pin.slice(0, -1); pintar(); };
-  const usarBio = async () => { if (await pedirBiometria()) ocultar(); };
+  const usarBio = async () => {
+    if (!(await pedirBiometria())) return;
+    const c = config();
+    if (c) escribir({ ...c, fallos: 0, esperaHasta: 0 }); // acertar con la huella también reinicia el contador
+    ocultar();
+  };
 
   el.addEventListener('click', (e) => {
     const t = e.target.closest('[data-t]');
@@ -205,6 +270,7 @@ function mostrar() {
 function ocultar() {
   const el = document.getElementById('bloqueo');
   if (el) {
+    clearInterval(el.reloj);
     document.removeEventListener('keydown', el.teclado, true);
     el.remove();
   }

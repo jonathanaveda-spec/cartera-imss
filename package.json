@@ -3,7 +3,7 @@
   "private": true,
   "description": "Herramientas de desarrollo de Cartera IMSS (la app está en app/)",
   "scripts": {
-    "test": "node --test tests/logic.test.mjs tests/sincro.test.mjs tests/plataforma.test.mjs tests/importar.test.mjs tests/rapidos.test.mjs tests/comisiones.test.mjs tests/comision-historial.test.mjs tests/avisos.test.mjs",
+    "test": "node --test tests/logic.test.mjs tests/sincro.test.mjs tests/plataforma.test.mjs tests/importar.test.mjs tests/rapidos.test.mjs tests/comisiones.test.mjs tests/comision-historial.test.mjs tests/comision-pago.test.mjs tests/bloqueo.test.mjs tests/avisos.test.mjs",
     "build:firebase": "esbuild tools/firebase-entrada.js --bundle --format=esm --minify --outfile=app/vendor/firebase.js",
     "servir": "node serve.js",
     "build:firebase-plataforma": "esbuild tools/firebase-entrada-plataforma.js --bundle --format=esm --minify --outfile=plataforma/vendor/firebase.js"

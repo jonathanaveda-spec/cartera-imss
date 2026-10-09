@@ -55,7 +55,7 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 ## 👩 AVATAR CITLALI
 - [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. ✅ **APROBADA por Jonathan el 09/10** (boca sincronizada; la mano le parece natural). Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
       (`retrato-selfie.png`). Revisar ojos y dientes.
-- [x] ✅ 09/10 Emma revisó el video. ✅ 09/10 Ximena hizo 3 variantes con la misma cara (escritorio `MAHXh4sRiq0`, calle `MAHXh9YXst4`, gancho `MAHXh3epNIk`; ver ficha). Falta: Jonathan las revisa en grande.
+- [x] ✅ 09/10 Emma revisó el video. ✅ 09/10 Ximena hizo 3 variantes con la misma cara (escritorio `MAHXh4sRiq0`, calle `MAHXh9YXst4`, gancho `MAHXh3epNIk`; ver ficha). ✅ 09/10 Jonathan aprobó las 3 variantes («me gustan, que proceda Citlali»).
 - [ ] Quitar la marca de agua «HeyGen» antes de publicar (plan pago de HeyGen o taparla en CapCut). Primer video con Citlali: elegirlo con Victoria (gancho del banco `videos/ganchos.md`).
 - [ ] Decidir herramienta para que hable: HeyGen (plan gratis), Hedra/Vidnoz o CapCut Pro (pagar **después** de Google Play).
 - Regla: presentadora de la marca, **nunca testimonio**; «Contenido generado por IA».
@@ -91,11 +91,11 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 ## 🔒 SEGURIDAD (Fernanda, revisión del 07/10)
 - [x] Datos reales fuera del código ✅ · historial de GitHub limpio ✅ (08/10).
 - [ ] Esperar respuesta del **soporte de GitHub** (ticket 08/10) para borrar la copia de la PR #1 (llega al Gmail de Jonathan).
-- [ ] Restringir la **llave de Firebase** a los dominios (carteraasesor.com, www, jonathanaveda-spec.github.io,
+- [x] ✅ 09/10 (Emma) Llave de Firebase restringida a 6 sitios (carteraasesor.com, www, jonathanaveda-spec.github.io, cartera-asesor.firebaseapp.com, localhost:8080, 127.0.0.1:8080): probado → desde otra página 403, desde las nuestras 200. Alertas de GitHub de las dos repos cerradas como «Won't fix». (Antes: Restringir la **llave de Firebase** a los dominios (carteraasesor.com, www, jonathanaveda-spec.github.io,
       cartera-asesor.firebaseapp.com, localhost) y cerrar la alerta de GitHub como «Won't fix» (Jonathan; nunca se confirmó).
 - [ ] **Verificación en dos pasos** en la cuenta de Google del administrador (Jonathan).
-- [ ] Actualizar SheetJS 0.18.5 → 0.20.3 (Emma).
-- [ ] PIN con esperas crecientes tras intentos fallidos (Emma).
+- [x] ✅ 09/10 SheetJS actualizado a 0.20.3 (pruebas de importación OK).
+- [x] ✅ 09/10 PIN con esperas crecientes: 5 fallos 30 s, 10 → 1 min, 15 → 5 min, 20 → 15 min, 25 → cierra la sesión (avisa desde el 15).
 - [ ] Revisar frases que prometen de más («100 % privada», «nadie puede ver», «encriptados») en sitio y textos (Julieta; parte
       ya corregida el 08/10).
 - [ ] `Cartera_Asesor_video_v1.mp4` muestra 2 correos cerca del segundo 13: no usarlo / rehacerlo.
@@ -103,7 +103,7 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 
 ## 📱 APP (Emma)
 - [x] Importar .csv (fechas y NSS) ✅ 09/10 · Eliminar cuenta borra el aviso diario ✅ 08/10 · Compartir y acerca de ✅ 08/10.
-- [ ] Ver/corregir la comisión de cada pago en el historial.
+- [x] ✅ 09/10 Cada pago del historial muestra su comisión («💰 Comisión $200 ✏️») y se corrige con un toque (queda en el historial de cambios).
 - [ ] Entrar con Google · tour de bienvenida · aviso de vencimiento del plan · subir foto del comprobante · modo oscuro.
 - [ ] Probar 🗑️ Borrar asesor en el panel con «Jonathan Prueba» (pendiente viejo).
 - [ ] Que un usuario de iPhone pruebe la guía de instalación desde Safari (pendiente viejo).

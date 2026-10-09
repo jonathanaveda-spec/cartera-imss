@@ -260,6 +260,9 @@ tr.fila.est-baja td { opacity: .72; }
 .lista-simple { list-style: none; margin: 0; padding: 0; }
 .lista-simple li { padding: 10px 0; border-bottom: 1px solid var(--linea); }
 .lista-simple li:last-child { border-bottom: 0; }
+/* Botones de cada pago en el historial: la comisión y el comprobante; en celular se acomodan en dos filas si no caben. */
+.pago-acc { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.pago-acc .btn { min-height: 44px; }
 .mini { font-size: .85rem; color: var(--suave); }
 .cambio { font-size: .82rem; color: var(--suave); margin-top: 2px; }
 .cambio del { color: #9b1c1c; }

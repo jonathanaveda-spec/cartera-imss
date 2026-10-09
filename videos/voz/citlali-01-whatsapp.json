@@ -1,0 +1,12 @@
+{
+  "id": "citlali-01-whatsapp",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Puede que no estés de acuerdo… pero cobrar por WhatsApp no es de mala educación.", "pausa": 350 },
+    { "texto": "Lo que sí incomoda es cobrar tarde, o mandar un mensaje que suena a regaño.", "pausa": 300 },
+    { "texto": "Avísale tres días antes, con amabilidad, y manda el comprobante cuando te pague.", "pausa": 300 },
+    { "texto": "En Cartera Asesor esos mensajes ya vienen listos: tú solo tocas enviar.", "pausa": 350 },
+    { "texto": "¿Y tú, cobras por WhatsApp o en persona? Te leo en los comentarios." }
+  ]
+}
