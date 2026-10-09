@@ -4,6 +4,8 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
+> 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
+
 ## ✅ 08/10 (PC de la oficina, jueves) — lo hecho hoy
 - 🔒 **Historial de GitHub LIMPIO** (Jonathan corrió el push forzado): sin nombres ni teléfonos reales en ninguna rama
   (main, main-xlpub0, plataforma-beta, trabajo-oficina-07-10) de los dos repos; el estado final del código quedó idéntico.

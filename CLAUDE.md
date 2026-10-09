@@ -6,7 +6,7 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 
 ## Al empezar una sesión
 1. `git pull` en `main` (puede haber cambios hechos en la otra PC o desde la nube).
-2. Leer `BITACORA.md` (sección **Estado actual y próximos pasos**, arriba) y `PLAN.md`.
+2. Leer **`PENDIENTES.md`** (lista única de lo que falta: se actualiza al terminar cada cosa), `BITACORA.md` (arriba) y `PLAN.md`.
 3. Si falta el remoto de la app vieja: `git remote add cartera-imss https://github.com/jonathanaveda-spec/cartera-imss.git`.
 
 ## Al terminar cada cambio
@@ -14,7 +14,7 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
    `pages.yml`) pone `VERSION = cartera-asesor-<commit>` y mete todos los archivos en `ARCHIVOS`.
    Los teléfonos y el panel buscan la versión nueva solos (`js/actualizar.js`) y se recargan cuando
    no hay una ventana abierta. No hace falta subir la versión a mano. (`app/` vieja: sí, a mano en `app/sw.js`.)
-2. Anotar en `BITACORA.md` qué se hizo, incluso lo hecho fuera del código (Cloudflare, panel admin, correos).
+2. Tachar en `PENDIENTES.md` lo terminado (✅ + fecha) y agregar lo nuevo. Anotar en `BITACORA.md` qué se hizo, incluso lo hecho fuera del código (Cloudflare, panel admin, correos).
 3. Commit y push a **los dos** remotos: `git push origin main` y `git push cartera-imss main`
    (comparten historial).
 4. **Verificar que quedó en línea**: `https://carteraasesor.com/app/sw.js` debe mostrar
