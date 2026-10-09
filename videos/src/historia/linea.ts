@@ -44,7 +44,7 @@ export type EscenaH =
   | (Base & { tipo: "mensaje"; numero: number; titular: string[]; contacto: { nombre: string; iniciales: string }; mensaje: Mensaje })
   | (Base & { tipo: "frase"; titular: string[]; emoji?: string })
   | (Base & { tipo: "captura"; titular: string[]; imagenes: ImagenCaptura[] })
-  | (Base & { tipo: "dividida"; titular?: string[]; antes: PanelDividido; despues: PanelDividido })
+  | (Base & { tipo: "dividida"; titular?: string[]; antes: PanelDividido; despues: PanelDividido; despuesEn?: number; paso?: number })
   | (Base & { tipo: "cierre"; frase: string[] });
 
 export type HistoriaProps = {

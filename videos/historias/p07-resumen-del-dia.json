@@ -1,0 +1,42 @@
+{
+  "id": "p07-resumen-del-dia",
+  "voz": "p07-resumen-del-dia",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "👀", "titular": ["Abres la app,", "y esto es lo", "**primero** que ves"] },
+    {
+      "tipo": "captura",
+      "titular": ["Tu **resumen**", "del día"],
+      "imagenes": [
+        { "src": "capturas/cobro-3-resumen-dia.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 75, "y": 376, "w": 930, "h": 108, "color": "azul", "radio": 40 } },
+        { "src": "capturas/cobro-3-resumen-dia.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 75, "y": 501, "w": 930, "h": 108, "color": "rojo", "radio": 40 } },
+        { "src": "capturas/cobro-3-resumen-dia.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 75, "y": 626, "w": 930, "h": 108, "color": "ambar", "radio": 40 } },
+        { "src": "capturas/cobro-3-resumen-dia.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 75, "y": 751, "w": 930, "h": 108, "color": "verde", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Tu cartera,", "de un **vistazo**"],
+      "imagenes": [
+        { "src": "capturas/cobro-3-resumen-dia.png", "zoom": 1, "cx": 540, "cy": 1300, "anillo": { "x": 40, "y": 930, "w": 487, "h": 200, "color": "azul", "radio": 40 } },
+        { "src": "capturas/cobro-3-resumen-dia.png", "zoom": 1, "cx": 540, "cy": 1300, "anillo": [
+          { "x": 553, "y": 930, "w": 487, "h": 200, "color": "verde", "radio": 40 },
+          { "x": 40, "y": 1158, "w": 487, "h": 198, "color": "ambar", "radio": 40 },
+          { "x": 553, "y": 1158, "w": 487, "h": 198, "color": "rojo", "radio": 40 }
+        ] }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Toca **morosos** y ves", "los días de atraso"],
+      "imagenes": [
+        { "src": "capturas/cobro-4-morosos.png", "zoom": 1, "cx": 540, "cy": 1000, "anillo": [
+          { "x": 88, "y": 640, "w": 540, "h": 60, "color": "rojo", "radio": 30 },
+          { "x": 88, "y": 1085, "w": 520, "h": 60, "color": "rojo", "radio": 30 },
+          { "x": 88, "y": 1530, "w": 520, "h": 60, "color": "rojo", "radio": 30 }
+        ] }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Cómo empiezas", "tu día de cobranza? 👇"] }
+  ]
+}

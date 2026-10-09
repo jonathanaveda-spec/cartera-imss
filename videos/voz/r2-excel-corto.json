@@ -1,0 +1,11 @@
+{
+  "id": "r2-excel-corto",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "¿Tu lista de clientes está en Excel? Pues sirve tal cual, no importa cómo se llamen tus columnas." },
+    { "texto": "La app las reconoce solita, y tú nada más revisas." },
+    { "texto": "Y listo: tus clientes ya están adentro, y no se borra nada de lo que tenías." },
+    { "texto": "Pruébala gratis en la beta, en carteraasesor punto com." }
+  ]
+}

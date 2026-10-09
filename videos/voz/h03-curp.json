@@ -1,0 +1,12 @@
+{
+  "id": "h03-curp",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Oye, ¿y dónde guardas la CURP de tus clientes?" },
+    { "texto": "Hay quien deja la libreta abierta, las fotos de la INE en la galería, y los datos reenviados por cualquier chat. Y hay quien usa su propia cuenta, con PIN o con huella." },
+    { "texto": "En Cartera Asesor, activas el bloqueo con PIN o con huella, y tú eliges cuándo te lo pide." },
+    { "texto": "Sin tu PIN o tu huella, no abre." },
+    { "texto": "Tus clientes te confían sus datos. ¿Tú dónde los guardas? Cuéntamelo abajo." }
+  ]
+}

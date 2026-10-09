@@ -1,0 +1,14 @@
+{
+  "id": "m02-4-datos",
+  "titular": ["4 datos que", "**siempre** pides", "a cada cliente"],
+  "lineas": [
+    "Nombre **completo**",
+    "Celular con **WhatsApp**",
+    "Su día de **cobro**",
+    "Cada cuándo te **paga**"
+  ],
+  "numerar": true,
+  "llamado": ["¿Te falta", "**alguno**? 👇"],
+  "voz": "m02-4-datos",
+  "guias": false
+}

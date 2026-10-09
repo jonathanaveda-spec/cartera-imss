@@ -1,0 +1,31 @@
+{
+  "id": "h03-curp",
+  "voz": "h03-curp",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "🔒", "titular": ["¿Dónde guardas", "la **CURP** de", "tus clientes?"] },
+    {
+      "tipo": "dividida",
+      "despuesEn": 215,
+      "paso": 45,
+      "antes": { "etiqueta": "Antes", "emoji": "📒", "titulo": "Datos a la **vista**", "lineas": ["Libreta abierta en la mesa", "INE en tu galería de fotos", "Datos reenviados por chat"] },
+      "despues": { "etiqueta": "Con la app", "emoji": "🔒", "titulo": "Datos **cuidados**", "lineas": ["Cada asesor con su cuenta", "Bloqueo con PIN o huella", "Tú eliges cuándo se pide"] }
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Bloqueo con", "**PIN** o huella"],
+      "imagenes": [
+        { "src": "capturas/bloqueo-2-activo.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": { "x": 40, "y": 1040, "w": 1000, "h": 180, "color": "azul", "radio": 40 } },
+        { "src": "capturas/bloqueo-2-activo.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": { "x": 40, "y": 1310, "w": 1000, "h": 110, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Sin tu PIN,", "**no abre**"],
+      "imagenes": [
+        { "src": "capturas/pin-1-teclado.png", "zoom": 1, "cx": 540, "cy": 950, "anillo": { "x": 380, "y": 540, "w": 320, "h": 66, "color": "azul", "radio": 33 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["Tus clientes te confían", "sus datos 🔒"] }
+  ]
+}

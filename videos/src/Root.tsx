@@ -16,6 +16,7 @@ import p05 from "../historias/p05-semaforo.json";
 import h02 from "../historias/h02-ya-te-pague.json";
 import t02 from "../tarjetas/t02-cobranza15s-1.json";
 import m01 from "../tarjetas/m01-checklist-lunes.json";
+import { ComposicionesSemana12 } from "./RootSemana12";
 
 // Cada archivo de videos/tarjetas/*.json y videos/historias/*.json es una composición:
 // para sumar una, importa su JSON arriba y agrégalo a estas listas.
@@ -109,6 +110,7 @@ export const RemotionRoot: React.FC = () => {
           calculateMetadata={calcularHistoria}
         />
       ))}
+      <ComposicionesSemana12 />
     </>
   );
 };

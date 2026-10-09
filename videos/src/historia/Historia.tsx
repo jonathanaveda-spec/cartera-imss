@@ -28,7 +28,7 @@ export const Historia: React.FC<HistoriaProps> = (props) => {
             {e.tipo === "mensaje" ? <MensajeH numero={e.numero} titular={e.titular} contacto={e.contacto} mensaje={e.mensaje} /> : null}
             {e.tipo === "frase" ? <FraseH titular={e.titular} emoji={e.emoji} /> : null}
             {e.tipo === "captura" ? <CapturaH titular={e.titular} imagenes={e.imagenes} /> : null}
-            {e.tipo === "dividida" ? <DivididaH antes={e.antes} despues={e.despues} /> : null}
+            {e.tipo === "dividida" ? <DivididaH antes={e.antes} despues={e.despues} despuesEn={e.despuesEn} paso={e.paso} /> : null}
             {e.tipo === "cierre" ? <Cierre frase={e.frase} /> : null}
           </Sequence>
         );

@@ -16,7 +16,9 @@ type Id = keyof typeof COLS;
 const ORDEN_1: Id[] = ["cel", "pago", "nombre", "frec"];
 const ORDEN_2: Id[] = ["frec", "cel", "pago", "nombre"];
 
-export const TalCual: React.FC = () => {
+// gancho = versión del R2 («¿Tu lista está en Excel?»): pregunta enorme arriba desde el primer cuadro y la hoja más abajo.
+export const TalCual: React.FC<{ gancho?: boolean }> = ({ gancho = false }) => {
+  const dy = gancho ? 300 : 0;
   const frame = useCurrentFrame();
   const entra = ease(frame, 0, 12);
   const cambio = ease(frame, 34, 54, Easing.bezier(0.45, 0, 0.2, 1));
@@ -30,7 +32,7 @@ export const TalCual: React.FC = () => {
         style={{
           position: "absolute",
           left: 160,
-          top: 280,
+          top: 280 + dy,
           width: ANCHO_COL * 4,
           height: 96 + 3 * 100,
           background: "#FFFFFF",
@@ -93,7 +95,7 @@ export const TalCual: React.FC = () => {
           position: "absolute",
           left: 140,
           width: 800,
-          top: 740,
+          top: 740 + dy,
           display: "flex",
           justifyContent: "center",
           gap: 24,
@@ -106,11 +108,18 @@ export const TalCual: React.FC = () => {
           <Etiqueta color={C.azulCartera} size={40}>Cualquier orden</Etiqueta>
         </div>
       </div>
-      <Caption
-        top={880}
-        size={76}
-        lineas={[[{ t: "Tu Excel sirve" }], [{ t: "tal cual", oro: true }]]}
-      />
+      {gancho ? (
+        <>
+          <Caption top={190} size={104} delay={-10} lineas={[[{ t: "¿Tu lista está" }], [{ t: "en " }, { t: "Excel", oro: true }, { t: "?" }]]} />
+          <Caption top={1130} size={84} lineas={[[{ t: "Sirve " }, { t: "tal cual", oro: true }]]} />
+        </>
+      ) : (
+        <Caption
+          top={880}
+          size={76}
+          lineas={[[{ t: "Tu Excel sirve" }], [{ t: "tal cual", oro: true }]]}
+        />
+      )}
     </AbsoluteFill>
   );
 };

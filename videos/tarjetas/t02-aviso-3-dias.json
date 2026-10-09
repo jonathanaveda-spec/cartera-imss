@@ -1,0 +1,14 @@
+{
+  "id": "t02-aviso-3-dias",
+  "titular": ["**#1**", "Cobranza en", "15 segundos"],
+  "lineas": [
+    "Avisa **3 días** antes de que venza",
+    "Un mensaje corto y **amable**",
+    "Así tu cliente aparta el **dinero**"
+  ],
+  "numerar": false,
+  "gigante": true,
+  "llamado": ["¿Tú cuándo", "**avisas**? 👇"],
+  "voz": "t02-aviso-3-dias",
+  "guias": false
+}

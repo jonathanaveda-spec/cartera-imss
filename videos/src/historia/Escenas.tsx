@@ -106,7 +106,7 @@ export const CapturaH: React.FC<{ titular: string[]; imagenes: ImagenCaptura[] }
 };
 
 // ---------- Pantalla dividida: antes / después ----------
-const Panel: React.FC<{ p: PanelDividido; top: number; despues?: boolean; t0: number }> = ({ p, top, despues, t0 }) => {
+const Panel: React.FC<{ p: PanelDividido; top: number; despues?: boolean; t0: number; paso?: number }> = ({ p, top, despues, t0, paso = 10 }) => {
   const frame = useCurrentFrame();
   const entra = ease(frame, t0, t0 + 16);
   return (
@@ -138,7 +138,7 @@ const Panel: React.FC<{ p: PanelDividido; top: number; despues?: boolean; t0: nu
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         {p.lineas.map((l, i) => {
-          const q = ease(frame, t0 + 14 + i * 10, t0 + 26 + i * 10);
+          const q = ease(frame, t0 + 14 + i * paso, t0 + 26 + i * paso);
           return (
             <div key={i} style={{ fontFamily: textos, fontWeight: 800, fontSize: 46, lineHeight: 1.18, color: despues ? C.tinta : C.secundario, opacity: q, translate: `${(1 - q) * 40}px 0px` }}>
               {despues ? "✅ " : "✖ "}
@@ -151,13 +151,15 @@ const Panel: React.FC<{ p: PanelDividido; top: number; despues?: boolean; t0: nu
   );
 };
 
-export const DivididaH: React.FC<{ antes: PanelDividido; despues: PanelDividido }> = ({ antes, despues }) => {
+// despuesEn = cuadros que tarda en entrar el panel «Con la app» (por defecto 22); paso = cuadros entre una línea y la
+// siguiente (por defecto 10). Sirven para que cada panel entre justo cuando la voz habla de él.
+export const DivididaH: React.FC<{ antes: PanelDividido; despues: PanelDividido; despuesEn?: number; paso?: number }> = ({ antes, despues, despuesEn = 22, paso = 10 }) => {
   const frame = useCurrentFrame();
-  const vs = ease(frame, 20, 34, Easing.out(Easing.back(2)));
+  const vs = ease(frame, despuesEn - 2, despuesEn + 12, Easing.out(Easing.back(2)));
   return (
     <AbsoluteFill>
-      <Panel p={antes} top={200} t0={0} />
-      <Panel p={despues} top={850} despues t0={22} />
+      <Panel p={antes} top={200} t0={0} paso={paso} />
+      <Panel p={despues} top={850} despues t0={despuesEn} paso={paso} />
       <div style={{ position: "absolute", left: 540 - 55, top: 765, width: 110, height: 110, borderRadius: 999, background: C.oro, color: C.azulNoche, fontFamily: titulos, fontWeight: 800, fontSize: 56, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 12px 26px rgba(3,12,40,0.4)", scale: vs }}>
         ↓
       </div>

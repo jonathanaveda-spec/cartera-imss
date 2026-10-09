@@ -1,0 +1,37 @@
+{
+  "id": "p06-fecha-sola",
+  "voz": "p06-fecha-sola",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "etiqueta": "¿Cada cuánto te pagan?", "emoji": "📅", "titular": ["La próxima", "fecha se pone", "**sola**"] },
+    {
+      "tipo": "captura",
+      "titular": ["Eliges cada cuánto", "te **paga**"],
+      "imagenes": [
+        { "src": "capturas/sem-periodicidad.png", "zoom": 1, "cx": 540, "cy": 1000, "anillo": { "x": 40, "y": 823, "w": 1000, "h": 520, "color": "azul", "radio": 40 } },
+        { "src": "capturas/sem-periodicidad.png", "zoom": 1.05, "cx": 540, "cy": 1400, "anillo": { "x": 40, "y": 1363, "w": 1000, "h": 226, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Registras el pago,", "la **fecha** ya está"],
+      "imagenes": [
+        { "src": "capturas/sem-pago.png", "zoom": 1, "cx": 540, "cy": 1330, "anillo": [
+          { "x": 40, "y": 1176, "w": 1000, "h": 110, "color": "azul", "radio": 40 },
+          { "x": 40, "y": 1573, "w": 1000, "h": 110, "color": "verde", "radio": 40 }
+        ] }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["¿Cada **15 días**?", "También se puede"],
+      "imagenes": [
+        { "src": "capturas/sem-pago-15dias.png", "zoom": 1, "cx": 540, "cy": 1330, "anillo": [
+          { "x": 40, "y": 1176, "w": 1000, "h": 110, "color": "azul", "radio": 40 },
+          { "x": 40, "y": 1305, "w": 440, "h": 112, "color": "azul", "radio": 40 }
+        ] }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Cómo te pagan", "tus clientes? 👇"] }
+  ]
+}

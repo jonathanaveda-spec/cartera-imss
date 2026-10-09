@@ -1,0 +1,12 @@
+{
+  "id": "p07-resumen-del-dia",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Mira, esto es lo primero que ves cuando abres Cartera Asesor." },
+    { "texto": "Arriba, el resumen de tu día: cuántos pagan hoy, cuántos son morosos, cuántos vencen pronto, y quién ya pagó." },
+    { "texto": "Abajo, el total de tus clientes, y cuántos van al día, por vencer o morosos." },
+    { "texto": "Y si tocas morosos, ves la lista, con los días de atraso de cada uno." },
+    { "texto": "¿Y tú, cómo empiezas tu día de cobranza? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}
