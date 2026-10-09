@@ -34,3 +34,15 @@ Formato: `PORTRAIT_9_16`. Para otras expresiones o poses, repetir el prompt camb
 - Presentador/a de la marca **generado con IA**. Prohibido el testimonio inventado («yo uso la app y gané…», cifras de clientes). Puede decir lo que hace la app, no lo que "le pasó".
 - Persona inventada; no se parece a nadie real ni famoso. Sin uniformes, logos ni credenciales del IMSS.
 - Al publicar: activar **«Contenido generado por IA»** en TikTok.
+
+## Variantes (09/10)
+Generadas el 09/10/2026 con Canva `generate-image`, `PORTRAIT_9_16`, usando `MAHXYBU6Dwg` como imagen de referencia (`imageReferences`).
+Base común de todos los prompts: «Realistic UGC-style selfie still shot on a smartphone... The exact same woman as the reference image: Citlali, 37-year-old Mexican woman from Veracruz, deep warm brown skin, dark expressive eyes, thin tortoiseshell glasses, black shoulder-length hair with natural waves, warm smile lines. She wears a sky-blue (#1AA3F5) and white striped shirt under an open light denim jacket, no logos... Phone-camera realism, natural skin texture. No text, no logos, no badges, no uniforms, no watermark. Original fictional person.» Solo cambia la escena:
+
+| # | Uso | media_id | Abrir | Escena (cambia en el prompt) |
+|---|---|---|---|---|
+| 1 | Tutoriales de la app | **`MAHXh4sRiq0`** | https://www.canva.com/M/MAHXh4sRiq0 | «She sits at her small home-office desk in natural window light, looking down at the smartphone she holds in one hand with a slight gentle smile, a laptop and a notebook softly blurred on the desk. Face fully visible, mouth unobstructed.» |
+| 2 | Historias del día a día (salir a cobrar) | **`MAHXh9YXst4`** | https://www.canva.com/M/MAHXh9YXst4 | «She stands outside the entrance of a house on a sunny residential street in Mexico, natural daylight, a small shoulder bag strap visible, friendly confident smile like heading out to make her rounds. Face and shoulders fully visible, mouth unobstructed.» |
+| 3 | Ganchos (sorpresa/duda) | **`MAHXh3epNIk`** | https://www.canva.com/M/MAHXh3epNIk | «She sits at a table in a cozy cafe with a coffee cup blurred in front, window light from the side. Surprised and thoughtful expression, eyebrows raised, one hand raised near her cheek or temple with fingers relaxed, hand NOT covering her mouth.» |
+
+Revisión (vista pequeña ~112 x 199; la herramienta no da el tamaño completo): misma cara, lentes de carey, cabello y ropa en las tres; sin texto ni logos; boca libre; sin reintentos necesarios. **Pendiente:** revisar manos, ojos y dientes en tamaño completo al descargarlas de Canva (en la 1 la mirada va a cámara más que al celular).
