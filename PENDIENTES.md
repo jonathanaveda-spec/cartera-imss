@@ -45,9 +45,11 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 
 ## 🎬 VIDEOS — semana 12–18/10 (Lucía, PC de la oficina)
 - [x] Lunes 12: M01, P05, H02 ✅ (rehechos con voces humanas).
-- [ ] Martes 13 → domingo 18: los 18 que faltan (`videos/plan-semana-2026-10-12.md`), con las **4 voces humanas** (Valeria,
-      Alejo, Dalia HD, Jorge HD). Piloto HyperFrames del martes quedó a medias (falta FFmpeg completo).
-- [ ] **R2** «Pásale tu Excel» corto (reemplaza a M03 del miércoles 14): hay que recortarlo del #2.
+- [x] ✅ 09/10 Martes 13 (M02, P06, T02) y miércoles 14 (R2, P07, H03) hechos por Lucía, en GitHub (`videos/entregas/AVANCE.md`).
+- [ ] **Segunda vuelta de Lucía:** jueves 15 → domingo 18 (M04 P08 T03 · M05 P09 H04 · M06 P10 T04 · M07 P11 H05). Se pausó por
+      llegar al 85 % del límite de 5 h. Capturas ya listas. Piloto HyperFrames a medias (falta FFmpeg completo).
+- [x] ✅ 09/10 **R2** «Pásale tu Excel» corto (19 s, Jorge HD).
+- [ ] Descripciones con palabras clave y 4 hashtags: `videos/descripciones-por-subir.md` (H01, #4, M01, P05, H02).
 - [ ] M06 (sáb 17) sin pedir testers (cambio 09/10).
 - [ ] 6 capturas nuevas para P06, P09, P10, P11 (y P05 con lista de colores).
 - [ ] Todo en `videos/entregas/` **antes de cada día** (los avisos de 8:25 / 1:55 / 8:55 avisan si falta).
@@ -56,6 +58,9 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. ✅ **APROBADA por Jonathan el 09/10** (boca sincronizada; la mano le parece natural). Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
       (`retrato-selfie.png`). Revisar ojos y dientes.
 - [x] ✅ 09/10 Emma revisó el video. ✅ 09/10 Ximena hizo 3 variantes con la misma cara (escritorio `MAHXh4sRiq0`, calle `MAHXh9YXst4`, gancho `MAHXh3epNIk`; ver ficha). ✅ 09/10 Jonathan aprobó las 3 variantes («me gustan, que proceda Citlali»).
+- [ ] **Video 1 de Citlali** (gancho «cobrar por WhatsApp no es de mala educación», voz Valeria, 23 s): audio listo en
+      `videos/entregas/Citlali01_whatsapp_audio.mp3`. Falta en HeyGen: avatar → «Usar en un video» → «Subir audio» (elegir
+      el mp3, Jonathan en la ventana de Windows) → Generar → Entregar. Marca de agua: la recorta Jonathan en CapCut.
 - [ ] Quitar la marca de agua «HeyGen» antes de publicar (plan pago de HeyGen o taparla en CapCut). Primer video con Citlali: elegirlo con Victoria (gancho del banco `videos/ganchos.md`).
 - [ ] Decidir herramienta para que hable: HeyGen (plan gratis), Hedra/Vidnoz o CapCut Pro (pagar **después** de Google Play).
 - Regla: presentadora de la marca, **nunca testimonio**; «Contenido generado por IA».
