@@ -15,11 +15,12 @@ sesión (casa, oficina, nube) la lee al empezar y tacha lo que termina (✅ + fe
 
 ## 🔴 SÁBADO 10/10 (Jonathan en la PC; Emma guía) — Google Play
 Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
-- [ ] **V5 (Emma, ANTES de pagar):** ensayo de PWABuilder con llave desechable para ver si el paquete sale con **API 36**.
+- [x] ✅ 09/10 **V5 ENSAYO OK:** PWABuilder (Bubblewrap 1.25.0) genera el paquete con **targetSdk 36 y compileSdk 36** (minSdk 24) → no hace falta plan B. En el formulario de PWABuilder poner **App name = «Cartera Asesor»** (por defecto sale «Cartera», el nombre corto) y decidir el **Package ID**, que es permanente (sugerido: `com.carteraasesor.app`; PWABuilder propone `com.carteraasesor.twa`). El paquete y la llave de prueba se borraron. (Antes: ensayo de PWABuilder con llave desechable para ver si el paquete sale con **API 36**.
       Si sale con 35 → plan B Bubblewrap (`targetSdkVersion` 36). *No se hizo el viernes.*
 - [ ] **V3 (Jonathan):** Cloudflare → Email Routing → crear **revisor@carteraasesor.com** → reenvío a su Gmail (cuenta de
       prueba para el revisor de Google).
-- [x] **V2** ✅ 09/10 (Emma, desde la nube): las dos páginas están en el repo y se publican (el flujo copia `sitio/.well-known/` y la última publicación salió bien); «eliminar cuenta» revisada: pasos iguales a la app, opción por correo, qué se borra y qué se conserva. Falta solo abrirlas una vez desde el celular (la nube no llega al dominio): carteraasesor.com/eliminar-cuenta.html y carteraasesor.com/.well-known/assetlinks.json (debe mostrar `[]`).
+- [x] **V2** ✅ 09/10: las dos páginas están en el repo y se publican; «eliminar cuenta» revisada (nube). **Verificado en
+      línea desde la PC de la oficina:** eliminar-cuenta.html responde 200 y assetlinks.json muestra `[]`. Ya no hace falta abrirlas desde el celular.
 - [ ] **Cuenta de Google nueva con soporte@carteraasesor.com** (decisión 09/10; no el Gmail personal), con verificación en
       dos pasos.
 - [ ] S1–S6: crear cuenta **personal**, nombre del desarrollador **NeuroProyectos IA**, pagar **US$25** (tarjeta no

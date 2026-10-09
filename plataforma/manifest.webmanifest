@@ -1,4 +1,5 @@
 {
+  "id": "/app/",
   "name": "Cartera Asesor",
   "short_name": "Cartera",
   "description": "Cartera de clientes para asesores: pagos, vencimientos y cobros",
@@ -7,6 +8,7 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
+  "categories": ["business", "finance", "productivity"],
   "background_color": "#0b2a6f",
   "theme_color": "#0b2a6f",
   "related_applications": [{ "platform": "webapp", "url": "https://carteraasesor.com/app/manifest.webmanifest" }],
