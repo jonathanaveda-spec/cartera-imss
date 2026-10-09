@@ -150,7 +150,10 @@ const esVacia = (cel) => !cel || cel.v == null || String(cel.v).trim() === '';
 /** Abre el libro. No guarda nada ni modifica el archivo. */
 export function leerLibro(buffer, nombreArchivo) {
   const X = XLSX();
-  const wb = X.read(buffer, { type: 'array', cellStyles: true });
+  // En un .csv todo es texto: si la librería lo interpreta, lee «05/03/2024» como 3 de mayo (formato de EE. UU.), le
+  // resta un día por la zona horaria y le quita el 0 inicial al NSS. Se lee tal cual y la app entiende día/mes/año.
+  const esTexto = /\.(csv|txt)$/i.test(nombreArchivo || '');
+  const wb = X.read(buffer, { type: 'array', cellStyles: true, ...(esTexto ? { raw: true } : {}) });
   const hojas = [];
   for (const nombre of wb.SheetNames) {
     const ws = wb.Sheets[nombre];

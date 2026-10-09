@@ -20,7 +20,7 @@ con `git pull`.
   llave), `tools/clientes-demo-revisor.mjs` → `tienda/cuenta-prueba/clientes-demo.xlsx` (inventados). **Riesgos:**
   PWABuilder podría empaquetar con Android API 35 y Google exige 36 desde el 31/08/2026 → ensayo con llave desechable el
   viernes; la prueba cerrada no estará abierta el 14/10 (M03 y M06 usan reserva); con cuenta personal Google puede mostrar
-  el nombre legal de Jonathan. Encontró un **error al importar .csv** (fechas un día antes y día/mes volteados) → pendiente.
+  el nombre legal de Jonathan. Encontró un **error al importar .csv** (fechas un día antes y día/mes volteados) → ✅ **arreglado el 09/10 desde la nube** (el .csv se lee como texto; también conservaba mal el 0 inicial del NSS). Prueba nueva en `tests/importar.test.mjs` (59 en total).
 - Eliminar cuenta ahora también borra el aviso diario (`config/avisos`) y el token del teléfono.
 
 ## 🟢 ORDEN PARA LA SESIÓN LOCAL (PC de la oficina, viernes 09/10) — HACER PRIMERO

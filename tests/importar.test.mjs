@@ -158,3 +158,14 @@ test('comisión: montos en varios formatos; los porcentajes no se adivinan y se 
   assert.deepEqual(p.filas.map((f) => f.datos.comision), [null, null, 120]);
   assert.equal(p.avisos.comisiones, 2);
 });
+
+test('.csv: fechas día/mes sin voltear ni restar un día, NSS con su 0 inicial, separador ; y acentos', () => {
+  const csv = (txt, nombre = 'lista.csv') => E.leerExcel(new TextEncoder().encode(txt), nombre);
+  const a = csv('Nombre,Celular,Fecha de inicio,NSS\nAna Ruiz,5512345678,05/03/2024,01234567890\n');
+  assert.equal(a.filas[0].datos.fecha_inicio, '2024-03-05');
+  assert.equal(a.filas[0].datos.nss, '01234567890');
+  const b = csv('﻿Nombre;Teléfono;Fecha de inicio;Comisión\nJosé Peña;5512345678;24/11/2024;1.500,50\n');
+  assert.equal(b.filas[0].datos.nombre, 'José Peña');
+  assert.equal(b.filas[0].datos.fecha_inicio, '2024-11-24');
+  assert.equal(b.filas[0].datos.comision, 1500.5);
+});
