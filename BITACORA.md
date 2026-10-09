@@ -23,6 +23,14 @@ con `git pull`.
   el nombre legal de Jonathan. Encontró un **error al importar .csv** (fechas un día antes y día/mes volteados) → ✅ **arreglado el 09/10 desde la nube** (el .csv se lee como texto; también conservaba mal el 0 inicial del NSS). Prueba nueva en `tests/importar.test.mjs` (59 en total).
 - Eliminar cuenta ahora también borra el aviso diario (`config/avisos`) y el token del teléfono.
 
+## 🏪 Decisiones de Jonathan para Google Play (09/10, desde el celular)
+1. La cuenta de Play Console se abre con una **cuenta de Google nueva hecha con soporte@carteraasesor.com** (no su Gmail
+   personal). Correo público: soporte@carteraasesor.com.
+2. **API 36 (Android 16)**, la última que pide Google; si PWABuilder da 35 → plan B Bubblewrap en la PC del local.
+3. **Plazo extendido un mes:** testers hasta el **15/11**, producción a fines de noviembre / inicios de diciembre. Esta
+   semana no se piden testers en video (M03 → reserva R2; M06 sin cierre de testers).
+Detalle en `tienda/google-play.md` (arriba). Textos para testers y perfiles: `tienda/textos-redes-y-testers.md` (Julieta).
+
 ## 🟢 ORDEN PARA LA SESIÓN LOCAL (PC de la oficina, viernes 09/10) — HACER PRIMERO
 Jonathan la dejó armada desde el celular. Después de `git pull`, Emma pone a trabajar al equipo así:
 

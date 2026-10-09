@@ -66,7 +66,7 @@ miércoles de la CURP (H03); el domingo «la nube» (M07) va antes de «ponla en
 | Mar 13 | 07:30 | M02 | T | Dato para guardar #2: 4 datos que siempre pides a cada cliente | Larissa | ✅ Sí |
 | Mar 13 | 13:00 | P06 | P | ¿Mensual, trimestral o cada 15 días? La fecha se pone sola | Dalia | 🔴 Captura nueva |
 | Mar 13 | 20:00 | T02 | T | Cobranza en 15 segundos #1: avisa 3 días antes | Renata | ✅ Sí |
-| Mié 14 | 07:30 | M03 | H · frases | Busco 12 asesores con Android (testers de Google Play) | Marina | ✅ Sí — **solo si la prueba cerrada ya está abierta** (si no, plan B) |
+| Mié 14 | 07:30 | R2 | P | **Cambio 09/10:** «Pásale tu Excel» corto (reserva R2). M03 «Busco testers» se pasa a la semana en que exista el enlace de la prueba | — | ✅ Sí (recorte del #2) |
 | Mié 14 | 13:00 | P07 | P | Abres la app y esto es lo primero que ves (resumen del día) | Luciano | ✅ Sí |
 | Mié 14 | 20:00 | H03 | H · antes/después | ¿Dónde guardas la CURP de tus clientes? (#fraude) | Dalia | ✅ Sí |
 | Jue 15 | 07:30 | M04 | T | El número que pica: $1,350 sin cobrar (ejemplo) | Pelayo | ✅ Sí |
@@ -75,7 +75,7 @@ miércoles de la CURP (H03); el domingo «la nube» (M07) va antes de «ponla en
 | Vie 16 | 07:30 | M05 | H · chat | El mensaje del viernes que te ahorra la vuelta del lunes | Carlota | ✅ Sí |
 | Vie 16 | 13:00 | P09 | P | Encuentra a cualquier cliente en 1 segundo | Gerardo | 🔴 Captura nueva |
 | Vie 16 | 20:00 | H04 | H · chat (2 colegas) | «Soy nuevo, ¿cómo organizo a mis clientes?» | Marina + Cecilio | ✅ Sí |
-| Sáb 17 | 07:30 | M06 | T | Dato para guardar #3: antes de elegir una app para tu cartera, revisa esto (+ testers Android) | Larissa | ✅ Sí (el cierre de testers solo si la prueba cerrada está abierta) |
+| Sáb 17 | 07:30 | M06 | T | Dato para guardar #3: antes de elegir una app para tu cartera, revisa esto (**sin** pedir testers: cierre normal «Pruébala gratis en carteraasesor.com») | Valeria | ✅ Sí |
 | Sáb 17 | 13:00 | P10 | P | Sin señal, la app sigue funcionando | Dalia (alegre) | 🔴 Captura nueva |
 | Sáb 17 | 20:00 | T04 | T | 4 tipos de clientes que todo asesor conoce | Yago | ✅ Sí |
 | Dom 18 | 07:30 | M07 | H · antes/después | ¿Y si se te moja la libreta? (tu cartera en la nube) | Liberto | ✅ Sí |
@@ -399,6 +399,9 @@ premios, ni fecha de salida a la tienda.
 - **Hashtags:** #halloween #cobranza #clientes #asesorimss #carteraasesor
 
 ---
+
+> **09/10 (Jonathan):** plazo de Google Play extendido un mes (testers hasta el 15/11). Esta semana no se piden testers en
+> video; M03 vuelve cuando haya enlace de la prueba cerrada. Voces: solo las 4 humanas (Valeria, Alejo, Dalia HD, Jorge HD).
 
 ## 3. Banca (videos de reserva, listos con lo que ya hay)
 Si una captura nueva no sale o un video no pasa la revisión de fotogramas, se publica uno de estos. **Regla de calidad:**

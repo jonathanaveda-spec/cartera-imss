@@ -7,6 +7,19 @@ Los textos de la ficha son de Julieta (ya corregidos). Las fuentes oficiales est
 **Decisiones ya tomadas:** cuenta de desarrollador **personal** (decisión del 01/10), con nombre visible **NeuroProyectos IA**.
 La app se empaqueta como **TWA** (la web `carteraasesor.com/app` dentro de una app Android), con PWABuilder.
 
+**Decisiones de Jonathan del 09/10 (mandan sobre lo de abajo):**
+1. **La cuenta de Google con la que se abre Play Console NO es su Gmail personal:** se crea una cuenta de Google nueva
+   con el correo **soporte@carteraasesor.com** (en accounts.google.com → Crear cuenta → «Para mí» → «Usar mi dirección de
+   correo electrónico actual»; el código de verificación llega a su Gmail por el reenvío de Cloudflare). Esa cuenta es la
+   «del desarrollador»: Play Console, pagos de la cuota y correos de Google quedan separados de lo personal. Correo
+   público de la ficha: soporte@carteraasesor.com. (El nombre legal igual lo pide Google para verificar identidad.)
+2. **Android: la última versión que pide Google — API 36 (Android 16).** Si PWABuilder entrega el paquete con API 35,
+   no se sube: se usa el plan B (Bubblewrap en la PC del local con `targetSdkVersion` 36). Ver sección 2.
+3. **Plazo extendido un mes:** la prueba cerrada se abre cuando la cuenta y el paquete estén aprobados (sin apuro para el
+   14/10). Meta nueva: juntar 15–20 testers **hasta el 15/11/2026**, 14 días de prueba y solicitar producción a
+   **finales de noviembre / inicios de diciembre**. Los videos que piden testers (M03, M06) se pasan a la semana en que
+   ya exista el enlace de la prueba; mientras tanto van videos de reserva.
+
 ---
 
 ## 1. Lista de pasos (✅ hecho · ⬜ falta)
