@@ -17,7 +17,7 @@ sesión (casa, oficina, nube) la lee al empezar y tacha lo que termina (✅ + fe
 Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - [x] ✅ 09/10 **V5 ENSAYO OK:** PWABuilder (Bubblewrap 1.25.0) genera el paquete con **targetSdk 36 y compileSdk 36** (minSdk 24) → no hace falta plan B. En el formulario de PWABuilder poner **App name = «Cartera Asesor»** (por defecto sale «Cartera», el nombre corto) y decidir el **Package ID**, que es permanente (sugerido: `com.carteraasesor.app`; PWABuilder propone `com.carteraasesor.twa`). El paquete y la llave de prueba se borraron. (Antes: ensayo de PWABuilder con llave desechable para ver si el paquete sale con **API 36**.
       Si sale con 35 → plan B Bubblewrap (`targetSdkVersion` 36). *No se hizo el viernes.*
-- [ ] **V3 (Jonathan):** Cloudflare → Email Routing → crear **revisor@carteraasesor.com** → reenvío a su Gmail (cuenta de
+- [x] ✅ 09/10 **V3 (Jonathan):** Cloudflare → Email Routing → crear **revisor@carteraasesor.com** → reenvío a su Gmail (cuenta de
       prueba para el revisor de Google).
 - [x] **V2** ✅ 09/10: las dos páginas están en el repo y se publican; «eliminar cuenta» revisada (nube). **Verificado en
       línea desde la PC de la oficina:** eliminar-cuenta.html responde 200 y assetlinks.json muestra `[]`. Ya no hace falta abrirlas desde el celular.
