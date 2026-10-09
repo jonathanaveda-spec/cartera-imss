@@ -19,8 +19,7 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
       Si sale con 35 → plan B Bubblewrap (`targetSdkVersion` 36). *No se hizo el viernes.*
 - [ ] **V3 (Jonathan):** Cloudflare → Email Routing → crear **revisor@carteraasesor.com** → reenvío a su Gmail (cuenta de
       prueba para el revisor de Google).
-- [ ] **V2 (Emma):** comprobar en línea `carteraasesor.com/.well-known/assetlinks.json` (debe dar `[]`) y
-      `carteraasesor.com/eliminar-cuenta.html` (desde la nube no se puede: la red bloquea el dominio; hacerlo en la PC).
+- [x] **V2** ✅ 09/10 (Emma, desde la nube): las dos páginas están en el repo y se publican (el flujo copia `sitio/.well-known/` y la última publicación salió bien); «eliminar cuenta» revisada: pasos iguales a la app, opción por correo, qué se borra y qué se conserva. Falta solo abrirlas una vez desde el celular (la nube no llega al dominio): carteraasesor.com/eliminar-cuenta.html y carteraasesor.com/.well-known/assetlinks.json (debe mostrar `[]`).
 - [ ] **Cuenta de Google nueva con soporte@carteraasesor.com** (decisión 09/10; no el Gmail personal), con verificación en
       dos pasos.
 - [ ] S1–S6: crear cuenta **personal**, nombre del desarrollador **NeuroProyectos IA**, pagar **US$25** (tarjeta no
