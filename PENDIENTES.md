@@ -9,7 +9,7 @@ sesión (casa, oficina, nube) la lee al empezar y tacha lo que termina (✅ + fe
 ## 🔴 HOY viernes 09/10 (Jonathan, celular)
 - [ ] **9:00 p. m. Cali:** publicar **H01** «11 de la noche» (ya con voces nuevas). Aviso a las 8:55.
 - [ ] **9:15 p. m.:** primer rato de comentarios en TikTok (5 comentarios; aviso con creadores y ejemplos).
-- [ ] Responder las **5 decisiones de Victoria** (abajo, sección «Decisiones»).
+- [x] Responder las **5 decisiones de Victoria** ✅ 09/10: «sí a todo».
 - [ ] Mandar el mensaje de testers (Julieta, `tienda/textos-redes-y-testers.md`) a 20–30 contactos con Android, uno por uno, y
       anotar los Gmail.
 
@@ -53,7 +53,7 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - [ ] Todo en `videos/entregas/` **antes de cada día** (los avisos de 8:25 / 1:55 / 8:55 avisan si falta).
 
 ## 👩 AVATAR CITLALI
-- [ ] Jonathan: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
+- [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. Falta: Jonathan aprueba o no. Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
       (`retrato-selfie.png`). Revisar ojos y dientes.
 - [ ] Emma revisa el video cuadro por cuadro → si Jonathan lo aprueba, Ximena hace 2–3 fotos más con la misma cara.
 - [ ] Decidir herramienta para que hable: HeyGen (plan gratis), Hedra/Vidnoz o CapCut Pro (pagar **después** de Google Play).
@@ -64,8 +64,9 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - [ ] Comentar: 5/día (12–18), 8/día (19–25), luego 10–15; 3 de México + 2 de Venezuela; desde @carteraasesor.
 - [ ] Buscar **grupos de Facebook** (frases en `investigacion/grupos-mx-ve.md`) y pasar 8–10 a Mariana; 1.ª semana solo ayudar.
 - [ ] Abrir los creadores de Luna y confirmar cuáles publican esta semana (seguidores no verificados).
-- [ ] Cambiar la bio de TikTok: «Sabes en 1 segundo quién te debe. App gratis para asesores y quienes cobran 🟢».
-- [ ] TikTok: permitir mensajes directos de cualquiera (los testers mandan su Gmail por ahí).
+- [x] ✅ 09/10 Cambiar la bio de TikTok: «Sabes en 1 segundo quién te debe. App gratis para asesores y quienes cobran 🟢».
+- [x] ✅ 09/10 TikTok: permitir mensajes directos de cualquiera (los testers mandan su Gmail por ahí).
+- [ ] Testers: si no alcanzan los contactos, comunidades de intercambio de testers (Reddit r/AndroidClosedTesting, grupos de Facebook «12 testers Google Play»): uno prueba la app de otros y ellos la tuya.
 - [ ] Yamileth: pedirle que sea tester (si tiene Android) y que pase la app a 3–5 colegas.
 - [ ] Confirmar con alguien en Venezuela que TikTok funciona normal allá.
 - [ ] **Lunes 19, 9:00 a. m.:** capturas de analíticas (aviso programado) → Victoria crea `videos/resultados.md` y compara.
@@ -74,7 +75,8 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - [ ] Más adelante: videos «Respondo» (2/semana desde el 19 si hay preguntas reales); un video con la historia real de Jonathan
       (venezolano en Colombia que creó la app) cuando él quiera.
 
-## 🧭 DECISIONES pendientes de Jonathan
+## 🧭 DECISIONES de Jonathan
+**✅ 09/10: Jonathan dijo «sí a todo» a las 5 de Victoria.**
 1. Abrir Instagram, Facebook y YouTube de la marca (Victoria: sí, este fin de semana).
 2. Comentar en TikTok desde @carteraasesor; en grupos de Facebook desde su perfil personal (Victoria: sí).
 3. Venezuela desde ya, de a poco (Victoria: sí).
