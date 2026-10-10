@@ -34,6 +34,21 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - ⚠️ Riesgos conocidos: Google puede **mostrar el nombre legal** de Jonathan aunque el visible sea NeuroProyectos IA; la
   verificación de identidad puede tardar días.
 
+## 🔴 DOMINGO 11/10 EN LA PC — Google Play (continúa; HACER PRIMERO)
+El sábado 10/10 Jonathan creó la cuenta de Google **soporte@carteraasesor.com** (desde el celular, en incógnito). Al activar
+la verificación en dos pasos Google respondió **«No pudimos verificar tu identidad»** (normal en cuentas recién creadas, en
+incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
+1. Chrome → foto de perfil → **Agregar** → perfil **«Cartera Asesor»** → iniciar sesión con soporte@carteraasesor.com y
+   dejarla abierta (mismo equipo, mismo navegador, Wi-Fi de casa).
+2. myaccount.google.com → Seguridad: **teléfono de recuperación** (línea de la marca) y **correo de recuperación** (Gmail personal).
+3. Volver a intentar **Verificación en dos pasos** (SMS a la línea de la marca) y guardar los **códigos de respaldo** en un
+   lugar privado (nunca en el chat ni en el repo).
+4. Si Google sigue sin dejar: esperar 1–3 días usando la cuenta normal (abrir Gmail/Drive con ella) o, como plan B, hacer la
+   cuenta de Play Console con un Gmail nuevo solo para la empresa (el correo público de la ficha sigue siendo soporte@).
+5. Con la verificación activa → play.google.com/console → cuenta **personal**, nombre **NeuroProyectos IA**, pagar US$25,
+   verificar identidad y Android (pasos S1–S14 de `tienda/google-play.md`). En PWABuilder: App name «Cartera Asesor» y
+   Package ID **`com.carteraasesor.app`** (permanente).
+
 ## 🟡 DOMINGO 11/10
 - [ ] **9:00 a. m.:** recordatorio «buscar videos virales» (tarea local de la PC: guardar 5–10 virales en una colección de TikTok).
 - [x] ✅ #4 «Mensajes de cobro» ya publicado (Jonathan lo subió el 10/10 junto con el H01); se borró el aviso del domingo. El domingo 11 en la noche queda libre (opcional: reserva R1 o R3).

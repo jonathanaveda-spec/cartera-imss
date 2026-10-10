@@ -4,6 +4,7 @@ Registro de lo hecho en cada sesión (código y también acciones fuera del cód
 Cloudflare, panel de administración, correos), para poder retomarlo desde cualquier PC
 con `git pull`.
 
+> 🔴 **10/10:** Google Play sigue el **domingo en la PC** (cuenta soporte@ creada; Google frenó la verificación en dos pasos). Ver `PENDIENTES.md` → «DOMINGO 11/10 EN LA PC».
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
 ## ✅ 09/10 (PC de la oficina, viernes)
