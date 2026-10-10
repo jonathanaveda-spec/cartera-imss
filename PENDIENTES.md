@@ -21,7 +21,7 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
       prueba para el revisor de Google).
 - [x] **V2** ✅ 09/10: las dos páginas están en el repo y se publican; «eliminar cuenta» revisada (nube). **Verificado en
       línea desde la PC de la oficina:** eliminar-cuenta.html responde 200 y assetlinks.json muestra `[]`. Ya no hace falta abrirlas desde el celular.
-- [ ] **Cuenta de Google nueva con soporte@carteraasesor.com** (decisión 09/10; no el Gmail personal), con verificación en
+- [x] ✅ 10/10 Jonathan creó la cuenta de Google con **soporte@carteraasesor.com** (desde el celular, con el enlace «nogm»). Falta: verificación en dos pasos + guardar códigos de respaldo. (Antes: **Cuenta de Google nueva con soporte@carteraasesor.com** (decisión 09/10; no el Gmail personal), con verificación en
       dos pasos.
 - [ ] S1–S6: crear cuenta **personal**, nombre del desarrollador **NeuroProyectos IA**, pagar **US$25** (tarjeta no
       prepago), verificar identidad (nombre y dirección idénticos al perfil de pagos), verificar Android real (app Play
