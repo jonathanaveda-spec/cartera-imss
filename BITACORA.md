@@ -5,6 +5,7 @@ Cloudflare, panel de administración, correos), para poder retomarlo desde cualq
 con `git pull`.
 
 > 🔴 **10/10:** Google Play sigue el **domingo en la PC** (cuenta soporte@ creada; Google frenó la verificación en dos pasos). Ver `PENDIENTES.md` → «DOMINGO 11/10 EN LA PC».
+> 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
 ## ✅ 09/10 (PC de la oficina, viernes)

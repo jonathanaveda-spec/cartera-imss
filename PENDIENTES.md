@@ -137,6 +137,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [ ] App de ventas para cualquier negocio (base: app de MotoGrafix) — **otra sesión**.
 
 ## ⏳ EN ESPERA
+- **Claude Startups (Anthropic):** solicitud enviada el 12/10 con **soporte@carteraasesor.com**; se creó la cuenta «Cartera's Individual Org» en platform.claude.com (API, USD 0, sin clave). Esperar respuesta en el Gmail (filtro/etiqueta «Anthropic»). Aviso para revisar: vie 16/10, 9:45 a. m. Cali. No agregar fondos ni crear claves de API sin hablarlo.
 - App Store (US$99/año) — plan al final de BITACORA.md.
 - Cobros automáticos (Wompi / Mercado Pago / Binance Pay) — Fase 5.
 - Firebase Blaze: rechazó las tarjetas (OR-CBAT-14); no hace falta mientras el aviso diario funcione con GitHub Actions.
