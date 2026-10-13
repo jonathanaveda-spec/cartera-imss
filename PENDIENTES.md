@@ -69,6 +69,8 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [ ] 6 capturas nuevas para P06, P09, P10, P11 (y P05 con lista de colores).
 - [ ] Todo en `videos/entregas/` **antes de cada día** (los avisos de 8:25 / 1:55 / 8:55 avisan si falta).
 
+- [ ] **ElevenLabs** (agregado 13/10 a `videos/voz.mjs` y a la skill de voz): si Jonathan lo quiere usar, crea cuenta, revisa precio/licencia comercial en elevenlabs.io/pricing, pone `ELEVENLABS_API_KEY` en Windows y elige voces de México; la sesión local hace una prueba comparando con Valeria/Alejo.
+
 ## 👩 AVATAR CITLALI
 - [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. ✅ **APROBADA por Jonathan el 09/10** (boca sincronizada; la mano le parece natural). Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
       (`retrato-selfie.png`). Revisar ojos y dientes.

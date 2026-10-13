@@ -1,6 +1,6 @@
 ---
 name: voz-cartera-asesor
-description: Voz en off de los videos de Cartera Asesor con Azure Speech (voces neuronales de México). Úsala cuando un video de la marca lleve narración: escribir el guion de voz, generar los MP3 con videos/voz.mjs, sincronizarlos en Remotion con los subtítulos y entregar el video narrado.
+description: Voz en off de los videos de Cartera Asesor con Azure Speech (voces neuronales de México) o ElevenLabs (voces más humanas, opcional). Úsala cuando un video de la marca lleve narración: escribir el guion de voz, generar los MP3 con videos/voz.mjs, sincronizarlos en Remotion con los subtítulos y entregar el video narrado.
 ---
 
 # Voz en off — Cartera Asesor
@@ -15,6 +15,22 @@ Complementa a la skill `marca-cartera-asesor` (ritmo, subtítulos, zona segura, 
   (p. ej. `eastus`). Después de crearlas hay que cerrar y abrir la app de Claude.
 - **Nunca** pedir ni escribir la clave en el chat, en el repo ni en un archivo. Si falta, el script avisa: decirle a
   Jonathan que revise las variables, no pedírsela.
+
+## 1b. ElevenLabs (opcional, agregado el 13/10/2026 a pedido de Jonathan)
+Segundo motor de voz en `videos/voz.mjs`, para cuando se quiera una voz todavía más humana o con más emoción.
+- **Requisitos (Jonathan):** cuenta en elevenlabs.io y la clave en la variable de entorno de Windows **`ELEVENLABS_API_KEY`**
+  (elevenlabs.io → Developers/Settings → API Keys). Igual que Azure: **nunca** en el chat ni en el repo.
+- **Licencia:** el plan gratis de ElevenLabs **no es para uso comercial** (pide atribución). Los videos de la marca son
+  comerciales → hace falta un plan pago (el más barato ronda pocos dólares al mes; **confirmar precio y licencia en
+  elevenlabs.io/pricing antes de pagar**). Mientras no haya plan pago, seguir con Azure (gratis).
+- **Cómo usarlo:** en el guion `voz/<id>.json` poner `"motor": "elevenlabs"` y en `"voz"` el **ID de la voz** (elevenlabs.io →
+  Voices → elegir una voz en español de México → ⋯ → Copy voice ID). Opcionales: `"modelo"` (por defecto
+  `eleven_multilingual_v2`), `"estabilidad"` (0–1; más bajo = más expresiva) y `"parecido"` (0–1). Una frase puede usar el
+  otro motor con su propio `"motor"` y `"voz"`. `"estilo"` y `"velocidad"` son solo de Azure.
+- Guardar en esta skill (sección 2) los ID de las voces de ElevenLabs que Jonathan apruebe, con el mismo criterio: pocas
+  voces, humanas, de México, y variedad entre videos.
+- **Voces clonadas:** solo la voz del propio Jonathan y con su permiso explícito. Nunca clonar a otra persona real.
+- Igual que con Azure: marcar **«Contenido generado por IA»** en TikTok.
 
 ## 2. La voz de la marca
 - **SOLO VOCES HUMANAS (decisión 08/10/2026):** Jonathan oyó Larissa en el M01 y la sintió «muy robótica». Desde ahí
