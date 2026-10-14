@@ -112,6 +112,12 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 8. Venezuela en la app: la app habla de IMSS, CURP y NSS; para vendedores a cuotas habría que hacer esos campos opcionales/con otro
    nombre (Victoria lo marcó para Emma).
 
+## 💰 PRECIOS (estudio de Mariana, 14/10: `investigacion/precios.md`)
+- [ ] Jonathan: preguntar a Yamileth y 5–10 asesores cuánto cobran por cliente, cuántos clientes tienen y cuánto pagarían.
+- [ ] Decidir precios. Propuesta: gratis 15 clientes · Pro 149 MXN/mes o 1,290/año · 24,900 COP/mes o 219,000/año · 4 USD/mes o 36/año (VE) · fundadores −33 % para los primeros 30 · beta: 3 meses gratis al terminar · cobrar en la web con 30 días de aviso; en Play sin precios.
+- [ ] Emma: precios en moneda local por país en `plan.js` (hoy un solo precio) y revisar que pasar a gratis con >15 clientes no sea tan brusco (solo lectura).
+- [ ] Andrea: confirmar política de pagos de Google y comisión en México/Colombia desde Play Console.
+
 ## 🔒 SEGURIDAD (Fernanda, revisión del 07/10)
 - [x] Datos reales fuera del código ✅ · historial de GitHub limpio ✅ (08/10).
 - [ ] Esperar respuesta del **soporte de GitHub** (ticket 08/10) para borrar la copia de la PR #1 (llega al Gmail de Jonathan).
