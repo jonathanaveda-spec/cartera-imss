@@ -8,6 +8,9 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 14/10/2026 · Imágenes para grupos de Facebook
+- 4 imágenes cuadradas (1080×1080) en `tienda/facebook/` (fb-1 tip 3 mensajes, fb-2 libreta vs app, fb-3 Excel, fb-4 «comenta yo»). Fuente: `imagenes.html`; se regeneran con `node tienda/facebook/foto.mjs`. Datos inventados.
+
 ## ✅ 09/10 (PC de la oficina, viernes)
 - Google Play: ensayo de PWABuilder OK (Bubblewrap 1.25.0 → targetSdk/compileSdk 36); en el formulario poner App name «Cartera Asesor» y elegir Package ID (sugerido com.carteraasesor.app). Manifiesto con id fijo y categorías.
 - revisor@carteraasesor.com creado en Cloudflare Email Routing → Gmail de Jonathan.
