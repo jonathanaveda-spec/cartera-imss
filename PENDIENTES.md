@@ -39,7 +39,7 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
       personal, que no se toca). **Con esta se entra a Play Console**: sirve para todas las apps futuras de NeuroProyectos IA.
       soporte@carteraasesor.com queda solo como **correo de contacto público** de la ficha de Cartera Asesor.
       (neuroproyectos.com sigue sin comprar, ~US$10/año; cuando se compre, el contacto puede pasar a contacto@neuroproyectos.com).
-- [ ] Verificación en dos pasos de neuroproyectos.ia@gmail.com (SMS a la línea de la marca) + códigos de respaldo guardados
+- [x] ✅ 14/10 Verificación en dos pasos de neuroproyectos.ia@gmail.com (SMS a la línea de la marca) + códigos de respaldo guardados
       fuera del chat y del repo. Si Google no deja: usar la cuenta 2–3 días y reintentar.
 - [ ] Pagar US$25 cuando Jonathan tenga el dinero (tarjeta no prepago) → pasos S1–S14.
 
