@@ -1,0 +1,12 @@
+{
+  "id": "p08-quincena",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Hoy es quince, ¿ya sabes quién te paga hoy?" },
+    { "texto": "Abres la app, tocas Pagan hoy, y ahí están los clientes a los que les toca hoy." },
+    { "texto": "Y con el botón Recordar, les mandas el aviso por WhatsApp." },
+    { "texto": "El mensaje ya viene listo, y lo puedes cambiar a tu manera." },
+    { "texto": "¿Y tú, a cuántos les cobras hoy? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}

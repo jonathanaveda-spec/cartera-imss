@@ -166,6 +166,11 @@ try {
   await cdp('Runtime.enable');
   await cdp('Network.setUserAgentOverride', { userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36' });
   await telefono();
+  // DIAS_ADELANTE=1 → la demo cree que hoy es mañana (para que «Vence hoy» y la fecha de la pantalla coincidan con el día de publicación).
+  if (process.env.DIAS_ADELANTE) {
+    const desfase = Number(process.env.DIAS_ADELANTE) * 86400000;
+    await cdp('Page.addScriptToEvaluateOnNewDocument', { source: `(() => { const D = Date, off = ${desfase}; class F extends D { constructor(...a) { if (a.length === 0) super(D.now() + off); else super(...a); } static now() { return D.now() + off; } } window.Date = F; })();` });
+  }
   mkdirSync(SALIDA, { recursive: true });
 
   await ir(`${BASE}/sitio/`);

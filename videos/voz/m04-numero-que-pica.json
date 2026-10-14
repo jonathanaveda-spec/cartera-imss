@@ -1,0 +1,13 @@
+{
+  "id": "m04-numero-que-pica",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Ojo, esto es un ejemplo: mil trescientos cincuenta pesos sin cobrar." },
+    { "texto": "Son tres clientes de cuatrocientos cincuenta." },
+    { "texto": "Se les pasó la fecha, y nadie les avisó." },
+    { "texto": "Y una semana después, pedirlo cuesta más." },
+    { "texto": "Avísales antes de que venza." },
+    { "texto": "¿Cuántos se te pasaron este mes? Cuéntamelo abajo. En Cartera Asesor ves quién vence pronto." }
+  ]
+}

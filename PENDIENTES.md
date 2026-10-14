@@ -70,7 +70,8 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 ## 🎬 VIDEOS — semana 12–18/10 (Lucía, PC de la oficina)
 - [x] Lunes 12: M01, P05, H02 ✅ (rehechos con voces humanas).
 - [x] ✅ 09/10 Martes 13 (M02, P06, T02) y miércoles 14 (R2, P07, H03) hechos por Lucía, en GitHub (`videos/entregas/AVANCE.md`).
-- [ ] **Segunda vuelta de Lucía:** jueves 15 → domingo 18 (M04 P08 T03 · M05 P09 H04 · M06 P10 T04 · M07 P11 H05). Se pausó por
+- [x] ✅ 14/10 Jueves 15 (M04 P08 T03) listo.
+- [ ] **Segunda vuelta de Lucía:** viernes 16 → domingo 18 (M05 P09 H04 · M06 P10 T04 · M07 P11 H05). Se pausó por
       llegar al 85 % del límite de 5 h. Capturas ya listas. Piloto HyperFrames a medias (falta FFmpeg completo).
 - [x] ✅ 09/10 **R2** «Pásale tu Excel» corto (19 s, Jorge HD).
 - [ ] Descripciones con palabras clave y 4 hashtags: `videos/descripciones-por-subir.md` (H01, #4, M01, P05, H02).

@@ -1,0 +1,14 @@
+{
+  "id": "t03-mito-memoria",
+  "titular": ["**Mito**:", "«Yo me acuerdo", "de todos»"],
+  "lineas": [
+    "Con 10 clientes, tal **vez**",
+    "Con 40, alguno se te **pasa**",
+    "Y el que se te pasa es el que no **paga**",
+    "Lo que no se anota, no se **cobra**"
+  ],
+  "numerar": false,
+  "llamado": ["¿Cuántos", "llevas **tú**? 👇"],
+  "voz": "t03-mito-memoria",
+  "guias": false
+}

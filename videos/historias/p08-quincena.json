@@ -1,0 +1,33 @@
+{
+  "id": "p08-quincena",
+  "voz": "p08-quincena",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "📅", "titular": ["Hoy es **15**", "¿Ya sabes quién", "te paga?"] },
+    {
+      "tipo": "captura",
+      "titular": ["Toca **Pagan hoy**"],
+      "imagenes": [
+        { "src": "capturas/sem-pagan-hoy.png", "zoom": 1, "cx": 540, "cy": 770, "anillo": [
+          { "x": 40, "y": 190, "w": 487, "h": 110, "color": "azul", "radio": 55 },
+          { "x": 88, "y": 1015, "w": 420, "h": 62, "color": "ambar", "radio": 30 }
+        ] }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Y le mandas el", "**recordatorio**"],
+      "imagenes": [
+        { "src": "capturas/sem-pagan-hoy.png", "zoom": 1, "cx": 540, "cy": 1000, "anillo": { "x": 88, "y": 1155, "w": 452, "h": 100, "color": "verde", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["El mensaje ya", "viene **listo**"],
+      "imagenes": [
+        { "src": "capturas/cobro-1-mensajes.png", "zoom": 1, "cx": 540, "cy": 640, "anillo": { "x": 75, "y": 476, "w": 930, "h": 276, "color": "azul", "radio": 40 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿A cuántos les", "cobras hoy? 👇"] }
+  ]
+}

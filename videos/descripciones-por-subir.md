@@ -35,3 +35,23 @@ Lo que nadie te cuenta de la cobranza #1 📒 Un «ya te pagué» sin registro e
 
 Martes 13 y miércoles 14 (M02, P06, T02, R2, P07, H03): descripciones en cada guion de `videos/guiones/`
 (pendiente pasarlas a este mismo formato de 4 hashtags).
+
+## Jueves 15
+
+### M04 «Ejemplo: $1,350 sin cobrar» — 7:30 a. m. · `M04_numero_que_pica_con_voz.mp4`
+```
+Es un ejemplo, pero ¿te suena? 💸 3 clientes de $450 a los que se les pasó la fecha = $1,350 de cobranza que ahora tienes que perseguir. Hoy es quincena: buen día para avisar a tiempo. ¿Cuántos clientes se te pasaron este mes? 👇 En Cartera Asesor ves quién vence pronto: carteraasesor.com
+#cobranza #clientes #asesorindependiente #carteraasesor
+```
+
+### P08 «Hoy es 15» — 1:00 p. m. (solo sirve el jueves 15) · `P08_quincena_con_voz.mp4`
+```
+Hoy es quincena 📅 Muchos de tus clientes pagan hoy: es el mejor día para recordarles con amabilidad. En Cartera Asesor tocas «Pagan hoy» y mandas el recordatorio de cobranza por WhatsApp en 1 toque. ¿A cuántos les cobras hoy? 👇 Pruébala gratis: carteraasesor.com
+#cobranza #whatsapp #asesorimss #carteraasesor
+```
+
+### T03 «Mito: yo me acuerdo de todos» — 8:00 p. m. · `T03_mito_memoria_con_voz.mp4`
+```
+¿Mito o realidad? 🤔 Con pocos clientes te acuerdas de todo; con muchos, alguno se te pasa. Lo que no se anota, no se cobra. ¿Cuántos clientes llevas tú? 👇 En Cartera Asesor llevas tu cartera de clientes y tu cobranza en un solo lugar: carteraasesor.com
+#clientes #cobranza #asesorindependiente #carteraasesor
+```

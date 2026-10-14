@@ -1,0 +1,13 @@
+{
+  "id": "t03-mito-memoria",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Un mito: «yo me acuerdo de todos mis clientes»." },
+    { "texto": "Con diez clientes, tal vez." },
+    { "texto": "Con cuarenta, alguno se te pasa." },
+    { "texto": "Y el que se te pasa, es el que no paga." },
+    { "texto": "Lo que no se anota, no se cobra." },
+    { "texto": "¿Cuántos clientes llevas tú? Cuéntamelo abajo." }
+  ]
+}

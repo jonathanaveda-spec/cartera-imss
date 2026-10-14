@@ -1,0 +1,14 @@
+{
+  "id": "m04-numero-que-pica",
+  "titular": ["Ejemplo:", "**$1,350**", "sin cobrar"],
+  "lineas": [
+    "3 clientes de **$450**",
+    "Se les pasó la fecha y no les **avisaste**",
+    "Una semana después, cuesta más **pedirlo**",
+    "Avísales **antes** de que venza"
+  ],
+  "numerar": false,
+  "llamado": ["¿Cuántos se te", "**pasaron**? 👇"],
+  "voz": "m04-numero-que-pica",
+  "guias": false
+}
