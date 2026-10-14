@@ -1,0 +1,13 @@
+{
+  "id": "h05-fantasma",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Una historia de terror para asesores." },
+    { "texto": "Hola, don Beto, ¿cómo va su pago?", "voz": "es-MX-Valeria:MAI-Voice-2" },
+    { "texto": "¿Sigue por ahí?", "voz": "es-MX-Valeria:MAI-Voice-2" },
+    { "texto": "Visto… desde septiembre." },
+    { "texto": "No lo puedes obligar a contestar… pero sí puedes avisarle antes de que venza." },
+    { "texto": "¿Tienes un cliente fantasma? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}

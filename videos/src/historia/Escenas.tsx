@@ -153,13 +153,13 @@ const Panel: React.FC<{ p: PanelDividido; top: number; despues?: boolean; t0: nu
 
 // despuesEn = cuadros que tarda en entrar el panel «Con la app» (por defecto 22); paso = cuadros entre una línea y la
 // siguiente (por defecto 10). Sirven para que cada panel entre justo cuando la voz habla de él.
-export const DivididaH: React.FC<{ antes: PanelDividido; despues: PanelDividido; despuesEn?: number; paso?: number }> = ({ antes, despues, despuesEn = 22, paso = 10 }) => {
+export const DivididaH: React.FC<{ antes: PanelDividido; despues: PanelDividido; despuesEn?: number; paso?: number; pasoDespues?: number }> = ({ antes, despues, despuesEn = 22, paso = 10, pasoDespues }) => {
   const frame = useCurrentFrame();
   const vs = ease(frame, despuesEn - 2, despuesEn + 12, Easing.out(Easing.back(2)));
   return (
     <AbsoluteFill>
       <Panel p={antes} top={200} t0={0} paso={paso} />
-      <Panel p={despues} top={850} despues t0={despuesEn} paso={paso} />
+      <Panel p={despues} top={850} despues t0={despuesEn} paso={pasoDespues ?? paso} />
       <div style={{ position: "absolute", left: 540 - 55, top: 765, width: 110, height: 110, borderRadius: 999, background: C.oro, color: C.azulNoche, fontFamily: titulos, fontWeight: 800, fontSize: 56, display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 12px 26px rgba(3,12,40,0.4)", scale: vs }}>
         ↓
       </div>

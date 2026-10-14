@@ -1,0 +1,33 @@
+{
+  "id": "p11-pantalla-inicio",
+  "voz": "p11-pantalla-inicio",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "📲", "titular": ["Ponla en tu", "celular **sin**", "tienda de apps"] },
+    {
+      "tipo": "captura",
+      "titular": ["En Android:", "toca **Instalar**"],
+      "imagenes": [
+        { "src": "capturas/sem-instalar-android.png", "zoom": 1, "cx": 540, "cy": 770, "anillo": { "x": 818, "y": 338, "w": 185, "h": 100, "color": "verde", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["En iPhone:", "toca **Ver cómo**"],
+      "imagenes": [
+        { "src": "capturas/sem-instalar-iphone.png", "zoom": 1, "cx": 540, "cy": 770, "anillo": { "x": 78, "y": 475, "w": 380, "h": 100, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["La guía te lleva", "**paso a paso**"],
+      "imagenes": [
+        { "src": "capturas/sem-guia-iphone.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": { "x": 40, "y": 860, "w": 1000, "h": 285, "color": "azul", "radio": 40 } },
+        { "src": "capturas/sem-guia-iphone.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": { "x": 40, "y": 1167, "w": 1000, "h": 235, "color": "azul", "radio": 40 } },
+        { "src": "capturas/sem-guia-iphone.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": { "x": 40, "y": 1427, "w": 1000, "h": 180, "color": "azul", "radio": 40 } },
+        { "src": "capturas/sem-guia-iphone.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": { "x": 40, "y": 1630, "w": 1000, "h": 180, "color": "verde", "radio": 40 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Tú usas iPhone", "o Android? 👇"] }
+  ]
+}

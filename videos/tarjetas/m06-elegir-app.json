@@ -1,0 +1,14 @@
+{
+  "id": "m06-elegir-app",
+  "titular": ["¿Una app para", "tu cartera?", "Revisa **esto** 📌"],
+  "lineas": [
+    "Que funcione sin **internet**",
+    "Que la cuides con **PIN**",
+    "Que te diga quién **vence**",
+    "Que saques tu lista a **Excel**"
+  ],
+  "numerar": true,
+  "llamado": ["¿Qué más le", "**pides**? 👇"],
+  "voz": "m06-elegir-app",
+  "guias": false
+}

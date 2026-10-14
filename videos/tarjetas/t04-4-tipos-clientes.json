@@ -1,0 +1,14 @@
+{
+  "id": "t04-4-tipos-clientes",
+  "titular": ["4 tipos de", "**clientes**", "que conoces"],
+  "lineas": [
+    "El que paga el día **1** 😇",
+    "El de «mañana te **deposito**»",
+    "El que paga en abonos… **eternos**",
+    "El que paga a tiempo… porque le **avisaste**"
+  ],
+  "numerar": true,
+  "llamado": ["¿Cuál es el", "**tuyo**? 👇"],
+  "voz": "t04-4-tipos-clientes",
+  "guias": false
+}

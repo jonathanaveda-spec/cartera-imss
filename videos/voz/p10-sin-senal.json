@@ -1,0 +1,12 @@
+{
+  "id": "p10-sin-senal",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Una pregunta que me hacen mucho: ¿y si no tengo internet? Pues la app sigue funcionando." },
+    { "texto": "Si te quedas sin señal, la app te avisa, pero puedes seguir trabajando." },
+    { "texto": "Registras tus pagos como siempre, y se guardan en tu celular." },
+    { "texto": "Y cuando vuelve la señal, se suben solos a la nube." },
+    { "texto": "¿Y a ti, dónde se te va la señal? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}

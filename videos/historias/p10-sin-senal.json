@@ -1,0 +1,24 @@
+{
+  "id": "p10-sin-senal",
+  "voz": "p10-sin-senal",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "etiqueta": "Pregunta frecuente", "emoji": "📶", "titular": ["Sin señal,", "la app **sigue**", "funcionando"] },
+    {
+      "tipo": "captura",
+      "titular": ["Te avisa y", "**sigues** trabajando"],
+      "imagenes": [
+        { "src": "capturas/sem-sin-conexion.png", "zoom": 1, "cx": 540, "cy": 770, "anillo": { "x": 40, "y": 295, "w": 1000, "h": 240, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Registras tus", "pagos **igual**"],
+      "imagenes": [
+        { "src": "capturas/sem-pago-sab17.png", "zoom": 1, "cx": 540, "cy": 900, "anillo": { "x": 40, "y": 520, "w": 1000, "h": 110, "color": "azul", "radio": 40 } }
+      ]
+    },
+    { "tipo": "frase", "emoji": "☁️", "titular": ["Con señal,", "se suben a", "la **nube**"] },
+    { "tipo": "cierre", "frase": ["¿Dónde se te", "va la señal? 👇"] }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "h05-fantasma",
+  "voz": "h05-fantasma",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "👻", "titular": ["Historia de", "**terror** para", "asesores"] },
+    {
+      "tipo": "chat",
+      "contacto": { "nombre": "Don Beto", "iniciales": "DB" },
+      "items": [
+        { "de": "asesor", "texto": "Hola, don Beto, ¿cómo va su pago? 😊", "hora": "Lun 9:15 a. m.", "leido": true, "voz": true },
+        { "escribiendo": "cliente", "seg": 1.4 },
+        { "de": "asesor", "texto": "¿Sigue por ahí? 👀", "hora": "Jue 9:20 a. m.", "leido": true, "voz": true }
+      ]
+    },
+    { "tipo": "frase", "emoji": "👻", "titular": ["Visto…", "desde", "**septiembre**"] },
+    {
+      "tipo": "captura",
+      "titular": ["Avísale **antes**", "de que venza"],
+      "imagenes": [
+        { "src": "capturas/sem-inicio-dom18.png", "zoom": 1, "cx": 540, "cy": 700, "anillo": { "x": 40, "y": 523, "w": 487, "h": 200, "color": "ambar", "radio": 40 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Tienes un cliente", "fantasma? 👇"] }
+  ]
+}

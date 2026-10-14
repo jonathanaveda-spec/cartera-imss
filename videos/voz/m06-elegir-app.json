@@ -1,0 +1,13 @@
+{
+  "id": "m06-elegir-app",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Guarda esto: antes de elegir una app para tu cartera, revisa estas cuatro cosas." },
+    { "texto": "Primero, que funcione sin internet." },
+    { "texto": "Luego, que la cuides con PIN." },
+    { "texto": "Después, que te diga quién vence." },
+    { "texto": "Y por último, que puedas sacar tu lista a Excel." },
+    { "texto": "Cartera Asesor tiene las cuatro. ¿Qué más le pides tú a una app? Cuéntamelo abajo." }
+  ]
+}

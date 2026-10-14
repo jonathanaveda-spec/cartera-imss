@@ -1,0 +1,13 @@
+{
+  "id": "t04-4-tipos-clientes",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Cuatro tipos de clientes que todo asesor conoce." },
+    { "texto": "El que paga el día uno." },
+    { "texto": "El de «mañana te deposito»." },
+    { "texto": "El que paga en abonos… eternos." },
+    { "texto": "Y el que paga a tiempo… porque le avisaste antes." },
+    { "texto": "¿Cuál es el tuyo? Cuéntamelo abajo." }
+  ]
+}

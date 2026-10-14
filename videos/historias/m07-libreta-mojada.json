@@ -1,0 +1,17 @@
+{
+  "id": "m07-libreta-mojada",
+  "voz": "m07-libreta-mojada",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "🌧️", "titular": ["¿Y si se te", "**moja** la", "libreta?"] },
+    {
+      "tipo": "dividida",
+      "despuesEn": 200,
+      "paso": 50,
+      "pasoDespues": 100,
+      "antes": { "etiqueta": "Antes", "emoji": "📒", "titulo": "Tu cartera en **papel**", "lineas": ["Se moja o se pierde", "Se queda en el carro", "Con ella se va tu cartera"] },
+      "despues": { "etiqueta": "Con la app", "emoji": "☁️", "titulo": "Tu cartera en la **nube**", "lineas": ["Se sube sola con señal", "Cambias de celular y listo", "Tus clientes ahí están"] }
+    },
+    { "tipo": "cierre", "frase": ["¿A ti ya se te", "perdió una? 👇"] }
+  ]
+}

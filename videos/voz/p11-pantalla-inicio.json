@@ -1,0 +1,12 @@
+{
+  "id": "p11-pantalla-inicio",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "¿Sabías que puedes ponerla en tu celular sin tienda de apps? Mira qué fácil." },
+    { "texto": "Entras a carteraasesor punto com diagonal app. Si usas Android, te sale este aviso: tocas Instalar, y ya." },
+    { "texto": "Si usas iPhone, te sale este otro aviso: tocas Ver cómo." },
+    { "texto": "Y la guía te lleva paso a paso: Compartir, Agregar a inicio, Agregar, y listo, ya tienes el ícono en tu pantalla." },
+    { "texto": "¿Tú usas iPhone o Android? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}

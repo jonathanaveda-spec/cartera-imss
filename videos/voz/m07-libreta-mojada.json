@@ -1,0 +1,10 @@
+{
+  "id": "m07-libreta-mojada",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Oye, ¿y si se te moja la libreta?" },
+    { "texto": "Una libreta se moja, se pierde, o se queda en el carro… y con ella se va tu cartera. Pero en la app, tus clientes se guardan en la nube: cambias de celular, entras con tu cuenta, y ahí están." },
+    { "texto": "¿A ti ya se te perdió una? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}
