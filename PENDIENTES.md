@@ -113,6 +113,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
    nombre (Victoria lo marcó para Emma).
 
 ## 💰 PRECIOS (estudio de Mariana, 14/10: `investigacion/precios.md`)
+- ✅ 14/10 Dato de Jonathan: los asesores cobran **12–25 USD por cliente** (a confirmar si es al mes). Con eso Emma propone: gratis 15 clientes · Pro **7 USD/mes o 60 USD/año** · fundadores **5 USD/mes** · Colombia 27.900 COP/mes o 239.000/año · Venezuela en USD, cobrable en bolívares a la tasa BCV del día.
 - [ ] Jonathan: preguntar a Yamileth y 5–10 asesores cuánto cobran por cliente, cuántos clientes tienen y cuánto pagarían.
 - [ ] Decidir precios. Propuesta: gratis 15 clientes · Pro 149 MXN/mes o 1,290/año · 24,900 COP/mes o 219,000/año · 4 USD/mes o 36/año (VE) · fundadores −33 % para los primeros 30 · beta: 3 meses gratis al terminar · cobrar en la web con 30 días de aviso; en Play sin precios.
 - [ ] Emma: precios en moneda local por país en `plan.js` (hoy un solo precio) y revisar que pasar a gratis con >15 clientes no sea tan brusco (solo lectura).
