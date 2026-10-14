@@ -8,7 +8,7 @@ sesión (casa, oficina, nube) la lee al empezar y tacha lo que termina (✅ + fe
 
 ## 🔴 HOY viernes 09/10 (Jonathan, celular)
 - [x] ✅ H01 publicado (Jonathan, 09–10/10).
-- [ ] **9:15 p. m.:** primer rato de comentarios en TikTok (5 comentarios; aviso con creadores y ejemplos).
+- [x] (09/10) Avisos de comentarios funcionando cada noche a las 9:15 (Cali).
 - [x] Responder las **5 decisiones de Victoria** ✅ 09/10: «sí a todo».
 - [ ] Mandar el mensaje de testers (Julieta, `tienda/textos-redes-y-testers.md`) a 20–30 contactos con Android, uno por uno, y
       anotar los Gmail.
@@ -50,9 +50,9 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
    Package ID **`com.carteraasesor.app`** (permanente).
 
 ## 🟡 DOMINGO 11/10
-- [ ] **9:00 a. m.:** recordatorio «buscar videos virales» (tarea local de la PC: guardar 5–10 virales en una colección de TikTok).
+- [x] (11/10, ya pasó) recordatorio «buscar videos virales» (tarea local de la PC: guardar 5–10 virales en una colección de TikTok).
 - [x] ✅ #4 «Mensajes de cobro» ya publicado (Jonathan lo subió el 10/10 junto con el H01); se borró el aviso del domingo. El domingo 11 en la noche queda libre (opcional: reserva R1 o R3).
-- [ ] Decidir: ¿la semana 12–18 se **programa toda el domingo** en TikTok Studio (compu, +1 h a la hora de México) o se publica
+- [x] (12–14/10) La semana 12–18 se publicó a mano con los avisos. Antes: Decidir: ¿la semana 12–18 se **programa toda el domingo** en TikTok Studio (compu, +1 h a la hora de México) o se publica
       a mano con los avisos? (si se programa, los avisos sirven solo para contestar comentarios).
 - [ ] Si se aprueba la decisión 1: abrir **Instagram, Facebook (página) y YouTube** de la marca con los textos de Julieta y
       subir ahí los 14 de mediodía y noche (Meta Business Suite / YouTube Studio).
