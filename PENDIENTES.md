@@ -34,7 +34,16 @@ Guía completa: `tienda/google-play.md` (pasos V1–V5, S1–S14).
 - ⚠️ Riesgos conocidos: Google puede **mostrar el nombre legal** de Jonathan aunque el visible sea NeuroProyectos IA; la
   verificación de identidad puede tardar días.
 
-## 🔴 DOMINGO 11/10 EN LA PC — Google Play (continúa; HACER PRIMERO)
+## 🔴 GOOGLE PLAY — decisión 14/10: cuenta de la EMPRESA
+- [x] ✅ 14/10 Jonathan creó **neuroproyectos.ia@gmail.com** (perfil de Chrome «NeuroProyectos IA», aparte de su Gmail
+      personal, que no se toca). **Con esta se entra a Play Console**: sirve para todas las apps futuras de NeuroProyectos IA.
+      soporte@carteraasesor.com queda solo como **correo de contacto público** de la ficha de Cartera Asesor.
+      (neuroproyectos.com sigue sin comprar, ~US$10/año; cuando se compre, el contacto puede pasar a contacto@neuroproyectos.com).
+- [ ] Verificación en dos pasos de neuroproyectos.ia@gmail.com (SMS a la línea de la marca) + códigos de respaldo guardados
+      fuera del chat y del repo. Si Google no deja: usar la cuenta 2–3 días y reintentar.
+- [ ] Pagar US$25 cuando Jonathan tenga el dinero (tarjeta no prepago) → pasos S1–S14.
+
+## (histórico) DOMINGO 11/10 EN LA PC — Google Play
 El sábado 10/10 Jonathan creó la cuenta de Google **soporte@carteraasesor.com** (desde el celular, en incógnito). Al activar
 la verificación en dos pasos Google respondió **«No pudimos verificar tu identidad»** (normal en cuentas recién creadas, en
 incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
