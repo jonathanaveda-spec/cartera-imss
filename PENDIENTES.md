@@ -123,7 +123,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [ ] Revisar frases que prometen de más («100 % privada», «nadie puede ver», «encriptados») en sitio y textos (Julieta; parte
       ya corregida el 08/10).
 - [ ] `Cartera_Asesor_video_v1.mp4` muestra 2 correos cerca del segundo 13: no usarlo / rehacerlo.
-- [ ] Decidir antes de cobrar: ¿el administrador puede seguir abriendo carteras? (hoy sí, y queda registrado).
+- [x] ✅ 14/10 **Decisión de Jonathan: se deja como está** (el administrador puede abrir carteras en modo lectura; cada acceso queda en `admin_log` de Firestore, que no se puede editar ni borrar desde la app). Hoy el registro solo se ve en la consola de Firebase → Firestore → `admin_log`; opcional: pestaña «Registro» en el panel.
 
 ## 📱 APP (Emma)
 - [x] Importar .csv (fechas y NSS) ✅ 09/10 · Eliminar cuenta borra el aviso diario ✅ 08/10 · Compartir y acerca de ✅ 08/10.
