@@ -1,0 +1,27 @@
+{
+  "id": "p09-buscar-cliente",
+  "voz": "p09-buscar-cliente",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "🔎", "titular": ["Encuentra a", "cualquier", "cliente en", "**1 segundo**"] },
+    {
+      "tipo": "captura",
+      "titular": ["Escribes **3 letras**", "y ahí está"],
+      "imagenes": [
+        { "src": "capturas/sem-buscar.png", "zoom": 1, "cx": 540, "cy": 1250, "anillo": [
+          { "x": 40, "y": 840, "w": 785, "h": 110, "color": "azul", "radio": 45 },
+          { "x": 40, "y": 1310, "w": 1000, "h": 485, "color": "verde", "radio": 40 }
+        ] }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Busca y **filtra**"],
+      "imagenes": [
+        { "src": "capturas/sem-filtros.png", "zoom": 1, "cx": 540, "cy": 770, "anillo": { "x": 40, "y": 190, "w": 785, "h": 110, "color": "azul", "radio": 45 } },
+        { "src": "capturas/sem-filtros.png", "zoom": 1, "cx": 540, "cy": 770, "anillo": { "x": 40, "y": 325, "w": 1000, "h": 755, "color": "azul", "radio": 40 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Cuánto tardas", "en encontrar un cliente? 👇"] }
+  ]
+}

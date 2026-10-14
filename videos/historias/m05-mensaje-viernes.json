@@ -1,0 +1,21 @@
+{
+  "id": "m05-mensaje-viernes",
+  "voz": "m05-mensaje-viernes",
+  "guias": false,
+  "escenas": [
+    { "tipo": "gancho", "hora": "Vie 7:30 a. m.", "icono": "☀️", "titular": ["El mensaje que", "te ahorra", "la **vuelta**", "del lunes"] },
+    {
+      "tipo": "chat",
+      "contacto": { "nombre": "Sra. Lupita", "iniciales": "SL" },
+      "items": [
+        { "de": "asesor", "texto": "Buenos días, Sra. Lupita 😊 El lunes le toca su pago. ¿Paso a las 10?", "hora": "7:32 a. m.", "leido": true, "voz": true },
+        { "escribiendo": "cliente", "seg": 0.9 },
+        { "de": "cliente", "texto": "Sí, aquí se lo tengo listo 👍", "hora": "7:40 a. m.", "voz": true },
+        { "de": "asesor", "texto": "¡Gracias! Buen fin de semana 🙌", "hora": "7:41 a. m.", "leido": true, "voz": true }
+      ]
+    },
+    { "tipo": "frase", "titular": ["Un aviso", "el **viernes**", "y el lunes", "ya te esperan"] },
+    { "tipo": "frase", "titular": ["En la app", "el mensaje", "ya viene", "**listo**"] },
+    { "tipo": "cierre", "frase": ["¿Tú avisas antes", "del fin de semana? 👇"] }
+  ]
+}

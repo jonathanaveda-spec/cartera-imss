@@ -1,0 +1,11 @@
+{
+  "id": "p09-buscar-cliente",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Oye, ¿cuánto tardas en encontrar a un cliente? Aquí, un segundo." },
+    { "texto": "Escribes tres letras del nombre, y ahí aparece el cliente." },
+    { "texto": "Puedes buscar por nombre, por CURP, por NSS o por celular. Y también filtrar por estado y por fechas." },
+    { "texto": "¿Y tú, cuánto tardas hoy? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}

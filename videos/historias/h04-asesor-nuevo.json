@@ -1,0 +1,43 @@
+{
+  "id": "h04-asesor-nuevo",
+  "voz": "h04-asesor-nuevo",
+  "guias": false,
+  "escenas": [
+    { "tipo": "titulo", "emoji": "😰", "titular": ["Soy nuevo,", "¿cómo **organizo**", "a mis clientes?"] },
+    {
+      "tipo": "chat",
+      "contacto": { "nombre": "Rocío (asesora)", "iniciales": "RO" },
+      "items": [
+        { "escribiendo": "cliente", "seg": 0.9 },
+        { "de": "cliente", "texto": "Tranquilo, son tres pasos 😊", "hora": "8:15 p. m.", "voz": true }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["**1.** Pasa tu lista", "a la app"],
+      "imagenes": [
+        { "src": "capturas/importar-1-donde.png", "zoom": 1, "cx": 540, "cy": 1280, "anillo": { "x": 40, "y": 1070, "w": 1000, "h": 640, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["**2.** Ponle fecha", "de cobro a cada uno"],
+      "imagenes": [
+        { "src": "capturas/sem-asistente-1.png", "zoom": 1, "cx": 540, "cy": 1300, "anillo": [
+          { "x": 40, "y": 860, "w": 1000, "h": 80, "color": "azul", "radio": 35 },
+          { "x": 800, "y": 1780, "w": 240, "h": 110, "color": "verde", "radio": 40 }
+        ] }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["**3.** Revisa cómo", "va tu cartera"],
+      "imagenes": [
+        { "src": "capturas/sem-inicio-vie16.png", "zoom": 1, "cx": 540, "cy": 700, "anillo": { "x": 553, "y": 295, "w": 487, "h": 200, "color": "verde", "radio": 40 } },
+        { "src": "capturas/sem-inicio-vie16.png", "zoom": 1, "cx": 540, "cy": 700, "anillo": { "x": 40, "y": 523, "w": 487, "h": 200, "color": "ambar", "radio": 40 } },
+        { "src": "capturas/sem-inicio-vie16.png", "zoom": 1, "cx": 540, "cy": 700, "anillo": { "x": 553, "y": 523, "w": 487, "h": 200, "color": "rojo", "radio": 40 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Qué le dirías tú", "a un asesor nuevo? 👇"] }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "m05-mensaje-viernes",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Oye, ¿quieres ahorrarte la vuelta del lunes? Mira este mensaje." },
+    { "texto": "Buenos días, señora Lupita. El lunes le toca su pago, ¿paso a las diez?" },
+    { "texto": "Sí, aquí se lo tengo listo.", "voz": "es-MX-Valeria:MAI-Voice-2" },
+    { "texto": "¡Gracias! Buen fin de semana." },
+    { "texto": "Un aviso el viernes, y el lunes ya te están esperando." },
+    { "texto": "En Cartera Asesor, ese mensaje ya viene listo." },
+    { "texto": "¿Tú avisas antes del fin de semana? Cuéntamelo abajo." }
+  ]
+}

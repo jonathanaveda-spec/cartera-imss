@@ -1,0 +1,13 @@
+{
+  "id": "h04-asesor-nuevo",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Oye, soy nuevo de asesor… ¿cómo organizo a mis clientes?", "voz": "es-MX-Alejo:MAI-Voice-2" },
+    { "texto": "Tranquilo, son tres pasos." },
+    { "texto": "Primero, pasa tu lista de clientes a la app. Si la tienes en Excel, la importas en unos minutos." },
+    { "texto": "Segundo, ponle a cada cliente su fecha de cobro." },
+    { "texto": "Y tercero, cada mañana revisa cómo va tu cartera: quién está al día, quién por vencer, y quién moroso." },
+    { "texto": "¿Y tú, qué consejo le darías a un asesor nuevo? Cuéntamelo abajo. Pruébala gratis en la beta." }
+  ]
+}

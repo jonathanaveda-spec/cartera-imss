@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SALIDA = join(RAIZ, 'videos', 'public', 'capturas');
+const SALIDA = process.env.CAPTURAS_SALIDA || join(RAIZ, 'videos', 'public', 'capturas'); // CAPTURAS_SALIDA=<carpeta> para no pisar las buenas
 const BASE = 'http://localhost:8080';
 const EDGE = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const PUERTO = 9334;
@@ -166,6 +166,8 @@ try {
   await cdp('Runtime.enable');
   await cdp('Network.setUserAgentOverride', { userAgent: 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36' });
   await telefono();
+  // Sin service worker en las capturas: si la app detecta una versión nueva, se recarga sola y corta la corrida.
+  await cdp('Page.addScriptToEvaluateOnNewDocument', { source: 'delete Navigator.prototype.serviceWorker;' });
   // DIAS_ADELANTE=1 → la demo cree que hoy es mañana (para que «Vence hoy» y la fecha de la pantalla coincidan con el día de publicación).
   if (process.env.DIAS_ADELANTE) {
     const desfase = Number(process.env.DIAS_ADELANTE) * 86400000;

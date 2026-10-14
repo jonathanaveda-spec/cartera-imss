@@ -55,3 +55,23 @@ Hoy es quincena 📅 Muchos de tus clientes pagan hoy: es el mejor día para rec
 ¿Mito o realidad? 🤔 Con pocos clientes te acuerdas de todo; con muchos, alguno se te pasa. Lo que no se anota, no se cobra. ¿Cuántos clientes llevas tú? 👇 En Cartera Asesor llevas tu cartera de clientes y tu cobranza en un solo lugar: carteraasesor.com
 #clientes #cobranza #asesorindependiente #carteraasesor
 ```
+
+## Viernes 16
+
+### M05 «El mensaje que te ahorra la vuelta del lunes» — 7:30 a. m. · `M05_mensaje_viernes_con_voz.mp4`
+```
+Un mensaje el viernes en la mañana y el lunes tu cliente ya te espera con su pago ☀️ En Cartera Asesor el mensaje de cobranza ya viene listo y lo mandas por WhatsApp en 1 toque. ¿Tú avisas antes del fin de semana? 👇 Pruébala gratis: carteraasesor.com
+#whatsapp #cobranza #clientes #carteraasesor
+```
+
+### P09 «Encuentra a cualquier cliente en 1 segundo» — 1:00 p. m. · `P09_buscar_cliente_con_voz.mp4`
+```
+Por nombre, CURP, NSS o celular: escribes y ahí está tu cliente 🔎 Sin hojear la libreta ni buscar en el Excel. ¿Cuánto tardas hoy en encontrar a un cliente? 👇 Cartera Asesor te ordena la cartera de clientes y la cobranza: carteraasesor.com
+#clientes #cobranza #asesorimss #carteraasesor
+```
+
+### H04 «Soy nuevo, ¿cómo organizo a mis clientes?» — 8:00 p. m. · `H04_asesor_nuevo_con_voz.mp4`
+```
+Si eres asesor nuevo, empieza así 👇 1) pasa tu lista de clientes a la app 2) ponle a cada uno su fecha de cobro 3) revisa tu cartera cada mañana. Así tu cobranza no depende de la memoria. ¿Qué consejo le darías tú a un asesor nuevo? Pruébala gratis: carteraasesor.com
+#asesorimss #clientes #cobranza #carteraasesor
+```
