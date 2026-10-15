@@ -241,7 +241,8 @@ function etiquetaOrden() {
 }
 
 /** El público principal son los asesores del IMSS en México; sin país en el perfil se asume México. */
-const esMexico = () => !N.estado.perfil?.pais || N.estado.perfil.pais === 'MX';
+// Colombia cuenta como México por ahora: el registro traía «Colombia» marcado por defecto (ver logic.js).
+const esMexico = () => !['VE', 'OTRO'].includes(N.estado.perfil?.pais);
 
 export function render() {
   L.fijarPaisTelefono(N.estado.perfil?.pais);

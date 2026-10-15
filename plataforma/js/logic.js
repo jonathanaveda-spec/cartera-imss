@@ -160,7 +160,7 @@ export function fijarPaisTelefono(pais) { paisTelefono = pais || 'MX'; }
 /**
  * Número completo con código de país, para WhatsApp y llamadas. Si se escribió con «+» y código de país
  * (ej. +57 300 123 4567), se respeta tal cual. Si no, se usa el país del asesor: México (10 dígitos → +52),
- * Venezuela (0414… de 11 dígitos o 414… de 10 → +58) o Colombia (300… de 10 dígitos → +57).
+ * Venezuela (0414… de 11 dígitos o 414… de 10 → +58); los demás, como México.
  */
 export function telefonoInternacional(celular, pais = paisTelefono) {
   const s = String(celular ?? '').trim();
@@ -169,10 +169,11 @@ export function telefonoInternacional(celular, pais = paisTelefono) {
   if (d.length === 12 && (d.startsWith('57') || d.startsWith('58'))) return d;
   if (pais === 'VE') {
     if (d.length === 11 && d.startsWith('0')) return '58' + d.slice(1);
-    if (d.length === 10 && !d.startsWith('0')) return '58' + d;
+    if (d.length === 10 && d.startsWith('4')) return '58' + d;
     return null;
   }
-  if (pais === 'CO') return d.length === 10 ? '57' + d : null;
+  // Colombia todavía no: el registro traía «Colombia» marcado por defecto y hay asesores de México con país CO sin saberlo.
+  // Hasta que el país se elija a conciencia, un número de 10 dígitos se sigue tomando como de México (como siempre).
   const mx = telefonoDe(celular);
   return mx ? '52' + mx : null;
 }
