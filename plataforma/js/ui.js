@@ -241,6 +241,7 @@ function etiquetaOrden() {
 }
 
 export function render() {
+  L.fijarPaisTelefono(N.estado.perfil?.pais);
   const btnRev = document.querySelector('.barra [data-accion="revision"]');
   if (btnRev) {
     const dupR = L.indexarDuplicados(S.db.clientes);
@@ -375,12 +376,12 @@ export function abrirDetalle(id, ventanaExistente) {
       ${otros.length ? `<div class="mini" style="margin-top:8px">Coincide con: ${otros.map((o) => `<a href="#" data-accion="abrir" data-id="${o.id}">${esc(o.nombre)}</a> (${esc(o.proveedor)} · ${esc(o.opcion)})`).join('; ')}</div>` : ''}
       <div class="mini" style="margin-top:8px">Solo son avisos: la app no modifica estos datos por su cuenta.</div></div>` : ''}
     <div class="seccion"><h3>Datos</h3><dl class="datos">
-      <div><dt>CURP</dt><dd>${esc(c.curp) || '—'}</dd></div>
-      <div><dt>NSS</dt><dd>${esc(c.nss) || '—'}</dd></div>
+      ${c.curp || dup.usaCurp ? `<div><dt>CURP</dt><dd>${esc(c.curp) || '—'}</dd></div>` : ''}
+      ${c.nss || dup.usaNss ? `<div><dt>NSS</dt><dd>${esc(c.nss) || '—'}</dd></div>` : ''}
       <div><dt>Celular</dt><dd>${esc(c.celular) || '—'}</dd></div>
       <div><dt>Fecha de inicio</dt><dd>${L.fmtFecha(c.fecha_inicio)}</dd></div>
-      <div><dt>Opción</dt><dd>${esc(c.opcion) || '—'}</dd></div>
-      <div><dt>Proveedor</dt><dd>${esc(c.proveedor) || '—'}</dd></div>
+      <div><dt>Opción o producto</dt><dd>${esc(c.opcion) || '—'}</dd></div>
+      <div><dt>Proveedor o empresa</dt><dd>${esc(c.proveedor) || '—'}</dd></div>
       <div><dt>Tu comisión</dt><dd>${c.comision != null ? L.fmtDinero(c.comision) + ' por pago' : '—'}</dd></div>
       ${extras.map((x) => `<div><dt>${esc(x.etiqueta)}</dt><dd>${esc(c.extra?.[x.clave]) || '—'}</dd></div>`).join('')}
       ${c.notas ? `<div style="grid-column:1/-1"><dt>Notas</dt><dd style="white-space:pre-wrap">${esc(c.notas)}</dd></div>` : ''}
@@ -460,22 +461,28 @@ export function abrirFormulario(id) {
   const c = id ? S.buscar(id) : null;
   const v = c || { nombre: '', curp: '', nss: '', celular: '', fecha_inicio: '', opcion: '', proveedor: '', comision: '', periodicidad: '', proximo_pago: '', notas: '', extra: {} };
   const extras = S.db.config.camposPersonalizados.filter((x) => !x.archivado);
+  const dupF = L.indexarDuplicados(S.db.clientes);
   const cuerpo = `<form id="f-cliente" novalidate autocomplete="off">
     <div class="rejilla dos">
       <label class="completo">Nombre completo *<input name="nombre" value="${esc(v.nombre)}" required autocapitalize="characters"></label>
-      <label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
-      <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>
       <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
       <label>Fecha de inicio<input type="date" name="fecha_inicio" value="${esc(v.fecha_inicio || '')}"><div class="ayuda">El día de esta fecha es el día de pago (ej. 24 = paga cada 24).</div></label>
       <label>Tu comisión por pago<input type="number" step="any" min="0" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal" placeholder="0.00"><div class="ayuda">Lo que tú ganas cada vez que este cliente paga. Se suma en 💰 Mis comisiones.</div></label>
-      <label>Opción<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
-      <label>Proveedor<input name="proveedor" value="${esc(v.proveedor)}" list="lista-proveedores"></label>
+      <label>Opción o producto<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
+      <label>Proveedor o empresa<input name="proveedor" value="${esc(v.proveedor)}" list="lista-proveedores"></label>
       <label>Periodicidad de pago
         ${campoPeriodicidad(v.periodicidad, { vacio: 'Sin definir' })}</label>
       <label>Próximo pago<input type="date" name="proximo_pago" value="${esc(v.proximo_pago || '')}">
         <div class="ayuda">Se actualiza solo al registrar un pago.</div></label>
       ${extras.map((x) => campoExtraHTML(x, v.extra?.[x.clave])).join('')}
       <label class="completo">Notas<textarea name="notas">${esc(v.notas)}</textarea></label>
+      <details class="completo datos-imss"${v.curp || v.nss || dupF.usaCurp || dupF.usaNss ? ' open' : ''}>
+        <summary>Datos IMSS: CURP y NSS (opcional)</summary>
+        <div class="rejilla dos">
+          <label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
+          <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>
+        </div>
+      </details>
     </div>
     <datalist id="lista-opciones">${[...new Set(S.db.clientes.map((k) => k.opcion).filter(Boolean))].map((o) => `<option value="${esc(o)}">`).join('')}</datalist>
     <datalist id="lista-proveedores">${[...new Set(S.db.clientes.map((k) => k.proveedor).filter(Boolean))].map((o) => `<option value="${esc(o)}">`).join('')}</datalist>
@@ -1097,7 +1104,7 @@ function resultadoImport(n) {
 export async function exportarExcel() {
   await seguro(async () => {
     const bytes = E.exportarExcelBytes(S.db, L.hoyISO(), S.exportarJSON());
-    const ok = await E.descargar(bytes, `Cartera_IMSS_${L.hoyISO()}.xlsx`, MIME_XLSX);
+    const ok = await E.descargar(bytes, `Cartera_Asesor_${L.hoyISO()}.xlsx`, MIME_XLSX);
     if (ok) {
       await S.marcarRespaldo();
       aviso('Excel exportado. Tu archivo original no se modificó.');
@@ -1110,7 +1117,7 @@ export async function exportarExcel() {
 export async function exportarRespaldo() {
   await seguro(async () => {
     const bytes = E.exportarExcelBytes(S.db, L.hoyISO(), S.exportarJSON());
-    const ok = await E.descargar(bytes, `Respaldo_Cartera_IMSS_${L.hoyISO()}.xlsx`, MIME_XLSX);
+    const ok = await E.descargar(bytes, `Respaldo_Cartera_Asesor_${L.hoyISO()}.xlsx`, MIME_XLSX);
     if (ok) { await S.marcarRespaldo(); aviso('Respaldo guardado en el teléfono (carpeta Descargas o Archivos)'); render(); }
   });
 }
@@ -1309,7 +1316,7 @@ export async function abrirBloqueo() {
   const pintar = () => {
     if (!B.activo()) {
       v.poner({
-        cuerpo: `<p style="margin-bottom:10px">Si alguien más toma tu teléfono, <b>no podrá ver tu cartera</b> (nombres, CURP, NSS, celulares) sin tu PIN.</p>
+        cuerpo: `<p style="margin-bottom:10px">Si alguien más toma tu teléfono, <b>no podrá ver tu cartera</b> (nombres, celulares y demás datos) sin tu PIN.</p>
           <form id="f-pin" class="rejilla">
             ${campoPin('pin', 'Crea un PIN de 4 números')}
             ${campoPin('pin2', 'Repite el PIN')}

@@ -580,7 +580,7 @@ export function exportarJSON() {
 
 export async function restaurarJSON(texto) {
   let o;
-  try { o = JSON.parse(texto); } catch { throw new Error('El archivo no es un respaldo válido de esta aplicación (elige el archivo Respaldo_Cartera_IMSS_… que descargaste desde la app)'); }
+  try { o = JSON.parse(texto); } catch { throw new Error('El archivo no es un respaldo válido de esta aplicación (elige el archivo de respaldo que descargaste desde la app)'); }
   const datos = o && o.app === 'cartera-imss' ? o.datos : null;
   if (!datos || !Array.isArray(datos.clientes)) throw new Error('El archivo no es un respaldo válido de esta aplicación');
   await copiaPrevia('restaurar respaldo');

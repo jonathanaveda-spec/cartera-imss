@@ -153,14 +153,26 @@ export function telefonoDe(celular) {
   return null;
 }
 
+// País del asesor (de su perfil): decide el código de país de los celulares escritos sin «+».
+let paisTelefono = 'MX';
+export function fijarPaisTelefono(pais) { paisTelefono = pais || 'MX'; }
+
 /**
- * Número completo con código de país, para WhatsApp y llamadas. Un número de 10 dígitos es de México (+52);
- * si se escribió con «+» y código de país (ej. +57 300 123 4567), se respeta tal cual.
+ * Número completo con código de país, para WhatsApp y llamadas. Si se escribió con «+» y código de país
+ * (ej. +57 300 123 4567), se respeta tal cual. Si no, se usa el país del asesor: México (10 dígitos → +52),
+ * Venezuela (0414… de 11 dígitos o 414… de 10 → +58) o Colombia (300… de 10 dígitos → +57).
  */
-export function telefonoInternacional(celular) {
+export function telefonoInternacional(celular, pais = paisTelefono) {
   const s = String(celular ?? '').trim();
   const d = s.replace(/\D/g, '');
   if (s.startsWith('+') && d.length >= 8 && d.length <= 15) return d;
+  if (d.length === 12 && (d.startsWith('57') || d.startsWith('58'))) return d;
+  if (pais === 'VE') {
+    if (d.length === 11 && d.startsWith('0')) return '58' + d.slice(1);
+    if (d.length === 10 && !d.startsWith('0')) return '58' + d;
+    return null;
+  }
+  if (pais === 'CO') return d.length === 10 ? '57' + d : null;
   const mx = telefonoDe(celular);
   return mx ? '52' + mx : null;
 }
@@ -268,13 +280,18 @@ export function contarPorEstado(clientes, hoy, diasAviso) {
 // ---------- Revisión de datos (solo señala, nunca corrige) ----------
 export function indexarDuplicados(clientes) {
   const porCurp = new Map(), porNss = new Map();
+  let conCurp = 0, conNss = 0;
   for (const c of clientes) {
     const k = (c.curp || '').trim().toUpperCase();
-    if (k) (porCurp.get(k) || porCurp.set(k, []).get(k)).push(c.id);
+    if (k) { conCurp++; (porCurp.get(k) || porCurp.set(k, []).get(k)).push(c.id); }
     const n = (c.nss || '').trim();
-    if (n) (porNss.get(n) || porNss.set(n, []).get(n)).push(c.id);
+    if (n) { conNss++; (porNss.get(n) || porNss.set(n, []).get(n)).push(c.id); }
   }
-  return { porCurp, porNss };
+  // CURP y NSS son opcionales (la app sirve también a quien no trabaja con el IMSS): solo se avisa que faltan
+  // si la cartera los usa, es decir, si más de la mitad de los clientes ya los tiene.
+  const usaCurp = conCurp * 2 > clientes.length;
+  const usaNss = conNss * 2 > clientes.length;
+  return { porCurp, porNss, usaCurp, usaNss };
 }
 
 export const TIPOS_AVISO = {
@@ -282,7 +299,7 @@ export const TIPOS_AVISO = {
   curp_largo: 'CURP con longitud distinta de 18',
   nss_vacio: 'NSS vacío',
   nss_largo: 'NSS con longitud distinta de 11 dígitos',
-  celular: 'Celular sin 10 dígitos utilizables',
+  celular: 'Celular incompleto (no se puede usar en WhatsApp)',
   fecha_inicio: 'Fecha de inicio vacía o inválida',
   fecha_futura: 'Fecha de inicio posterior a hoy',
   duplicado: 'Posible duplicado (misma CURP o NSS)',
@@ -291,10 +308,10 @@ export const TIPOS_AVISO = {
 export function avisosDeCliente(c, dup, hoy) {
   const a = [];
   const curp = (c.curp || '').trim();
-  if (!curp) a.push('curp_vacia');
+  if (!curp) { if (dup.usaCurp) a.push('curp_vacia'); }
   else if (curp.length !== 18) a.push('curp_largo');
   const nss = (c.nss || '').trim();
-  if (!nss) a.push('nss_vacio');
+  if (!nss) { if (dup.usaNss) a.push('nss_vacio'); }
   else if (!/^\d{11}$/.test(nss)) a.push('nss_largo');
   if (!telefonoInternacional(c.celular)) a.push('celular');
   if (!c.fecha_inicio || !esISO(c.fecha_inicio)) a.push('fecha_inicio');
