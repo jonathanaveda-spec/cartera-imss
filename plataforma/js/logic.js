@@ -167,6 +167,9 @@ export function telefonoInternacional(celular, pais = paisTelefono) {
   const d = s.replace(/\D/g, '');
   if (s.startsWith('+') && d.length >= 8 && d.length <= 15) return d;
   if (d.length === 12 && (d.startsWith('57') || d.startsWith('58'))) return d;
+  // 11 dígitos que empiezan en 04 (0414, 0412, 0424…) solo pueden ser celulares de Venezuela: sirve aunque el asesor
+  // no haya elegido su país (el registro traía Colombia marcado por defecto).
+  if (d.length === 11 && d.startsWith('04')) return '58' + d.slice(1);
   if (pais === 'VE') {
     if (d.length === 11 && d.startsWith('0')) return '58' + d.slice(1);
     if (d.length === 10 && d.startsWith('4')) return '58' + d;

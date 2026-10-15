@@ -33,6 +33,8 @@ test('celular según el país del asesor', () => {
   assert.equal(t('55 1234 5678', 'CO'), '525512345678'); // CO por defecto del registro: se sigue tratando como México
   assert.equal(t('+57 300 123 4567', 'MX'), '573001234567');
   assert.equal(t('Asesor', 'VE'), null);
+  assert.equal(t('0414 123 4567', 'CO'), '584141234567'); // 0414… es Venezuela aunque el perfil diga otro país
+  assert.equal(t('0412-765.43.21'), '584127654321');
   L.fijarPaisTelefono('VE');
   assert.equal(t('04141234567'), '584141234567');
   L.fijarPaisTelefono('MX');
