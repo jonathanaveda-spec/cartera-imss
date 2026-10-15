@@ -91,12 +91,12 @@ export const calcularPresentadora: CalculateMetadataFunction<PresentadoraProps> 
 };
 
 // ---------- medidas (1080×1920, todo centrado en x = 540 y de 800 px como máximo) ----------
-const X = 30;
-const W = 1020; // las dos ventanas casi de borde a borde (margen de 30 px)
+const X = 65;
+const W = 950; // ventanas de 950 px: margen lateral de 65 px
 const BARRA = 60; // barra del navegador
-const TOP = { y: 110, h: 780 }; // ventana de la app
-const PILDORA_Y = 890; // centro de la píldora: montada sobre la unión de las dos ventanas
-const PRES = { y: 890, h: 993, w: 1020 }; // ventana de la presentadora: todo el ancho; termina en y = 1883. Del video de HeyGen (720×1280) se ve de y 0 a ~700 (55 %): la primera tarjeta de HeyGen asoma en y ≈ 706, así que no se ve ninguna ni la marca de agua
+const TOP = { y: 130, h: 710 }; // ventana de la app
+const PILDORA_Y = 860; // centro de la píldora: vive en la separación entre las dos ventanas y se monta un poco sobre ambas
+const PRES = { y: 880, h: 924, w: 950 }; // ventana de la presentadora: todo el ancho; termina en y = 1804. Del video de HeyGen (720×1280) se ve de y 0 a ~700 (55 %): la primera tarjeta de HeyGen asoma en y ≈ 706, así que no se ve ninguna ni la marca de agua
 const EXTRA_ABAJO = 110; // la captura se puede subir un poco más allá de su borde de abajo (para que la píldora no tape lo del fondo)
 const FONDO = "#040C26";
 
@@ -170,7 +170,7 @@ const Marca: React.FC = () => {
   const b = ease(frame, 10, 24);
   const c = ease(frame, 22, 36, Easing.out(Easing.back(1.3)));
   return (
-    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${C.azulNoche}, ${C.azulCartera})`, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 20, paddingBottom: 120 }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${C.azulNoche}, ${C.azulCartera})`, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 20, paddingBottom: 100 }}>
       <Img src={staticFile("logo.png")} style={{ width: 190, height: 190, borderRadius: 44, boxShadow: "0 18px 36px rgba(3,12,40,0.5)", scale: 0.6 + a * 0.4, opacity: a }} />
       <div style={{ fontFamily: titulos, fontWeight: 800, fontSize: 70, letterSpacing: -1.5, color: C.blanco, opacity: b }}>Cartera Asesor</div>
       <div style={{ background: C.verde, color: C.blanco, fontFamily: titulos, fontWeight: 800, fontSize: 64, letterSpacing: -1, padding: "16px 44px 20px", borderRadius: 999, border: "4px solid rgba(255,255,255,0.35)", opacity: c, scale: 0.85 + c * 0.15 }}>
@@ -231,7 +231,7 @@ const Pildora: React.FC<{ palabras: Palabra[] }> = ({ palabras }) => {
           boxShadow: "0 22px 46px rgba(0,0,0,0.5), 0 0 0 10px rgba(29,78,216,0.28)",
           fontFamily: titulos,
           fontWeight: 800,
-          fontSize: w.t.length > 9 ? 112 : 136,
+          fontSize: w.t.length > 9 ? 104 : 126,
           lineHeight: 1.05,
           letterSpacing: -2,
           color: w.oro ? C.oro : C.blanco,

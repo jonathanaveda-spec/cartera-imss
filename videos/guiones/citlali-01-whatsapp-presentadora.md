@@ -1,14 +1,14 @@
 # Citlali 01 · MUESTRA del formato «Presentadora + pantalla» — «Cobrar por WhatsApp no es de mala educación»
-**Video de muestra (versión 2, 15/10):** `entregas/CITLALI01_MUESTRA2_presentadora_pantalla.mp4` · 24.0 s · 1080×1920 · voz Valeria (`es-MX-Valeria:MAI-Voice-2`, +0 %) dentro del video de HeyGen de Citlali (`entregas/Citlali01_whatsapp_heygen.mp4`, copiado a `public/presentadora/citlali01.mp4`) · sin música. La versión 1 (con espacios vacíos y la etiqueta quemada) se descartó y se borró.
+**Video de muestra (versión 3, 15/10):** `entregas/CITLALI01_MUESTRA3_presentadora_pantalla.mp4` · 24.0 s · 1080×1920 · voz Valeria (`es-MX-Valeria:MAI-Voice-2`, +0 %) dentro del video de HeyGen de Citlali (`entregas/Citlali01_whatsapp_heygen.mp4`, copiado a `public/presentadora/citlali01.mp4`) · sin música. La versión 1 (muy vacía) y la 2 (pegada a los bordes) se descartaron.
 **Composición:** `P-citlali-01-whatsapp` (`src/presentadora/PantallaDividida.tsx`, reutilizable) · se llena desde `presentadora/citlali-01-whatsapp.json`
 **Gancho (cuadro 1):** palabra por palabra «Puede que no estés de acuerdo…» · **Tipo de gancho:** opinión (#9 del banco)
 **Etiqueta de IA:** NO va quemada en el video (decisión de Jonathan, 15/10). Se activa la etiqueta oficial de cada red al subir (ver «Al publicar»).
 
-## Cómo está armado (versión 2)
-- **Fondo oscuro** (azul noche casi negro, con un brillo celeste suave); las dos ventanas llenan el cuadro con 30 px de margen lateral, sin franjas vacías.
-- **Arriba** (y 110–890, 1020 px de ancho): ventana con bordes redondeados y tres puntitos neutros (no rojo/ámbar/verde) con la barra «carteraasesor.com/app». Muestra la app con zoom suave, anillos de foco y toques (capturas reales con clientes inventados; los mensajes se leen en celular). Termina con el logo y el botón verde.
-- **Unión de las ventanas:** subtítulo grande (136 px), una palabra a la vez, en píldora azul cartera con borde blanco, MONTADA sobre la unión de las dos ventanas; la palabra clave en oro.
-- **Abajo** (y 890–1883, ancho completo): Citlali, del video de HeyGen se ve de y 0 a ~700 de 1280 (55 %) escalado a todo el ancho. Es el máximo posible: la primera tarjeta de HeyGen asoma en y ≈ 706 (la de «Cartera Asesor», segundos 14–18), así que se revisó la muestra completa y no se ve ninguna tarjeta, subtítulo ni la marca de agua «HeyGen». Para ver más de Citlali (pecho y manos) habría que pedirle a HeyGen un video sin tarjetas.
+## Cómo está armado (versión 3: punto medio entre la 1 y la 2)
+- **Fondo oscuro** (azul noche casi negro, con un brillo celeste suave); las dos ventanas miden 950 px de ancho (margen lateral de 65 px), con 130 px de respiro arriba (controles de TikTok) y ~116 px abajo; ninguna franja vacía mayor a ~130 px.
+- **Arriba** (y 130–840): ventana con bordes redondeados y tres puntitos neutros (no rojo/ámbar/verde) con la barra «carteraasesor.com/app». Muestra la app con zoom suave, anillos de foco y toques (capturas reales con clientes inventados; los mensajes se leen en celular). Termina con el logo y el botón verde.
+- **Unión de las ventanas:** subtítulo grande (126 px), una palabra a la vez, en píldora azul cartera con borde blanco, vive en la separación de 40 px entre las dos ventanas y se monta un poco sobre ambas; la palabra clave en oro.
+- **Abajo** (y 880–1804, todo el ancho de su ventana): Citlali, del video de HeyGen se ve de y 0 a ~700 de 1280 (55 %) escalado a todo el ancho. Es el máximo posible: la primera tarjeta de HeyGen asoma en y ≈ 706 (la de «Cartera Asesor», segundos 14–18), así que se revisó la muestra completa y no se ve ninguna tarjeta, subtítulo ni la marca de agua «HeyGen». Para ver más de Citlali (pecho y manos) habría que pedirle a HeyGen un video sin tarjetas.
 
 ## Tiempos (segundos del audio de HeyGen) y pantallas
 | Frase | Tiempo | Pantalla de arriba |
