@@ -112,6 +112,16 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       (venezolano en Colombia que creó la app) cuando él quiera.
 
 ## 🧭 DECISIONES de Jonathan
+**✅ 15/10 respuestas de Jonathan:**
+- Precios: aprobada la propuesta de Mariana; beta abierta todavía (ver 💰 PRECIOS).
+- Publicación: **sigue publicando a mano** (no se programa en TikTok Studio).
+- **App para todos, no solo IMSS:** CURP, NSS y demás campos del IMSS pasan a ser **opcionales** y la app debe sentirse amigable
+  para vendedores a cuotas y otros oficios (Emma; hacerlo con cuidado de no romper la importación de Excel ni los datos de Yamileth).
+- **ElevenLabs: sí.** Jonathan crea la cuenta y pone la clave `ELEVENLABS_API_KEY` en Windows (nunca en el chat); luego prueba de voces.
+- **Instagram, Facebook y YouTube de la marca: empezar a crearlos el 15/10** (Jonathan crea las cuentas; textos de Julieta en
+  `tienda/textos-redes-y-testers.md`).
+- Jonathan va a pasar skills/agentes que vio en TikTok para probarlos.
+
 **✅ 09/10: Jonathan dijo «sí a todo» a las 5 de Victoria.**
 1. Abrir Instagram, Facebook y YouTube de la marca (Victoria: sí, este fin de semana).
 2. Comentar en TikTok desde @carteraasesor; en grupos de Facebook desde su perfil personal (Victoria: sí).
@@ -125,8 +135,9 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 
 ## 💰 PRECIOS (estudio de Mariana, 14/10: `investigacion/precios.md`)
 - ✅ 14/10 Dato de Jonathan: los asesores cobran **12–25 USD por cliente** (**al mes**, confirmado por Jonathan 14/10). Con eso Emma propone: gratis 15 clientes · Pro **7 USD/mes o 60 USD/año** · fundadores **5 USD/mes** · Colombia 27.900 COP/mes o 239.000/año · Venezuela en USD, cobrable en bolívares a la tasa BCV del día.
-- [ ] Jonathan: preguntar a Yamileth y 5–10 asesores cuánto cobran por cliente, cuántos clientes tienen y cuánto pagarían.
-- [ ] Decidir precios. Propuesta: gratis 15 clientes · Pro 149 MXN/mes o 1,290/año · 24,900 COP/mes o 219,000/año · 4 USD/mes o 36/año (VE) · fundadores −33 % para los primeros 30 · beta: 3 meses gratis al terminar · cobrar en la web con 30 días de aviso; en Play sin precios.
+- [ ] (Más adelante, sin prisa) Jonathan: preguntar a Yamileth y 5–10 asesores cuánto cobran por cliente y cuánto pagarían.
+- [x] ✅ 15/10 **Jonathan APROBÓ la propuesta de Mariana** (no la de 7 USD de arriba). **La beta sigue abierta y gratis** por ahora
+      («Acceso libre para todos» encendido); los precios se aplican cuando Jonathan diga. Propuesta aprobada: gratis 15 clientes · Pro 149 MXN/mes o 1,290/año · 24,900 COP/mes o 219,000/año · 4 USD/mes o 36/año (VE) · fundadores −33 % para los primeros 30 · beta: 3 meses gratis al terminar · cobrar en la web con 30 días de aviso; en Play sin precios.
 - [ ] Emma: precios en moneda local por país en `plan.js` (hoy un solo precio) y revisar que pasar a gratis con >15 clientes no sea tan brusco (solo lectura).
 - [ ] Andrea: confirmar política de pagos de Google y comisión en México/Colombia desde Play Console.
 
