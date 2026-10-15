@@ -112,11 +112,12 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       (venezolano en Colombia que creó la app) cuando él quiera.
 
 ## 🧠 VIERNES 16/10 — «Segundo cerebro» con Obsidian (Emma; cuando se reinicie el límite semanal, ~3 a. m. Cali)
-- [ ] Crear  con notas cortas por tema (Marca, Citlali y HeyGen, Voces, Videos y formato presentadora, Google Play,
+- [ ] Crear la carpeta `cerebro/` con notas cortas por tema (Marca, Citlali y HeyGen, Voces, Videos y formato presentadora, Google Play,
       Precios, Seguridad, App, Equipo de agentes, Decisiones) enlazadas con [[...]] + un índice; que las sesiones y los
       agentes lean primero esas notas en vez de releer historiales largos (ahorra límite).
 - [ ] Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).
-- [ ] Al terminar la revisión de Tere y Fernanda: corregir lo que encuentren y resumir esta conversación (/compact).
+- [ ] Corregir lo de la revisión de seguridad de Fernanda (15/10): detalle SOLO en la PC de la oficina, `investigacion/seguridad-2026-10-15.md` (no se sube: los repos son públicos). Sin hallazgos críticos. Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC.
+- [ ] Al terminar la revisión de Tere: corregir lo que encuentre y resumir esta conversación (/compact).
 
 ## 🧭 DECISIONES de Jonathan
 **✅ 15/10 respuestas de Jonathan:**
