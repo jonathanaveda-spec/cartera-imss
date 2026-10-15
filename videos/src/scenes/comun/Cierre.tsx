@@ -3,7 +3,7 @@ import { C, textos, titulos } from "../../brand";
 import { ease } from "../../anim";
 
 // Cierre de la serie «Así funciona»: logo + «Pruébala gratis en la beta» + sitio + frase propia de cada video.
-export const Cierre: React.FC<{ frase: string[] }> = ({ frase }) => {
+export const Cierre: React.FC<{ frase: string[]; grande?: boolean }> = ({ frase, grande }) => {
   const frame = useCurrentFrame();
   const logo = ease(frame, 0, 16, Easing.out(Easing.back(1.2)));
   const nombre = ease(frame, 6, 20);
@@ -113,7 +113,7 @@ export const Cierre: React.FC<{ frase: string[] }> = ({ frase }) => {
         }}
       >
         Beta gratuita · hasta 100 clientes
-        <div style={{ fontWeight: 600, fontSize: 42, marginTop: 14 }}>
+        <div style={{ fontWeight: grande ? 800 : 600, fontSize: grande ? 50 : 42, lineHeight: 1.25, marginTop: grande ? 22 : 14, color: grande ? C.blanco : undefined }}>
           {frase.map((l, i) => (
             <div key={i}>{l}</div>
           ))}

@@ -24,12 +24,13 @@ import p10 from "../historias/p10-sin-senal.json";
 import m07 from "../historias/m07-libreta-mojada.json";
 import p11 from "../historias/p11-pantalla-inicio.json";
 import h05 from "../historias/h05-fantasma.json";
+import explicativoVE from "../historias/explicativo-corredores-ve.json";
 
 // Composiciones de la semana 12–18/10 (martes 13 en adelante). Para sumar una: importa su JSON y agrégalo a la lista.
 // Se separó de Root.tsx para no pisar los cambios de otros.
 const PRESENTADORAS = [citlali01] as unknown as PresentadoraProps[];
 const TARJETAS = [m02, t02, m04, t03, m06, t04] as unknown as TarjetaProps[];
-const HISTORIAS = [p06, p07, h03, p08, m05, p09, h04, p10, m07, p11, h05] as unknown as HistoriaProps[];
+const HISTORIAS = [p06, p07, h03, p08, m05, p09, h04, p10, m07, p11, h05, explicativoVE] as unknown as HistoriaProps[];
 
 export const ComposicionesSemana12: React.FC = () => (
   <>

@@ -7,7 +7,7 @@ const require = createRequire('D:/Archivos/App de gestion de clientes/package.js
 const sharp = require('sharp');
 const [, , comp, cada, porHoja = '12', escala = '0.33', columnas = '6'] = process.argv;
 const dir = `out/fotogramas-${comp}`;
-const todos = readdirSync(dir).filter((f) => /^element-\d+\.png$/.test(f)).map((f) => Number(f.slice(8, 11))).sort((a, b) => a - b);
+const todos = readdirSync(dir).filter((f) => /^element-\d+\.png$/.test(f)).map((f) => Number(f.match(/[0-9]+/)[0])).sort((a, b) => a - b);
 const ultimo = todos.at(-1);
 const cuadros = todos.filter((f) => f % Number(cada) === 0 || f === ultimo);
 const w = Math.round(1080 * Number(escala)), h = Math.round(1920 * Number(escala)), cols = Number(columnas), gap = 10;

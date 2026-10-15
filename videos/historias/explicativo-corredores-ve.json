@@ -1,0 +1,274 @@
+{
+  "id": "explicativo-corredores-ve",
+  "voz": "explicativo-corredores-ve",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "titulo",
+      "etiqueta": "Corredores de seguros",
+      "emoji": "🤔",
+      "titular": [
+        "¿Tus clientes",
+        "y cuotas en",
+        "libreta, Excel",
+        "o **memoria**?"
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "**Cartera Asesor**",
+        "Tus clientes y cuotas",
+        "al día"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-inicio.png",
+          "zoom": 1.05,
+          "cx": 540,
+          "cy": 560
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "Al día, por vencer",
+        "o **atrasado**"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-inicio.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 620,
+          "anillo": [
+            {
+              "x": 553,
+              "y": 295,
+              "w": 487,
+              "h": 202,
+              "color": "verde",
+              "radio": 36
+            },
+            {
+              "x": 40,
+              "y": 522,
+              "w": 487,
+              "h": 201,
+              "color": "ambar",
+              "radio": 36
+            },
+            {
+              "x": 553,
+              "y": 522,
+              "w": 487,
+              "h": 200,
+              "color": "rojo",
+              "radio": 36
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "Atrasados en **rojo**",
+        "con sus días"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-morosos.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 960,
+          "anillo": [
+            {
+              "x": 80,
+              "y": 690,
+              "w": 530,
+              "h": 66,
+              "color": "rojo",
+              "radio": 33
+            },
+            {
+              "x": 80,
+              "y": 1100,
+              "w": 530,
+              "h": 66,
+              "color": "rojo",
+              "radio": 33
+            },
+            {
+              "x": 80,
+              "y": 1515,
+              "w": 530,
+              "h": 66,
+              "color": "rojo",
+              "radio": 33
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "Registras el pago",
+        "y mandas su",
+        "**comprobante**"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-pago.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 900,
+          "anillo": {
+            "x": 40,
+            "y": 520,
+            "w": 1000,
+            "h": 310,
+            "color": "azul",
+            "radio": 40
+          }
+        },
+        {
+          "src": "capturas/ve-comprobante.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 1320,
+          "anillo": {
+            "x": 505,
+            "y": 1780,
+            "w": 535,
+            "h": 110,
+            "color": "verde",
+            "radio": 36
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "Un toque en",
+        "**Recordar**"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-morosos.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 800,
+          "anillo": {
+            "x": 88,
+            "y": 835,
+            "w": 452,
+            "h": 100,
+            "color": "verde",
+            "radio": 40
+          }
+        },
+        {
+          "src": "capturas/ve-mensajes.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 640,
+          "anillo": {
+            "x": 75,
+            "y": 476,
+            "w": 930,
+            "h": 276,
+            "color": "azul",
+            "radio": 40
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "Tu Excel, **tal cual**"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-importar-1.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 1280,
+          "anillo": {
+            "x": 40,
+            "y": 1070,
+            "w": 1000,
+            "h": 640,
+            "color": "azul",
+            "radio": 40
+          }
+        },
+        {
+          "src": "capturas/ve-importar-2.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 640,
+          "anillo": {
+            "x": 40,
+            "y": 420,
+            "w": 1000,
+            "h": 250,
+            "color": "verde",
+            "radio": 40
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": [
+        "Sin internet,",
+        "en la nube y",
+        "con **PIN**"
+      ],
+      "imagenes": [
+        {
+          "src": "capturas/ve-sin-conexion.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 770,
+          "anillo": {
+            "x": 40,
+            "y": 295,
+            "w": 1000,
+            "h": 240,
+            "color": "azul",
+            "radio": 40
+          }
+        },
+        {
+          "src": "capturas/ve-bloqueo-activo.png",
+          "zoom": 1,
+          "cx": 540,
+          "cy": 1250,
+          "anillo": {
+            "x": 40,
+            "y": 1040,
+            "w": 1000,
+            "h": 185,
+            "color": "azul",
+            "radio": 40
+          }
+        }
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "grande": true,
+      "frase": [
+        "Gratis mientras está en prueba",
+        "carteraasesor.com/app",
+        "Al registrarte, elige Venezuela"
+      ]
+    }
+  ]
+}

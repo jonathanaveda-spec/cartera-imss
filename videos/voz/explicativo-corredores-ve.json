@@ -1,0 +1,16 @@
+{
+  "id": "explicativo-corredores-ve",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Oye, colega corredor… ¿llevas tus clientes y sus cuotas en una libreta, en Excel… o de memoria?" },
+    { "texto": "Te presento Cartera Asesor: una app para llevar tu cartera de clientes, y cobrar tus cuotas a tiempo." },
+    { "texto": "Al abrirla, ves de un vistazo quién está al día, quién vence pronto, y quién está atrasado." },
+    { "texto": "Los atrasados salen en rojo, con los días que llevan sin pagar." },
+    { "texto": "Registras el pago, y le mandas su comprobante por WhatsApp, con un toque." },
+    { "texto": "Para recordarle una cuota, tocas Recordar, y el mensaje ya viene listo." },
+    { "texto": "¿Ya tienes tu lista en Excel? Pásala tal cual, en un par de minutos." },
+    { "texto": "Funciona aunque no tengas internet, se guarda en la nube, y la proteges con PIN." },
+    { "texto": "Es gratis mientras está en prueba. Entra a carteraasesor punto com diagonal app, y al registrarte, elige Venezuela." }
+  ]
+}
