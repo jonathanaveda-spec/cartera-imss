@@ -50,3 +50,6 @@ signing-key-info*
 videos/hyperframes/**/snapshots/
 videos/hyperframes/**/renders/
 videos/hyperframes/**/node_modules/
+
+# Obsidian (configuración local de cada PC)
+.obsidian/

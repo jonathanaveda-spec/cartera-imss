@@ -112,7 +112,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       (venezolano en Colombia que creó la app) cuando él quiera.
 
 ## 🧠 VIERNES 16/10 — «Segundo cerebro» con Obsidian (Emma; cuando se reinicie el límite semanal, ~3 a. m. Cali)
-- [ ] Crear la carpeta `cerebro/` con notas cortas por tema (Marca, Citlali y HeyGen, Voces, Videos y formato presentadora, Google Play,
+- [x] ✅ 15/10 (adelantado) Creada la carpeta `cerebro/` con 15 notas cortas por tema (Marca, Citlali y HeyGen, Voces, Videos y formato presentadora, Google Play,
       Precios, Seguridad, App, Equipo de agentes, Decisiones) enlazadas con [[...]] + un índice; que las sesiones y los
       agentes lean primero esas notas en vez de releer historiales largos (ahorra límite).
 - [ ] Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).

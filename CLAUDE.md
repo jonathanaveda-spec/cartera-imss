@@ -6,7 +6,8 @@ y el celular (Remote Control de la app de Claude). Todo tiene que poder retomars
 
 ## Al empezar una sesión
 1. `git pull` en `main` (puede haber cambios hechos en la otra PC o desde la nube).
-2. Leer **`PENDIENTES.md`** (lista única de lo que falta: se actualiza al terminar cada cosa), `BITACORA.md` (arriba) y `PLAN.md`.
+2. Leer **`cerebro/00 Inicio.md`** (mapa del negocio en notas cortas enlazadas, estilo Obsidian; abrir solo las notas
+   que hagan falta y mantenerlas al día cuando algo cambie). Luego **`PENDIENTES.md`** (lista única de lo que falta: se actualiza al terminar cada cosa), `BITACORA.md` (arriba) y `PLAN.md`.
 3. Si falta el remoto de la app vieja: `git remote add cartera-imss https://github.com/jonathanaveda-spec/cartera-imss.git`.
 
 ## Al terminar cada cambio
