@@ -117,7 +117,19 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       agentes lean primero esas notas en vez de releer historiales largos (ahorra límite).
 - [ ] Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).
 - [ ] Corregir lo de la revisión de seguridad de Fernanda (15/10): detalle SOLO en la PC de la oficina, `investigacion/seguridad-2026-10-15.md` (no se sube: los repos son públicos). Sin hallazgos críticos. Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC.
-- [ ] Al terminar la revisión de Tere: corregir lo que encuentre y resumir esta conversación (/compact).
+- [x] ✅ 15/10 Test drive de Tere hecho (68 pruebas OK; lo de hoy funciona). GRAVE corregido el mismo día (79ce75f): el
+      registro trae «Colombia» marcado por defecto → asesores de México con país CO; ahora CO se trata como México.
+- [ ] **Emma, arreglos de Tere (16/10):** (1) país OBLIGATORIO en el registro («Elige tu país», sin valor por defecto) y
+      editable en ☰ → Mi cuenta (campo «país confirmado»; recién ahí activar +57 para Colombia); revisar en el panel admin el
+      país de las cuentas existentes (Yamileth y testers). (2) País «Otro»: no suponer +52; pedir el número con «+».
+      (4) Excel: la columna «Aseguradora» se pega al nombre (`excel.js`, patrón `asegurad` en nombre → va a proveedor);
+      reconocer «Producto», «Empresa», «Cédula». (5) Pago: avisar montos negativos/enormes y fechas de pago futuras o muy
+      viejas; avisar pago repetido el mismo día. (7) Tabla más ancha que la pantalla en tablet/laptop 820–1024 px.
+      (8) Nombres largos sin espacios desbordan tarjetas. (9) Botones «Recordar» y «Registrar pago» a 44 px.
+      (10) Buscar celular sin espacios. (11) Placeholder cortado en celular. (12) Formato de dinero por país.
+      (13) Excel exportado: títulos «Opción o producto»/«Proveedor o empresa». (6) Decidir con Jonathan: con menos de la
+      mitad de CURP no se avisa «CURP vacía».
+- [ ] Resumir esta conversación (/compact) al empezar el 16/10.
 
 ## 🧭 DECISIONES de Jonathan
 **✅ 15/10 respuestas de Jonathan:**
