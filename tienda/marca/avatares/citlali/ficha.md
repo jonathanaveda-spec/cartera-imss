@@ -34,6 +34,7 @@ Formato: `PORTRAIT_9_16`. Para otras expresiones o poses, repetir el prompt camb
 - Presentador/a de la marca **generado con IA**. Prohibido el testimonio inventado («yo uso la app y gané…», cifras de clientes). Puede decir lo que hace la app, no lo que "le pasó".
 - Persona inventada; no se parece a nadie real ni famoso. Sin uniformes, logos ni credenciales del IMSS.
 - Al publicar: activar **«Contenido generado por IA»** en TikTok.
+- **No quemar la etiqueta «Contenido generado por IA» dentro del video** (decisión de Jonathan 15/10/2026): se activa siempre la etiqueta oficial de IA de cada red al subir (TikTok, Instagram/Facebook «Información de IA», YouTube «contenido alterado o sintético»).
 
 ## Variantes (09/10)
 Generadas el 09/10/2026 con Canva `generate-image`, `PORTRAIT_9_16`, usando `MAHXYBU6Dwg` como imagen de referencia (`imageReferences`).
