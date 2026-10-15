@@ -240,8 +240,13 @@ function etiquetaOrden() {
   }[F.orden];
 }
 
+/** El público principal son los asesores del IMSS en México; sin país en el perfil se asume México. */
+const esMexico = () => !N.estado.perfil?.pais || N.estado.perfil.pais === 'MX';
+
 export function render() {
   L.fijarPaisTelefono(N.estado.perfil?.pais);
+  const q = document.querySelector('#q');
+  if (q) q.placeholder = esMexico() ? 'Buscar por nombre, CURP, NSS, celular…' : 'Buscar por nombre o celular…';
   const btnRev = document.querySelector('.barra [data-accion="revision"]');
   if (btnRev) {
     const dupR = L.indexarDuplicados(S.db.clientes);
@@ -376,8 +381,8 @@ export function abrirDetalle(id, ventanaExistente) {
       ${otros.length ? `<div class="mini" style="margin-top:8px">Coincide con: ${otros.map((o) => `<a href="#" data-accion="abrir" data-id="${o.id}">${esc(o.nombre)}</a> (${esc(o.proveedor)} · ${esc(o.opcion)})`).join('; ')}</div>` : ''}
       <div class="mini" style="margin-top:8px">Solo son avisos: la app no modifica estos datos por su cuenta.</div></div>` : ''}
     <div class="seccion"><h3>Datos</h3><dl class="datos">
-      ${c.curp || dup.usaCurp ? `<div><dt>CURP</dt><dd>${esc(c.curp) || '—'}</dd></div>` : ''}
-      ${c.nss || dup.usaNss ? `<div><dt>NSS</dt><dd>${esc(c.nss) || '—'}</dd></div>` : ''}
+      ${c.curp || dup.usaCurp || esMexico() ? `<div><dt>CURP</dt><dd>${esc(c.curp) || '—'}</dd></div>` : ''}
+      ${c.nss || dup.usaNss || esMexico() ? `<div><dt>NSS</dt><dd>${esc(c.nss) || '—'}</dd></div>` : ''}
       <div><dt>Celular</dt><dd>${esc(c.celular) || '—'}</dd></div>
       <div><dt>Fecha de inicio</dt><dd>${L.fmtFecha(c.fecha_inicio)}</dd></div>
       <div><dt>Opción o producto</dt><dd>${esc(c.opcion) || '—'}</dd></div>
@@ -462,9 +467,13 @@ export function abrirFormulario(id) {
   const v = c || { nombre: '', curp: '', nss: '', celular: '', fecha_inicio: '', opcion: '', proveedor: '', comision: '', periodicidad: '', proximo_pago: '', notas: '', extra: {} };
   const extras = S.db.config.camposPersonalizados.filter((x) => !x.archivado);
   const dupF = L.indexarDuplicados(S.db.clientes);
+  // Asesores del IMSS (público principal): CURP y NSS arriba, como siempre. Otros países u oficios: plegados al final.
+  const imss = esMexico() || v.curp || v.nss || dupF.usaCurp || dupF.usaNss;
   const cuerpo = `<form id="f-cliente" novalidate autocomplete="off">
     <div class="rejilla dos">
       <label class="completo">Nombre completo *<input name="nombre" value="${esc(v.nombre)}" required autocapitalize="characters"></label>
+      ${imss ? `<label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
+      <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>` : ''}
       <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
       <label>Fecha de inicio<input type="date" name="fecha_inicio" value="${esc(v.fecha_inicio || '')}"><div class="ayuda">El día de esta fecha es el día de pago (ej. 24 = paga cada 24).</div></label>
       <label>Tu comisión por pago<input type="number" step="any" min="0" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal" placeholder="0.00"><div class="ayuda">Lo que tú ganas cada vez que este cliente paga. Se suma en 💰 Mis comisiones.</div></label>
@@ -476,13 +485,13 @@ export function abrirFormulario(id) {
         <div class="ayuda">Se actualiza solo al registrar un pago.</div></label>
       ${extras.map((x) => campoExtraHTML(x, v.extra?.[x.clave])).join('')}
       <label class="completo">Notas<textarea name="notas">${esc(v.notas)}</textarea></label>
-      <details class="completo datos-imss"${v.curp || v.nss || dupF.usaCurp || dupF.usaNss ? ' open' : ''}>
+      ${imss ? '' : `<details class="completo datos-imss">
         <summary>Datos IMSS: CURP y NSS (opcional)</summary>
         <div class="rejilla dos">
           <label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
           <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>
         </div>
-      </details>
+      </details>`}
     </div>
     <datalist id="lista-opciones">${[...new Set(S.db.clientes.map((k) => k.opcion).filter(Boolean))].map((o) => `<option value="${esc(o)}">`).join('')}</datalist>
     <datalist id="lista-proveedores">${[...new Set(S.db.clientes.map((k) => k.proveedor).filter(Boolean))].map((o) => `<option value="${esc(o)}">`).join('')}</datalist>
