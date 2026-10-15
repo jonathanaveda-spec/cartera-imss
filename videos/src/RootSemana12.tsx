@@ -4,6 +4,9 @@ import type { TarjetaProps } from "./tarjeta/Tarjeta";
 import { calcularHistoria, Historia } from "./historia/Historia";
 import type { HistoriaProps } from "./historia/Historia";
 import { R2ExcelCorto, calcularR2 } from "./R2ExcelCorto";
+import { PantallaDividida, calcularPresentadora } from "./presentadora/PantallaDividida";
+import type { PresentadoraProps } from "./presentadora/PantallaDividida";
+import citlali01 from "../presentadora/citlali-01-whatsapp.json";
 import m02 from "../tarjetas/m02-4-datos.json";
 import t02 from "../tarjetas/t02-aviso-3-dias.json";
 import p06 from "../historias/p06-fecha-sola.json";
@@ -24,6 +27,7 @@ import h05 from "../historias/h05-fantasma.json";
 
 // Composiciones de la semana 12–18/10 (martes 13 en adelante). Para sumar una: importa su JSON y agrégalo a la lista.
 // Se separó de Root.tsx para no pisar los cambios de otros.
+const PRESENTADORAS = [citlali01] as unknown as PresentadoraProps[];
 const TARJETAS = [m02, t02, m04, t03, m06, t04] as unknown as TarjetaProps[];
 const HISTORIAS = [p06, p07, h03, p08, m05, p09, h04, p10, m07, p11, h05] as unknown as HistoriaProps[];
 
@@ -39,6 +43,10 @@ export const ComposicionesSemana12: React.FC = () => (
       defaultProps={{ guias: false }}
       calculateMetadata={calcularR2}
     />
+    {/* Formato «presentadora + pantalla»: una composición por JSON de videos/presentadora/ */}
+    {PRESENTADORAS.map((p) => (
+      <Composition key={p.id} id={`P-${p.id}`} component={PantallaDividida} durationInFrames={720} fps={30} width={1080} height={1920} defaultProps={p} calculateMetadata={calcularPresentadora} />
+    ))}
     {TARJETAS.map((t) => (
       <Composition key={t.id} id={`T-${t.id}`} component={Tarjeta} durationInFrames={450} fps={30} width={1080} height={1920} defaultProps={t} calculateMetadata={calcularTarjeta} />
     ))}

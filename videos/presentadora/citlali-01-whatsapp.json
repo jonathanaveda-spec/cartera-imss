@@ -1,0 +1,156 @@
+{
+  "id": "citlali-01-whatsapp",
+  "url": "carteraasesor.com/app",
+  "etiquetaIA": "Contenido generado por IA",
+  "presentadora": {
+    "video": "presentadora/citlali01.mp4"
+  },
+  "frases": [
+    {
+      "texto": "Puede que no estés de acuerdo… pero cobrar por **WhatsApp** no es de mala educación.",
+      "desde": 0.39,
+      "fin": 4.15
+    },
+    {
+      "texto": "Lo que sí incomoda es cobrar **tarde**, o mandar un mensaje que suena a regaño.",
+      "desde": 4.69,
+      "fin": 8.79
+    },
+    {
+      "texto": "Avísale **tres días** antes, con amabilidad, y manda el **comprobante** cuando te pague.",
+      "desde": 9.4,
+      "fin": 13.82
+    },
+    {
+      "texto": "En Cartera Asesor esos mensajes ya vienen **listos**: tú solo tocas enviar.",
+      "desde": 14.43,
+      "fin": 18.06
+    },
+    {
+      "texto": "¿Y tú, cobras por **WhatsApp** o en persona? Te leo en los comentarios.",
+      "desde": 18.78,
+      "fin": 23.34
+    }
+  ],
+  "pantallas": [
+    {
+      "tipo": "captura",
+      "src": "capturas/sem-pagan-hoy-dom18.png",
+      "desde": 0,
+      "hasta": 4.69,
+      "zoom": 1,
+      "zoomFin": 1.08,
+      "cx": 540,
+      "cy": 1000,
+      "cyFin": 1100,
+      "anillos": [
+        {
+          "x": 88,
+          "y": 1155,
+          "w": 452,
+          "h": 100,
+          "color": "verde",
+          "en": 1.2
+        }
+      ],
+      "toque": {
+        "x": 314,
+        "y": 1205,
+        "en": 3.2
+      }
+    },
+    {
+      "tipo": "captura",
+      "src": "capturas/cobro-1-mensajes.png",
+      "desde": 4.69,
+      "hasta": 9.4,
+      "zoom": 1.1,
+      "zoomFin": 1.1,
+      "cx": 540,
+      "cy": 520,
+      "cyFin": 820,
+      "anillos": [
+        {
+          "x": 75,
+          "y": 849,
+          "w": 930,
+          "h": 276,
+          "color": "azul",
+          "en": 2.6
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "src": "capturas/cobro-1-mensajes.png",
+      "desde": 9.4,
+      "hasta": 12,
+      "zoom": 1.1,
+      "zoomFin": 1.15,
+      "cx": 540,
+      "cy": 560,
+      "anillos": [
+        {
+          "x": 75,
+          "y": 476,
+          "w": 930,
+          "h": 276,
+          "color": "verde",
+          "en": 0.8
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "src": "capturas/sem-comprobante-dom18.png",
+      "desde": 12,
+      "hasta": 14.43,
+      "zoom": 1.1,
+      "zoomFin": 1.15,
+      "cx": 540,
+      "cy": 1200,
+      "anillos": [
+        {
+          "x": 40,
+          "y": 1086,
+          "w": 1000,
+          "h": 395,
+          "color": "azul",
+          "en": 0.8
+        }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "src": "capturas/sem-comprobante-dom18.png",
+      "desde": 14.43,
+      "hasta": 18.78,
+      "zoom": 1,
+      "zoomFin": 1.05,
+      "cx": 540,
+      "cy": 1650,
+      "cyFin": 1720,
+      "anillos": [
+        {
+          "x": 505,
+          "y": 1780,
+          "w": 535,
+          "h": 110,
+          "color": "verde",
+          "en": 1
+        }
+      ],
+      "toque": {
+        "x": 772,
+        "y": 1835,
+        "en": 3
+      }
+    },
+    {
+      "tipo": "marca",
+      "desde": 18.78,
+      "hasta": 24
+    }
+  ],
+  "extra": 0.2
+}
