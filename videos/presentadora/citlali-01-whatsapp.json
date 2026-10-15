@@ -1,7 +1,6 @@
 {
   "id": "citlali-01-whatsapp",
   "url": "carteraasesor.com/app",
-  "etiquetaIA": "Contenido generado por IA",
   "presentadora": {
     "video": "presentadora/citlali01.mp4"
   },
@@ -38,11 +37,11 @@
       "src": "capturas/sem-pagan-hoy-dom18.png",
       "desde": 0,
       "hasta": 4.69,
-      "zoom": 1,
-      "zoomFin": 1.08,
-      "cx": 540,
-      "cy": 1000,
-      "cyFin": 1100,
+      "zoom": 1.15,
+      "zoomFin": 1.25,
+      "cx": 500,
+      "cy": 1040,
+      "cyFin": 1060,
       "anillos": [
         {
           "x": 88,
@@ -57,7 +56,8 @@
         "x": 314,
         "y": 1205,
         "en": 3.2
-      }
+      },
+      "cxFin": 500
     },
     {
       "tipo": "captura",
@@ -68,7 +68,7 @@
       "zoomFin": 1.1,
       "cx": 540,
       "cy": 520,
-      "cyFin": 820,
+      "cyFin": 870,
       "anillos": [
         {
           "x": 75,
@@ -88,7 +88,7 @@
       "zoom": 1.1,
       "zoomFin": 1.15,
       "cx": 540,
-      "cy": 560,
+      "cy": 600,
       "anillos": [
         {
           "x": 75,
@@ -108,7 +108,7 @@
       "zoom": 1.1,
       "zoomFin": 1.15,
       "cx": 540,
-      "cy": 1200,
+      "cy": 1230,
       "anillos": [
         {
           "x": 40,
@@ -128,8 +128,8 @@
       "zoom": 1,
       "zoomFin": 1.05,
       "cx": 540,
-      "cy": 1650,
-      "cyFin": 1720,
+      "cy": 1700,
+      "cyFin": 1790,
       "anillos": [
         {
           "x": 505,

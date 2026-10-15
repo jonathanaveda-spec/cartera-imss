@@ -22,6 +22,7 @@ import { Toque } from "../components/Toque";
 //                      "toque": { "x": 314, "y": 1205, "en": 3.0 } },
 //                    { "tipo": "marca", "desde": 19.27, "hasta": 23.9 } ],
 //     "extra": 0.9 }                                                                   ← segundos de aire al final
+// "etiquetaIA" (opcional): texto de una etiqueta chica en la barra de la ventana de arriba. Por decisión de Jonathan (15/10) NO se quema en el video: se activa la etiqueta oficial de IA de cada red al subir.
 // Los tiempos de cada palabra se calculan solos repartiendo la frase según el largo de cada palabra y sus pausas (comas y puntos
 // suspensivos); para tiempos exactos se puede pasar "palabras" a mano: [{ "t": "Hola", "desde": 0.1, "hasta": 0.4, "oro": true }].
 // ---------------------------------------------------------------------------------------------
@@ -90,18 +91,19 @@ export const calcularPresentadora: CalculateMetadataFunction<PresentadoraProps> 
 };
 
 // ---------- medidas (1080×1920, todo centrado en x = 540 y de 800 px como máximo) ----------
-const X = 140;
-const W = 800;
-const BARRA = 56; // barra del navegador
-const TOP = { y: 250, h: 480 }; // ventana de la app
-const PILDORA_Y = 838; // centro de la píldora de subtítulos
-const PRES = { y: 952, h: 520, w: 560 }; // ventana de la presentadora (más angosta: el video de HeyGen es vertical; termina en y = 1485)
+const X = 30;
+const W = 1020; // las dos ventanas casi de borde a borde (margen de 30 px)
+const BARRA = 60; // barra del navegador
+const TOP = { y: 110, h: 780 }; // ventana de la app
+const PILDORA_Y = 890; // centro de la píldora: montada sobre la unión de las dos ventanas
+const PRES = { y: 890, h: 993, w: 1020 }; // ventana de la presentadora: todo el ancho; termina en y = 1883. Del video de HeyGen (720×1280) se ve de y 0 a ~700 (55 %): la primera tarjeta de HeyGen asoma en y ≈ 706, así que no se ve ninguna ni la marca de agua
+const EXTRA_ABAJO = 110; // la captura se puede subir un poco más allá de su borde de abajo (para que la píldora no tape lo del fondo)
 const FONDO = "#040C26";
 
 const COLOR_ANILLO = { rojo: C.rojo, verde: C.verde, azul: C.azulCartera, ambar: C.ambar } as const;
 
 // Marco de ventana redondeada con barra de navegador (tres puntitos neutros: el rojo/ámbar/verde de la marca solo tienen su significado).
-const Ventana: React.FC<{ y: number; h: number; w?: number; barra?: string; children: React.ReactNode }> = ({ y, h, w = W, barra, children }) => (
+const Ventana: React.FC<{ y: number; h: number; w?: number; barra?: string; etiqueta?: string; children: React.ReactNode }> = ({ y, h, w = W, barra, etiqueta, children }) => (
   <div
     style={{
       position: "absolute",
@@ -121,9 +123,14 @@ const Ventana: React.FC<{ y: number; h: number; w?: number; barra?: string; chil
         {[0, 1, 2].map((i) => (
           <div key={i} style={{ width: 16, height: 16, borderRadius: 999, background: "rgba(219,232,255,0.55)" }} />
         ))}
-        <div style={{ flex: 1, marginLeft: 14, height: 34, borderRadius: 999, background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: textos, fontWeight: 600, fontSize: 22, color: C.secundario, letterSpacing: 0.3 }}>
+        <div style={{ flex: 1, marginLeft: 14, height: 36, borderRadius: 999, background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: textos, fontWeight: 600, fontSize: 24, color: C.secundario, letterSpacing: 0.3 }}>
           {barra}
         </div>
+        {etiqueta ? (
+          <div style={{ marginLeft: 8, height: 36, borderRadius: 999, background: "rgba(255,255,255,0.14)", border: "2px solid rgba(255,255,255,0.35)", padding: "0 16px", display: "flex", alignItems: "center", fontFamily: textos, fontWeight: 800, fontSize: 21, color: C.blanco, whiteSpace: "nowrap" }}>
+            ✨ {etiqueta}
+          </div>
+        ) : null}
       </div>
     ) : null}
     <div style={{ position: "absolute", left: 0, top: barra ? BARRA : 0, width: w - 8, height: h - 8 - (barra ? BARRA : 0), overflow: "hidden" }}>{children}</div>
@@ -143,10 +150,10 @@ const Captura: React.FC<{ e: PantallaEscena }> = ({ e }) => {
   const cy = (e.cy ?? 960) + ((e.cyFin ?? e.cy ?? 960) - (e.cy ?? 960)) * p;
   const s = (ANCHO_VISTA / 1080) * z;
   const tx = Math.min(0, Math.max(ANCHO_VISTA - 1080 * s, ANCHO_VISTA / 2 - cx * s));
-  const ty = Math.min(0, Math.max(ALTO_VISTA - 1920 * s, ALTO_VISTA / 2 - cy * s));
+  const ty = Math.min(0, Math.max(ALTO_VISTA - (1920 + EXTRA_ABAJO) * s, ALTO_VISTA / 2 - cy * s));
   const pulso = Math.sin(frame / 4) * 0.5 + 0.5;
   return (
-    <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, transformOrigin: "0 0", transform: `translate(${tx}px, ${ty}px) scale(${s})` }}>
+    <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920 + EXTRA_ABAJO, background: "#FFFFFF", transformOrigin: "0 0", transform: `translate(${tx}px, ${ty}px) scale(${s})` }}>
       <Img src={staticFile(e.src ?? "")} style={{ width: 1080, height: 1920 }} />
       {(e.anillos ?? []).map((a, i) => (
         <Anillo key={i} x={a.x} y={a.y} w={a.w} h={a.h} color={COLOR_ANILLO[a.color]} radio={a.radio ?? 36} p={ease(frame, Math.round((a.en ?? 0.6) * FPS), Math.round((a.en ?? 0.6) * FPS) + 12)} pulso={pulso} />
@@ -163,13 +170,13 @@ const Marca: React.FC = () => {
   const b = ease(frame, 10, 24);
   const c = ease(frame, 22, 36, Easing.out(Easing.back(1.3)));
   return (
-    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${C.azulNoche}, ${C.azulCartera})`, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 12 }}>
-      <Img src={staticFile("logo.png")} style={{ width: 118, height: 118, borderRadius: 28, boxShadow: "0 18px 36px rgba(3,12,40,0.5)", scale: 0.6 + a * 0.4, opacity: a }} />
-      <div style={{ fontFamily: titulos, fontWeight: 800, fontSize: 44, letterSpacing: -1, color: C.blanco, opacity: b }}>Cartera Asesor</div>
-      <div style={{ background: C.verde, color: C.blanco, fontFamily: titulos, fontWeight: 800, fontSize: 40, letterSpacing: -0.5, padding: "12px 30px 14px", borderRadius: 999, border: "4px solid rgba(255,255,255,0.35)", opacity: c, scale: 0.85 + c * 0.15 }}>
+    <AbsoluteFill style={{ background: `linear-gradient(170deg, ${C.azulNoche}, ${C.azulCartera})`, alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 20, paddingBottom: 120 }}>
+      <Img src={staticFile("logo.png")} style={{ width: 190, height: 190, borderRadius: 44, boxShadow: "0 18px 36px rgba(3,12,40,0.5)", scale: 0.6 + a * 0.4, opacity: a }} />
+      <div style={{ fontFamily: titulos, fontWeight: 800, fontSize: 70, letterSpacing: -1.5, color: C.blanco, opacity: b }}>Cartera Asesor</div>
+      <div style={{ background: C.verde, color: C.blanco, fontFamily: titulos, fontWeight: 800, fontSize: 64, letterSpacing: -1, padding: "16px 44px 20px", borderRadius: 999, border: "4px solid rgba(255,255,255,0.35)", opacity: c, scale: 0.85 + c * 0.15 }}>
         carteraasesor.com
       </div>
-      <div style={{ fontFamily: textos, fontWeight: 800, fontSize: 28, color: C.secundario, opacity: c }}>
+      <div style={{ fontFamily: textos, fontWeight: 800, fontSize: 40, color: C.secundario, opacity: c }}>
         Pruébala <span style={{ color: C.oro }}>gratis</span> en la beta
       </div>
     </AbsoluteFill>
@@ -214,22 +221,22 @@ const Pildora: React.FC<{ palabras: Palabra[] }> = ({ palabras }) => {
   const f0 = Math.round(w.desde * FPS);
   const pop = ease(frame, f0, f0 + 5, Easing.out(Easing.back(1.8)));
   return (
-    <div style={{ position: "absolute", left: X, width: W, top: PILDORA_Y - 80, height: 160, display: "flex", justifyContent: "center", alignItems: "center" }}>
+    <div style={{ position: "absolute", left: X, width: W, top: PILDORA_Y - 100, height: 200, display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div
         style={{
           background: C.azulCartera,
           border: "6px solid rgba(255,255,255,0.92)",
           borderRadius: 999,
-          padding: "14px 54px 22px",
+          padding: "16px 60px 26px",
           boxShadow: "0 22px 46px rgba(0,0,0,0.5), 0 0 0 10px rgba(29,78,216,0.28)",
           fontFamily: titulos,
           fontWeight: 800,
-          fontSize: w.t.length > 9 ? 94 : 112,
+          fontSize: w.t.length > 9 ? 112 : 136,
           lineHeight: 1.05,
           letterSpacing: -2,
           color: w.oro ? C.oro : C.blanco,
           whiteSpace: "nowrap",
-          maxWidth: W - 20,
+          maxWidth: W - 40,
           scale: 0.82 + pop * 0.18,
         }}
       >
@@ -283,24 +290,14 @@ export const PantallaDividida: React.FC<PresentadoraProps> = (props) => {
   const entra = ease(frame, 0, 14);
   return (
     <AbsoluteFill style={{ background: FONDO }}>
-      <AbsoluteFill style={{ background: "radial-gradient(900px 640px at 540px 230px, rgba(26,163,245,0.22), rgba(26,163,245,0) 70%), radial-gradient(800px 600px at 540px 1500px, rgba(29,78,216,0.28), rgba(29,78,216,0) 70%)" }} />
-
-      {/* Etiqueta de IA */}
-      <div style={{ position: "absolute", left: X, width: W, top: 190, display: "flex", justifyContent: "center", opacity: 0.4 + entra * 0.6 }}>
-        <div style={{ background: "rgba(255,255,255,0.12)", border: "3px solid rgba(255,255,255,0.35)", borderRadius: 999, padding: "6px 28px 8px", fontFamily: textos, fontWeight: 800, fontSize: 30, color: C.secundario, whiteSpace: "nowrap" }}>
-          ✨ {props.etiquetaIA ?? "Contenido generado por IA"}
-        </div>
-      </div>
+      <AbsoluteFill style={{ background: "radial-gradient(900px 640px at 540px 130px, rgba(26,163,245,0.22), rgba(26,163,245,0) 70%), radial-gradient(800px 600px at 540px 1500px, rgba(29,78,216,0.28), rgba(29,78,216,0) 70%)" }} />
 
       {/* Ventana de arriba: la app */}
       <div style={{ opacity: 0.6 + entra * 0.4, translate: `0px ${(1 - entra) * -10}px` }}>
-        <Ventana y={TOP.y} h={TOP.h} barra={props.url ?? "carteraasesor.com/app"}>
+        <Ventana y={TOP.y} h={TOP.h} barra={props.url ?? "carteraasesor.com/app"} etiqueta={props.etiquetaIA}>
           <Pantallas pantallas={props.pantallas} />
         </Ventana>
       </div>
-
-      {/* Subtítulo al centro */}
-      <Pildora palabras={palabras} />
 
       {/* Ventana de abajo: la presentadora */}
       <div style={{ opacity: 0.6 + entra * 0.4, translate: `0px ${(1 - entra) * 10}px` }}>
@@ -308,6 +305,9 @@ export const PantallaDividida: React.FC<PresentadoraProps> = (props) => {
           <Presentadora p={props.presentadora} />
         </Ventana>
       </div>
+
+      {/* Subtítulo montado sobre la unión de las dos ventanas */}
+      <Pildora palabras={palabras} />
 
       {props.guias ? <div style={{ position: "absolute", left: 60, top: 180, width: 880, height: 1260, outline: "4px dashed rgba(255,0,200,0.9)" }} /> : null}
     </AbsoluteFill>

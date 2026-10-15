@@ -11,3 +11,4 @@
 - **Sábado 17:** M06 (Jorge HD, 21.7 s), P10 (Dalia HD, 23.1 s), T04 (Alejo, 21.6 s) listos — revisados por fotogramas y audio (sesión del 14/10 + verificación del 15/10).
 - **Domingo 18:** M07 (Valeria, 22.0 s), P11 (Dalia HD, 31.3 s), H05 (Alejo + Valeria, 27.5 s) listos — 15/10, revisados por fotogramas y audio. **La semana 12–18 quedó completa (21 videos).**
 - **Formato nuevo «Presentadora + pantalla»** (15/10): composición reutilizable `src/presentadora/PantallaDividida.tsx` + muestra con el video real de Citlali: `entregas/CITLALI01_MUESTRA_presentadora_pantalla.mp4` (24.0 s). Guion en `guiones/citlali-01-whatsapp-presentadora.md`.
+- **Formato presentadora, versión 2 (15/10):** `entregas/CITLALI01_MUESTRA2_presentadora_pantalla.mp4` — ventanas de borde a borde, píldora sobre la unión, Citlali más grande, etiqueta de IA quitada del video (se activa la oficial de cada red al subir; obligatorio).
