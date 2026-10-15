@@ -29,3 +29,12 @@ pensamiento diverso: trae ideas de nichos vecinos (finanzas personales, emprende
 
 Reglas: no copies videos ni textos ajenos tal cual (se adapta la idea, no se calca); no descargues videos; no uses la
 cara, voz o nombre de creadores reales; nada de temas políticos ni promesas de dinero.
+
+## Herramienta: YouTube con yt-dlp (instalado 15/10/2026 en la PC, por winget; parte YouTube de Agent-Reach)
+Ruta: `%LOCALAPPDATA%\Microsoft\WinGet\Packages\yt-dlp.yt-dlp_*\yt-dlp.exe` (o `yt-dlp` en una terminal nueva).
+- Buscar y ver qué pega: `yt-dlp --flat-playlist --print "%(view_count)s | %(title)s | %(url)s" "ytsearch20:cobranza clientes morosos"`
+  (YouTube puede traducir los títulos al inglés; lo que importa son las vistas y el tema).
+- Leer lo que dice un video (subtítulos), sin bajar el video: `yt-dlp --skip-download --write-auto-subs --sub-langs "es.*" --sub-format vtt -o "%TEMP%/yt/%(id)s" <url>`
+  y leer el `.vtt` (guárdalo en la carpeta temporal, nunca en el repo).
+- Solo para estudiar ganchos, temas y estructura. Nada de bajar videos, ni de usar Instagram/Facebook/TikTok con sesiones
+  o cookies (riesgo de bloqueo de cuentas; decisión de Jonathan 15/10).
