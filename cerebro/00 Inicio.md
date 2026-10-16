@@ -4,6 +4,7 @@ Mapa corto del negocio. Cada nota es breve y enlaza a otras. **Las sesiones de C
 estas notas** y solo después abren archivos largos. Lo que cambia día a día sigue en `PENDIENTES.md` y `BITACORA.md`.
 
 ## Mapa
+- [[Última sesión]] — **leer primero**: dónde quedó la conversación anterior y qué sigue.
 - [[Negocio]] — qué vendemos, a quién y cómo ganamos.
 - [[App]] — cómo está hecha la app y dónde vive.
 - [[Marca]] — colores, tono, reglas visuales.
