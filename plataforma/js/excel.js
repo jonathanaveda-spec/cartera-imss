@@ -13,7 +13,7 @@ const norm = (s) => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toL
 // Al volver a importar el archivo, cada título se reconoce solo.
 const ENCABEZADOS_ORIGINALES = {
   nombre: 'CLIENTE', curp: 'CURP', nss: 'NSS', celular: 'CELULAR', fecha_inicio: 'FECHA DE inicio',
-  opcion: 'OPCION O PRODUCTO', proveedor: 'PROVEEDOR O EMPRESA', comision: 'COMISION',
+  opcion: 'SERVICIO ADQUIRIDO', proveedor: 'PROVEEDOR O EMPRESA', comision: 'COMISION',
 };
 
 // ---------- Importación ----------
@@ -29,7 +29,7 @@ export const CAMPOS_IMPORTAR = [
   { campo: 'fecha_inicio', etiqueta: 'Fecha de inicio (día de cobro)' },
   { campo: 'periodicidad', etiqueta: 'Periodicidad (cada cuánto paga)' },
   { campo: 'proximo_pago', etiqueta: 'Próximo pago' },
-  { campo: 'opcion', etiqueta: 'Opción o producto' },
+  { campo: 'opcion', etiqueta: 'Servicio adquirido' },
   { campo: 'proveedor', etiqueta: 'Proveedor o empresa' },
   { campo: 'comision', etiqueta: 'Comisión' },
   { campo: 'notas', etiqueta: 'Notas' },
@@ -54,7 +54,7 @@ const TITULOS = [
   // Antes que «nombre»: «Aseguradora» contiene «asegurad» y «Nombre de la empresa» contiene «nombre».
   ['proveedor', /proveedor|aseguradora|compania|empresa/],
   ['nombre', /nombre|cliente|apellido|asegurad|afiliad|titular|trabajador|derechohabiente/],
-  ['opcion', /opcion|modalidad|producto/],
+  ['opcion', /opcion|modalidad|producto|servicio/],
   ['notas', /nota|observaci|comentario/],
 ];
 

@@ -132,6 +132,7 @@ test('títulos reconocidos', () => {
   assert.equal(t('Producto'), 'opcion');
   assert.equal(t('Cédula'), E.EXTRA);
   assert.equal(t('OPCION O PRODUCTO'), 'opcion');
+  assert.equal(t('SERVICIO ADQUIRIDO'), 'opcion');
   assert.equal(t('PROVEEDOR O EMPRESA'), 'proveedor');
 });
 

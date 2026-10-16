@@ -8,6 +8,11 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 16/10/2026 · «Servicio adquirido»
+- Pedido de Jonathan: «Opción o producto» pasa a llamarse **«Servicio adquirido»** (formulario, ficha, tabla, importar y Excel
+  exportado: SERVICIO ADQUIRIDO; al importar también se reconocen Opción, Modalidad, Producto y Servicio).
+- «Zona» es un campo personalizado de la cuenta de Jonathan (vino de un Excel); se oculta en ☰ → Configuración → Campos personalizados.
+
 ## 16/10/2026 · Sección CURP y NSS destacada (PC de casa)
 - Pedido de Jonathan: para dar de alta a un cliente en el IMSS siempre hacen falta CURP y NSS (Modalidad 40: CURP, NSS,
   identificación, comprobante de domicilio y correo; en línea se capturan CURP, NSS y correo).

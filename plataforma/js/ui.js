@@ -311,7 +311,7 @@ function renderLista(items) {
     return;
   }
   cont.innerHTML = `<table><thead><tr>
-      <th>Estado</th><th>Cliente</th><th>Celular</th><th class="solo-escritorio">Opción · Proveedor</th>
+      <th>Estado</th><th>Cliente</th><th>Celular</th><th class="solo-escritorio">Servicio · Proveedor</th>
       <th class="solo-escritorio solo-grande">Periodicidad</th><th>Próximo pago</th><th class="solo-escritorio solo-grande">Último pago</th><th></th></tr></thead>
     <tbody>${items.map(filaHTML).join('')}</tbody></table>`;
 }
@@ -386,7 +386,7 @@ export function abrirDetalle(id, ventanaExistente) {
       ${c.nss || dup.usaNss || esMexico() ? `<div><dt>NSS</dt><dd>${esc(c.nss) || '—'}</dd></div>` : ''}
       <div><dt>Celular</dt><dd>${esc(c.celular) || '—'}</dd></div>
       <div><dt>Fecha de inicio</dt><dd>${L.fmtFecha(c.fecha_inicio)}</dd></div>
-      <div><dt>Opción o producto</dt><dd>${esc(c.opcion) || '—'}</dd></div>
+      <div><dt>Servicio adquirido</dt><dd>${esc(c.opcion) || '—'}</dd></div>
       <div><dt>Proveedor o empresa</dt><dd>${esc(c.proveedor) || '—'}</dd></div>
       <div><dt>Tu comisión</dt><dd>${c.comision != null ? L.fmtDinero(c.comision) + ' por pago' : '—'}</dd></div>
       ${extras.map((x) => `<div><dt>${esc(x.etiqueta)}</dt><dd>${esc(c.extra?.[x.clave]) || '—'}</dd></div>`).join('')}
@@ -477,7 +477,7 @@ export function abrirFormulario(id) {
       <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">${N.paisUso() === 'OTRO' ? 'Escríbelo con + y el código de país (ej. +1 305…) para mandarle WhatsApp. ' : ''}Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
       <label>Fecha de inicio<input type="date" name="fecha_inicio" value="${esc(v.fecha_inicio || '')}"><div class="ayuda">El día de esta fecha es el día de pago (ej. 24 = paga cada 24).</div></label>
       <label>Tu comisión por pago<input type="number" step="any" min="0" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal" placeholder="0.00"><div class="ayuda">Lo que tú ganas cada vez que este cliente paga. Se suma en 💰 Mis comisiones.</div></label>
-      <label>Opción o producto<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
+      <label>Servicio adquirido<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
       <label>Proveedor o empresa<input name="proveedor" value="${esc(v.proveedor)}" list="lista-proveedores"></label>
       <details class="completo datos-imss" ${imss ? 'open' : ''}>
         <summary><span class="imss-tit">🪪 Datos IMSS: CURP y NSS</span>

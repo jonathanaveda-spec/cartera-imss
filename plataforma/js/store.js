@@ -16,7 +16,7 @@ export const CAMPOS_BASE = [
   { clave: 'nss', etiqueta: 'NSS' },
   { clave: 'celular', etiqueta: 'Celular' },
   { clave: 'fecha_inicio', etiqueta: 'Fecha de inicio' },
-  { clave: 'opcion', etiqueta: 'Opción o producto' },
+  { clave: 'opcion', etiqueta: 'Servicio adquirido' },
   { clave: 'proveedor', etiqueta: 'Proveedor o empresa' },
   { clave: 'comision', etiqueta: 'Comisión' },
   { clave: 'periodicidad', etiqueta: 'Periodicidad' },
