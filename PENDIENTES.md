@@ -82,7 +82,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 
 - [ ] **ElevenLabs** (agregado 13/10 a `videos/voz.mjs` y a la skill de voz): si Jonathan lo quiere usar, crea cuenta, revisa precio/licencia comercial en elevenlabs.io/pricing, pone `ELEVENLABS_API_KEY` en Windows y elige voces de México; la sesión local hace una prueba comparando con Valeria/Alejo.
 
-- ✅ Publicados en TikTok: lun 12 (M01, P05, H02), mar 13 (M02, P06, T02) y **mié 14 (R2, P07, H03, los 3 juntos en la madrugada)**. Los avisos del miércoles ya no aplican.
+- ✅ Publicados en TikTok: lun 12 (M01, P05, H02), mar 13 (M02, P06, T02) y **mié 14 (R2, P07, H03, los 3 juntos en la madrugada)**. Jue 15: M04 y P08 publicados (T03 no; se mandó el 16/10 para subirlo ese día). Los avisos del miércoles ya no aplican.
 
 ## 👩 AVATAR CITLALI
 - [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. ✅ **APROBADA por Jonathan el 09/10** (boca sincronizada; la mano le parece natural). Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
