@@ -124,6 +124,15 @@ test('títulos reconocidos', () => {
   assert.equal(t('No. IMSS'), 'nss');
   assert.equal(t('WhatsApp'), 'celular');
   assert.equal(t('Color favorito'), null);
+  // Prueba de Tere (15/10): «Aseguradora» iba a nombre por «asegurad».
+  assert.equal(t('Aseguradora'), 'proveedor');
+  assert.equal(t('Nombre del asegurado'), 'nombre');
+  assert.equal(t('Nombre de la empresa'), 'proveedor');
+  assert.equal(t('Empresa'), 'proveedor');
+  assert.equal(t('Producto'), 'opcion');
+  assert.equal(t('Cédula'), E.EXTRA);
+  assert.equal(t('OPCION O PRODUCTO'), 'opcion');
+  assert.equal(t('PROVEEDOR O EMPRESA'), 'proveedor');
 });
 
 test('una columna con «Mensual», «Trimestral»… se reconoce como periodicidad aunque el título no lo diga', () => {

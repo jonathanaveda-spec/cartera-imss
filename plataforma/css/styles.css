@@ -151,9 +151,13 @@ tr.fila { cursor: pointer; }
 tr.fila:hover td { background: #f6f9ff; }
 tbody tr:last-child td { border-bottom: 0; }
 tr.fila.est-baja td { opacity: .72; }
-.nombre { font-weight: 650; }
+.nombre { font-weight: 650; overflow-wrap: anywhere; }
 .sub { font-size: .8rem; color: var(--suave); }
-.acciones { display: flex; gap: 6px; justify-content: flex-end; }
+.acciones { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+/* «Recordar» y «Registrar pago» se tocan muchas veces al día: 44 px como mínimo. */
+.acciones .btn { min-height: 44px; }
+/* Tablet y laptop chica (800–1099 px): sin Periodicidad ni Último pago, para que la tabla no se salga de la pantalla. */
+@media (min-width: 800px) and (max-width: 1099px) { .solo-grande { display: none; } }
 .solo-ancho { display: none; }
 @media (min-width: 560px) { .solo-ancho { display: inline; } }
 
@@ -171,7 +175,7 @@ tr.fila.est-baja td { opacity: .72; }
   tr.fila.est-baja { --barra: var(--c-baja); }
   tr.fila td { display: block; padding: 0; border: 0; }
   tr.fila:hover td { background: none; }
-  td.c-nombre { grid-column: 1; grid-row: 1; }
+  td.c-nombre { grid-column: 1; grid-row: 1; min-width: 0; }
   td.c-estado { grid-column: 2; grid-row: 1; justify-self: end; }
   td.c-vence { grid-column: 1 / -1; grid-row: 2; }
   td.c-cel { grid-column: 1 / -1; grid-row: 3; font-size: .9rem; color: var(--suave); }
@@ -214,7 +218,7 @@ tr.fila.est-baja td { opacity: .72; }
   display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 14px 16px; border-bottom: 1px solid var(--linea); background: var(--tarjeta); border-radius: 18px 18px 0 0;
 }
-.modal-cab h2 { font-size: 1.1rem; }
+.modal-cab h2 { font-size: 1.1rem; overflow-wrap: anywhere; min-width: 0; }
 .modal-cuerpo { padding: 16px; overflow-y: auto; -webkit-overflow-scrolling: touch; flex: 1 1 auto; min-height: 0; overscroll-behavior: contain; }
 .modal-pie {
   display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap;

@@ -9,10 +9,11 @@ const XLSX = () => {
 
 const norm = (s) => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/\s+/g, ' ').trim();
 
-// Encabezados que usa la exportación (mismos nombres que el Excel original de ALTAS).
+// Encabezados que usa la exportación (los del Excel original de ALTAS; opción y proveedor con el nombre «para todos»).
+// Al volver a importar el archivo, cada título se reconoce solo.
 const ENCABEZADOS_ORIGINALES = {
   nombre: 'CLIENTE', curp: 'CURP', nss: 'NSS', celular: 'CELULAR', fecha_inicio: 'FECHA DE inicio',
-  opcion: 'OPCION', proveedor: 'PROVEEDOR', comision: 'COMISION',
+  opcion: 'OPCION O PRODUCTO', proveedor: 'PROVEEDOR O EMPRESA', comision: 'COMISION',
 };
 
 // ---------- Importación ----------
@@ -28,8 +29,8 @@ export const CAMPOS_IMPORTAR = [
   { campo: 'fecha_inicio', etiqueta: 'Fecha de inicio (día de cobro)' },
   { campo: 'periodicidad', etiqueta: 'Periodicidad (cada cuánto paga)' },
   { campo: 'proximo_pago', etiqueta: 'Próximo pago' },
-  { campo: 'opcion', etiqueta: 'Opción' },
-  { campo: 'proveedor', etiqueta: 'Proveedor' },
+  { campo: 'opcion', etiqueta: 'Opción o producto' },
+  { campo: 'proveedor', etiqueta: 'Proveedor o empresa' },
   { campo: 'comision', etiqueta: 'Comisión' },
   { campo: 'notas', etiqueta: 'Notas' },
 ];
@@ -48,9 +49,12 @@ const TITULOS = [
   ['curp', /curp/],
   ['nss', /\bnss\b|seguro social|seguridad social|(numero|num|no)\.?\s*(de\s*)?imss|^imss$/],
   ['celular', /celular|telefono|\btel\b|\bcel\b|whats|movil|contacto/],
+  // Cédula (Venezuela, Colombia): se guarda como campo propio con su título.
+  [EXTRA, /cedula|identificacion/],
+  // Antes que «nombre»: «Aseguradora» contiene «asegurad» y «Nombre de la empresa» contiene «nombre».
+  ['proveedor', /proveedor|aseguradora|compania|empresa/],
   ['nombre', /nombre|cliente|apellido|asegurad|afiliad|titular|trabajador|derechohabiente/],
-  ['opcion', /opcion|modalidad/],
-  ['proveedor', /proveedor|aseguradora|compania/],
+  ['opcion', /opcion|modalidad|producto/],
   ['notas', /nota|observaci|comentario/],
 ];
 

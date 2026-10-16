@@ -8,6 +8,16 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 16/10/2026 · Arreglos del test drive de Tere (PC de casa)
+- Excel: «Aseguradora», «Empresa», «Nombre de la empresa» → proveedor (antes «Aseguradora» caía en nombre); «Producto» → opción;
+  «Cédula» → campo propio. Exportar: «OPCION O PRODUCTO» y «PROVEEDOR O EMPRESA» (se reconocen al volver a importar).
+- Pago: no deja monto o comisión negativos; pide confirmar fecha futura, de más de un año, monto 10× el mayor anterior
+  (o ≥ 1.000.000 sin pagos previos) y pago repetido el mismo día (`logic.avisosDePago`).
+- Pantalla: tabla 800–1099 px sin Periodicidad ni Último pago (cabe en 820 y 1024); nombres largos sin espacios bajan de
+  renglón (lista y título de ventanas); botones Recordar/Registrar pago 44 px; búsqueda más corta (cabía cortada en 375 px).
+- Búsqueda de celular con o sin espacios, guiones o paréntesis. Dinero de Colombia en COP sin centavos.
+- Probado en el simulador a 375, 820, 1024 y 1100 px. 71 pruebas OK.
+
 ## 16/10/2026 · País obligatorio (PC de casa)
 - Registro: «Elige tu país» sin valor marcado (antes venía «Colombia» y asesores de México quedaban como de Colombia).
   Ejemplo del celular según el país; con «Otro» exige el «+».

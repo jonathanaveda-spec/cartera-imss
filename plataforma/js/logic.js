@@ -153,7 +153,7 @@ export function telefonoDe(celular) {
   return null;
 }
 
-// País del asesor (de su perfil): decide el código de país de los celulares escritos sin «+».
+// País del asesor (de su perfil): decide el código de país de los celulares escritos sin «+» y el formato del dinero.
 let paisTelefono = 'MX';
 export function fijarPaisTelefono(pais) { paisTelefono = pais || 'MX'; }
 
@@ -185,10 +185,15 @@ export function telefonoInternacional(celular, pais = paisTelefono) {
 
 function textoBusqueda(c) {
   const extra = Object.values(c.extra || {}).join(' ');
+  // El celular también va solo en dígitos: «5512345678» encuentra «55 1234 5678» (y al revés, ver filtrarClientes).
+  const celDigitos = String(c.celular ?? '').replace(/\D/g, '');
   return normalizar(
-    [c.nombre, c.curp, c.nss, c.celular, c.opcion, c.proveedor, c.notas, (c.etiquetas || []).join(' '), extra].join(' ')
+    [c.nombre, c.curp, c.nss, c.celular, celDigitos, c.opcion, c.proveedor, c.notas, (c.etiquetas || []).join(' '), extra].join(' ')
   );
 }
+
+/** Palabra buscada: un número con guiones, puntos o paréntesis («55-1234-5678», «(55)1234») se busca solo en dígitos. */
+const terminoBusqueda = (t) => (/^[\d\-().+]+$/.test(t) && /\d/.test(t) ? t.replace(/\D/g, '') : t);
 
 // ---------- Filtros y orden ----------
 /** Filtros rápidos del día: «pagan_hoy» (su próximo pago es hoy) y «pagaron_hoy» (tienen un pago con fecha de hoy). */
@@ -229,7 +234,7 @@ export function resumenAviso(clientes, hoy, diasAviso = 7) {
 }
 
 export function filtrarClientes(clientes, f, hoy, diasAviso) {
-  const q = normalizar(f.busqueda || '').split(/\s+/).filter(Boolean);
+  const q = normalizar(f.busqueda || '').split(/\s+/).map(terminoBusqueda).filter(Boolean);
   const out = [];
   for (const c of clientes) {
     const e = calcularEstado(c, hoy, diasAviso);
@@ -367,7 +372,36 @@ export function fmtFechaLarga(iso) {
   return `${d} de ${MESES[m - 1]} de ${y}`;
 }
 
-export const fmtDinero = (n) => (n == null || !Number.isFinite(Number(n)) ? '' : new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(Number(n)));
+// Dinero según el país del asesor (el mismo de fijarPaisTelefono): Colombia en pesos colombianos sin centavos
+// («$ 1.500»); los demás como siempre («$1,500.00»), que también sirve para dólares.
+const FORMATO_DINERO = {
+  CO: new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }),
+  otro: new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }),
+};
+export const fmtDinero = (n) => (n == null || !Number.isFinite(Number(n)) ? '' : (FORMATO_DINERO[paisTelefono] || FORMATO_DINERO.otro).format(Number(n)));
+
+/**
+ * Avisos antes de registrar un pago (prueba de Tere, 15/10). `error`: no se puede registrar (monto o comisión negativos).
+ * `revisar`: se puede, pero conviene confirmarlo (fecha futura o muy vieja, monto fuera de lo normal, pago repetido el mismo día).
+ */
+export function avisosDePago(c, { fecha_pago, monto, comision } = {}, hoy = hoyISO()) {
+  const error = [], revisar = [];
+  const m = monto === '' || monto == null ? null : Number(monto);
+  if (m != null && m < 0) error.push('El monto no puede ser negativo.');
+  if (comision !== '' && comision != null && Number(comision) < 0) error.push('La comisión no puede ser negativa.');
+  if (esISO(fecha_pago)) {
+    const d = diasEntre(hoy, fecha_pago);
+    if (d > 0) revisar.push(`La fecha del pago es futura (${fmtFecha(fecha_pago)}).`);
+    if (d < -365) revisar.push(`La fecha del pago tiene más de un año (${fmtFecha(fecha_pago)}).`);
+    if ((c.pagos || []).some((p) => p.fecha_pago === fecha_pago)) revisar.push(`Ya hay un pago registrado el ${fmtFecha(fecha_pago)}.`);
+  }
+  if (m > 0) {
+    const anteriores = (c.pagos || []).map((p) => Number(p.monto)).filter((x) => x > 0);
+    const mayor = anteriores.length ? Math.max(...anteriores) : 0;
+    if (mayor ? m > mayor * 10 : m >= 1000000) revisar.push(`El monto (${fmtDinero(m)}) es mucho mayor que lo normal: revisa que no sobren ceros.`);
+  }
+  return { error, revisar };
+}
 
 /**
  * Mensaje de comprobante para un pago registrado. Variables: {nombre}, {fecha_pago}, {monto} (« de $1,500.00»

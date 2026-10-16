@@ -42,3 +42,33 @@ test('celular según el país del asesor', () => {
   assert.equal(t('04141234567'), '584141234567');
   L.fijarPaisTelefono('MX');
 });
+
+test('buscar celular con o sin espacios, guiones o paréntesis', () => {
+  const cs = [{ id: '1', nombre: 'Ana', celular: '55 1234 5678' }, { id: '2', nombre: 'Luis', celular: '(0414) 765-43-21' }];
+  const n = (q) => L.filtrarClientes(cs, { busqueda: q }, hoy, 7).map((x) => x.c.id).join();
+  assert.equal(n('5512345678'), '1');
+  assert.equal(n('55-1234-5678'), '1');
+  assert.equal(n('55 1234'), '1');
+  assert.equal(n('04147654321'), '2');
+  assert.equal(n('7654321'), '2');
+});
+
+test('avisos antes de registrar un pago', () => {
+  const c = { pagos: [{ fecha_pago: '2026-10-01', monto: 450 }] };
+  const a = (x) => L.avisosDePago(c, x, hoy);
+  assert.equal(a({ fecha_pago: '2026-10-15', monto: '450' }).revisar.length, 0);
+  assert.equal(a({ fecha_pago: '2026-10-15', monto: '-450' }).error.length, 1);
+  assert.equal(a({ fecha_pago: '2026-10-15', comision: '-10' }).error.length, 1);
+  assert.match(a({ fecha_pago: '2026-10-20' }).revisar[0], /futura/);
+  assert.match(a({ fecha_pago: '2025-09-01' }).revisar[0], /más de un año/);
+  assert.match(a({ fecha_pago: '2026-10-01' }).revisar[0], /Ya hay un pago/);
+  assert.match(a({ fecha_pago: '2026-10-15', monto: '45000' }).revisar[0], /ceros/);
+  assert.equal(L.avisosDePago({}, { fecha_pago: hoy, monto: '5000000' }, hoy).revisar.length, 1);
+});
+
+test('dinero según el país del asesor', () => {
+  assert.equal(L.fmtDinero(1500), '$1,500.00');
+  L.fijarPaisTelefono('CO');
+  assert.equal(L.fmtDinero(24900).replace(/\s/g, ' '), '$ 24.900');
+  L.fijarPaisTelefono('MX');
+});

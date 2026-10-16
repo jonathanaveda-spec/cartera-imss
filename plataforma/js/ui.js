@@ -247,7 +247,7 @@ const esMexico = () => ['', 'MX'].includes(N.paisUso());
 export function render() {
   L.fijarPaisTelefono(N.paisUso());
   const q = document.querySelector('#q');
-  if (q) q.placeholder = esMexico() ? 'Buscar por nombre, CURP, NSS, celular…' : 'Buscar por nombre o celular…';
+  if (q) q.placeholder = esMexico() ? 'Nombre, CURP, NSS o celular' : 'Buscar por nombre o celular'; // corto: cabe en un celular de 375 px
   const btnRev = document.querySelector('.barra [data-accion="revision"]');
   if (btnRev) {
     const dupR = L.indexarDuplicados(S.db.clientes);
@@ -312,7 +312,7 @@ function renderLista(items) {
   }
   cont.innerHTML = `<table><thead><tr>
       <th>Estado</th><th>Cliente</th><th>Celular</th><th class="solo-escritorio">Opción · Proveedor</th>
-      <th class="solo-escritorio">Periodicidad</th><th>Próximo pago</th><th class="solo-escritorio">Último pago</th><th></th></tr></thead>
+      <th class="solo-escritorio solo-grande">Periodicidad</th><th>Próximo pago</th><th class="solo-escritorio solo-grande">Último pago</th><th></th></tr></thead>
     <tbody>${items.map(filaHTML).join('')}</tbody></table>`;
 }
 
@@ -331,9 +331,9 @@ function filaHTML({ c, e }) {
     <td class="c-nombre"><div class="nombre">${esc(c.nombre) || '<i>(sin nombre)</i>'}</div><div class="sub">${esc(c.curp)}</div></td>
     <td class="c-cel">${esc(c.celular) || '—'}</td>
     <td class="solo-escritorio">${esc(c.opcion) || '—'}<div class="sub">${esc(c.proveedor)}</div></td>
-    <td class="solo-escritorio">${esc(c.periodicidad) || '—'}${L.textoDiaPago(c) ? `<div class="sub">${L.textoDiaPago(c)}</div>` : ''}</td>
+    <td class="solo-escritorio solo-grande">${esc(c.periodicidad) || '—'}${L.textoDiaPago(c) ? `<div class="sub">${L.textoDiaPago(c)}</div>` : ''}</td>
     <td class="c-vence"><span class="lin-fecha">${conFecha ? L.fmtFecha(c.proximo_pago) : ''}</span> <span class="dias ${e.clase}">${L.textoDias(e)}</span></td>
-    <td class="solo-escritorio">${up ? L.fmtFecha(up.fecha_pago) : '—'}</td>
+    <td class="solo-escritorio solo-grande">${up ? L.fmtFecha(up.fecha_pago) : '—'}</td>
     <td class="c-acc"><div class="acciones">${wa}${boton}</div></td></tr>`;
 }
 
@@ -594,7 +594,14 @@ export function abrirPago(id) {
     if (!form.fecha_pago.value) return aviso('Indica la fecha del pago', true);
     if (!leerPeriodicidad(form)) return aviso(form.periodicidad.value === 'personalizado' ? AVISO_DIAS : 'Elige la periodicidad', true);
     if (!form.nuevo_proximo.value) return aviso('No se pudo calcular el próximo pago', true);
+    const chequeo = L.avisosDePago(c, { fecha_pago: form.fecha_pago.value, monto: form.monto.value, comision: form.comision.value });
+    if (chequeo.error.length) return aviso(chequeo.error.join(' '), true);
     seguro(async () => {
+      if (chequeo.revisar.length && !(await confirmar({
+        titulo: 'Revisa antes de registrar',
+        mensaje: chequeo.revisar.map(esc).join('<br>'),
+        ok: 'Registrar igual', cancelar: 'Corregir',
+      }))) return;
       const fd = Object.fromEntries(new FormData(form).entries());
       fd.periodicidad = leerPeriodicidad(form);
       delete fd.periodicidad_dias;

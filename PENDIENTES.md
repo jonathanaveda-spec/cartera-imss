@@ -123,14 +123,14 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       Cuentas viejas con «Colombia» confirman una vez al entrar («Después» lo deja para la próxima); al confirmar, Colombia
       usa +57. (2) «Otro»: ya no supone +52; el registro y la ficha del cliente piden el número con «+». Sin cambiar reglas.
 - [ ] Jonathan (opcional): en el panel admin mirar quiénes aparecen con «Colombia»; esos verán la pregunta del país al entrar.
-- [ ] **Emma, arreglos de Tere (16/10):** (4) Excel: la columna «Aseguradora» se pega al nombre (`excel.js`, patrón `asegurad` en nombre → va a proveedor);
-      reconocer «Producto», «Empresa», «Cédula». (5) Pago: avisar montos negativos/enormes y fechas de pago futuras o muy
-      viejas; avisar pago repetido el mismo día. (7) Tabla más ancha que la pantalla en tablet/laptop 820–1024 px.
-      (8) Nombres largos sin espacios desbordan tarjetas. (9) Botones «Recordar» y «Registrar pago» a 44 px.
-      (10) Buscar celular sin espacios. (11) Placeholder cortado en celular. (12) Formato de dinero por país.
-      (13) Excel exportado: títulos «Opción o producto»/«Proveedor o empresa». (6) Decidir con Jonathan: con menos de la
-      mitad de CURP no se avisa «CURP vacía».
-- [ ] Resumir esta conversación (/compact) al empezar el 16/10.
+- [x] ✅ 16/10 (Emma) Arreglos de Tere (4) (5) (7) (8) (9) (10) (11) (12) (13): Excel reconoce Aseguradora/Empresa (proveedor),
+      Producto (opción) y Cédula (campo propio); pago avisa monto/comisión negativos (no deja), fecha futura o de más de un año,
+      monto 10 veces mayor que el más alto anterior y pago repetido el mismo día («Registrar igual» o «Corregir»); tabla sin
+      Periodicidad ni Último pago entre 800 y 1099 px; nombres largos bajan de renglón; botones de la lista a 44 px; buscar
+      celular con o sin espacios/guiones; búsqueda «Nombre, CURP, NSS o celular» (cabe en 375 px); Colombia en pesos COP sin
+      centavos; Excel exportado con «OPCION O PRODUCTO» y «PROVEEDOR O EMPRESA». 71 pruebas.
+- [ ] **Jonathan decide (6 de Tere):** si menos de la mitad de los clientes tiene CURP, la app NO avisa «CURP vacía» en los
+      demás. ¿Se queda así (recomendado: cartera sin IMSS no se llena de avisos) o se avisa siempre?
 
 ## 🧭 DECISIONES de Jonathan
 **✅ 15/10 respuestas de Jonathan:**
