@@ -8,6 +8,15 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 16/10/2026 · País obligatorio (PC de casa)
+- Registro: «Elige tu país» sin valor marcado (antes venía «Colombia» y asesores de México quedaban como de Colombia).
+  Ejemplo del celular según el país; con «Otro» exige el «+».
+- ☰ → Mi cuenta: botón «Cambiar» junto al país. Cuentas viejas con «Colombia» (o sin país): al entrar se pregunta una vez
+  «¿En qué país vives?»; queda en `config/main` → `paisConfirmado` (no hizo falta tocar `firestore.rules`). México,
+  Venezuela y «Otro» ya se habían elegido a propósito: no se les pregunta. Cuentas creadas desde el 16/10 3 p. m. Cali tampoco.
+- WhatsApp: Colombia confirmada → +57; «Otro» → solo números con «+» (antes suponía +52). Precios y medios de pago usan el
+  país confirmado. Probado en el simulador a 375 px (registro, pregunta, Mi cuenta, cambio de país). 68 pruebas OK.
+
 ## 14/10/2026 · Imágenes para grupos de Facebook
 - 4 imágenes cuadradas (1080×1080) en `tienda/facebook/` (fb-1 tip 3 mensajes, fb-2 libreta vs app, fb-3 Excel, fb-4 «comenta yo»). Fuente: `imagenes.html`; se regeneran con `node tienda/facebook/foto.mjs`. Datos inventados.
 

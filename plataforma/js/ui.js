@@ -241,11 +241,11 @@ function etiquetaOrden() {
 }
 
 /** El público principal son los asesores del IMSS en México; sin país en el perfil se asume México. */
-// Colombia cuenta como México por ahora: el registro traía «Colombia» marcado por defecto (ver logic.js).
-const esMexico = () => !['VE', 'OTRO'].includes(N.estado.perfil?.pais);
+// Un «Colombia» sin confirmar cuenta como México: el registro viejo lo traía marcado por defecto (ver nube.paisUso).
+const esMexico = () => ['', 'MX'].includes(N.paisUso());
 
 export function render() {
-  L.fijarPaisTelefono(N.estado.perfil?.pais);
+  L.fijarPaisTelefono(N.paisUso());
   const q = document.querySelector('#q');
   if (q) q.placeholder = esMexico() ? 'Buscar por nombre, CURP, NSS, celular…' : 'Buscar por nombre o celular…';
   const btnRev = document.querySelector('.barra [data-accion="revision"]');
@@ -475,7 +475,7 @@ export function abrirFormulario(id) {
       <label class="completo">Nombre completo *<input name="nombre" value="${esc(v.nombre)}" required autocapitalize="characters"></label>
       ${imss ? `<label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
       <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>` : ''}
-      <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
+      <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">${N.paisUso() === 'OTRO' ? 'Escríbelo con + y el código de país (ej. +1 305…) para mandarle WhatsApp. ' : ''}Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
       <label>Fecha de inicio<input type="date" name="fecha_inicio" value="${esc(v.fecha_inicio || '')}"><div class="ayuda">El día de esta fecha es el día de pago (ej. 24 = paga cada 24).</div></label>
       <label>Tu comisión por pago<input type="number" step="any" min="0" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal" placeholder="0.00"><div class="ayuda">Lo que tú ganas cada vez que este cliente paga. Se suma en 💰 Mis comisiones.</div></label>
       <label>Opción o producto<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
@@ -1429,7 +1429,8 @@ function abrirCuenta() {
     cuerpo: `<div class="seccion"><dl class="datos">
         <div><dt>Nombre</dt><dd>${esc(p.nombre) || '—'}</dd></div>
         <div><dt>Correo</dt><dd>${esc(N.estado.usuario)}</dd></div>
-        <div><dt>País</dt><dd>${esc(PAISES[p.pais] || p.pais) || '—'}</dd></div>
+        <div><dt>País</dt><dd>${esc(PAISES[p.pais] || p.pais) || '—'}${p.pais && !N.paisConfirmado() ? ' <span class="mini">(sin confirmar)</span>' : ''}
+          <button class="btn chico" data-pais type="button" style="margin-left:8px">Cambiar</button></dd></div>
         <div><dt>Celular</dt><dd>${esc(p.telefono) || '—'}</dd></div></dl></div>
       <div class="seccion acc-fila"><button class="btn" data-salir>Cerrar sesión</button></div>
       <div class="seccion"><h3>Eliminar cuenta</h3>
@@ -1437,6 +1438,7 @@ function abrirCuenta() {
         <button class="btn peligro" data-eliminar>Eliminar mi cuenta</button></div>
       <p class="mini"><a href="privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a> · <a href="terminos.html" target="_blank" rel="noopener">Términos de uso</a> · versión ${esc(MARCA.version)}</p>`,
   });
+  v.q('[data-pais]').addEventListener('click', () => elegirPais({ alGuardar: () => { v.cerrar(); abrirCuenta(); } }));
   v.q('[data-salir]').addEventListener('click', async () => {
     const ok = await confirmar({
       titulo: 'Cerrar sesión',
@@ -1462,6 +1464,38 @@ function abrirCuenta() {
       });
     });
   });
+}
+
+// ---------- País del asesor ----------
+// Decide el código de los celulares (+52, +57, +58) y si los campos del IMSS van arriba.
+/** Elegir o cambiar el país. Con confirmar: se pregunta una vez a las cuentas creadas antes de que el país fuera obligatorio. */
+export function elegirPais({ confirmar: preguntaInicial = false, alGuardar } = {}) {
+  const actual = N.estado.perfil?.pais || '';
+  const v = ventana({
+    titulo: '🌎 ¿En qué país vives?', fondoCierra: !preguntaInicial,
+    cuerpo: `<p style="margin-bottom:10px">Con tu país, la app arma bien el número de WhatsApp de tus clientes.</p>
+      <form id="f-pais">${['MX', 'CO', 'VE', 'OTRO'].map((k) => `<label class="radio-tarjeta"><input type="radio" name="pais" value="${k}" ${!preguntaInicial && k === actual ? 'checked' : ''}>
+        <span>${esc(PAISES[k])}${k === 'OTRO' ? '<span class="mini" style="display:block">Escribe los celulares con + y el código de país.</span>' : ''}</span></label>`).join('')}</form>
+      ${preguntaInicial && actual ? `<p class="mini" style="margin-top:6px">En tu cuenta aparece «${esc(PAISES[actual] || actual)}». Elígelo de nuevo para confirmarlo.</p>` : ''}`,
+    pie: `<button class="btn" data-cerrar type="button">${preguntaInicial ? 'Después' : 'Cancelar'}</button><button class="btn primario" type="submit" form="f-pais">Guardar</button>`,
+  });
+  v.q('#f-pais').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const pais = e.target.pais.value;
+    if (!PAISES[pais]) return aviso('Elige tu país', true);
+    seguro(async () => {
+      await N.cambiarPais(pais);
+      v.cerrar();
+      aviso('País guardado: ' + PAISES[pais]);
+      refrescarTodo();
+      alGuardar?.();
+    });
+  });
+}
+
+/** Al entrar: si la cuenta no tiene el país confirmado, se pregunta (una vez por apertura; «Después» lo deja para la próxima). */
+export function pedirPaisSiFalta() {
+  if (!N.paisConfirmado()) elegirPais({ confirmar: true });
 }
 
 // ---------- Plan ----------
@@ -1497,9 +1531,9 @@ function avisoSoloLectura() {
 function abrirPlan() {
   const pe = N.estado.planEf;
   const sis = N.estado.sistema || {};
-  const medios = mediosOrdenados(sis.medios, N.estado.perfil?.pais || '');
+  const medios = mediosOrdenados(sis.medios, N.paisUso());
   const precios = textoPrecios(sis);
-  const local = equivalenteLocal(sis, N.estado.perfil?.pais || '');
+  const local = equivalenteLocal(sis, N.paisUso());
   const legado = (sis.datosPago || '').trim(); // formato anterior: texto libre
   const uso = pe.ilimitado ? `${S.db.clientes.length} clientes (sin límite)` : `${S.db.clientes.length} de ${pe.limite} clientes`;
   const listaMedios = medios.length

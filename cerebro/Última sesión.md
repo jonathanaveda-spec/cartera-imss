@@ -11,8 +11,11 @@ al cerrar cada bloque de trabajo (no es un diario: para eso está `BITACORA.md`)
 - [[Citlali]]: muestra 3 del [[Formato presentadora]] entregada; falta el visto bueno final de Jonathan.
 - [[App]]: 15/10 se publicó «app para todos con el IMSS al frente»; Colombia se trata como México hasta tener país obligatorio.
 
+- ✅ 16/10 **País obligatorio** en el registro + cambiable en «Mi cuenta» (cuentas viejas con «Colombia» confirman una vez).
+- Videos de hoy: P09 enviado a Jonathan a las 10:30 (para la 1 p. m.); falta mandar H04 (8 p. m.). No se sabe si subió M05.
+
 ## Lo siguiente (en orden)
-1. **País obligatorio** en el registro + editable en «Mi cuenta» (urgente por los corredores de Venezuela).
+1. Mandar H04 con su descripción antes de las 8 p. m.
 2. Arreglos del test drive de Tere (lista en `PENDIENTES.md`, sección 16/10).
 3. Correcciones de seguridad de Fernanda (detalle solo en la PC de la oficina: `investigacion/seguridad-2026-10-15.md`).
 4. Jonathan: verificación en dos pasos en GitHub y en el correo admin; ya instaló Obsidian (16/10).

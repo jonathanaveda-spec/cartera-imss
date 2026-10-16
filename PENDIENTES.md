@@ -119,10 +119,11 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [ ] Corregir lo de la revisión de seguridad de Fernanda (15/10): detalle SOLO en la PC de la oficina, `investigacion/seguridad-2026-10-15.md` (no se sube: los repos son públicos). Sin hallazgos críticos. Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC.
 - [x] ✅ 15/10 Test drive de Tere hecho (68 pruebas OK; lo de hoy funciona). GRAVE corregido el mismo día (79ce75f): el
       registro trae «Colombia» marcado por defecto → asesores de México con país CO; ahora CO se trata como México.
-- [ ] **Emma, arreglos de Tere (16/10):** (1) país OBLIGATORIO en el registro («Elige tu país», sin valor por defecto) y
-      editable en ☰ → Mi cuenta (campo «país confirmado»; recién ahí activar +57 para Colombia); revisar en el panel admin el
-      país de las cuentas existentes (Yamileth y testers). (2) País «Otro»: no suponer +52; pedir el número con «+».
-      (4) Excel: la columna «Aseguradora» se pega al nombre (`excel.js`, patrón `asegurad` en nombre → va a proveedor);
+- [x] ✅ 16/10 (Emma) (1) País OBLIGATORIO en el registro («Elige tu país», sin valor marcado) y cambiable en ☰ → Mi cuenta.
+      Cuentas viejas con «Colombia» confirman una vez al entrar («Después» lo deja para la próxima); al confirmar, Colombia
+      usa +57. (2) «Otro»: ya no supone +52; el registro y la ficha del cliente piden el número con «+». Sin cambiar reglas.
+- [ ] Jonathan (opcional): en el panel admin mirar quiénes aparecen con «Colombia»; esos verán la pregunta del país al entrar.
+- [ ] **Emma, arreglos de Tere (16/10):** (4) Excel: la columna «Aseguradora» se pega al nombre (`excel.js`, patrón `asegurad` en nombre → va a proveedor);
       reconocer «Producto», «Empresa», «Cédula». (5) Pago: avisar montos negativos/enormes y fechas de pago futuras o muy
       viejas; avisar pago repetido el mismo día. (7) Tabla más ancha que la pantalla en tablet/laptop 820–1024 px.
       (8) Nombres largos sin espacios desbordan tarjetas. (9) Botones «Recordar» y «Registrar pago» a 44 px.

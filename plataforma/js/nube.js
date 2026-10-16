@@ -116,6 +116,31 @@ export function recalcularPlan() {
   return estado.planEf;
 }
 
+// ---------- País del asesor ----------
+// El registro viejo traía «Colombia» marcado por defecto: hay asesores de México con país CO sin saberlo. Desde esta fecha
+// el registro obliga a elegir; las cuentas anteriores con «Colombia» (o sin país) lo confirman una vez (queda en
+// config/main como paisConfirmado). Otro país distinto del marcado por defecto se eligió a propósito: no se pregunta.
+const PAIS_OBLIGATORIO_DESDE = Date.parse('2026-10-16T20:00:00Z');
+
+export function paisConfirmado() {
+  const p = estado.perfil?.pais;
+  if (!p) return false;
+  return p !== 'CO' || S.db.config.paisConfirmado === p || estado.creado >= PAIS_OBLIGATORIO_DESDE;
+}
+
+/** País con el que trabaja la app (código de los celulares, campos del IMSS, precios). Un «Colombia» sin confirmar cuenta como México. */
+export function paisUso() {
+  const p = estado.perfil?.pais || '';
+  return p === 'CO' && !paisConfirmado() ? 'MX' : p;
+}
+
+/** Guarda el país elegido por el asesor en su perfil y lo marca como confirmado. */
+export async function cambiarPais(pais) {
+  await F.updateDoc(F.doc(fs, 'usuarios', estado.uid), { pais });
+  estado.perfil = { ...estado.perfil, pais };
+  await S.guardarConfig({ paisConfirmado: pais });
+}
+
 export const cupoPara = (actuales, nuevos = 1) => cupo(estado.planEf, actuales, nuevos);
 export const puedeEditarCartera = () => puedeEditar(estado.planEf, S.db.clientes.length);
 

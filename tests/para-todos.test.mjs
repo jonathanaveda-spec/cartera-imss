@@ -30,8 +30,11 @@ test('celular según el país del asesor', () => {
   assert.equal(t('55 1234 5678'), '525512345678');
   assert.equal(t('0414-123.45.67', 'VE'), '584141234567');
   assert.equal(t('414 1234567', 'VE'), '584141234567');
-  assert.equal(t('55 1234 5678', 'CO'), '525512345678'); // CO por defecto del registro: se sigue tratando como México
+  assert.equal(t('300 123 4567', 'CO'), '573001234567'); // Colombia confirmada (sin confirmar, la app pasa 'MX')
+  assert.equal(t('52 55 1234 5678', 'CO'), '525512345678');
   assert.equal(t('+57 300 123 4567', 'MX'), '573001234567');
+  assert.equal(t('55 1234 5678', 'OTRO'), null); // «Otro»: no se supone +52
+  assert.equal(t('+1 305 555 1234', 'OTRO'), '13055551234');
   assert.equal(t('Asesor', 'VE'), null);
   assert.equal(t('0414 123 4567', 'CO'), '584141234567'); // 0414… es Venezuela aunque el perfil diga otro país
   assert.equal(t('0412-765.43.21'), '584127654321');

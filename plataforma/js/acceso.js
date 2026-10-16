@@ -102,8 +102,9 @@ export function mostrarRegistro(acc) {
     <form id="f-reg" novalidate>
       <label>Nombre completo<input name="nombre" autocomplete="name" maxlength="100" required></label>
       <label style="margin-top:12px">País donde vives
-        <select name="pais">${Object.entries(PAISES).map(([k, v]) => `<option value="${k}">${esc(v)}</option>`).join('')}</select></label>
-      <label style="margin-top:12px">Celular (WhatsApp)<input name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Con código de país, ej. +57 300…" required></label>
+        <select name="pais" required><option value="" selected disabled>Elige tu país</option>
+          ${['MX', 'CO', 'VE', 'OTRO'].map((k) => `<option value="${k}">${esc(PAISES[k])}</option>`).join('')}</select></label>
+      <label style="margin-top:12px">Celular (WhatsApp)<input name="telefono" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="Con código de país" required></label>
       <label style="margin-top:12px">Correo<input name="correo" type="email" autocomplete="username" inputmode="email" autocapitalize="none" required></label>
       <label style="margin-top:12px">Contraseña<input name="clave" type="password" autocomplete="new-password" minlength="8" required>
         <div class="ayuda">Mínimo 8 caracteres.</div></label>
@@ -115,11 +116,16 @@ export function mostrarRegistro(acc) {
     </form>`);
   const f = el.querySelector('#f-reg'), msg = msgEn(el);
   el.querySelector('#ir-login').addEventListener('click', () => mostrarLogin(acc));
+  // Sin país marcado de antemano: antes venía «Colombia» y asesores de México quedaban como de Colombia sin saberlo.
+  const EJEMPLO_TEL = { MX: '+52 55 1234 5678', CO: '+57 300 123 4567', VE: '+58 414 123 4567', OTRO: '+ código de país y número' };
+  f.pais.addEventListener('change', () => { f.telefono.placeholder = EJEMPLO_TEL[f.pais.value]; });
   f.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = Object.fromEntries(new FormData(f).entries());
     if (!d.nombre.trim()) return msg('Escribe tu nombre.');
+    if (!PAISES[d.pais]) return msg('Elige el país donde vives.');
     if (d.telefono.replace(/\D/g, '').length < 10) return msg('Escribe tu celular completo, con código de país.');
+    if (d.pais === 'OTRO' && !d.telefono.trim().startsWith('+')) return msg('Escribe tu celular con + y el código de tu país.');
     if (!d.correo.trim()) return msg('Escribe tu correo.');
     if ((d.clave || '').length < 8) return msg('La contraseña debe tener al menos 8 caracteres.');
     if (!f.acepto.checked) return msg('Debes aceptar los términos y el aviso de privacidad.');

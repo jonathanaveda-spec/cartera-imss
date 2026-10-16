@@ -5,7 +5,7 @@ import * as I from './instalar.js';
 import * as B from './bloqueo.js';
 import './pantalla.js';
 import { activarActualizaciones } from './actualizar.js';
-import { render, enlazarEventos, refrescarTodo, alCambiarSoporte } from './ui.js';
+import { render, enlazarEventos, refrescarTodo, alCambiarSoporte, pedirPaisSiFalta } from './ui.js';
 
 const accionesAcceso = {
   entrar: N.entrar,
@@ -73,6 +73,7 @@ async function arrancar() {
       if (r === 'cancelado') { await N.salir(); location.reload(); return; }
       A.ocultarAcceso();
       render();
+      pedirPaisSiFalta(); // cuentas viejas: confirmar el país una vez (antes venía «Colombia» marcado)
     } catch (e) {
       console.error(e);
       iniciada = false;
