@@ -468,31 +468,31 @@ export function abrirFormulario(id) {
   const v = c || { nombre: '', curp: '', nss: '', celular: '', fecha_inicio: '', opcion: '', proveedor: '', comision: '', periodicidad: '', proximo_pago: '', notas: '', extra: {} };
   const extras = S.db.config.camposPersonalizados.filter((x) => !x.archivado);
   const dupF = L.indexarDuplicados(S.db.clientes);
-  // Asesores del IMSS (público principal): CURP y NSS arriba, como siempre. Otros países u oficios: plegados al final.
+  // CURP y NSS: sección destacada debajo de «Proveedor o empresa». Son necesarios para dar de alta al cliente en el IMSS
+  // (pedido de Jonathan, 16/10). Abierta para asesores del IMSS; para otros países u oficios empieza cerrada.
   const imss = esMexico() || v.curp || v.nss || dupF.usaCurp || dupF.usaNss;
   const cuerpo = `<form id="f-cliente" novalidate autocomplete="off">
     <div class="rejilla dos">
       <label class="completo">Nombre completo *<input name="nombre" value="${esc(v.nombre)}" required autocapitalize="characters"></label>
-      ${imss ? `<label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
-      <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>` : ''}
       <label class="completo">Celular <input name="celular" value="${esc(v.celular)}" inputmode="tel"><div class="ayuda">${N.paisUso() === 'OTRO' ? 'Escríbelo con + y el código de país (ej. +1 305…) para mandarle WhatsApp. ' : ''}Puedes anotar también el nombre del asesor, como en tu Excel.</div></label>
       <label>Fecha de inicio<input type="date" name="fecha_inicio" value="${esc(v.fecha_inicio || '')}"><div class="ayuda">El día de esta fecha es el día de pago (ej. 24 = paga cada 24).</div></label>
       <label>Tu comisión por pago<input type="number" step="any" min="0" name="comision" value="${esc(v.comision ?? '')}" inputmode="decimal" placeholder="0.00"><div class="ayuda">Lo que tú ganas cada vez que este cliente paga. Se suma en 💰 Mis comisiones.</div></label>
       <label>Opción o producto<input name="opcion" value="${esc(v.opcion)}" list="lista-opciones"></label>
       <label>Proveedor o empresa<input name="proveedor" value="${esc(v.proveedor)}" list="lista-proveedores"></label>
+      <details class="completo datos-imss" ${imss ? 'open' : ''}>
+        <summary><span class="imss-tit">🪪 Datos IMSS: CURP y NSS</span>
+          <span class="imss-sub">Necesarios para dar de alta al cliente en el IMSS</span></summary>
+        <div class="rejilla dos">
+          <label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
+          <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>
+        </div>
+      </details>
       <label>Periodicidad de pago
         ${campoPeriodicidad(v.periodicidad, { vacio: 'Sin definir' })}</label>
       <label>Próximo pago<input type="date" name="proximo_pago" value="${esc(v.proximo_pago || '')}">
         <div class="ayuda">Se actualiza solo al registrar un pago.</div></label>
       ${extras.map((x) => campoExtraHTML(x, v.extra?.[x.clave])).join('')}
       <label class="completo">Notas<textarea name="notas">${esc(v.notas)}</textarea></label>
-      ${imss ? '' : `<details class="completo datos-imss">
-        <summary>Datos IMSS: CURP y NSS (opcional)</summary>
-        <div class="rejilla dos">
-          <label>CURP<input name="curp" value="${esc(v.curp)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><div class="aviso-campo" data-aviso="curp"></div></label>
-          <label>NSS<input name="nss" value="${esc(v.nss)}" inputmode="numeric" autocomplete="off"><div class="aviso-campo" data-aviso="nss"></div></label>
-        </div>
-      </details>`}
     </div>
     <datalist id="lista-opciones">${[...new Set(S.db.clientes.map((k) => k.opcion).filter(Boolean))].map((o) => `<option value="${esc(o)}">`).join('')}</datalist>
     <datalist id="lista-proveedores">${[...new Set(S.db.clientes.map((k) => k.proveedor).filter(Boolean))].map((o) => `<option value="${esc(o)}">`).join('')}</datalist>

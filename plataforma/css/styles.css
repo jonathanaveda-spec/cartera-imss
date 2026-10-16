@@ -393,10 +393,23 @@ details.instalar-ios summary::-webkit-details-marker { display: none; }
 .caso-importar summary { cursor: pointer; padding: 14px; font-weight: 600; min-height: 48px; list-style-position: inside; }
 .caso-importar[open] summary { border-bottom: 1px solid var(--linea); }
 .caso-importar p { margin: 10px 14px; line-height: 1.45; }
-.datos-imss { border: 1px solid var(--linea); border-radius: 12px; }
-.datos-imss summary { cursor: pointer; padding: 12px 14px; min-height: 44px; font-weight: 600; color: var(--suave); list-style-position: inside; -webkit-tap-highlight-color: transparent; }
-.datos-imss[open] summary { border-bottom: 1px solid var(--linea); }
+/* CURP y NSS: sección llamativa (ámbar) con la flecha para desplegar en azul de la marca. */
+.datos-imss { border: 1px solid #fcd34d; border-left: 5px solid #f59e0b; border-radius: 12px; background: #fffbeb; }
+.datos-imss summary { cursor: pointer; padding: 12px 14px 12px 50px; min-height: 52px; position: relative; list-style: none;
+  display: flex; flex-direction: column; justify-content: center; gap: 2px; -webkit-tap-highlight-color: transparent; }
+.datos-imss summary::-webkit-details-marker { display: none; }
+.datos-imss summary::before {
+  content: ''; position: absolute; left: 12px; top: 50%; width: 28px; height: 28px; margin-top: -14px; border-radius: 50%;
+  background: var(--marca) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") center / 16px no-repeat;
+  transition: transform .2s cubic-bezier(.2, .8, .2, 1);
+}
+.datos-imss[open] summary::before { transform: rotate(90deg); }
+.datos-imss .imss-tit { font-weight: 700; color: #78350f; }
+.datos-imss .imss-sub { font-size: .8rem; color: #92400e; }
+.datos-imss[open] summary { border-bottom: 1px solid #fcd34d; }
 .datos-imss > .rejilla { padding: 12px 14px; }
+.datos-imss input { background: #fff; }
+@media (prefers-reduced-motion: reduce) { .datos-imss summary::before { transition: none; } }
 .imp-listo { text-align: center; padding: 8px 0 4px; }
 .imp-listo-ico { font-size: 2.6rem; line-height: 1; margin-bottom: 6px; animation: aparece-listo .45s cubic-bezier(.23, 1, .32, 1) both; }
 @keyframes aparece-listo { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }

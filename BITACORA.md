@@ -8,6 +8,13 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 16/10/2026 · Sección CURP y NSS destacada (PC de casa)
+- Pedido de Jonathan: para dar de alta a un cliente en el IMSS siempre hacen falta CURP y NSS (Modalidad 40: CURP, NSS,
+  identificación, comprobante de domicilio y correo; en línea se capturan CURP, NSS y correo).
+- Formulario de cliente: CURP y NSS van juntos en una sección color ámbar, debajo de «Proveedor o empresa», con la flecha
+  para desplegar en azul. Abierta para asesores de México (o si el cliente/cartera ya tiene CURP o NSS); cerrada para
+  otros países. Probado a 375 px (abre, cierra y guarda).
+
 ## 16/10/2026 · Arreglos del test drive de Tere (PC de casa)
 - Excel: «Aseguradora», «Empresa», «Nombre de la empresa» → proveedor (antes «Aseguradora» caía en nombre); «Producto» → opción;
   «Cédula» → campo propio. Exportar: «OPCION O PRODUCTO» y «PROVEEDOR O EMPRESA» (se reconocen al volver a importar).
