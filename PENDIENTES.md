@@ -129,8 +129,8 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       Periodicidad ni Último pago entre 800 y 1099 px; nombres largos bajan de renglón; botones de la lista a 44 px; buscar
       celular con o sin espacios/guiones; búsqueda «Nombre, CURP, NSS o celular» (cabe en 375 px); Colombia en pesos COP sin
       centavos; Excel exportado con «OPCION O PRODUCTO» y «PROVEEDOR O EMPRESA». 71 pruebas.
-- [ ] **Jonathan decide (6 de Tere):** si menos de la mitad de los clientes tiene CURP, la app NO avisa «CURP vacía» en los
-      demás. ¿Se queda así (recomendado: cartera sin IMSS no se llena de avisos) o se avisa siempre?
+- [x] ✅ 16/10 (6 de Tere) Jonathan: **avisar siempre la CURP vacía**. Hecho para asesores de México; en Venezuela, Colombia y
+      «Otro» la CURP no existe y solo se avisa si su cartera la usa.
 
 ## 🧭 DECISIONES de Jonathan
 **✅ 15/10 respuestas de Jonathan:**

@@ -319,7 +319,9 @@ export const TIPOS_AVISO = {
 export function avisosDeCliente(c, dup, hoy) {
   const a = [];
   const curp = (c.curp || '').trim();
-  if (!curp) { if (dup.usaCurp) a.push('curp_vacia'); }
+  // CURP vacía: en México se avisa siempre (decisión de Jonathan, 16/10); en otros países la CURP no existe y solo
+  // se avisa si la cartera la usa.
+  if (!curp) { if (paisTelefono === 'MX' || dup.usaCurp) a.push('curp_vacia'); }
   else if (curp.length !== 18) a.push('curp_largo');
   const nss = (c.nss || '').trim();
   if (!nss) { if (dup.usaNss) a.push('nss_vacio'); }

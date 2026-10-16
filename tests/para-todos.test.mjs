@@ -11,8 +11,12 @@ test('CURP y NSS opcionales: sin avisos de vacío si la cartera no los usa', () 
   ];
   const dup = L.indexarDuplicados(cs);
   assert.equal(dup.usaCurp, false);
+  L.fijarPaisTelefono('VE');
   const a = L.avisosDeCliente(cs[0], dup, hoy);
   assert.ok(!a.includes('curp_vacia') && !a.includes('nss_vacio'));
+  // México: la CURP vacía se avisa siempre (decisión de Jonathan, 16/10).
+  L.fijarPaisTelefono('MX');
+  assert.ok(L.avisosDeCliente(cs[0], dup, hoy).includes('curp_vacia'));
 });
 
 test('cartera IMSS: sigue avisando la CURP y el NSS vacíos', () => {

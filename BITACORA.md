@@ -16,6 +16,7 @@ con `git pull`.
 - Pantalla: tabla 800–1099 px sin Periodicidad ni Último pago (cabe en 820 y 1024); nombres largos sin espacios bajan de
   renglón (lista y título de ventanas); botones Recordar/Registrar pago 44 px; búsqueda más corta (cabía cortada en 375 px).
 - Búsqueda de celular con o sin espacios, guiones o paréntesis. Dinero de Colombia en COP sin centavos.
+- Decisión de Jonathan (6 de Tere): la «CURP vacía» se avisa siempre en México (antes solo si más de la mitad la tenía).
 - Probado en el simulador a 375, 820, 1024 y 1100 px. 71 pruebas OK.
 
 ## 16/10/2026 · País obligatorio (PC de casa)

@@ -16,7 +16,7 @@ al cerrar cada bloque de trabajo (no es un diario: para eso está `BITACORA.md`)
 
 ## Lo siguiente (en orden)
 1. Lunes 19: plan de la semana 19–25 con Victoria, incluyendo M05 el viernes 23.
-2. ✅ 16/10 Arreglos del test drive de Tere hechos; solo falta que Jonathan decida el punto (6) de la CURP.
+2. ✅ 16/10 Arreglos del test drive de Tere hechos (CURP vacía: se avisa siempre en México).
 3. Correcciones de seguridad de Fernanda (detalle solo en la PC de la oficina: `investigacion/seguridad-2026-10-15.md`).
 4. Jonathan: verificación en dos pasos en GitHub y en el correo admin; ya instaló Obsidian (16/10).
 
