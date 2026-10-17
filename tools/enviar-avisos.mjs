@@ -33,29 +33,35 @@ const db = getFirestore();
 const fcm = getMessaging();
 const PRUEBA = process.env.AVISOS_PRUEBA === '1';
 const TOKEN_MUERTO = new Set(['messaging/registration-token-not-registered', 'messaging/invalid-registration-token']);
+const MAX_TELEFONOS = 10; // la app guarda pocos; si alguien mete cientos, solo se usan los primeros
 
 const ahora = new Date();
-let activos = 0, revisados = 0, enviados = 0, fallidos = 0, quitados = 0;
+let activos = 0, revisados = 0, enviados = 0, fallidos = 0, quitados = 0, conError = 0;
 
 const usuarios = await db.collection('usuarios').select().get();
 for (const u of usuarios.docs) {
+  // Un asesor con datos raros no debe dejar sin aviso a los demás.
+  try { await avisarA(u); } catch (e) { conError++; console.error(`Error con un asesor: ${e && e.code || 'desconocido'}`); }
+}
+
+async function avisarA(u) {
   const ref = u.ref.collection('config').doc('avisos');
   const doc = await ref.get();
-  if (!doc.exists) continue;
+  if (!doc.exists) return;
   const aviso = doc.data();
-  const tokens = Object.entries(aviso.tokens || {}).filter(([, t]) => t && t.token);
-  if (!aviso.activo || !tokens.length) continue;
+  const tokens = Object.entries(aviso.tokens || {}).filter(([, t]) => t && typeof t.token === 'string').slice(0, MAX_TELEFONOS);
+  if (!aviso.activo || !tokens.length) return;
   activos++;
 
   const { fecha, hora } = ahoraEn(aviso.zona, ahora);
-  if (!PRUEBA && !leToca(aviso, fecha, hora)) continue;
+  if (!PRUEBA && !leToca(aviso, fecha, hora)) return;
   revisados++;
 
   const [clientes, config] = await Promise.all([u.ref.collection('clientes').get(), u.ref.collection('config').doc('main').get()]);
   const dias = config.exists && Number.isFinite(config.data().diasAviso) ? config.data().diasAviso : 7;
   const r = resumenAviso(clientes.docs.map((c) => c.data()), fecha, dias);
   await ref.update({ ultimoEnvio: fecha }); // ya se revisó hoy, aunque no haya nada que avisar
-  if (!r.texto) continue;
+  if (!r.texto) return;
 
   const res = await fcm.sendEachForMulticast({
     tokens: tokens.map(([, t]) => t.token),
@@ -78,4 +84,4 @@ for (const u of usuarios.docs) {
 }
 
 console.log(`Asesores con aviso activo: ${activos} · les tocaba ahora: ${revisados} · avisos enviados: ${enviados}` +
-  ` · fallidos: ${fallidos} · teléfonos dados de baja: ${quitados}${PRUEBA ? ' (modo prueba)' : ''}`);
+  ` · fallidos: ${fallidos} · teléfonos dados de baja: ${quitados} · asesores con error: ${conError}${PRUEBA ? ' (modo prueba)' : ''}`);

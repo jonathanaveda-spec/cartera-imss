@@ -193,10 +193,12 @@ export const historialDe = (id) => db.historial.filter((h) => h.clienteId === id
 
 // ---------- Clientes ----------
 const CAMPOS_TEXTO = ['nombre', 'curp', 'nss', 'celular', 'opcion', 'proveedor', 'notas'];
+const LARGO_MAX = { curp: 100, nss: 100, celular: 100, notas: 50000 };
 
 function limpiar(datos) {
   const o = { ...datos };
-  for (const k of CAMPOS_TEXTO) if (k in o) o[k] = String(o[k] ?? '').trim();
+  // Topes iguales a los de firestore.rules: un texto más largo trabaría la sincronización.
+  for (const k of CAMPOS_TEXTO) if (k in o) o[k] = String(o[k] ?? '').trim().slice(0, LARGO_MAX[k] || 1000);
   if ('comision' in o) {
     const n = o.comision === '' || o.comision == null ? null : Number(o.comision);
     o.comision = Number.isFinite(n) ? n : null;
@@ -578,14 +580,96 @@ export function exportarJSON() {
   return JSON.stringify({ app: 'cartera-imss', exportado: new Date().toISOString(), datos: db }, null, 1);
 }
 
+// Un respaldo es un archivo que alguien pudo editar a mano: antes de usarlo se deja cada dato con la forma que la app espera.
+const ID_OK = /^[\w-]{1,64}$/;
+const CLAVE_OK = /^x_[a-z0-9_]{1,60}$/;
+const MAX_TEXTO = 5000;
+const esObj = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
+const esSimple = (v) => v === null || ['string', 'number', 'boolean'].includes(typeof v);
+const aTexto = (v, max = MAX_TEXTO) => (v == null ? '' : String(v).slice(0, max));
+const aNumero = (v) => (v === '' || v == null || !Number.isFinite(Number(v)) ? null : Number(v));
+const aFecha = (v) => (typeof v === 'string' && esISO(v) ? v : null);
+const aId = (v) => (typeof v === 'string' && ID_OK.test(v) ? v : uid());
+const aEntero = (v, min, max) => (Number.isInteger(v) && v >= min && v <= max ? v : null);
+const aMarca = (v) => (Number.isFinite(v) ? v : null);
+
+function sanearExtra(e) {
+  const o = {};
+  if (esObj(e)) for (const [k, v] of Object.entries(e)) if (CLAVE_OK.test(k) && esSimple(v)) o[k] = typeof v === 'string' ? aTexto(v) : v;
+  return o;
+}
+function sanearPago(p) {
+  const o = {};
+  for (const [k, v] of Object.entries(p)) if (esSimple(v)) o[k] = typeof v === 'string' ? aTexto(v, 500) : v;
+  o.id = aId(p.id);
+  for (const k of ['fecha_pago', 'periodo_desde', 'periodo_hasta', 'prev_proximo']) if (k in p) o[k] = aFecha(p[k]);
+  for (const k of ['monto', 'comision']) if (k in p) o[k] = aNumero(p[k]);
+  if ('prev_dia_pago' in p) o.prev_dia_pago = aEntero(p.prev_dia_pago, 1, 31);
+  return o;
+}
+function sanearCliente(c) {
+  const o = {};
+  // Datos simples que no se conocen se conservan (no se muestran en pantalla); listas y objetos desconocidos no.
+  for (const [k, v] of Object.entries(c)) if (esSimple(v)) o[k] = typeof v === 'string' ? aTexto(v) : v;
+  o.id = aId(c.id);
+  for (const k of CAMPOS_TEXTO) o[k] = aTexto(c[k], LARGO_MAX[k] || 1000);
+  for (const k of ['fecha_inicio', 'proximo_pago', 'baja_fecha']) o[k] = aFecha(c[k]);
+  o.comision = aNumero(c.comision);
+  o.periodicidad = esPeriodicidad(c.periodicidad) ? c.periodicidad : null;
+  o.dia_pago = aEntero(c.dia_pago, 1, 31);
+  o.baja = c.baja === true;
+  o.baja_motivo = aTexto(c.baja_motivo, 500);
+  for (const k of ['creado', 'actualizado']) if (k in c) o[k] = aMarca(c[k]);
+  if ('ultimo_recordatorio' in c) o.ultimo_recordatorio = aFecha(c.ultimo_recordatorio);
+  o.etiquetas = Array.isArray(c.etiquetas) ? c.etiquetas.filter((x) => typeof x === 'string').map((x) => aTexto(x, 100)).slice(0, 50) : [];
+  o.extra = sanearExtra(c.extra);
+  o.pagos = Array.isArray(c.pagos) ? c.pagos.filter(esObj).slice(-2000).map(sanearPago) : [];
+  if (esObj(c.origen)) {
+    const g = c.origen;
+    o.origen = { archivo: aTexto(g.archivo, 200), hoja: aTexto(g.hoja, 200), fila: aEntero(g.fila, 0, 1e7), huella: aTexto(g.huella, 200) };
+    if (esObj(g.valores)) o.origen.valores = Object.fromEntries(Object.entries(g.valores).filter(([, v]) => esSimple(v)).slice(0, 200).map(([k, v]) => [aTexto(k, 200), typeof v === 'string' ? aTexto(v, 1000) : v]));
+  }
+  return o;
+}
+/** Deja un respaldo (o copia) con la forma que espera la app: ids, fechas, números y claves válidas; nada que se pueda ejecutar. */
+export function sanearRespaldo(d) {
+  const cfg = esObj(d.config) ? d.config : {};
+  const config = {};
+  for (const [k, v] of Object.entries(cfg)) if (esSimple(v)) config[k] = typeof v === 'string' ? aTexto(v, 500) : v;
+  config.diasAviso = aEntero(cfg.diasAviso, 1, 90) ?? 7;
+  config.periodicidadDefecto = esPeriodicidad(cfg.periodicidadDefecto) ? cfg.periodicidadDefecto : 'Mensual';
+  config.camposPersonalizados = Array.isArray(cfg.camposPersonalizados)
+    ? cfg.camposPersonalizados.filter((x) => esObj(x) && CLAVE_OK.test(x.clave)).slice(0, 100).map((x) => ({
+      clave: x.clave, etiqueta: aTexto(x.etiqueta, 100), tipo: ['texto', 'numero', 'fecha', 'nota'].includes(x.tipo) ? x.tipo : 'texto', archivado: x.archivado === true,
+    }))
+    : [];
+  const clientes = d.clientes.filter(esObj).slice(0, 50000).map(sanearCliente);
+  const papelera = (Array.isArray(d.papelera) ? d.papelera : []).filter((p) => esObj(p) && esObj(p.cliente)).slice(0, 5000)
+    .map((p) => ({ id: aId(p.id), ts: aMarca(p.ts), cliente: sanearCliente(p.cliente) }));
+  const historial = (Array.isArray(d.historial) ? d.historial : []).filter(esObj).slice(0, 8000).map((h) => ({
+    id: aId(h.id), ts: aMarca(h.ts), clienteId: typeof h.clienteId === 'string' && ID_OK.test(h.clienteId) ? h.clienteId : null,
+    cliente: h.cliente == null ? null : aTexto(h.cliente, 200), tipo: aTexto(h.tipo, 30), detalle: aTexto(h.detalle, 1000),
+    cambios: Array.isArray(h.cambios) ? h.cambios.filter(esObj).slice(0, 50).map((x) => ({
+      campo: aTexto(x.campo, 100), antes: x.antes == null ? null : aTexto(x.antes, 500), despues: x.despues == null ? null : aTexto(x.despues, 500),
+    })) : [],
+  }));
+  const importaciones = (Array.isArray(d.importaciones) ? d.importaciones : []).filter(esObj).slice(0, 500).map((x) => {
+    const o = {};
+    for (const [k, v] of Object.entries(x)) if (esSimple(v)) o[k] = typeof v === 'string' ? aTexto(v, 300) : v;
+    return o;
+  });
+  return { version: 1, config, clientes, historial, papelera, importaciones };
+}
+
 export async function restaurarJSON(texto) {
+  if (texto.length > 50 * 1024 * 1024) throw new Error('El archivo es demasiado grande para ser un respaldo de esta aplicación');
   let o;
   try { o = JSON.parse(texto); } catch { throw new Error('El archivo no es un respaldo válido de esta aplicación (elige el archivo de respaldo que descargaste desde la app)'); }
-  const datos = o && o.app === 'cartera-imss' ? o.datos : null;
+  const datos = o && o.app === 'cartera-imss' && esObj(o.datos) ? o.datos : null;
   if (!datos || !Array.isArray(datos.clientes)) throw new Error('El archivo no es un respaldo válido de esta aplicación');
   await copiaPrevia('restaurar respaldo');
   const meta = db.meta;
-  db = migrar(datos);
+  db = migrar(sanearRespaldo(datos));
   db.meta = meta;
   log(null, 'importar', `Respaldo restaurado (${db.clientes.length} clientes)`);
   await guardar();

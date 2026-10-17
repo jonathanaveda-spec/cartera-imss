@@ -1,0 +1,8 @@
+{
+  "name": "cartera-avisos",
+  "private": true,
+  "description": "Solo para el aviso diario (.github/workflows/avisos.yml): versión exacta de firebase-admin, instalada con npm ci",
+  "dependencies": {
+    "firebase-admin": "14.5.0"
+  }
+}

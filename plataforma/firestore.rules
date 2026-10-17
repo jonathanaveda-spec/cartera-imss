@@ -48,11 +48,42 @@ service cloud.firestore {
       allow delete: if esDueno(uid) || esAdmin();   // el administrador puede borrar asesores (cuentas de prueba, etc.)
 
       // Cartera: clientes, papelera, historial y configuración propia.
+      // Al escribir, topes amplios de tamaño (muy por encima del uso normal) para que nadie llene la cuota gratis del proyecto.
       match /{coleccion}/{docId} {
-        allow read, write: if esDueno(uid) && verificado()
+        allow read, delete: if esDueno(uid) && verificado()
           && coleccion in ['clientes', 'papelera', 'historial', 'config'];
+        allow create, update: if esDueno(uid) && verificado() && docId.size() <= 100
+          && carteraValida(coleccion, docId, request.resource.data);
         allow read, delete: if esAdmin();
       }
+    }
+
+    // Un dato viejo guardado como número no debe trabar la sincronización: solo se limita el largo de los textos.
+    function textoONulo(m, campo, max) { let v = m.get(campo, null); return v == null || v is number || v is bool || texto(v, max); }
+    function listaHasta(m, campo, max) { return m.get(campo, []) is list && m.get(campo, []).size() <= max; }
+    function clienteValido(c) {
+      return c is map && c.keys().size() <= 200
+        && textoONulo(c, 'nombre', 1000) && textoONulo(c, 'notas', 50000)
+        && textoONulo(c, 'curp', 100) && textoONulo(c, 'nss', 100) && textoONulo(c, 'celular', 100)
+        && textoONulo(c, 'opcion', 1000) && textoONulo(c, 'proveedor', 1000)
+        && listaHasta(c, 'pagos', 5000) && listaHasta(c, 'etiquetas', 100)
+        && c.get('extra', {}) is map && c.get('extra', {}).size() <= 200;
+    }
+    // Aviso diario (lo lee tools/enviar-avisos.mjs): solo sus campos y pocos teléfonos.
+    function avisosValido(d) {
+      return d.keys().hasOnly(['activo', 'hora', 'zona', 'tokens', 'ultimoEnvio'])
+        && d.get('activo', false) is bool
+        && (d.get('hora', 8) is int && d.get('hora', 8) >= 0 && d.get('hora', 8) <= 23)
+        && textoONulo(d, 'zona', 60)
+        && d.get('tokens', {}) is map && d.get('tokens', {}).size() <= 20;
+    }
+    function carteraValida(coleccion, docId, d) {
+      return (coleccion == 'clientes' && clienteValido(d))
+        || (coleccion == 'papelera' && d.keys().size() <= 10 && clienteValido(d.get('cliente', {})))
+        || (coleccion == 'historial' && d.keys().size() <= 20 && textoONulo(d, 'detalle', 5000) && listaHasta(d, 'cambios', 500))
+        || (coleccion == 'config' && ((docId == 'main' && d.keys().size() <= 100 && listaHasta(d, 'importaciones', 1000)
+                                                        && listaHasta(d, 'camposPersonalizados', 200))
+                                      || (docId == 'avisos' && avisosValido(d))));
     }
 
     // Plan de cada asesor: solo lo activa o cambia el administrador.

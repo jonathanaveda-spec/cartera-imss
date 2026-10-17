@@ -8,6 +8,18 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 17/10/2026 · Correcciones de seguridad (revisión de Fernanda del 15/10; PC de casa)
+- Restaurar respaldo: el archivo se revisa antes de usarlo (ids, fechas, números y campos con la forma esperada) y la
+  pantalla escapa todo lo que viene de los datos. Textos con tope de largo al guardar.
+- Política de contenido (CSP) en la app, el panel, privacidad, términos y la página: solo código propio + Firebase. El
+  script de «Reparar» pasó a `js/reparar.js`; los de la página a `sitio/js-activo.js` e `sitio/inicio.js`. El panel no se
+  deja mostrar dentro de otra página.
+- `firestore.rules`: topes amplios de tamaño en la cartera y en el aviso diario; en `config` solo `main` y `avisos`.
+  **Jonathan debe publicarlas a mano** en Firebase.
+- Aviso diario: un asesor con datos raros ya no frena a los demás; máx. 10 teléfonos; firebase-admin con versión exacta
+  (`tools/package.json` + `npm ci`, Node 22).
+- Probado en el simulador a 375 px (registro, agregar cliente, pago, respaldo editado a mano, panel y página). 74 pruebas OK.
+
 ## 16/10/2026 · «Servicio adquirido»
 - Pedido de Jonathan: «Opción o producto» pasa a llamarse **«Servicio adquirido»** (formulario, ficha, tabla, importar y Excel
   exportado: SERVICIO ADQUIRIDO; al importar también se reconocen Opción, Modalidad, Producto y Servicio).

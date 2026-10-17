@@ -5,6 +5,9 @@ import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
 import './pantalla.js';
 import { activarActualizaciones } from './actualizar.js';
 
+// El panel nunca se muestra dentro de otra página (evita que alguien lo esconda tras un botón falso).
+if (top !== self) top.location = self.location;
+
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const ms = (t) => (t?.toMillis ? t.toMillis() : typeof t === 'number' ? t : null);

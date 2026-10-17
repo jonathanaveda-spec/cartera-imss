@@ -92,5 +92,7 @@ async function arrancar() {
 
 arrancar().catch((e) => {
   console.error(e);
-  document.getElementById('lista').innerHTML = `<div class="vacio"><h2>No se pudo iniciar</h2><p>${String(e && e.message || e)}</p></div>`;
+  const caja = document.getElementById('lista');
+  caja.innerHTML = '<div class="vacio"><h2>No se pudo iniciar</h2><p></p></div>';
+  caja.querySelector('p').textContent = String(e && e.message || e);
 });

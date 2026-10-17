@@ -322,11 +322,11 @@ function filaHTML({ c, e }) {
   const boton = e.codigo === 'BAJA'
     ? ''
     : e.codigo === 'SIN_CONFIG'
-      ? `<button class="btn chico" data-accion="editar" data-id="${c.id}">Fijar fecha</button>`
-      : `<button class="btn chico primario" data-accion="pago" data-id="${c.id}">Registrar pago</button>`;
+      ? `<button class="btn chico" data-accion="editar" data-id="${esc(c.id)}">Fijar fecha</button>`
+      : `<button class="btn chico primario" data-accion="pago" data-id="${esc(c.id)}">Registrar pago</button>`;
   const wa = (e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER') && L.telefonoInternacional(c.celular)
-    ? `<button class="btn chico btn-wa" data-accion="recordar" data-id="${c.id}" aria-label="Recordar el pago por WhatsApp">💬 Recordar</button>` : '';
-  return `<tr class="fila est-${e.clase}" data-id="${c.id}" tabindex="0" role="button" aria-label="Abrir ${esc(c.nombre)}">
+    ? `<button class="btn chico btn-wa" data-accion="recordar" data-id="${esc(c.id)}" aria-label="Recordar el pago por WhatsApp">💬 Recordar</button>` : '';
+  return `<tr class="fila est-${e.clase}" data-id="${esc(c.id)}" tabindex="0" role="button" aria-label="Abrir ${esc(c.nombre)}">
     <td class="c-estado"><span class="insignia ${e.clase}">${e.icono} ${e.etiqueta}</span></td>
     <td class="c-nombre"><div class="nombre">${esc(c.nombre) || '<i>(sin nombre)</i>'}</div><div class="sub">${esc(c.curp)}</div></td>
     <td class="c-cel">${esc(c.celular) || '—'}</td>
@@ -364,22 +364,22 @@ export function abrirDetalle(id, ventanaExistente) {
     ${e.codigo === 'BAJA' ? `<div class="banner mal"><p>Dado de baja${c.baja_fecha ? ' el ' + L.fmtFecha(c.baja_fecha) : ''}${c.baja_motivo ? ': ' + esc(c.baja_motivo) : ''}. Si vuelve a cotizar, usa «Reactivar». Este estado tiene prioridad sobre las fechas de pago.</p></div>` : ''}
     <div class="seccion acc-detalle">
       ${c.baja
-        ? `<button class="btn primario principal" data-accion="reactivar" data-id="${id}">↩️ Reactivar cliente</button>`
-        : `<button class="btn primario principal" data-accion="pago" data-id="${id}">💵 Registrar pago</button>`}
+        ? `<button class="btn primario principal" data-accion="reactivar" data-id="${esc(id)}">↩️ Reactivar cliente</button>`
+        : `<button class="btn primario principal" data-accion="pago" data-id="${esc(id)}">💵 Registrar pago</button>`}
       ${tel ? `<div class="acc-dos">
         ${e.codigo === 'MOROSO' || e.codigo === 'POR_VENCER'
-          ? `<button class="btn btn-wa" data-accion="recordar" data-id="${id}">💬 Recordar</button>`
+          ? `<button class="btn btn-wa" data-accion="recordar" data-id="${esc(id)}">💬 Recordar</button>`
           : `<a class="btn btn-wa" href="${L.enlaceWhatsApp(c.celular, '')}" target="_blank" rel="noopener">💬 WhatsApp</a>`}
         <a class="btn" href="tel:+${tel}">📞 Llamar</a></div>` : ''}
       <div class="acc-dos">
-        <button class="btn" data-accion="editar" data-id="${id}">✏️ Editar</button>
-        ${c.baja ? '' : `<button class="btn" data-accion="baja" data-id="${id}">⏸️ Dar de baja</button>`}
+        <button class="btn" data-accion="editar" data-id="${esc(id)}">✏️ Editar</button>
+        ${c.baja ? '' : `<button class="btn" data-accion="baja" data-id="${esc(id)}">⏸️ Dar de baja</button>`}
       </div>
-      <button class="acc-eliminar" data-accion="eliminar" data-id="${id}">🗑️ Eliminar cliente</button>
+      <button class="acc-eliminar" data-accion="eliminar" data-id="${esc(id)}">🗑️ Eliminar cliente</button>
     </div>
     ${avisos.length ? `<div class="seccion"><h3>Revisar</h3>
       ${avisos.map((a) => `<span class="etq ambar">${esc(L.TIPOS_AVISO[a])}</span>`).join('')}
-      ${otros.length ? `<div class="mini" style="margin-top:8px">Coincide con: ${otros.map((o) => `<a href="#" data-accion="abrir" data-id="${o.id}">${esc(o.nombre)}</a> (${esc(o.proveedor)} · ${esc(o.opcion)})`).join('; ')}</div>` : ''}
+      ${otros.length ? `<div class="mini" style="margin-top:8px">Coincide con: ${otros.map((o) => `<a href="#" data-accion="abrir" data-id="${esc(o.id)}">${esc(o.nombre)}</a> (${esc(o.proveedor)} · ${esc(o.opcion)})`).join('; ')}</div>` : ''}
       <div class="mini" style="margin-top:8px">Solo son avisos: la app no modifica estos datos por su cuenta.</div></div>` : ''}
     <div class="seccion"><h3>Datos</h3><dl class="datos">
       ${c.curp || dup.usaCurp || esMexico() ? `<div><dt>CURP</dt><dd>${esc(c.curp) || '—'}</dd></div>` : ''}
@@ -391,15 +391,15 @@ export function abrirDetalle(id, ventanaExistente) {
       <div><dt>Tu comisión</dt><dd>${c.comision != null ? L.fmtDinero(c.comision) + ' por pago' : '—'}</dd></div>
       ${extras.map((x) => `<div><dt>${esc(x.etiqueta)}</dt><dd>${esc(c.extra?.[x.clave]) || '—'}</dd></div>`).join('')}
       ${c.notas ? `<div style="grid-column:1/-1"><dt>Notas</dt><dd style="white-space:pre-wrap">${esc(c.notas)}</dd></div>` : ''}
-    </dl>${c.origen ? `<div class="mini" style="margin-top:10px">Origen: ${esc(c.origen.archivo)} · ${esc(c.origen.hoja)} · fila ${c.origen.fila}</div>` : ''}</div>
+    </dl>${c.origen ? `<div class="mini" style="margin-top:10px">Origen: ${esc(c.origen.archivo)} · ${esc(c.origen.hoja)} · fila ${esc(c.origen.fila)}</div>` : ''}</div>
     <div class="seccion"><h3>Historial de pagos (${c.pagos.length})</h3>
       ${c.pagos.length ? `<ul class="lista-simple">${[...c.pagos].reverse().map((p) => `<li>
         <b>${L.fmtFecha(p.fecha_pago)}</b> · ${dinero(p.monto)}${p.metodo ? ' · ' + esc(p.metodo) : ''}
         <div class="mini">Cubre desde ${L.fmtFecha(p.periodo_desde)} · siguiente vencimiento ${L.fmtFecha(p.periodo_hasta)}${p.nota ? ' · ' + esc(p.nota) : ''}</div>
         <div class="pago-acc">
-          <button class="btn chico btn-comision" data-accion="comision-pago" data-id="${id}" data-pago="${esc(p.id)}" aria-label="Corregir la comisión de este pago">${textoComisionPago(c, p)}</button>
-          <button class="btn chico" data-accion="comprobante" data-id="${id}" data-pago="${esc(p.id)}">📲 ${p.comprobante_enviado ? 'Reenviar comprobante <span class="mini">(✓ enviado)</span>' : 'Enviar comprobante'}</button></div></li>`).join('')}</ul>
-        <button class="btn chico peligro" data-accion="anular" data-id="${id}" style="margin-top:8px">Anular último pago (${L.fmtFecha(ult.fecha_pago)})</button>`
+          <button class="btn chico btn-comision" data-accion="comision-pago" data-id="${esc(id)}" data-pago="${esc(p.id)}" aria-label="Corregir la comisión de este pago">${textoComisionPago(c, p)}</button>
+          <button class="btn chico" data-accion="comprobante" data-id="${esc(id)}" data-pago="${esc(p.id)}">📲 ${p.comprobante_enviado ? 'Reenviar comprobante <span class="mini">(✓ enviado)</span>' : 'Enviar comprobante'}</button></div></li>`).join('')}</ul>
+        <button class="btn chico peligro" data-accion="anular" data-id="${esc(id)}" style="margin-top:8px">Anular último pago (${L.fmtFecha(ult.fecha_pago)})</button>`
       : '<p class="mini">Aún no hay pagos registrados.</p>'}</div>
     <div class="seccion"><h3>Historial de cambios</h3>
       ${hist.length ? `<ul class="lista-simple">${hist.map((h) => `<li><div class="mini">${L.fmtFechaHora(h.ts)}</div>${esc(h.detalle)}
@@ -426,7 +426,7 @@ function refrescarDetalleAbierto(id) {
 // Formulario de cliente
 // =====================================================================
 function campoExtraHTML(x, valor) {
-  const n = `x:${x.clave}`;
+  const n = `x:${esc(x.clave)}`;
   const v = esc(valor ?? '');
   if (x.tipo === 'nota') return `<label class="completo">${esc(x.etiqueta)}<textarea name="${n}">${v}</textarea></label>`;
   const tipo = x.tipo === 'numero' ? 'number" step="any' : x.tipo === 'fecha' ? 'date' : 'text';
@@ -1177,8 +1177,8 @@ export function abrirRevision() {
   const cuerpo = orden.length
     ? `<p class="mini" style="margin-bottom:12px">Estos son solo avisos. Nada se ha corregido: tú decides qué hacer con cada caso. Toca un nombre para abrirlo y editarlo.</p>` +
       orden.map((k) => `<div class="seccion"><h3>${esc(L.TIPOS_AVISO[k])} · ${grupos[k].length}</h3><ul class="lista-simple">
-        ${grupos[k].map((c) => `<li><a href="#" data-accion="abrir" data-id="${c.id}"><b>${esc(c.nombre)}</b></a>
-          <div class="mini">${k.startsWith('curp') ? esc(c.curp) || '(vacía)' : k.startsWith('nss') ? esc(c.nss) || '(vacío)' : k === 'celular' ? esc(c.celular) || '(vacío)' : k.startsWith('fecha') ? L.fmtFecha(c.fecha_inicio) : k === 'duplicado' ? esc(c.curp || c.nss) + ' · ' + esc(c.proveedor) + ' · ' + esc(c.opcion) : ''}${c.origen ? ' · fila Excel ' + c.origen.fila : ''}</div></li>`).join('')}
+        ${grupos[k].map((c) => `<li><a href="#" data-accion="abrir" data-id="${esc(c.id)}"><b>${esc(c.nombre)}</b></a>
+          <div class="mini">${k.startsWith('curp') ? esc(c.curp) || '(vacía)' : k.startsWith('nss') ? esc(c.nss) || '(vacío)' : k === 'celular' ? esc(c.celular) || '(vacío)' : k.startsWith('fecha') ? L.fmtFecha(c.fecha_inicio) : k === 'duplicado' ? esc(c.curp || c.nss) + ' · ' + esc(c.proveedor) + ' · ' + esc(c.opcion) : ''}${c.origen ? ' · fila Excel ' + esc(c.origen.fila) : ''}</div></li>`).join('')}
         </ul></div>`).join('')
     : '<div class="vacio"><h2>Todo en orden</h2><p>No hay avisos de datos.</p></div>';
   const v = ventana({ titulo: 'Revisión de datos', cuerpo, ancho: true });
@@ -1301,7 +1301,7 @@ export function abrirPapelera() {
       cuerpo: S.db.papelera.length
         ? `<ul class="lista-simple">${S.db.papelera.map((p) => `<li style="display:flex;gap:12px;align-items:center;justify-content:space-between">
             <div><b>${esc(p.cliente.nombre)}</b><div class="mini">Eliminado el ${L.fmtFechaHora(p.ts)} · ${p.cliente.pagos.length} pago(s)</div></div>
-            <button class="btn chico" data-restaurar="${p.id}">Restaurar</button></li>`).join('')}</ul>`
+            <button class="btn chico" data-restaurar="${esc(p.id)}">Restaurar</button></li>`).join('')}</ul>`
         : '<div class="vacio"><h2>Papelera vacía</h2></div>',
       pie: S.db.papelera.length ? `<button class="btn peligro" data-vaciar type="button">Vaciar papelera</button>` : '',
     });
@@ -1789,14 +1789,14 @@ export function abrirComisiones() {
         <div class="com-grafica" role="group" aria-label="Comisiones de los últimos 6 meses">${barras}</div>
         <p class="mini com-detalle" aria-live="polite">Toca una barra para ver el total de ese mes.</p></div>
       ${r.porCliente.length ? `<div class="seccion"><h3>Por cliente en ${L.nombreMes(r.mes)}</h3><ul class="lista-simple">
-        ${r.porCliente.map((x) => `<li class="com-fila"><button type="button" class="com-nombre" data-accion="abrir" data-id="${x.id}">${esc(x.nombre)} <span aria-hidden="true">›</span></button><b>${L.fmtDinero(x.total)}</b></li>`).join('')}</ul></div>` : ''}`}
+        ${r.porCliente.map((x) => `<li class="com-fila"><button type="button" class="com-nombre" data-accion="abrir" data-id="${esc(x.id)}">${esc(x.nombre)} <span aria-hidden="true">›</span></button><b>${L.fmtDinero(x.total)}</b></li>`).join('')}</ul></div>` : ''}`}
       ${sinCom.length ? `<div class="seccion"><h3>Clientes sin comisión anotada (${sinCom.length})</h3>
         ${sinCom.length > 1 ? `<div class="com-todos"><label for="com-todos">¿Ganas lo mismo con todos? Ponle a los ${sinCom.length}:</label>
           <div class="com-todos-fila"><input id="com-todos" class="com-input" type="number" step="any" min="0" inputmode="decimal" placeholder="0.00">
           <button type="button" class="btn primario" data-com-todos>Aplicar</button></div></div>` : ''}
         <p class="mini" style="margin-bottom:8px">O escribe cuánto ganas por cada pago de cada cliente. Se guarda al salir del campo.</p>
         <ul class="lista-simple">${sinCom.map((c) => `<li class="com-fila"><span>${esc(c.nombre)}</span>
-          <input class="com-input" type="number" step="any" min="0" inputmode="decimal" placeholder="0.00" data-id="${c.id}" aria-label="Comisión de ${esc(c.nombre)}"></li>`).join('')}</ul></div>` : ''}
+          <input class="com-input" type="number" step="any" min="0" inputmode="decimal" placeholder="0.00" data-id="${esc(c.id)}" aria-label="Comisión de ${esc(c.nombre)}"></li>`).join('')}</ul></div>` : ''}
       <p class="mini" style="margin-top:8px">«Te falta por cobrar» suma la comisión de los clientes que vencen este mes o ya están atrasados. Para cambiar la comisión de un cliente: ábrelo → Editar.</p>` });
     v.el.querySelectorAll('.com-col').forEach((b) => b.addEventListener('click', () => {
       const m = r.meses[Number(b.dataset.i)];

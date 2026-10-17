@@ -81,7 +81,8 @@ export function siguienteVencimiento(actualISO, periodicidad, diaAncla) {
 /** "Día 24 de cada mes" / "Día 24, cada 3 meses": el día de pago sale del día de la fecha de próximo pago. */
 export function textoDiaPago(c) {
   if (diasDePeriodicidad(c.periodicidad)) return ''; // «Cada N días» ya lo dice todo: no hay un día fijo del mes.
-  const dia = c.dia_pago || (c.proximo_pago && esISO(c.proximo_pago) ? diaDe(c.proximo_pago) : null);
+  const fijo = Number(c.dia_pago);
+  const dia = (Number.isInteger(fijo) && fijo >= 1 && fijo <= 31 ? fijo : null) || (c.proximo_pago && esISO(c.proximo_pago) ? diaDe(c.proximo_pago) : null);
   if (!dia) return '';
   const p = c.periodicidad;
   if (!p || p === 'Mensual') return `Día ${dia} de cada mes`;

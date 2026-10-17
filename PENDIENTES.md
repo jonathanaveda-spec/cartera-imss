@@ -116,7 +116,14 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       Precios, Seguridad, App, Equipo de agentes, Decisiones) enlazadas con [[...]] + un índice; que las sesiones y los
       agentes lean primero esas notas en vez de releer historiales largos (ahorra límite).
 - [ ] Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).
-- [ ] Corregir lo de la revisión de seguridad de Fernanda (15/10): detalle SOLO en la PC de la oficina, `investigacion/seguridad-2026-10-15.md` (no se sube: los repos son públicos). Sin hallazgos críticos. Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC.
+- [x] ✅ 17/10 Correcciones de código de la revisión de Fernanda (15/10) hechas y publicadas. Detalle SOLO fuera de Git en
+      `investigacion/seguridad-2026-10-15.md` (está en la PC de la oficina y en la de casa; no se sube: los repos son públicos).
+      Quedan para después (decisión o fin de la beta): registro obligatorio al abrir carteras desde el panel (rompería el conteo
+      de clientes del panel) y que la prueba gratis no se reinicie al rehacer el perfil.
+- [ ] **Jonathan: publicar las reglas nuevas** (`plataforma/firestore.rules`, 17/10) en Firebase → Firestore → Reglas → pegar → Publicar.
+      Luego agregar un cliente en la app y ver que sincroniza. Si algo falla: pegar la versión anterior (Firebase guarda el historial de reglas).
+- [ ] Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC (lista completa en el informe).
+      ⚠️ Si se activa App Check con reCAPTCHA, avisar a Emma: hay que permitir los dominios de reCAPTCHA en la política de la app.
 - [x] ✅ 15/10 Test drive de Tere hecho (68 pruebas OK; lo de hoy funciona). GRAVE corregido el mismo día (79ce75f): el
       registro trae «Colombia» marcado por defecto → asesores de México con país CO; ahora CO se trata como México.
 - [x] ✅ 16/10 (Emma) (1) País OBLIGATORIO en el registro («Elige tu país», sin valor marcado) y cambiable en ☰ → Mi cuenta.
