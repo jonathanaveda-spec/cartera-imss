@@ -80,6 +80,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [ ] 6 capturas nuevas para P06, P09, P10, P11 (y P05 con lista de colores).
 - [ ] Todo en `videos/entregas/` **antes de cada día** (los avisos de 8:25 / 1:55 / 8:55 avisan si falta).
 
+- [ ] **Higgsfield** (skill «/generate»): Jonathan decide si paga y qué plan (precios en BITACORA 19/10). Sugerencia: después de Google Play, Starter USD 15 un mes de prueba.
 - [ ] **ElevenLabs** (agregado 13/10 a `videos/voz.mjs` y a la skill de voz): si Jonathan lo quiere usar, crea cuenta, revisa precio/licencia comercial en elevenlabs.io/pricing, pone `ELEVENLABS_API_KEY` en Windows y elige voces de México; la sesión local hace una prueba comparando con Valeria/Alejo.
 
 - ✅ Publicados en TikTok: lun 12 (M01, P05, H02), mar 13 (M02, P06, T02) y **mié 14 (R2, P07, H03, los 3 juntos en la madrugada)**. Jue 15: M04 y P08 publicados (T03 no; se sube el vie 16 en la mañana). **M05 pasa al viernes 23, 7:30 a. m.** **Lun 19:** Jonathan sube P11 (pantalla de inicio). (habla del viernes en la mañana); Victoria debe incluirlo en el plan de la semana 19–25. Los avisos del miércoles ya no aplican.

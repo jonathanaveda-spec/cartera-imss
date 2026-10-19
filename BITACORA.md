@@ -8,6 +8,13 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 19/10/2026 · Precios de Higgsfield (skill «/generate»; revisados en higgsfield.ai/pricing)
+- Free: sin uso comercial ni modelos de video. Starter USD 15/mes: 200 créditos. Plus USD 49/mes (USD 39 pagando el año):
+  1.000 créditos, incluye Speak 2.0 (avatar que habla). Ultra USD 129/mes (USD 99 anual): 3.000 créditos. Sin impuestos.
+- Rinde aprox.: clip Kling 3.0 de 8 s en 720p ≈ 14 créditos; imagen Nano Banana Pro ≈ 2; clip de Speak 2.0 ≈ 14.
+- **Ojo:** lo «ilimitado» y las generaciones gratis de los planes solo valen en la web, NO desde la skill (MCP/CLI): ahí todo gasta créditos.
+- Pendiente decisión de Jonathan (sugerencia de Emma: esperar a Google Play; luego probar Starter un mes).
+
 ## 19/10/2026 · Reglas de Firebase publicadas
 - Jonathan publicó `firestore.rules` (5:23 p. m.); Emma revisó en la consola que es la versión nueva. Videos: Citlali 01 ya
   estaba publicado (versión anterior); hoy sube P11. Se buscó la skill «/generate»: es la de **Higgsfield** (de pago por créditos).
