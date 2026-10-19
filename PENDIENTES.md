@@ -82,13 +82,13 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 
 - [ ] **ElevenLabs** (agregado 13/10 a `videos/voz.mjs` y a la skill de voz): si Jonathan lo quiere usar, crea cuenta, revisa precio/licencia comercial en elevenlabs.io/pricing, pone `ELEVENLABS_API_KEY` en Windows y elige voces de México; la sesión local hace una prueba comparando con Valeria/Alejo.
 
-- ✅ Publicados en TikTok: lun 12 (M01, P05, H02), mar 13 (M02, P06, T02) y **mié 14 (R2, P07, H03, los 3 juntos en la madrugada)**. Jue 15: M04 y P08 publicados (T03 no; se sube el vie 16 en la mañana). **M05 pasa al viernes 23, 7:30 a. m.** (habla del viernes en la mañana); Victoria debe incluirlo en el plan de la semana 19–25. Los avisos del miércoles ya no aplican.
+- ✅ Publicados en TikTok: lun 12 (M01, P05, H02), mar 13 (M02, P06, T02) y **mié 14 (R2, P07, H03, los 3 juntos en la madrugada)**. Jue 15: M04 y P08 publicados (T03 no; se sube el vie 16 en la mañana). **M05 pasa al viernes 23, 7:30 a. m.** **Lun 19:** Jonathan sube P11 (pantalla de inicio). (habla del viernes en la mañana); Victoria debe incluirlo en el plan de la semana 19–25. Los avisos del miércoles ya no aplican.
 
 ## 👩 AVATAR CITLALI
 - [x] ✅ 09/10 Video de HeyGen recibido (15,9 s, 720p, voz Valeria): se ve natural; trae marca de agua «HeyGen» (plan gratis) y a veces asoma una mano en el borde derecho. ✅ **APROBADA por Jonathan el 09/10** (boca sincronizada; la mano le parece natural). Antes: mandar aquí el video que armó en HeyGen (no está en GitHub) y descargar la foto en grande de Canva
       (`retrato-selfie.png`). Revisar ojos y dientes.
 - [x] ✅ 09/10 Emma revisó el video. ✅ 09/10 Ximena hizo 3 variantes con la misma cara (escritorio `MAHXh4sRiq0`, calle `MAHXh9YXst4`, gancho `MAHXh3epNIk`; ver ficha). ✅ 09/10 Jonathan aprobó las 3 variantes («me gustan, que proceda Citlali»).
-- [ ] **Video 1 de Citlali** (gancho «cobrar por WhatsApp no es de mala educación», voz Valeria, 23 s): audio listo en
+- [x] ✅ (antes del 19/10) Jonathan ya publicó una versión anterior del video 1 de Citlali. **Video 1 de Citlali** (gancho «cobrar por WhatsApp no es de mala educación», voz Valeria, 23 s): audio listo en
       `videos/entregas/Citlali01_whatsapp_audio.mp3`. Falta en HeyGen: avatar → «Usar en un video» → «Subir audio» (elegir
       el mp3, Jonathan en la ventana de Windows) → Generar → Entregar. Marca de agua: la recorta Jonathan en CapCut.
 - [ ] Quitar la marca de agua «HeyGen» antes de publicar (plan pago de HeyGen o taparla en CapCut). Primer video con Citlali: elegirlo con Victoria (gancho del banco `videos/ganchos.md`).
@@ -120,7 +120,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       `investigacion/seguridad-2026-10-15.md` (está en la PC de la oficina y en la de casa; no se sube: los repos son públicos).
       Queda para el fin de la beta: que la prueba gratis no se reinicie al rehacer el perfil. (Registro obligatorio al abrir
       carteras desde el panel: **Jonathan decidió dejarlo como está**, 19/10.)
-- [ ] **Jonathan: publicar las reglas nuevas** (`plataforma/firestore.rules`, 17/10) en Firebase → Firestore → Reglas → pegar → Publicar.
+- [x] ✅ 19/10 5:23 p. m. (Emma revisó en la consola que quedó la versión nueva) **Jonathan: publicar las reglas nuevas** (`plataforma/firestore.rules`, 17/10) en Firebase → Firestore → Reglas → pegar → Publicar.
       Luego agregar un cliente en la app y ver que sincroniza. Si algo falla: pegar la versión anterior (Firebase guarda el historial de reglas).
 - [ ] Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC (lista completa en el informe).
       ⚠️ Si se activa App Check con reCAPTCHA, avisar a Emma: hay que permitir los dominios de reCAPTCHA en la política de la app.

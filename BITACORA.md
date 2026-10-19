@@ -8,6 +8,10 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 19/10/2026 · Reglas de Firebase publicadas
+- Jonathan publicó  (5:23 p. m.); Emma revisó en la consola que es la versión nueva. Videos: Citlali 01 ya
+  estaba publicado (versión anterior); hoy sube P11. Se buscó la skill «/generate»: es la de **Higgsfield** (de pago por créditos).
+
 ## 19/10/2026 · «Clientes activos» (comentario de Yamileth)
 - La tarjeta «Total de clientes» pasa a **«Clientes activos»**: ya no cuenta los dados de baja (tienen su propia tarjeta) y la
   lista principal no los muestra; al buscar por nombre, CURP o celular sí aparecen.
