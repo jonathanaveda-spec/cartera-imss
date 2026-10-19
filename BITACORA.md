@@ -8,6 +8,9 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 19/10/2026 · Recordatorios de la sesión de nube apagados
+- A pedido de Jonathan (para ahorrar cupo semanal) se desactivaron los 4 avisos que despertaban la sesión coordinadora de la nube: video 7:30, video 1 p. m., video 8 p. m. y rato de comentarios 8:15 p. m. Quedan guardados (desactivados), se pueden volver a encender. Si se retoman, mejor en una sesión nueva y pequeña.
+
 ## 17/10/2026 · Correcciones de seguridad (revisión de Fernanda del 15/10; PC de casa)
 - Restaurar respaldo: el archivo se revisa antes de usarlo (ids, fechas, números y campos con la forma esperada) y la
   pantalla escapa todo lo que viene de los datos. Textos con tope de largo al guardar.
