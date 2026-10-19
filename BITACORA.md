@@ -8,6 +8,14 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 19/10/2026 · Creative Claw (comparado con Higgsfield)
+- Sin suscripción: USD 10 = 1.000 créditos (USD 0,01 c/u), no vencen; 100 créditos gratis al registrarse (sin tarjeta).
+  Uso comercial permitido; no se adueñan de lo generado; créditos de fallas se devuelven.
+- Costos aprox.: Citlali con HeyGen Lipsync sobre su video + nuestro audio 3–6 créd./s (23 s ≈ USD 0,70–1,40); HeyGen
+  Avatar 4 20 créd./s (23 s ≈ USD 4,60); clip MiniMax H3 Max Fast 5 s ≈ USD 0,40; Kling 3.0 Omni 5 s ≈ USD 1,40;
+  imagen Nano Banana 2.1 ≈ USD 0,16; voz ElevenLabs ≈ USD 0,02 por 1.000 caracteres.
+- Para nuestro uso (poco y de vez en cuando) conviene más que la mensualidad de Higgsfield. Pendiente decisión de Jonathan.
+
 ## 19/10/2026 · Precios de Higgsfield (skill «/generate»; revisados en higgsfield.ai/pricing)
 - Free: sin uso comercial ni modelos de video. Starter USD 15/mes: 200 créditos. Plus USD 49/mes (USD 39 pagando el año):
   1.000 créditos, incluye Speak 2.0 (avatar que habla). Ultra USD 129/mes (USD 99 anual): 3.000 créditos. Sin impuestos.
