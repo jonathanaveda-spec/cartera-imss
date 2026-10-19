@@ -72,11 +72,11 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [x] ✅ 09/10 Martes 13 (M02, P06, T02) y miércoles 14 (R2, P07, H03) hechos por Lucía, en GitHub (`videos/entregas/AVANCE.md`).
 - [x] ✅ 14/10 Jueves 15 (M04 P08 T03) listo.
 - [x] ✅ 14/10 Viernes 16 (M05 P09 H04) listo.
-- [ ] **Lucía, terminar sáb 17 → dom 18:** M06, P10, T04, M07 renderizados SIN revisar; P11 y H05 falta render (ver AVANCE.md). (M05 P09 H04 · M06 P10 T04 · M07 P11 H05). Se pausó por
+- [x] ✅ 15/10 (AVANCE.md: semana 12–18 completa, 21 videos) **Lucía, terminar sáb 17 → dom 18:** M06, P10, T04, M07 renderizados SIN revisar; P11 y H05 falta render (ver AVANCE.md). (M05 P09 H04 · M06 P10 T04 · M07 P11 H05). Se pausó por
       llegar al 85 % del límite de 5 h. Capturas ya listas. Piloto HyperFrames a medias (falta FFmpeg completo).
 - [x] ✅ 09/10 **R2** «Pásale tu Excel» corto (19 s, Jorge HD).
 - [ ] Descripciones con palabras clave y 4 hashtags: `videos/descripciones-por-subir.md` (H01, #4, M01, P05, H02).
-- [ ] M06 (sáb 17) sin pedir testers (cambio 09/10).
+- [x] ✅ 17/10 M06 (sáb 17) sin pedir testers (cambio 09/10).
 - [ ] 6 capturas nuevas para P06, P09, P10, P11 (y P05 con lista de colores).
 - [ ] Todo en `videos/entregas/` **antes de cada día** (los avisos de 8:25 / 1:55 / 8:55 avisan si falta).
 
@@ -115,7 +115,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [x] ✅ 15/10 (adelantado) Creada la carpeta `cerebro/` con 15 notas cortas por tema (Marca, Citlali y HeyGen, Voces, Videos y formato presentadora, Google Play,
       Precios, Seguridad, App, Equipo de agentes, Decisiones) enlazadas con [[...]] + un índice; que las sesiones y los
       agentes lean primero esas notas en vez de releer historiales largos (ahorra límite).
-- [ ] Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).
+- [x] ✅ 16/10 Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).
 - [x] ✅ 17/10 Correcciones de código de la revisión de Fernanda (15/10) hechas y publicadas. Detalle SOLO fuera de Git en
       `investigacion/seguridad-2026-10-15.md` (está en la PC de la oficina y en la de casa; no se sube: los repos son públicos).
       Quedan para después (decisión o fin de la beta): registro obligatorio al abrir carteras desde el panel (rompería el conteo
