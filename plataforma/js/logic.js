@@ -240,6 +240,8 @@ export function filtrarClientes(clientes, f, hoy, diasAviso) {
   for (const c of clientes) {
     const e = calcularEstado(c, hoy, diasAviso);
     if (f.estado && f.estado !== 'todos' && e.codigo !== f.estado) continue;
+    // «Clientes activos»: los dados de baja tienen su propia tarjeta; al buscar por nombre sí aparecen.
+    if (f.ocultarBajas && (!f.estado || f.estado === 'todos') && !q.length && e.codigo === 'BAJA') continue;
     if (f.rapido && !cumpleRapido(c, e, f.rapido, hoy)) continue;
     if (f.etiqueta && !(c.etiquetas || []).includes(f.etiqueta)) continue;
     if (f.pDesde && (!c.proximo_pago || c.proximo_pago < f.pDesde)) continue;

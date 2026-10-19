@@ -1,5 +1,8 @@
 # Decisiones de Jonathan (no volver a preguntar)
 
+- 19/10: el panel admin queda como está: abrir carteras con registro, sin hacerlo obligatorio (la idea es que cada asesor vea sus clientes).
+- 19/10: «Clientes activos» sin los dados de baja (comentario de Yamileth) → [[App]].
+- 19/10: herramienta para que hable Citlali, en pausa → [[Citlali]].
 - 15/10: precios de Mariana aprobados; la beta sigue abierta → [[Precios]].
 - 15/10: publica en TikTok a mano.
 - 15/10: la app es para todos, pero **el IMSS sigue al frente** (no esconderlo) → [[App]].

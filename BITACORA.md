@@ -8,6 +8,12 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 19/10/2026 · «Clientes activos» (comentario de Yamileth)
+- La tarjeta «Total de clientes» pasa a **«Clientes activos»**: ya no cuenta los dados de baja (tienen su propia tarjeta) y la
+  lista principal no los muestra; al buscar por nombre, CURP o celular sí aparecen.
+- Decisiones de Jonathan: el panel admin queda como está (sin registro obligatorio al abrir carteras); herramienta para que
+  hable Citlali, en pausa. Se le mandaron las reglas de Firebase para publicarlas.
+
 ## 19/10/2026 · Recordatorios de la sesión de nube apagados
 - A pedido de Jonathan (para ahorrar cupo semanal) se desactivaron los 4 avisos que despertaban la sesión coordinadora de la nube: video 7:30, video 1 p. m., video 8 p. m. y rato de comentarios 8:15 p. m. Quedan guardados (desactivados), se pueden volver a encender. Si se retoman, mejor en una sesión nueva y pequeña.
 

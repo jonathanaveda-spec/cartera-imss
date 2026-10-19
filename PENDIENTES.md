@@ -92,7 +92,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       `videos/entregas/Citlali01_whatsapp_audio.mp3`. Falta en HeyGen: avatar → «Usar en un video» → «Subir audio» (elegir
       el mp3, Jonathan en la ventana de Windows) → Generar → Entregar. Marca de agua: la recorta Jonathan en CapCut.
 - [ ] Quitar la marca de agua «HeyGen» antes de publicar (plan pago de HeyGen o taparla en CapCut). Primer video con Citlali: elegirlo con Victoria (gancho del banco `videos/ganchos.md`).
-- [ ] Decidir herramienta para que hable: HeyGen (plan gratis), Hedra/Vidnoz o CapCut Pro (pagar **después** de Google Play).
+- [ ] ⏸️ (en pausa, Jonathan 19/10) Decidir herramienta para que hable: HeyGen (plan gratis), Hedra/Vidnoz o CapCut Pro (pagar **después** de Google Play).
 - Regla: presentadora de la marca, **nunca testimonio**; «Contenido generado por IA».
 
 ## 📈 CRECIMIENTO (Jonathan, diario; `videos/plan-crecimiento.md`)
@@ -118,8 +118,8 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [x] ✅ 16/10 Jonathan: instalar **Obsidian** (gratis, obsidian.md) y abrir la carpeta del proyecto como bóveda (verá el mapa de notas).
 - [x] ✅ 17/10 Correcciones de código de la revisión de Fernanda (15/10) hechas y publicadas. Detalle SOLO fuera de Git en
       `investigacion/seguridad-2026-10-15.md` (está en la PC de la oficina y en la de casa; no se sube: los repos son públicos).
-      Quedan para después (decisión o fin de la beta): registro obligatorio al abrir carteras desde el panel (rompería el conteo
-      de clientes del panel) y que la prueba gratis no se reinicie al rehacer el perfil.
+      Queda para el fin de la beta: que la prueba gratis no se reinicie al rehacer el perfil. (Registro obligatorio al abrir
+      carteras desde el panel: **Jonathan decidió dejarlo como está**, 19/10.)
 - [ ] **Jonathan: publicar las reglas nuevas** (`plataforma/firestore.rules`, 17/10) en Firebase → Firestore → Reglas → pegar → Publicar.
       Luego agregar un cliente en la app y ver que sincroniza. Si algo falla: pegar la versión anterior (Firebase guarda el historial de reglas).
 - [ ] Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC (lista completa en el informe).

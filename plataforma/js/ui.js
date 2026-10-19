@@ -128,7 +128,7 @@ async function seguro(fn) {
 // Render principal
 // =====================================================================
 const TARJETAS = [
-  { cod: 'todos', rot: 'Total de clientes', clase: 'total', n: (c) => c.total },
+  { cod: 'todos', rot: 'Clientes activos', clase: 'total', n: (c) => c.total - c.BAJA },
   { cod: 'AL_DIA', rot: '🟢 Al día', clase: 'aldia', n: (c) => c.AL_DIA },
   { cod: 'POR_VENCER', rot: '🟡 Próximos a vencer', clase: 'porvencer', n: (c) => c.POR_VENCER },
   { cod: 'MOROSO', rot: '🔴 Morosos', clase: 'moroso', n: (c) => c.MOROSO },
@@ -282,7 +282,7 @@ export function render() {
   $('#dir').textContent = (F.dir === 'asc' ? '↑ ' : '↓ ') + etiquetaOrden();
   $('#fEstado').value = F.estado;
 
-  const items = L.ordenar(L.filtrarClientes(S.db.clientes, F, hoy, dias), F.orden, F.dir);
+  const items = L.ordenar(L.filtrarClientes(S.db.clientes, { ...F, ocultarBajas: true }, hoy, dias), F.orden, F.dir);
   $('#conteo').textContent = S.db.clientes.length ? `${items.length} de ${S.db.clientes.length}` : '';
   renderLista(items);
 }

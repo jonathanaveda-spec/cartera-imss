@@ -76,3 +76,16 @@ test('dinero según el país del asesor', () => {
   assert.equal(L.fmtDinero(24900).replace(/\s/g, ' '), '$ 24.900');
   L.fijarPaisTelefono('MX');
 });
+
+test('«Clientes activos»: los dados de baja no se cuentan ni se listan, salvo al buscarlos', () => {
+  const cs = [
+    { id: '1', nombre: 'Ana', periodicidad: 'Mensual', proximo_pago: '2026-10-20' },
+    { id: '2', nombre: 'Luis', baja: true, periodicidad: 'Mensual', proximo_pago: '2026-10-20' },
+  ];
+  const cnt = L.contarPorEstado(cs, hoy, 7);
+  assert.equal(cnt.total - cnt.BAJA, 1);
+  const ids = (f) => L.filtrarClientes(cs, { ocultarBajas: true, estado: 'todos', ...f }, hoy, 7).map((x) => x.c.id).join();
+  assert.equal(ids({}), '1');
+  assert.equal(ids({ busqueda: 'luis' }), '2');
+  assert.equal(ids({ estado: 'BAJA' }), '2');
+});
