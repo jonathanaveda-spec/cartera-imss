@@ -1,5 +1,6 @@
 # Decisiones de Jonathan (no volver a preguntar)
 
+- 19/10: videos **sin herramientas pagas** (ni Higgsfield ni Creative Claw): seguimos con Remotion, capturas y voces gratis → [[Videos]].
 - 19/10: el panel admin queda como está: abrir carteras con registro, sin hacerlo obligatorio (la idea es que cada asesor vea sus clientes).
 - 19/10: «Clientes activos» sin los dados de baja (comentario de Yamileth) → [[App]].
 - 19/10: herramienta para que hable Citlali, en pausa → [[Citlali]].
