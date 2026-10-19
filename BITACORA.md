@@ -9,7 +9,7 @@ con `git pull`.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
 ## 19/10/2026 · Reglas de Firebase publicadas
-- Jonathan publicó  (5:23 p. m.); Emma revisó en la consola que es la versión nueva. Videos: Citlali 01 ya
+- Jonathan publicó `firestore.rules` (5:23 p. m.); Emma revisó en la consola que es la versión nueva. Videos: Citlali 01 ya
   estaba publicado (versión anterior); hoy sube P11. Se buscó la skill «/generate»: es la de **Higgsfield** (de pago por créditos).
 
 ## 19/10/2026 · «Clientes activos» (comentario de Yamileth)
