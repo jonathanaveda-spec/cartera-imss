@@ -22,6 +22,9 @@ Reglas que no se saltan:
 - El **guion con tiempos** se entrega primero y se espera la aprobación de Jonathan antes de programar.
 - **Revisión de fotogramas obligatoria** antes del render final: saca stills de cada escena (`npx remotion still`) y
   mira cada imagen. Corrige todo lo que no cumpla la skill y vuelve a revisar.
+- **Enganche (Jonathan, 20/10):** gancho fuerte en los primeros 3 segundos y **efectos de sonido** (`videos/public/sfx/`:
+  pop, whoosh, clic, tic, ding, caja, error, subida) en el cuadro 0 y en cada aparición o cambio. Detalle en la skill de
+  marca, §6 «Enganche». Sin efectos, el video no está terminado.
 - Nunca uses datos reales de clientes, correos ni contraseñas. Solo datos inventados.
 - No publiques nada en redes ni subas archivos a servicios externos: Jonathan publica desde su cuenta.
 - Al terminar, entrega la ruta del video en `videos/out/` y un resumen corto (escenas, duración, música usada y su licencia).

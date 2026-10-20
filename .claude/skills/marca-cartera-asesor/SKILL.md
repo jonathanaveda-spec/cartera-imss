@@ -83,6 +83,19 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
   Nada de transiciones decorativas largas; el movimiento guía la vista a la palabra o dato clave.
 - Las cifras que cuentan (16 clientes, 3 morosos) suben con un conteo rápido.
 
+### Enganche (regla de Jonathan, 20/10 — para todos los videos nuevos)
+- **Los primeros 3 segundos enganchan sí o sí:** el gancho ya está en pantalla en el cuadro 0, la voz arranca en 0,0 s,
+  algo se mueve antes del segundo 1 y en los 3 primeros segundos hay una pregunta, un número que pica o un conflicto
+  («¿cuántos están activos?», «Sospechoso #1»). Nada de logo, saludo ni fondo vacío al inicio.
+- **Efectos de sonido que mantengan la atención** a lo largo de todo el video, en `videos/public/sfx/` (propios, gratis;
+  se regeneran con `node videos/tools/generar-sfx.mjs`):
+  `pop`/`pop2` texto o tarjeta que aparece · `whoosh` cambio de escena · `clic` toque en la app · `tic` número que cuenta ·
+  `ding` algo bueno («ya está ✅») · `caja` dinero/pago · `error` algo mal (moroso, excusa) · `subida` tensión antes de revelar.
+- Cómo usarlos: uno en el **cuadro 0** (pop o whoosh junto al gancho) y luego en cada aparición o cambio (cada 1,5–3 s).
+  Volumen 0,35–0,6 para que **nunca tapen la voz**; alternar `pop` y `pop2` para que no suene repetido; máximo uno
+  cada ~0,5 s. Se mezclan dentro del video (en Remotion, `<Audio>` en una `<Sequence>`); la música la sigue poniendo Jonathan.
+- En la revisión: escuchar el video completo y confirmar que los efectos caen justo con lo que aparece.
+
 ## 7. Forma de trabajo (en este orden, siempre)
 1. **Brief:** objetivo del video, idea central y llamado (1–3 líneas).
 2. **Guion con tiempos:** escena por escena (texto en pantalla + lo que se ve + duración). **Jonathan lo aprueba** antes de
