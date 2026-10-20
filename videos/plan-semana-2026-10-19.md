@@ -5,7 +5,7 @@ Base: `plan-diario.md`, `ganchos.md`, skills `marca-cartera-asesor` y `voz-carte
 **`videos/tendencias-2026-10-20.md`** (con fuentes y fechas).
 
 **Lo que manda este plan**
-- 3 al día: **7:30 a. m., 1:00 p. m. y 8:00 p. m., hora de Cali** (= 6:30 a. m., 12:00 y 7:00 p. m. en Ciudad de México;
+- ~~3 al día~~ → **desde el 20/10: 2 al día, 7:30 a. m. y 8:00 p. m., hora de Cali** (ver §2). Original: 7:30 a. m., 1:00 p. m. y 8:00 p. m. (= 6:30 a. m., 12:00 y 7:00 p. m. en Ciudad de México;
   8:30 a. m., 2:00 p. m. y 9:00 p. m. en Venezuela).
 - **Martes 20:** solo 1 video en la noche (hoy ya va avanzado). Lo principal es miércoles 21 a domingo 25 → **16 videos**.
 - **M05 «mensaje del viernes» ya está hecho: va el viernes 23 a las 7:30 a. m. (fijo).**
@@ -44,7 +44,34 @@ que todavía no sale en ningún video. Las series siguen: «Cobranza en 15 segun
 6. Cierre con pregunta, **nunca** «dale like». El llamado va en la voz y en la descripción, corto.
 7. Regla de calidad de siempre: revisión de fotogramas; si no pasa, no se publica (va una reserva de §4).
 
-## 2. Calendario (hora de Cali)
+## 2. Calendario (hora de Cali) — AJUSTADO 20/10: 2 videos al día
+
+> **Cambio de Jonathan (20/10): 2 videos al día, 7:30 a. m. y 8:00 p. m.** Ya no hay video de mediodía. Los P (producto)
+> pasan a la mañana en días alternos; los que no caben quedan de **reserva** para la semana 26/10–01/11.
+> **Martes 20: Jonathan sí sube 1 video hoy en la noche (P12).** La tabla original de 3 al día queda abajo como referencia.
+
+| Día | Hora | Código | Formato | Título | Voz | Estado |
+|---|---|---|---|---|---|---|
+| **Mar 20** | 20:00 | **P12** | P | Ahora la app cuenta solo a tus clientes activos | Dalia HD | ✅ hecho |
+| Mié 21 | 07:30 | **M08** | H · antes/después | Tu lista dice 80… pero ¿cuántos están **activos**? | Jorge HD | ✅ hecho |
+| Mié 21 | 20:00 | **H06** | H · ficha + chat | Sospechoso #1: «ya te deposité» 🕵️ | Alejo + Valeria | ✅ hecho |
+| Jue 22 | 07:30 | **M09** | T | Dato para guardar #4: lo que pido para una alta en Modalidad 40 | Jorge HD | por hacer |
+| Jue 22 | 20:00 | **T06** | T | Asesor, responde en UNA palabra | Alejo | por hacer |
+| **Vie 23** | **07:30** | **M05** | H · chat | El mensaje del viernes que te ahorra la vuelta del lunes (**fijo**) | Dalia HD + Valeria | ✅ hecho |
+| Vie 23 | 20:00 | **H07** | H · antes/después | Lo que nadie te cuenta de la cobranza #2 | **Jorge HD + Alejo** (cambio: no repetir Dalia) | por hacer |
+| Sáb 24 | 07:30 | **P13** | P | CURP y NSS juntos, a la mano | Valeria | por hacer |
+| Sáb 24 | 20:00 | **T07** | T | 👻 Cosas que un asesor debería dejar en visto | Dalia HD | por hacer |
+| Dom 25 | 07:30 | **M11** | H · antes/después | Domingo: 3 minutos y tu semana de cobro queda lista | Alejo | por hacer |
+| Dom 25 | 20:00 | **H08** | H · historia con pista | ¿Lo viste en el segundo 1? 🔴 | Jorge HD | por hacer |
+
+**Reserva (semana 26/10–01/11, en este orden sugerido):** P14 «Servicio adquirido», P15 «la app se ajusta a tu país»,
+P16 «Pagaron hoy» (repetir su captura con la fecha del día), M10 «mensaje de cobro en 4 partes», T05 «Cobranza en 15
+segundos #2». También M07 y H05 si Jonathan no los subió (H05 mejor para Halloween, 30–31/10).
+
+**Lucía, lo que falta producir esta semana:** jueves M09 y T06 · viernes H07 · sábado P13 y T07 · domingo M11 y H08.
+
+### Calendario original (3 al día, ya no se usa)
+
 
 | Día | Hora | Código | Formato | Título | Voz | Dur. | Capturas |
 |---|---|---|---|---|---|---|---|
@@ -65,7 +92,7 @@ que todavía no sale en ningún video. Las series siguen: «Cobranza en 15 segun
 | Dom 25 | 13:00 | **P16** | P | ¿Quién te pagó hoy? Cierra el día en 10 segundos | Valeria | 17 s | 🔴 Nueva: filtro «✅ Pagaron hoy» |
 | Dom 25 | 20:00 | **H08** | H · historia con pista | ¿Lo viste en el segundo 1? 🔴 | Jorge HD | 18 s | Opcional: `sem-lista-rojo.png` |
 
-**Orden de voces (16):** (P11 lun 19: Dalia) → Valeria → Jorge → Dalia → Alejo+Valeria → Jorge → Valeria → Alejo →
+**Orden de voces (16, plan original):** (P11 lun 19: Dalia) → Valeria → Jorge → Dalia → Alejo+Valeria → Jorge → Valeria → Alejo →
 Dalia+Valeria → Jorge → Dalia+Alejo → Valeria → Jorge → Dalia → Alejo → Valeria → Jorge. Ninguna seguida.
 **Formatos (16):** T → H → P → H → T → P → T → H → P → H → T → P → T → H → P → H. Ninguno seguido.
 **Tipos de gancho (16):** serie numerada → número de ejemplo → novedad pedida por una asesora → personaje/humor →
