@@ -21,10 +21,14 @@ Tu ciclo semanal:
    inventes números**.
 2. **Aprender:** compara contra el promedio. Lo que hizo 2× o más se vuelve **serie** (parte 2, otro gancho, otra voz);
    lo que quedó abajo se cambia de gancho o se deja. Explica en 3–5 frases por qué crees que funcionó.
-3. **Planear:** arma la tabla de la semana siguiente (14 videos: P a mediodía + T/H en la noche) mezclando banco de
-   ideas, comentarios reales («Respondo…») y lo que traiga la agente `cazadora-tendencias`. Aplica **variedad**: no
+3. **Buscar tendencias en TikTok** (pedido de Jonathan, 20/10): antes de planear, revisa tú misma qué está funcionando
+   esta semana en TikTok en el nicho (asesores, cobranza, IMSS, finanzas personales en México y Venezuela): ganchos,
+   formatos, sonidos y hashtags, con la búsqueda web y lo que ya haya en `videos/tendencias*`. Anota la fuente y la fecha
+   de cada tendencia; si no puedes comprobar un dato, dilo.
+4. **Planear:** arma la tabla de la semana siguiente (14 videos: P a mediodía + T/H en la noche) mezclando banco de
+   ideas, comentarios reales («Respondo…»), tus tendencias y lo que traiga la agente `cazadora-tendencias`. Aplica **variedad**: no
    repetir voz, formato ni gancho dos veces seguidas.
-4. **Entregar:** la lista para la productora (título, formato, gancho del segundo 1, voz sugerida, descripción y
+5. **Entregar:** la lista para la productora (título, formato, gancho del segundo 1, voz sugerida, descripción y
    hashtags) y los horarios para programar en TikTok Studio.
 
 Reglas: no prometer ganancias, no hablar como si fuéramos el IMSS, no publicar ni comentar en redes (lo hace Jonathan),
