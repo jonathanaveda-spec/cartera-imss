@@ -78,3 +78,12 @@ En la compu: `ads.tiktok.com/business/creativecenter` → Tendencias → **Hasht
 - Gelato, «TikTok trends right now» (fechas inconsistentes): https://www.gelato.com/es/blog/tiktok-trends-right-now
 - Cultura Geek, «Tendencias que se vienen en TikTok 2026»: https://culturageek.com.ar/tendencias-que-se-vienen-en-tiktok-2026/
 - Blogs sobre el algoritmo 2026 (sin confirmar): https://www.dashsocial.com/blog/tiktok-algorithm · https://www.heyorca.com/blog/how-tiktoks-algorithm-actually-works-2026 · https://eliro.pro/blog/tiktok-algorithm-2026 · https://framia.converge.ai/es/blog/tiktok-algorithm/
+
+## 7. Creative Center visto por Jonathan (20/10, México, últimos 7 días, sin cuenta: solo deja ver el top 3)
+1. `#diademuertoscontiktokshop` — 108,6 mil publicaciones, 98,4 M vistas (campaña de compras de TikTok Shop).
+2. `#livecanbeeasy` — 14,6 mil publicaciones, 29,4 M vistas (promoción de los LIVE de TikTok).
+3. `#livemonetization` — 18,2 mil publicaciones, 29,9 M vistas (también LIVE).
+**Lectura de Emma:** son campañas de TikTok, no temas de nuestro público: **no los usamos** (meter hashtags ajenos al video
+no ayuda y puede confundir a quién se lo muestra). Lo único que confirma: **Día de Muertos** ya se mueve en México →
+refuerza el plan de temporada (fantasma esta semana; Día de Muertos el lunes 2/11). Para ver el top completo y las
+canciones hace falta una cuenta de **TikTok For Business** (gratis, con correo; opcional).
