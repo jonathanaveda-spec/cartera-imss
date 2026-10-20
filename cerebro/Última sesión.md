@@ -15,7 +15,7 @@ al cerrar cada bloque de trabajo (no es un diario: para eso está `BITACORA.md`)
 - Videos 16/10 (ya enviados): T03 ahora (quedó del jueves), P09 1 p. m., H04 8 p. m. **M05 pasa al vie 23, 7:30 a. m.**
 
 ## Lo siguiente (en orden)
-1. Lunes 19: plan de la semana 19–25 con Victoria, incluyendo M05 el viernes 23.
+1. ✅ 20/10 Plan de la semana 20–25 hecho por Victoria (`videos/plan-semana-2026-10-19.md`, 16 videos; tendencias en `videos/tendencias-2026-10-20.md`). Falta: Lucía produce (T05 hoy 8 p. m.; mié 21: M08, P12, H06) con una corrida nueva de capturas; Jonathan manda capturas de analíticas y confirma si subió M07 y H05.
 2. ✅ 16/10 Arreglos del test drive de Tere hechos (CURP vacía: se avisa siempre en México).
 3. ✅ 17/10 Correcciones de código de Fernanda publicadas. **Falta que Jonathan publique `firestore.rules` en Firebase.**
 4. Jonathan: verificación en dos pasos en GitHub y en el correo admin; ya instaló Obsidian (16/10).
