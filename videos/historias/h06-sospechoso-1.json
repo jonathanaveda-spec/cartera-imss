@@ -1,0 +1,29 @@
+{
+  "id": "h06-sospechoso-1",
+  "voz": "h06-sospechoso-1",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "ficha",
+      "retraso": 0,
+      "encabezado": "EXPEDIENTE DE COBRANZA",
+      "sello": "SOSPECHOSO",
+      "selloNumero": "#1",
+      "rasgos": [
+        { "emoji": "▸", "texto": "dice «ya te deposité»" },
+        { "emoji": "▸", "texto": "nunca manda el comprobante" },
+        { "emoji": "▸", "texto": "visto a las 9:14 p. m." },
+        { "emoji": "▸", "texto": "en línea hace 1 minuto" }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Cada pago queda", "con su **fecha**"],
+      "sello": "CASO CERRADO",
+      "imagenes": [
+        { "src": "capturas2/sem-comprobante-hoy.png", "zoom": 1, "cx": 540, "cy": 1180, "anillo": { "x": 60, "y": 1168, "w": 930, "h": 78, "color": "verde", "radio": 30 } }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Tienes un sospechoso así?", "Escribe «yo» 👇"] }
+  ]
+}

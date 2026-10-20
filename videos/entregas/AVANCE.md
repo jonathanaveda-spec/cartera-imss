@@ -14,3 +14,8 @@
 - **Formato presentadora, versión 2 (15/10):** `entregas/CITLALI01_MUESTRA2_presentadora_pantalla.mp4` — ventanas de borde a borde, píldora sobre la unión, Citlali más grande, etiqueta de IA quitada del video (se activa la oficial de cada red al subir; obligatorio).
 - **Formato presentadora, versión 3 (15/10):** `entregas/CITLALI01_MUESTRA3_presentadora_pantalla.mp4` — punto medio: ventanas de 950 px con 65 px de margen, separación con la píldora en medio, mismo corte seguro de Citlali, sin etiqueta de IA quemada.
 - **Explicativo corredores Venezuela (15/10):** `entregas/EXPLICATIVO_corredores_VE.mp4` (49.9 s, Jorge HD) + guion `guiones/explicativo-corredores-ve.md`; capturas `ve-*` con `tools/capturas-ve.mjs`.
+
+# Semana 20–25/10 (Lucía)
+- **Miércoles 21 (20/10):** M08 (Jorge HD), P12 (Dalia HD), H06 (Alejo + Valeria) en `entregas/` (`M08_lista_activos_con_voz.mp4`, `P12_clientes_activos_con_voz.mp4`, `H06_sospechoso_1_con_voz.mp4`). Guiones con descripción en `guiones/m08-…`, `p12-…`, `h06-…`. T05 queda fuera por ahora.
+- Capturas nuevas con la app del 20/10 (una corrida de `tools/capturas-videos.mjs semana2`, fecha simulada miércoles 21): `public/capturas2/` → `sem-inicio-activos`, `sem-buscar-baja`, `sem-curp-nss`, `sem-servicio`, `sem-pagaron-hoy`, `sem-comprobante-hoy`, `sem-pais`. Las de `public/capturas/` no se tocaron.
+- Plantilla H con escenas nuevas (`src/historia/Nuevas.tsx`): `numeros`, `ficha`, `capturaGancho`, sello en `captura`, y `retraso: 0` para que la voz arranque en el cuadro 0. Composiciones en `src/RootSemana20.tsx`.

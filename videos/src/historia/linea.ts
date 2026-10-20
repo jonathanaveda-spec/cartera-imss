@@ -36,14 +36,18 @@ export type Anillo = { x: number; y: number; w: number; h: number; color: "rojo"
 export type ImagenCaptura = { src: string; zoom: number; cx: number; cy: number; anillo?: Anillo | Anillo[] };
 export type PanelDividido = { etiqueta: string; emoji: string; titulo: string; lineas: string[] };
 
-type Base = { seg?: number; sinVoz?: boolean };
+// retraso = cuadros que tarda la voz en entrar en esa escena (0 = la voz arranca en el cuadro 0, para el gancho).
+type Base = { seg?: number; sinVoz?: boolean; retraso?: number };
 export type EscenaH =
   | (Base & { tipo: "gancho"; hora: string; titular: string[]; icono?: string })
   | (Base & { tipo: "chat"; contacto: { nombre: string; iniciales: string }; items: ItemChat[] })
   | (Base & { tipo: "titulo"; titular: string[]; emoji?: string; etiqueta?: string })
   | (Base & { tipo: "mensaje"; numero: number; titular: string[]; contacto: { nombre: string; iniciales: string }; mensaje: Mensaje })
   | (Base & { tipo: "frase"; titular: string[]; emoji?: string })
-  | (Base & { tipo: "captura"; titular: string[]; imagenes: ImagenCaptura[] })
+  | (Base & { tipo: "captura"; titular: string[]; imagenes: ImagenCaptura[]; sello?: string })
+  | (Base & { tipo: "capturaGancho"; titular: string[]; imagenes: ImagenCaptura[]; zoomFinal?: number })
+  | (Base & { tipo: "numeros"; etiqueta: string; arriba: string; de: number; deUnidad: string; pregunta: string[]; a: number; aUnidad: string; nota: string })
+  | (Base & { tipo: "ficha"; encabezado: string; sello: string; selloNumero: string; rasgos: { emoji: string; texto: string }[] })
   | (Base & { tipo: "dividida"; titular?: string[]; antes: PanelDividido; despues: PanelDividido; despuesEn?: number; paso?: number; pasoDespues?: number })
   | (Base & { tipo: "cierre"; frase: string[]; grande?: boolean });
 
@@ -78,7 +82,9 @@ export const frasesNecesarias = (escenas: EscenaH[]) =>
         ? e.items.filter((i) => esMensaje(i) && i.voz).length
         : e.sinVoz
           ? 0
-          : 1),
+          : e.tipo === "ficha"
+            ? 1 + e.rasgos.length
+            : 1),
     0,
   );
 
@@ -108,13 +114,26 @@ export const resolverHistoria = (p: HistoriaProps): { escenas: EscenaResuelta[];
         }
       }
       dur = t + aCuadros(0.4);
+    } else if (e.tipo === "ficha" && p.frases && !e.sinVoz) {
+      // Ficha policiaca: la 1.ª frase abre (cuadro 0) y cada rasgo aparece justo cuando se dice.
+      let t = e.retraso ?? 0;
+      const f0 = p.frases[k++];
+      audios.push({ frase: f0, desde: t });
+      t += aCuadros(f0.seg + 0.25);
+      for (let r = 0; r < e.rasgos.length; r++) {
+        const f = p.frases[k++];
+        items.push({ ini: t, fin: t });
+        audios.push({ frase: f, desde: t + 3 });
+        t += 3 + aCuadros(f.seg + 0.2);
+      }
+      dur = t + aCuadros(0.25);
     } else if (p.frases && !e.sinVoz) {
       const f = p.frases[k++];
-      const retraso = e.tipo === "cierre" ? RETRASO_CIERRE : RETRASO_VOZ;
+      const retraso = e.retraso ?? (e.tipo === "cierre" ? RETRASO_CIERRE : RETRASO_VOZ);
       audios.push({ frase: f, desde: retraso });
       dur = retraso + aCuadros(f.seg + (e.tipo === "cierre" ? PAD_FINAL : COLCHON));
     } else {
-      if (!e.sinVoz && p.voz) k++;
+      if (!e.sinVoz && p.voz) k += e.tipo === "ficha" ? 1 + e.rasgos.length : 1;
       dur = aCuadros(e.seg ?? 3);
     }
     salida.push({ ini: cursor, dur, audios, items });

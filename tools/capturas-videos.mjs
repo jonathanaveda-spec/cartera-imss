@@ -19,7 +19,7 @@ const PERFIL = join(tmpdir(), 'cartera-capturas-videos-edge');
 const espera = (ms) => new Promise((r) => setTimeout(r, ms));
 // Parte a capturar: sin argumento = todo (Excel, PIN y cobro); «excel-pin» o «cobro» = solo esa parte.
 const SOLO = process.argv[2] || '';
-const hacer = (parte) => (!SOLO && parte !== 'semana') || SOLO === parte; // «semana» NO entra en «todo»: son las capturas del 12 al 18 de octubre (prefijo «sem-»)
+const hacer = (parte) => (!SOLO && parte !== 'semana' && parte !== 'semana2') || SOLO === parte; // «semana» NO entra en «todo»: son las capturas del 12 al 18 de octubre (prefijo «sem-»)
 
 // Si el servidor local no responde, se avisa y se sale (este script no lo levanta).
 try { await fetch(`${BASE}/demo/`); } catch {
@@ -385,6 +385,82 @@ try {
     f.dispatchEvent(new Event('input', { bubbles: true })); document.activeElement?.blur(); ${esperar(400)} return 1;`);
   await js(arriba());
   await foto('sem-pago-15dias.png');
+  await js(cerrarVentanas);
+  }
+
+  if (hacer('semana2')) {
+  // ---- Semana del 20 al 25 de octubre: «Clientes activos» (P12), CURP/NSS (P13), Servicio adquirido (P14), país (P15),
+  // «Pagaron hoy» (P16). Archivos con prefijo «sem-». Todo inventado.
+  // Uso: CAPTURAS_SALIDA=<carpeta> DIAS_ADELANTE=1 node tools/capturas-videos.mjs semana2
+  const esperar = (ms) => `await new Promise((r) => setTimeout(r, ${ms}));`;
+  const subirA = (sel, margen = 76) => `const el = document.querySelector(${JSON.stringify(sel)}); scrollTo(0, el.getBoundingClientRect().top + scrollY - ${margen}); ${esperar(400)} return 1;`;
+  const hoyIso = `const iso = (d) => { const f = new Date(); f.setDate(f.getDate() + d); return f.toISOString().slice(0, 10); };`;
+  await js(cerrarVentanas);
+  // Más clientes, servicios inventados y 4 dados de baja (para que la tarjeta «Dados de baja» tenga números).
+  await js(`${hoyIso}
+    const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    await S.agregarCliente({ nombre: 'Sandra Iturbe Cano', periodicidad: 'Mensual', proximo_pago: iso(0), fecha_inicio: iso(-300), celular: '55 0000 3301', curp: 'IUCS780415MDFTNN05', nss: '45678901234' });
+    await S.agregarCliente({ nombre: 'Mario Esquivel Lara', periodicidad: 'Trimestral', proximo_pago: iso(0), fecha_inicio: iso(-200), celular: '55 0000 3302', curp: 'EULM810203HDFSRR06', nss: '56789012345' });
+    await S.agregarCliente({ nombre: 'Teresa Blanco Pineda', periodicidad: 'Mensual', proximo_pago: iso(-20), fecha_inicio: iso(-500), celular: '55 0000 3401', curp: 'BAPT700101MDFLNR11', nss: '11122233344' });
+    await S.agregarCliente({ nombre: 'Óscar Domínguez Rivas', periodicidad: 'Mensual', proximo_pago: iso(-40), fecha_inicio: iso(-600), celular: '55 0000 3402', curp: 'DORO750202HDFMVS12', nss: '22233344455' });
+    await S.agregarCliente({ nombre: 'Lupita Arce Montoya', periodicidad: 'Trimestral', proximo_pago: iso(-60), fecha_inicio: iso(-700), celular: '55 0000 3403', curp: 'AEML800303MDFRNP13', nss: '33344455566' });
+    await S.agregarCliente({ nombre: 'Gabriel Soto Quiroz', periodicidad: 'Mensual', proximo_pago: iso(-33), fecha_inicio: iso(-450), celular: '55 0000 3404', curp: 'SOQG720404HDFTRB14', nss: '44455566677' });
+    const servicios = ['Modalidad 40', 'Seguro de vida', 'Plan funerario', 'Modalidad 40', 'Seguro de gastos médicos'];
+    S.db.clientes.forEach((c, i) => { if (!c.nombre.match(/Teresa|Óscar|Lupita|Gabriel/)) c.opcion = servicios[i % servicios.length]; });
+    for (const n of ['Teresa', 'Óscar', 'Lupita', 'Gabriel']) await S.darDeBaja(S.db.clientes.find((x) => x.nombre.startsWith(n)).id, 'Ya no quiso continuar');
+    for (const [n, monto, metodo] of [['Miguel', 1500, 'Transferencia'], ['Sandra', 900, 'Efectivo'], ['Roberto', 1200, 'Transferencia']]) {
+      await S.registrarPago(S.db.clientes.find((x) => x.nombre.startsWith(n)).id, { fecha_pago: iso(0), monto, metodo });
+    }
+    await S.guardar();
+    U.render(); ${esperar(600)} return S.db.clientes.length;`);
+  await js(`document.activeElement?.blur(); scrollTo(0, 0); return 1;`);
+
+  // 1. Inicio nuevo: «Clientes activos» + «Dados de baja»
+  await foto('sem-inicio-activos.png');
+
+  // 1b. Buscar por nombre a un dado de baja: sí aparece
+  await js(`scrollTo(0,0); const q = document.querySelector('#q'); q.value = 'teresa'; q.dispatchEvent(new Event('input', { bubbles: true })); q.blur(); ${esperar(500)} return 1;`);
+  await js(subirA('.herramientas', 76));
+  await foto('sem-buscar-baja.png');
+  await js(`const q = document.querySelector('#q'); q.value = ''; q.dispatchEvent(new Event('input', { bubbles: true })); scrollTo(0,0); ${esperar(400)} return 1;`);
+
+  // 2. Formulario del cliente con la sección ámbar «Datos IMSS: CURP y NSS»
+  await js(`const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    U.abrirFormulario(S.db.clientes.find((x) => x.nombre.startsWith('Patricia Gómez')).id); ${esperar(700)} document.activeElement?.blur(); return 1;`);
+  await js(`const sec = document.querySelector('#modales .datos-imss'); const cs = document.querySelectorAll('#modales .modal-cuerpo'); const cuerpo = cs[cs.length - 1];
+    cuerpo.scrollTop = sec.getBoundingClientRect().top - cuerpo.getBoundingClientRect().top + cuerpo.scrollTop - 150; ${esperar(300)} return 1;`);
+  await foto('sem-curp-nss.png');
+  await js(cerrarVentanas);
+
+  // 3. Ficha del cliente con «Servicio adquirido»
+  await js(`const f = [...document.querySelectorAll('.fila')].find((x) => x.textContent.includes('Juan Carlos')); f.click(); ${esperar(700)} return 1;`);
+  await js(`const sec = [...document.querySelectorAll('#modales dt')].find((d) => d.textContent === 'Servicio adquirido'); const cs = document.querySelectorAll('#modales .modal-cuerpo'); const cuerpo = cs[cs.length - 1];
+    cuerpo.scrollTop = sec.getBoundingClientRect().top - cuerpo.getBoundingClientRect().top + cuerpo.scrollTop - 330; ${esperar(300)} return 1;`);
+  await foto('sem-servicio.png');
+  await js(cerrarVentanas);
+
+  await js(`await new Promise((r) => setTimeout(r, 1200)); return 1;`);
+  // 4. «✅ Pagaron hoy» activo
+  await js(`scrollTo(0,0); document.querySelector('#rapidos [data-cod="pagaron_hoy"]').click(); ${esperar(500)} return 1;`);
+  await js(subirA('#rapidos'));
+  await foto('sem-pagaron-hoy.png');
+  await js(`document.querySelector('#rapidos [data-cod="pagaron_hoy"]').click(); ${esperar(300)} scrollTo(0,0); return 1;`);
+
+  // 4b. Pago registrado + comprobante con la fecha de hoy (H06 «caso cerrado»)
+  await js(`const S = await import('/demo/js/store.js'); const U = await import('/demo/js/ui.js');
+    U.abrirPago(S.db.clientes.find((x) => x.nombre.startsWith('Guadalupe')).id); ${esperar(600)}
+    const f = document.querySelector('#modales form'); if (f.monto) f.monto.value = '1250'; if (f.metodo) f.metodo.value = 'Efectivo';
+    f.dispatchEvent(new Event('input', { bubbles: true })); document.activeElement?.blur(); ${esperar(300)} return 1;`);
+  await js(`document.querySelector('#modales button[type=submit]')?.click(); ${esperar(900)} return 1;`);
+  await js(arriba());
+  await foto('sem-comprobante-hoy.png');
+  await js(`document.querySelector('#modales [data-cerrar]')?.click(); scrollTo(0,0); ${esperar(400)} return 1;`);
+  await js(cerrarVentanas);
+
+  // 5. Elegir país (último: deja el perfil en Venezuela)
+  await js(`const N = await import('/demo/js/nube.js'); N.estado.perfil = { ...(N.estado.perfil || {}), pais: 'VE' }; (await import('/demo/js/ui.js')).elegirPais({}); ${esperar(700)} return 1;`);
+  await js(arriba());
+  await foto('sem-pais.png');
   await js(cerrarVentanas);
   }
 

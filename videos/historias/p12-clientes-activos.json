@@ -1,0 +1,38 @@
+{
+  "id": "p12-clientes-activos",
+  "voz": "p12-clientes-activos",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "capturaGancho",
+      "retraso": 0,
+      "titular": ["Una asesora nos", "pidió **esto**…", "y ya está ✅"],
+      "zoomFinal": 1.25,
+      "imagenes": [
+        { "src": "capturas2/sem-inicio-activos.png", "zoom": 1, "cx": 540, "cy": 560, "anillo": { "x": 40, "y": 295, "w": 487, "h": 202, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Cuenta solo a tus", "**clientes activos**"],
+      "imagenes": [
+        { "src": "capturas2/sem-inicio-activos.png", "zoom": 1.55, "cx": 290, "cy": 400, "anillo": { "x": 40, "y": 295, "w": 487, "h": 202, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Los **dados de baja**,", "aparte"],
+      "imagenes": [
+        { "src": "capturas2/sem-inicio-activos.png", "zoom": 1.55, "cx": 290, "cy": 790, "anillo": { "x": 40, "y": 748, "w": 487, "h": 202, "color": "azul", "radio": 40 } }
+      ]
+    },
+    {
+      "tipo": "captura",
+      "titular": ["Búscalo por nombre:", "**ahí sigue**"],
+      "imagenes": [
+        { "src": "capturas2/sem-buscar-baja.png", "zoom": 1, "cx": 540, "cy": 1300, "anillo": [{ "x": 40, "y": 998, "w": 785, "h": 108, "color": "azul", "radio": 40 }, { "x": 40, "y": 1465, "w": 1000, "h": 330, "color": "azul", "radio": 40 }] }
+      ]
+    },
+    { "tipo": "cierre", "frase": ["¿Qué otra cosa le", "pedirías a la app? 👇"] }
+  ]
+}

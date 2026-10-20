@@ -1,0 +1,10 @@
+{
+  "id": "m08-lista-activos",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Asesor I M S S, tu lista dice ochenta… ¿cuántos te pagan?" },
+    { "texto": "Las bajas también cuentan. En la app, van aparte." },
+    { "texto": "¿Cuántos activos tienes? Ponlo abajo… y hoy a la una te enseño la app." }
+  ]
+}

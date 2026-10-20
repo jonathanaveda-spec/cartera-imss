@@ -1,0 +1,28 @@
+{
+  "id": "m08-lista-activos",
+  "voz": "m08-lista-activos",
+  "guias": false,
+  "escenas": [
+    {
+      "tipo": "numeros",
+      "retraso": 0,
+      "etiqueta": "Asesor IMSS",
+      "arriba": "Tu lista dice",
+      "de": 80,
+      "deUnidad": "clientes…",
+      "pregunta": ["¿Cuántos están", "**activos**?"],
+      "a": 62,
+      "aUnidad": "activos",
+      "nota": "(cifras de ejemplo)"
+    },
+    {
+      "tipo": "dividida",
+      "despuesEn": 50,
+      "paso": 12,
+      "pasoDespues": 12,
+      "antes": { "etiqueta": "Tu lista", "emoji": "📒", "titulo": "Todos **revueltos**", "lineas": ["80 clientes (ejemplo)", "Con los dados de baja", "No sabes quién paga"] },
+      "despues": { "etiqueta": "Con la app", "emoji": "📱", "titulo": "Activos **aparte**", "lineas": ["62 activos (ejemplo)", "18 dados de baja, aparte", "Cobras sin confusión"] }
+    },
+    { "tipo": "cierre", "grande": true, "frase": ["Hoy a la 1 te enseño", "cómo se ve en la app"] }
+  ]
+}

@@ -1,6 +1,6 @@
 # Videos
 
-- **Ritmo:** 3 por día (7:30 a. m., 1:00 p. m. y 8:00 p. m., hora Cali). Series: M (mañana, dato útil), P (producto),
+- **Ritmo:** 2 por día (7:30 a. m. y 8:00 p. m., hora Cali). Series: M (mañana, dato útil), P (producto),
   T (tip, cobranza en 15 s), H (historia). Plan semanal en `videos/plan-semana-*.md`.
 - **Producción:** Lucía (agente `productor-videos`) con Remotion en `videos/`. Entregas en `videos/entregas/`,
   guiones con descripción en `videos/guiones/`, avance en `videos/entregas/AVANCE.md`.

@@ -4,6 +4,7 @@ import { Background } from "../components/Background";
 import { Cierre } from "../scenes/comun/Cierre";
 import { Voz } from "../voz";
 import { Chat } from "./Chat";
+import { CapturaGanchoH, FichaH, NumerosH } from "./Nuevas";
 import { CapturaH, DivididaH, FraseH, GanchoH, MensajeH, TituloH } from "./Escenas";
 import { resolverHistoria } from "./linea";
 import type { HistoriaProps } from "./linea";
@@ -27,7 +28,10 @@ export const Historia: React.FC<HistoriaProps> = (props) => {
             {e.tipo === "titulo" ? <TituloH titular={e.titular} emoji={e.emoji} etiqueta={e.etiqueta} /> : null}
             {e.tipo === "mensaje" ? <MensajeH numero={e.numero} titular={e.titular} contacto={e.contacto} mensaje={e.mensaje} /> : null}
             {e.tipo === "frase" ? <FraseH titular={e.titular} emoji={e.emoji} /> : null}
-            {e.tipo === "captura" ? <CapturaH titular={e.titular} imagenes={e.imagenes} /> : null}
+            {e.tipo === "captura" ? <CapturaH titular={e.titular} imagenes={e.imagenes} sello={e.sello} /> : null}
+            {e.tipo === "capturaGancho" ? <CapturaGanchoH titular={e.titular} imagenes={e.imagenes} zoomFinal={e.zoomFinal} /> : null}
+            {e.tipo === "numeros" ? <NumerosH etiqueta={e.etiqueta} arriba={e.arriba} de={e.de} deUnidad={e.deUnidad} pregunta={e.pregunta} a={e.a} aUnidad={e.aUnidad} nota={e.nota} /> : null}
+            {e.tipo === "ficha" ? <FichaH encabezado={e.encabezado} sello={e.sello} selloNumero={e.selloNumero} rasgos={e.rasgos} tiempos={r.items} /> : null}
             {e.tipo === "dividida" ? <DivididaH antes={e.antes} despues={e.despues} despuesEn={e.despuesEn} paso={e.paso} pasoDespues={e.pasoDespues} /> : null}
             {e.tipo === "cierre" ? <Cierre frase={e.frase} grande={e.grande} /> : null}
           </Sequence>

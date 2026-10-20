@@ -13,6 +13,6 @@ Manual: `.claude/equipo.md`. Agentes en `.claude/agents/`. Trabajan como emplead
 - **Tere** — pruebas de la app.
 - **Fernanda** (Opus) — datos, privacidad y [[Seguridad]].
 - **Andrea** — tiendas → [[Google Play]].
-- **Mariana** — mercado y [[Precios]].
+- **Mariana** — mercado y [[Precios]]; busca estrategias de venta (pedido de Jonathan, 20/10).
 
 Regla: los agentes **no hacen git** (lo hace Emma), y no se hace pull ni rebase mientras un agente edita.

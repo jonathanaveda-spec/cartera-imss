@@ -1,0 +1,12 @@
+{
+  "id": "p12-clientes-activos",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Una asesora nos pidió esto… y ya está." },
+    { "texto": "Ahora la tarjeta principal cuenta solo tus clientes activos." },
+    { "texto": "Los dados de baja van aparte, para que no te revuelvan la cobranza." },
+    { "texto": "Y si los buscas por nombre, ahí siguen." },
+    { "texto": "¿Qué otra cosa le pedirías a la app? Pruébala gratis en la beta." }
+  ]
+}

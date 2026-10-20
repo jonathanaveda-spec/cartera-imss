@@ -6,6 +6,7 @@ import { Caption } from "../components/Caption";
 import { Anillo as AnilloFoco, PhoneCard } from "../components/PhoneCard";
 import { Rico, partes } from "../texto";
 import { Chat } from "./Chat";
+import { Sello } from "./Nuevas";
 import type { ImagenCaptura, Mensaje, PanelDividido } from "./linea";
 
 // ---------- Hoja de libreta dibujada (nombres inventados) ----------
@@ -79,7 +80,7 @@ export const FraseH: React.FC<{ titular: string[]; emoji?: string }> = ({ titula
 
 // ---------- Capturas reales de la app en un teléfono ----------
 const COLOR_ANILLO = { rojo: C.rojo, verde: C.verde, azul: C.azulCartera, ambar: C.ambar } as const;
-export const CapturaH: React.FC<{ titular: string[]; imagenes: ImagenCaptura[] }> = ({ titular, imagenes }) => {
+export const CapturaH: React.FC<{ titular: string[]; imagenes: ImagenCaptura[]; sello?: string }> = ({ titular, imagenes, sello }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const entra = ease(frame, 0, 14);
@@ -100,6 +101,7 @@ export const CapturaH: React.FC<{ titular: string[]; imagenes: ImagenCaptura[] }
           </PhoneCard>
         );
       })}
+      {sello ? <Sello texto={sello} left={190} top={780} /> : null}
       <Caption top={1150} size={64} lineas={titular.map(partes)} />
     </AbsoluteFill>
   );

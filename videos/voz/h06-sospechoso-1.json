@@ -1,0 +1,14 @@
+{
+  "id": "h06-sospechoso-1",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Sospechoso número uno." },
+    { "texto": "Ya te deposité, mañana te lo paso.", "voz": "es-MX-Valeria:MAI-Voice-2" },
+    { "texto": "Nunca manda el comprobante." },
+    { "texto": "Visto, nueve catorce." },
+    { "texto": "En línea hace un minuto." },
+    { "texto": "Cada pago queda con fecha. Caso cerrado." },
+    { "texto": "¿Tienes uno así? Escribe yo. Pruébala gratis en la beta." }
+  ]
+}
