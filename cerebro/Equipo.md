@@ -4,7 +4,7 @@ Manual: `.claude/equipo.md`. Agentes en `.claude/agents/`. Trabajan como emplead
 
 - **Emma** (Claude) — coordina, revisa y hace commit/push.
 - **Lucía** — videos con Remotion → [[Videos]], [[Formato presentadora]].
-- **Victoria** (Opus) — estrategia de redes y plan semanal.
+- **Victoria** (Opus) — estrategia de redes y plan semanal; busca tendencias en TikTok (pedido de Jonathan, 20/10).
 - **Luna** — tendencias (YouTube con yt-dlp).
 - **Frida** — ideas visuales.
 - **Ximena** — avatares → [[Citlali]].
