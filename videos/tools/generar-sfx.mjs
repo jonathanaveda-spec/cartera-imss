@@ -1,13 +1,13 @@
 // Efectos de sonido propios para los videos (pop, whoosh, ding, clic, caja, error, tic).
 // Se sintetizan con código: gratis, sin licencias de terceros (decisión 19/10: cero herramientas pagas).
-// Uso: node tools/generar-sfx.mjs  → crea public/sfx/*.wav (44,1 kHz, mono, 16 bits).
-// En Remotion: <Audio src={staticFile('sfx/pop.wav')} volume={0.5} /> dentro de una <Sequence from={cuadro}>.
+// Uso: node tools/generar-sfx.mjs  → crea public/sfx/propios/*.wav (44,1 kHz, mono, 16 bits).
+// En Remotion: <Audio src={staticFile('sfx/propios/pop.wav')} volume={0.5} /> dentro de una <Sequence from={cuadro}>.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SR = 44100;
-const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public', 'sfx');
+const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'public', 'sfx', 'propios');
 fs.mkdirSync(dir, { recursive: true });
 
 // Ruido reproducible (mismo archivo cada vez que se genera).

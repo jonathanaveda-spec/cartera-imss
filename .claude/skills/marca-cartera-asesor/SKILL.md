@@ -87,10 +87,14 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
 - **Los primeros 3 segundos enganchan sí o sí:** el gancho ya está en pantalla en el cuadro 0, la voz arranca en 0,0 s,
   algo se mueve antes del segundo 1 y en los 3 primeros segundos hay una pregunta, un número que pica o un conflicto
   («¿cuántos están activos?», «Sospechoso #1»). Nada de logo, saludo ni fondo vacío al inicio.
-- **Efectos de sonido que mantengan la atención** a lo largo de todo el video, en `videos/public/sfx/` (propios, gratis;
-  se regeneran con `node videos/tools/generar-sfx.mjs`):
-  `pop`/`pop2` texto o tarjeta que aparece · `whoosh` cambio de escena · `clic` toque en la app · `tic` número que cuenta ·
-  `ding` algo bueno («ya está ✅») · `caja` dinero/pago · `error` algo mal (moroso, excusa) · `subida` tensión antes de revelar.
+- **Efectos de sonido que mantengan la atención** a lo largo de todo el video, en `videos/public/sfx/` (gratis y con uso
+  comercial; catálogo y licencias en `videos/public/sfx/CREDITOS.md`). **Usar primero `pixabay/`** (suenan a TikTok), luego
+  `kenney/`; `propios/` solo de respaldo (Jonathan los encontró genéricos):
+  `pop-a`/`pop-b`/`pop-burbuja` texto o tarjeta que aparece · `whoosh-a`/`whoosh-b` cambio de escena ·
+  `notificacion-a`/`-b`/`mensaje-chat` llega un WhatsApp · `caja-kaching` dinero/pago · `ding-exito`/`tada` algo bueno ·
+  `buzzer-error`/`disco-rayado` algo mal o «espera…» · `boing` humor · `camara-foto` captura o comprobante ·
+  `subida-tension` antes de revelar · `teclado`/`clic-boton` escribir o tocar la app · de `kenney/`: confirmation,
+  select, tick, drop, impactBell, impactPunch y glitch para variar.
 - Cómo usarlos: uno en el **cuadro 0** (pop o whoosh junto al gancho) y luego en cada aparición o cambio (cada 1,5–3 s).
   Volumen 0,35–0,6 para que **nunca tapen la voz**; alternar `pop` y `pop2` para que no suene repetido; máximo uno
   cada ~0,5 s. Se mezclan dentro del video (en Remotion, `<Audio>` en una `<Sequence>`); la música la sigue poniendo Jonathan.
