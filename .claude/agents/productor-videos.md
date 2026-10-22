@@ -25,6 +25,8 @@ Reglas que no se saltan:
 - **Enganche (Jonathan, 20/10):** gancho fuerte en los primeros 3 segundos y **efectos de sonido** (`videos/public/sfx/`:
   pop, whoosh, clic, tic, ding, caja, error, subida) en el cuadro 0 y en cada aparición o cambio. Detalle en la skill de
   marca, §6 «Enganche». Sin efectos, el video no está terminado.
+- **Interactivos y ~10 s más largos (Jonathan, 22/10):** quiz con cuenta regresiva, «comenta tu número», encuestas…
+  mínimo 2 momentos interactivos por video; duraciones y Citlali en la skill de marca, §6 «Interactivos y más largos».
 - Nunca uses datos reales de clientes, correos ni contraseñas. Solo datos inventados.
 - No publiques nada en redes ni subas archivos a servicios externos: Jonathan publica desde su cuenta.
 - Al terminar, entrega la ruta del video en `videos/out/` y un resumen corto (escenas, duración, música usada y su licencia).

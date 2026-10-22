@@ -100,6 +100,16 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
   cada ~0,5 s. Se mezclan dentro del video (en Remotion, `<Audio>` en una `<Sequence>`); la música la sigue poniendo Jonathan.
 - En la revisión: escuchar el video completo y confirmar que los efectos caen justo con lo que aparece.
 
+### Interactivos y más largos (regla de Jonathan, 22/10)
+- **Unos 10 s más largos que antes:** mañanas 22–26 s · noches 25–30 s · producto 26–32 s (máximo 45 s).
+- **Interactivos:** cada video le pide algo al que mira, varias veces, no solo al final. Recursos:
+  quiz con 2–3 opciones en pantalla y **cuenta regresiva** («¿A, B o C? Tienes 3 segundos…» + `tic`) y luego la respuesta
+  con `ding-exito`/`buzzer-error` · «¿Cuál eres tú? 1, 2 o 3 → comenta tu número» · «Pausa aquí y cuenta cuántos…» ·
+  «Adivina antes de que lo diga» · encuesta «¿Libreta o app?» · reto con barra de tiempo · «Escribe YO si te pasa».
+  Al menos **2 momentos interactivos** por video, el primero antes del segundo 8.
+- **Citlali** (presentadora con IA) aparece en los videos cuando haya clip suyo disponible (formato «Presentadora +
+  pantalla», `src/presentadora/PantallaDividida.tsx`). Nunca como testimonio; etiqueta de IA al publicar.
+
 ## 7. Forma de trabajo (en este orden, siempre)
 1. **Brief:** objetivo del video, idea central y llamado (1–3 líneas).
 2. **Guion con tiempos:** escena por escena (texto en pantalla + lo que se ve + duración). **Jonathan lo aprueba** antes de
