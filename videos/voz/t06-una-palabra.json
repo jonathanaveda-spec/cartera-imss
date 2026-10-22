@@ -1,0 +1,16 @@
+{
+  "id": "t06-una-palabra",
+  "voz": "es-MX-Alejo:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Asesor, responde en una palabra." },
+    { "texto": "¿Tu peor día de cobro?" },
+    { "texto": "Lunes." },
+    { "texto": "¿El pretexto más usado?" },
+    { "texto": "Mañana." },
+    { "texto": "¿Tu mejor aliado?" },
+    { "texto": "WhatsApp." },
+    { "texto": "Ahora tú. ¿Qué es lo que más te cuesta de cobrar? Una palabra, aquí abajo." },
+    { "texto": "Las leo todas. Pruébala gratis en la beta." }
+  ]
+}

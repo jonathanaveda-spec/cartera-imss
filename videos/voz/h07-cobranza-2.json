@@ -1,0 +1,14 @@
+{
+  "id": "h07-cobranza-2",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Nadie me dijo esto cuando empecé: el problema no era vender, era cobrar.", "voz": "es-MX-Alejo:MAI-Voice-2", "velocidad": "+8%" },
+    { "texto": "Pausa y cuenta: ¿cuántos clientes tienes atrasados hoy?" },
+    { "texto": "Comenta tu letra." },
+    { "texto": "Antes yo vendía, y se me olvidaba la fecha de cobro.", "voz": "es-MX-Alejo:MAI-Voice-2" },
+    { "texto": "Ahora cada venta lleva su fecha, y la app me avisa tres días antes.", "voz": "es-MX-Alejo:MAI-Voice-2" },
+    { "texto": "¿A ti te lo dijeron? Sí o no, abajo." },
+    { "texto": "Pruébala gratis en la beta." }
+  ]
+}
