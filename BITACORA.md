@@ -8,6 +8,12 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 20/10/2026 · Plan de la semana, videos del miércoles y sonidos
+- Victoria: plan 20–25/10 con tendencias de TikTok (`videos/plan-semana-2026-10-19.md`, `videos/tendencias-2026-10-20.md`). Jonathan pasó a **2 videos al día (7:30 y 8 p. m.)**; calendario ajustado.
+- Lucía: P12, M08 y H06 hechos + capturas nuevas de la app en `videos/public/capturas2/`. P12 se publicó el mar 20 en la noche.
+- Regla nueva (Jonathan): gancho en los primeros 3 s y efectos de sonido en todo el video. 19 sonidos de Pixabay + 22 de Kenney (CC0) en `videos/public/sfx/` (créditos en CREDITOS.md); a Jonathan le gustaron más que los sintetizados.
+- Creative Center (captura de Jonathan): el top 3 de hashtags de México son campañas de TikTok Shop/LIVE → no se usan. Victoria y Mariana con tareas nuevas (tendencias de TikTok; estrategias de venta).
+
 ## 19/10/2026 · Creative Claw (comparado con Higgsfield)
 - Sin suscripción: USD 10 = 1.000 créditos (USD 0,01 c/u), no vencen; 100 créditos gratis al registrarse (sin tarjeta).
   Uso comercial permitido; no se adueñan de lo generado; créditos de fallas se devuelven.
