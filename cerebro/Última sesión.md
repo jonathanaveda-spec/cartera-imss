@@ -5,7 +5,8 @@ al cerrar cada bloque de trabajo (no es un diario: para eso está `BITACORA.md`)
 
 ## Dónde quedamos (23/10/2026)
 - Videos: 2 al día (7:30 y 8 p. m.), interactivos, ~25–30 s, con Citlali como conductora (foto) y sonidos de Pixabay. Hechos esta semana: P12, M08, H06, T06, H07; M05 hoy vie 23 7:30. Falta sáb–dom: P13, T07, M11, H08 (ver plan §2).
-- Captación: estrategia nueva → [[Captación]]. Pendiente que Jonathan apruebe el botón «Recomendar a un colega».
+- Captación: investigación con fuentes de Mariana + plan de 4 semanas (26/10–22/11) → [[Captación]]. ✅ Botón «Recomendar a un colega» en línea.
+- **Lo siguiente:** (1) Lucía: videos sáb 24 y dom 25 (P13, T07, M11, H08) con las reglas nuevas; (2) arrancar la semana 1 del plan de captación el lunes 26; (3) Fernanda: ley de datos y prospección; (4) Jonathan: buscar grupos de Facebook 10 min, probar si TikTok deja escribir a quien comenta, capturas de analíticas para Victoria.
 
 ## Antes (16/10)
 - Semana de videos 12–18 completa (21 videos) en `videos/entregas/`; descripciones en `videos/descripciones-por-subir.md`
