@@ -44,3 +44,11 @@ document.getElementById('anio').textContent = new Date().getFullYear();
   }, { threshold: 0.3 });
   ioEscena.observe(escena);
 })();
+
+// «Recomendar a un colega»: si llegó con ?ref=código, se guarda para la app (mismo dominio, /app/).
+(function () {
+  try {
+    var ref = new URLSearchParams(location.search).get('ref');
+    if (ref && /^[a-f0-9]{8}$/.test(ref)) localStorage.setItem('cartera:ref', ref);
+  } catch (e) { /* sin almacenamiento */ }
+})();

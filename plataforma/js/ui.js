@@ -7,7 +7,7 @@ import { MARCA } from './marca.js';
 import * as I from './instalar.js';
 import * as B from './bloqueo.js';
 import { enPlay } from './origen.js';
-import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion, equivalenteLocal } from './plan.js';
+import { TIPOS_TICKET, PAISES, NOMBRE_TIPO, mediosOrdenados, textoPrecios, mensajesDeConversacion, equivalenteLocal, codigoRecomendacion, enlaceRecomendacion } from './plan.js';
 
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -773,6 +773,7 @@ export function abrirMenu() {
       opMenu('papelera', '🗑️', 'Papelera', S.db.papelera.length ? `${S.db.papelera.length} cliente(s) eliminados.` : 'Vacía.'),
       opMenu('config', '⚙️', 'Configuración', 'Campos personalizados, almacenamiento y deshacer cambios.'),
       grupoMenu('Ayuda y cuenta'),
+      opMenu('recomendar', '🤝', 'Recomendar a un colega', 'Mándale la app por WhatsApp a otro asesor. Los que lleguen con tu enlace quedan como recomendados tuyos.'),
       opMenu('ayuda', '💬', 'Ayuda y soporte', N.soporte.noLeidos ? `🔴 ${N.soporte.noLeidos} respuesta(s) nueva(s) de soporte` : 'Escríbenos: te respondemos en el mismo chat.'),
       opMenu('cuenta', '👤', 'Mi cuenta', `${N.estado.usuario ? esc(N.estado.usuario) + ' · ' : ''}cerrar sesión o eliminar cuenta.`),
       opMenu('acerca', '🤝', 'Compartir y acerca de', `Recomiéndala a un colega · versión ${esc(MARCA.version)}`),
@@ -1420,13 +1421,18 @@ function abrirAcercaDe() {
       <p class="mini">¿Dudas o ideas? Escríbenos desde ☰ → Ayuda y soporte o a <a href="mailto:${esc(MARCA.correoSoporte)}">${esc(MARCA.correoSoporte)}</a>.</p>
       <p class="mini" style="margin-top:6px"><a href="privacidad.html" target="_blank" rel="noopener">Aviso de privacidad</a> · <a href="terminos.html" target="_blank" rel="noopener">Términos de uso</a></p>`,
   });
-  v.q('[data-compartir]').addEventListener('click', async () => {
-    if (navigator.share) {
-      try { await navigator.share({ title: MARCA.nombre, text: TEXTO_COMPARTIR, url: ENLACE_COMPARTIR }); return; }
-      catch (err) { if (err?.name === 'AbortError') return; }
-    }
-    window.open(`https://wa.me/?text=${encodeURIComponent(`${TEXTO_COMPARTIR} ${ENLACE_COMPARTIR}`)}`, '_blank', 'noopener');
-  });
+  v.q('[data-compartir]').addEventListener('click', recomendarApp);
+}
+
+/** «Recomendar a un colega»: comparte el enlace con el código del asesor (así sabemos quién trajo a quién). */
+async function recomendarApp() {
+  let url = ENLACE_COMPARTIR;
+  try { if (N.estado.uid) url = enlaceRecomendacion(await codigoRecomendacion(N.estado.uid)); } catch { /* sin código */ }
+  if (navigator.share) {
+    try { await navigator.share({ title: MARCA.nombre, text: TEXTO_COMPARTIR, url }); return; }
+    catch (err) { if (err?.name === 'AbortError') return; }
+  }
+  window.open(`https://wa.me/?text=${encodeURIComponent(`${TEXTO_COMPARTIR} ${url}`)}`, '_blank', 'noopener');
 }
 
 function abrirCuenta() {
@@ -2013,6 +2019,7 @@ export function enlazarEventos() {
     comisiones: abrirComisiones,
     cuenta: abrirCuenta,
     acerca: abrirAcercaDe,
+    recomendar: recomendarApp,
     plan: abrirPlan,
     ayuda: (el) => abrirAyuda(el.dataset.texto),
     bloqueo: abrirBloqueo,

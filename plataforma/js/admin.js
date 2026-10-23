@@ -1,6 +1,6 @@
 // Panel de administración (solo cuentas cuyo UID está en la lista de administradores de firestore.rules).
 import { firebaseConfig } from './nube-config.js';
-import { PAISES, LIMITE_GRATIS_DEFECTO, LIMITE_BETA_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
+import { codigoRecomendacion, PAISES, LIMITE_GRATIS_DEFECTO, LIMITE_BETA_DEFECTO, DIAS_PRUEBA_DEFECTO, planEfectivo, NOMBRE_TIPO, mensajesDeConversacion } from './plan.js';
 import { calcularEstado, hoyISO, fmtFecha, fmtFechaHora } from './logic.js';
 import './pantalla.js';
 import { activarActualizaciones } from './actualizar.js';
@@ -174,6 +174,9 @@ function resumen() {
             <button class="btn chico primario" data-plan="${u.uid}">Registrar pago</button>
             <button class="btn chico" data-escribir="${u.uid}">Escribir</button></div></div></li>`).join('')}</ul>`
       : '<p class="mini">Aquí aparecerán los asesores cuya prueba o plan termine en los próximos 3 días o ya haya vencido.</p>'}</div>
+    <div class="seccion"><h3>Recomendaciones</h3>
+      <p class="mini" style="margin-bottom:8px">Quién llegó con el enlace de «Recomendar a un colega» de otro asesor.</p>
+      <div id="recos"><button class="btn chico" data-recos type="button">Ver quién recomendó a quién</button></div></div>
     <div class="seccion"><h3>Asesores por país</h3>${porPais.map(([p, n]) => `${esc(PAISES[p] || p)}: <b>${n}</b>`).join(' · ') || 'Sin datos'}</div>
     <div class="seccion"><h3>Modo actual</h3>${datos.sistema.betaAbierta ? `Beta gratuita: todos gratis hasta ${datos.sistema.limiteBeta ?? LIMITE_BETA_DEFECTO} clientes (las pruebas y los pagos no aplican).` : `Prueba gratis de ${datos.sistema.diasPrueba ?? DIAS_PRUEBA_DEFECTO} días; después Plan Pro o plan gratis hasta ${datos.sistema.limiteGratis ?? LIMITE_GRATIS_DEFECTO} clientes.`}</div>`;
 }
@@ -402,6 +405,28 @@ async function borrarAsesor(uid) {
   });
 }
 
+async function verRecomendaciones() {
+  const caja = $('#recos');
+  caja.innerHTML = '<p class="mini">Cargando…</p>';
+  // Solo se lee config/main de cada asesor (no sus clientes); igual queda en el registro de accesos.
+  await registrar('ver_recomendaciones', `${datos.usuarios.length} asesores`);
+  const porCodigo = new Map(await Promise.all(datos.usuarios.map(async (u) => [await codigoRecomendacion(u.uid), u])));
+  const filas = [];
+  for (const u of datos.usuarios) {
+    try {
+      const d = await F.getDoc(F.doc(fs, 'usuarios', u.uid, 'config', 'main'));
+      const c = d.exists() ? d.data() : {};
+      if (c.recomendadoPor) filas.push({ u, de: porCodigo.get(c.recomendadoPor), el: c.recomendadoEl, codigo: c.recomendadoPor });
+    } catch { /* sin permiso o sin datos */ }
+  }
+  const nombre = (u) => esc(u ? (u.nombre || u.correo) : '');
+  const cuenta = filas.reduce((m, f) => { const k = f.de ? nombre(f.de) : 'Código desconocido'; m[k] = (m[k] || 0) + 1; return m; }, {});
+  caja.innerHTML = filas.length
+    ? `<p class="mini" style="margin-bottom:6px">${Object.entries(cuenta).map(([k, n]) => `${k}: <b>${n}</b>`).join(' · ')}</p>
+      <ul class="lista-simple">${filas.map((f) => `<li><b>${nombre(f.u)}</b> <span class="mini">llegó por</span> ${f.de ? nombre(f.de) : `código ${esc(f.codigo)}`} <span class="mini">${esc(f.el || '')}</span></li>`).join('')}</ul>`
+    : '<p class="mini">Todavía nadie llegó con un enlace de recomendación.</p>';
+}
+
 async function verCartera(uid) {
   const u = datos.usuarios.find((x) => x.uid === uid);
   await seguro(async () => {
@@ -614,6 +639,7 @@ async function arrancar() {
     if (es) escribirA(es.dataset.escribir);
     const bp = e.target.closest('[data-borrar-pago]');
     if (bp) borrarPago(bp.dataset.borrarPago);
+    if (e.target.closest('[data-recos]')) seguro(verRecomendaciones);
     const ba = e.target.closest('[data-borrar-asesor]');
     if (ba) borrarAsesor(ba.dataset.borrarAsesor);
   });

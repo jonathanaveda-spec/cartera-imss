@@ -6,6 +6,8 @@ import * as B from './bloqueo.js';
 import './pantalla.js';
 import { activarActualizaciones } from './actualizar.js';
 import { render, enlazarEventos, refrescarTodo, alCambiarSoporte, pedirPaisSiFalta } from './ui.js';
+import { guardarRefDeLaUrl } from './plan.js';
+guardarRefDeLaUrl(); // enlace de «Recomendar a un colega»
 
 const accionesAcceso = {
   entrar: N.entrar,
@@ -73,6 +75,7 @@ async function arrancar() {
       if (r === 'cancelado') { await N.salir(); location.reload(); return; }
       A.ocultarAcceso();
       render();
+      N.anotarRecomendacion().catch(() => {}); // llegó con el enlace de un colega
       pedirPaisSiFalta(); // cuentas viejas: confirmar el país una vez (antes venía «Colombia» marcado)
     } catch (e) {
       console.error(e);

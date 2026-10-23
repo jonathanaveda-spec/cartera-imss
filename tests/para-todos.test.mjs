@@ -89,3 +89,18 @@ test('«Clientes activos»: los dados de baja no se cuentan ni se listan, salvo 
   assert.equal(ids({ busqueda: 'luis' }), '2');
   assert.equal(ids({ estado: 'BAJA' }), '2');
 });
+
+test('recomendar a un colega: código fijo de 8 caracteres y se guarda solo si es válido', async () => {
+  const P = await import('../plataforma/js/plan.js');
+  const a = await P.codigoRecomendacion('uid-de-prueba');
+  assert.match(a, /^[a-f0-9]{8}$/);
+  assert.equal(a, await P.codigoRecomendacion('uid-de-prueba'));
+  assert.notEqual(a, await P.codigoRecomendacion('otro-uid'));
+  assert.equal(P.enlaceRecomendacion(a), `https://carteraasesor.com/?ref=${a}`);
+  const mem = new Map();
+  globalThis.localStorage = { getItem: (k) => mem.get(k) ?? null, setItem: (k, v) => mem.set(k, v), removeItem: (k) => mem.delete(k) };
+  P.guardarRefDeLaUrl('?ref=<script>');
+  assert.equal(mem.get(P.CLAVE_REF), undefined);
+  P.guardarRefDeLaUrl(`?x=1&ref=${a}`);
+  assert.equal(mem.get(P.CLAVE_REF), a);
+});

@@ -99,3 +99,20 @@ export function equivalenteLocal(sistema = {}, pais = '') {
   if (Number(sistema.precioAnual) > 0) p.push(`≈ ${fmt(sistema.precioAnual)} al año`);
   return p.join(' · ');
 }
+
+// ---------- Recomendaciones («Recomendar a un colega») ----------
+// Código corto y fijo de cada asesor (no revela su UID): primeros 8 caracteres del SHA-256 del UID.
+export const CLAVE_REF = 'cartera:ref';
+export const esCodigoRef = (c) => typeof c === 'string' && /^[a-f0-9]{8}$/.test(c);
+export async function codigoRecomendacion(uid) {
+  const h = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(String(uid)));
+  return [...new Uint8Array(h)].slice(0, 4).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+export const enlaceRecomendacion = (codigo) => `https://carteraasesor.com/?ref=${codigo}`;
+/** Guarda el código si la página se abrió con ?ref=… (lo usan la página y la app: comparten el dominio). */
+export function guardarRefDeLaUrl(buscar = globalThis.location?.search || '') {
+  try {
+    const ref = new URLSearchParams(buscar).get('ref');
+    if (esCodigoRef(ref)) localStorage.setItem(CLAVE_REF, ref);
+  } catch { /* sin almacenamiento: no pasa nada */ }
+}

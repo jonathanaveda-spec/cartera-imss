@@ -3,7 +3,7 @@
 import * as CFG from './nube-config.js';
 import * as S from './store.js';
 import { calcularCambios, actualizarBase, separarConfig, limpio, estable } from './sincro.js';
-import { planEfectivo, cupo, puedeEditar } from './plan.js';
+import { planEfectivo, cupo, puedeEditar, CLAVE_REF, esCodigoRef, codigoRecomendacion } from './plan.js';
 import { alSalir as olvidarPin } from './bloqueo.js';
 
 const { firebaseConfig } = CFG;
@@ -413,3 +413,16 @@ export async function desactivarAvisos() {
 function lsLeer(k) { try { return localStorage.getItem(k); } catch { return null; } }
 function lsGuardar(k, v) { try { localStorage.setItem(k, v); } catch { /* opcional */ } }
 function lsBorrar(k) { try { localStorage.removeItem(k); } catch { /* opcional */ } }
+
+// ---------- Recomendaciones ----------
+/** Cuenta nueva que llegó con el enlace de un colega: guarda su código en config/main (sin tocar las reglas). */
+export async function anotarRecomendacion() {
+  let ref = '';
+  try { ref = localStorage.getItem(CLAVE_REF) || ''; } catch { return; }
+  if (!esCodigoRef(ref) || !estado.uid) return;
+  const borrar = () => { try { localStorage.removeItem(CLAVE_REF); } catch { /* nada */ } };
+  if (S.db.config.recomendadoPor || Date.now() - (estado.creado || 0) > 7 * 86400000) return borrar();
+  if (ref === (await codigoRecomendacion(estado.uid))) return borrar(); // su propio enlace
+  await S.guardarConfig({ recomendadoPor: ref, recomendadoEl: new Date().toISOString().slice(0, 10) });
+  borrar();
+}

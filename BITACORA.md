@@ -8,6 +8,10 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 23/10/2026 · Captación de asesores + «Recomendar a un colega»
+- Estrategia de captación (8 jugadas, rutina diaria, medición): `investigacion/estrategias-captacion-2026-10-23.md` → nota [[Captación]].
+- App: ☰ → **Recomendar a un colega** (WhatsApp o compartir) con enlace `carteraasesor.com/?ref=<código>` (código = 8 caracteres del SHA-256 del UID). La página y la app guardan el código; una cuenta nueva (≤7 días) lo anota en `config/main → recomendadoPor` (sin tocar reglas). Panel admin → Resumen → «Recomendaciones». Probado en el simulador. 76 pruebas OK.
+
 ## 20/10/2026 · Plan de la semana, videos del miércoles y sonidos
 - Victoria: plan 20–25/10 con tendencias de TikTok (`videos/plan-semana-2026-10-19.md`, `videos/tendencias-2026-10-20.md`). Jonathan pasó a **2 videos al día (7:30 y 8 p. m.)**; calendario ajustado.
 - Lucía: P12, M08 y H06 hechos + capturas nuevas de la app en `videos/public/capturas2/`. P12 se publicó el mar 20 en la noche.
