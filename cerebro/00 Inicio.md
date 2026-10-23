@@ -6,6 +6,7 @@ estas notas** y solo después abren archivos largos. Lo que cambia día a día s
 ## Mapa
 - [[Última sesión]] — **leer primero**: dónde quedó la conversación anterior y qué sigue.
 - [[Negocio]] — qué vendemos, a quién y cómo ganamos.
+- [[Captación]] — cómo conseguimos asesores (estrategia 23/10).
 - [[App]] — cómo está hecha la app y dónde vive.
 - [[Marca]] — colores, tono, reglas visuales.
 - [[Videos]] — producción diaria para TikTok (3 por día).

@@ -3,7 +3,11 @@
 Nota corta para que una conversación NUEVA arranque donde quedó la anterior sin releer historiales. Emma la reescribe
 al cerrar cada bloque de trabajo (no es un diario: para eso está `BITACORA.md`).
 
-## Dónde quedamos (16/10/2026, mañana)
+## Dónde quedamos (23/10/2026)
+- Videos: 2 al día (7:30 y 8 p. m.), interactivos, ~25–30 s, con Citlali como conductora (foto) y sonidos de Pixabay. Hechos esta semana: P12, M08, H06, T06, H07; M05 hoy vie 23 7:30. Falta sáb–dom: P13, T07, M11, H08 (ver plan §2).
+- Captación: estrategia nueva → [[Captación]]. Pendiente que Jonathan apruebe el botón «Recomendar a un colega».
+
+## Antes (16/10)
 - Semana de videos 12–18 completa (21 videos) en `videos/entregas/`; descripciones en `videos/descripciones-por-subir.md`
   y en cada guion. **Hoy viernes 16:** M05 (7:30), P09 (13:00), H04 (20:00). Mandarlos a Jonathan cada uno con su descripción.
 - Video explicativo para corredores de seguros de Venezuela listo (`EXPLICATIVO_corredores_VE.mp4`) y enviado; Jonathan
