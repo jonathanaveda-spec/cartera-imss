@@ -1,0 +1,14 @@
+{
+  "id": "h08-pista-escondida",
+  "voz": "es-MX-Jorge:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Fíjate bien en esta lista de clientes. Hay algo raro. ¿Lo ves?" },
+    { "texto": "Tienes tres segundos." },
+    { "texto": "Laura tuvo una semana normal. Cobró, mandó mensajes, visitó clientes. Todo en orden… o eso creía." },
+    { "texto": "Ese puntito rojo era Toño. Llevaba tres meses sin pagar. Y nadie lo vio." },
+    { "texto": "En la libreta, el moroso se esconde. En la app, ese rojo se ve apenas la abres." },
+    { "texto": "¿Lo viste en el segundo uno? Sí o no, abajo." },
+    { "texto": "Mira otra vez. Pruébala gratis en la beta." }
+  ]
+}

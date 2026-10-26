@@ -75,3 +75,17 @@ Por nombre, CURP, NSS o celular: escribes y ahí está tu cliente 🔎 Sin hojea
 Si eres asesor nuevo, empieza así 👇 1) pasa tu lista de clientes a la app 2) ponle a cada uno su fecha de cobro 3) revisa tu cartera cada mañana. Así tu cobranza no depende de la memoria. ¿Qué consejo le darías tú a un asesor nuevo? Pruébala gratis: carteraasesor.com
 #asesorimss #clientes #cobranza #carteraasesor
 ```
+
+## Lunes 26/10 (semana 26/10–01/11)
+
+### T07 «👻 Cosas que un asesor debería dejar en visto» — lun 26, 8:00 p. m. · `T07_dejar_en_visto_con_voz.mp4`
+```
+Cosas que un asesor debería dejar en visto 👻 La libreta que se moja, cobrar de memoria, la CURP por cualquier chat, el Excel con 5 versiones… Lo único que no: avisarle a tu cliente antes de que venza. ¿Cuál dejas en visto primero? Comenta 1, 2 o 3 👇 En Cartera Asesor tu cartera de clientes y tu cobranza, en un solo lugar: carteraasesor.com
+#cobranza #asesorimss #halloween #carteraasesor
+```
+
+### H08 «¿Lo viste en el segundo 1? 🔴» — mar 27, 7:30 a. m. · `H08_pista_escondida_con_voz.mp4`
+```
+¿Lo viste en el segundo 1? 🔴 Mira otra vez. Un cliente atrasado se esconde fácil en la libreta; en Cartera Asesor tu cartera se pinta sola de verde, amarillo y rojo y el moroso no se te pasa. ¿Lo encontraste? Sí o no 👇 Pruébala gratis en la beta: carteraasesor.com
+#cobranza #clientesmorosos #asesorimss #carteraasesor
+```

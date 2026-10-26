@@ -59,10 +59,10 @@ que todavía no sale en ningún video. Las series siguen: «Cobranza en 15 segun
 | Jue 22 | 20:00 | **T06** | T | Asesor, responde en UNA palabra | Alejo | por hacer |
 | **Vie 23** | **07:30** | **M05** | H · chat | El mensaje del viernes que te ahorra la vuelta del lunes (**fijo**) | Dalia HD + Valeria | ✅ hecho |
 | Vie 23 | 20:00 | **H07** | H · antes/después | Lo que nadie te cuenta de la cobranza #2 | **Jorge HD + Alejo** (cambio: no repetir Dalia) | por hacer |
-| Sáb 24 | 07:30 | **P13** | P | CURP y NSS juntos, a la mano | Valeria | por hacer |
-| Sáb 24 | 20:00 | **T07** | T | 👻 Cosas que un asesor debería dejar en visto | Dalia HD | por hacer |
-| Dom 25 | 07:30 | **M11** | H · antes/después | Domingo: 3 minutos y tu semana de cobro queda lista | Alejo | por hacer |
-| Dom 25 | 20:00 | **H08** | H · historia con pista | ¿Lo viste en el segundo 1? 🔴 | Jorge HD | por hacer |
+| Sáb 24 | 07:30 | **P13** | P | CURP y NSS juntos, a la mano | Valeria | reserva (26/10) |
+| Sáb 24 | 20:00 | **T07** | T | 👻 Cosas que un asesor debería dejar en visto | Dalia HD | ✅ hecho, sale lun 26 20:00 |
+| Dom 25 | 07:30 | **M11** | H · antes/después | Domingo: 3 minutos y tu semana de cobro queda lista | Alejo | reserva (26/10) |
+| Dom 25 | 20:00 | **H08** | H · historia con pista | ¿Lo viste en el segundo 1? 🔴 | Jorge HD | ✅ hecho, sale mar 27 7:30 |
 
 **Reserva (semana 26/10–01/11, en este orden sugerido):** P14 «Servicio adquirido», P15 «la app se ajusta a tu país»,
 P16 «Pagaron hoy» (repetir su captura con la fecha del día), M10 «mensaje de cobro en 4 partes», T05 «Cobranza en 15

@@ -1,0 +1,16 @@
+{
+  "id": "t07-dejar-en-visto",
+  "voz": "es-MX-Dalia:DragonHDLatestNeural",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "Cosas que un asesor debería dejar… en visto." },
+    { "texto": "Adivina: ¿qué dejarías en visto primero?" },
+    { "texto": "La libreta que se moja." },
+    { "texto": "Cobrar de memoria." },
+    { "texto": "Mandar la CURP por cualquier chat." },
+    { "texto": "El Excel con cinco versiones." },
+    { "texto": "Pero esto no. Avisarle a tu cliente tres días antes. Eso sí se hace." },
+    { "texto": "Pausa y elige: ¿cuál dejas en visto primero? Uno, dos o tres. Comenta tu número." },
+    { "texto": "¿Qué más dejarías en visto? Pruébala gratis en la beta." }
+  ]
+}
