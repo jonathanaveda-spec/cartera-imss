@@ -8,6 +8,10 @@ con `git pull`.
 > 🚀 **12/10:** solicitud a **Claude Startups** enviada (correo soporte@carteraasesor.com; textos en el chat de la nube). Cuenta de API creada con USD 0, sin uso.
 > 📋 **Lo que falta está en `PENDIENTES.md`** (lista única, revisada a fondo el 09/10). Empezar por ahí.
 
+## 26/10/2026 · Videos T07 y H08
+- Jonathan pidió solo 2 de los 4 del fin de semana: Lucía hizo **T07** «Dejar en visto» (30,4 s, voz Dalia HD, lun 26 8 p. m.) y **H08** «Pista escondida» (30,9 s, voz Jorge HD, mar 27 7:30). Interactivos, Citlali en foto, sonidos Pixabay/Kenney. Enviados con descripciones en .txt. P13 y M11 pasan a reserva.
+- Hoy arranca la semana 1 de captación (mensaje a Yamileth).
+
 ## 23/10/2026 · Captación de asesores + «Recomendar a un colega»
 - Estrategia de captación (8 jugadas, rutina diaria, medición): `investigacion/estrategias-captacion-2026-10-23.md` → nota [[Captación]].
 - App: ☰ → **Recomendar a un colega** (WhatsApp o compartir) con enlace `carteraasesor.com/?ref=<código>` (código = 8 caracteres del SHA-256 del UID). La página y la app guardan el código; una cuenta nueva (≤7 días) lo anota en `config/main → recomendadoPor` (sin tocar reglas). Panel admin → Resumen → «Recomendaciones». Probado en el simulador. 76 pruebas OK.
