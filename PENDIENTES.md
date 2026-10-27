@@ -123,7 +123,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       carteras desde el panel: **Jonathan decidió dejarlo como está**, 19/10.)
 - [x] ✅ 19/10 5:23 p. m. (Emma revisó en la consola que quedó la versión nueva) **Jonathan: publicar las reglas nuevas** (`plataforma/firestore.rules`, 17/10) en Firebase → Firestore → Reglas → pegar → Publicar.
       Luego agregar un cliente en la app y ver que sincroniza. Si algo falla: pegar la versión anterior (Firebase guarda el historial de reglas).
-- [ ] Jonathan: ✅ 27/10 verificación en dos pasos en GitHub (app autenticadora + GitHub Mobile, códigos guardados). Falta: correo admin, proteger `main`, App Check y DMARC (lista completa en el informe).
+- [ ] Jonathan: ✅ 27/10 verificación en dos pasos en GitHub (app autenticadora + GitHub Mobile, códigos guardados). ✅ 27/10 correo admin con verificación en dos pasos (mensaje de Google, autenticador, teléfono y 10 códigos de respaldo). Falta: proteger `main`, App Check y DMARC (lista completa en el informe).
       ⚠️ Si se activa App Check con reCAPTCHA, avisar a Emma: hay que permitir los dominios de reCAPTCHA en la política de la app.
 - [x] ✅ 15/10 Test drive de Tere hecho (68 pruebas OK; lo de hoy funciona). GRAVE corregido el mismo día (79ce75f): el
       registro trae «Colombia» marcado por defecto → asesores de México con país CO; ahora CO se trata como México.
@@ -175,7 +175,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
 - [ ] Esperar respuesta del **soporte de GitHub** (ticket 08/10) para borrar la copia de la PR #1 (llega al Gmail de Jonathan).
 - [x] ✅ 09/10 (Emma) Llave de Firebase restringida a 6 sitios (carteraasesor.com, www, jonathanaveda-spec.github.io, cartera-asesor.firebaseapp.com, localhost:8080, 127.0.0.1:8080): probado → desde otra página 403, desde las nuestras 200. Alertas de GitHub de las dos repos cerradas como «Won't fix». (Antes: Restringir la **llave de Firebase** a los dominios (carteraasesor.com, www, jonathanaveda-spec.github.io,
       cartera-asesor.firebaseapp.com, localhost) y cerrar la alerta de GitHub como «Won't fix» (Jonathan; nunca se confirmó).
-- [ ] **Verificación en dos pasos** en la cuenta de Google del administrador (Jonathan).
+- [x] ✅ 27/10 **Verificación en dos pasos** en la cuenta de Google del administrador (Jonathan).
 - [x] ✅ 09/10 SheetJS actualizado a 0.20.3 (pruebas de importación OK).
 - [x] ✅ 09/10 PIN con esperas crecientes: 5 fallos 30 s, 10 → 1 min, 15 → 5 min, 20 → 15 min, 25 → cierra la sesión (avisa desde el 15).
 - [ ] Revisar frases que prometen de más («100 % privada», «nadie puede ver», «encriptados») en sitio y textos (Julieta; parte
