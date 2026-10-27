@@ -18,6 +18,7 @@ import t02 from "../tarjetas/t02-cobranza15s-1.json";
 import m01 from "../tarjetas/m01-checklist-lunes.json";
 import { ComposicionesSemana12 } from "./RootSemana12";
 import { ComposicionesSemana20 } from "./RootSemana20";
+import { ComposicionesFacebook } from "./RootFacebook";
 
 // Cada archivo de videos/tarjetas/*.json y videos/historias/*.json es una composición:
 // para sumar una, importa su JSON arriba y agrégalo a estas listas.
@@ -113,6 +114,7 @@ export const RemotionRoot: React.FC = () => {
       ))}
       <ComposicionesSemana12 />
       <ComposicionesSemana20 />
+      <ComposicionesFacebook />
     </>
   );
 };
