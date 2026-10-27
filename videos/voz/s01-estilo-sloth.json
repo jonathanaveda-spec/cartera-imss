@@ -1,0 +1,14 @@
+{
+  "id": "s01-estilo-sloth",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+0%",
+  "frases": [
+    { "texto": "¿Cuál de estos cinco clientes ya te debe?" },
+    { "texto": "Tienes tres segundos. Comenta su número." },
+    { "texto": "En la libreta, todos se ven igual." },
+    { "texto": "Cartera Asesor los pinta solos. Verde, al día. Amarillo, por vencer. Rojo, ya te deben." },
+    { "texto": "Cuatro en rojo, sin buscar nada. Y con un toque en Recordar, les avisas por WhatsApp." },
+    { "texto": "¿Todavía llevas tu cartera en libreta? Escribe YO." },
+    { "texto": "Beta gratuita en carteraasesor punto com. Escríbeme CARTERA." }
+  ]
+}

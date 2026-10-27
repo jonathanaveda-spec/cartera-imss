@@ -89,3 +89,12 @@ Cosas que un asesor debería dejar en visto 👻 La libreta que se moja, cobrar 
 ¿Lo viste en el segundo 1? 🔴 Mira otra vez. Un cliente atrasado se esconde fácil en la libreta; en Cartera Asesor tu cartera se pinta sola de verde, amarillo y rojo y el moroso no se te pasa. ¿Lo encontraste? Sí o no 👇 Pruébala gratis en la beta: carteraasesor.com
 #cobranza #clientesmorosos #asesorimss #carteraasesor
 ```
+
+## PRUEBA de estilo «video explicativo» (inspirado en Sloth) · `S01_estilo_sloth_con_voz.mp4`
+
+### S01 «Quién está al día, quién vence y quién debe»
+```
+¿Cuál de estos 5 clientes ya te debe? 👀 En la libreta todos se ven igual. En Cartera Asesor tu cartera se pinta sola: verde al día, amarillo por vencer, rojo ya te debe, y con un toque en Recordar le avisas por WhatsApp. ¿Todavía llevas tu cartera en libreta? Escribe YO 👇 Beta gratuita: carteraasesor.com · Escríbeme CARTERA
+#cobranza #asesorimss #clientes #carteraasesor
+```
+(Activar «Contenido generado por IA»: Citlali es una persona creada con IA y la voz es artificial.)
