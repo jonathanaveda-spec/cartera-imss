@@ -123,7 +123,7 @@ incógnito y desde celular). **No reintentar muchas veces.** Plan en la PC:
       carteras desde el panel: **Jonathan decidió dejarlo como está**, 19/10.)
 - [x] ✅ 19/10 5:23 p. m. (Emma revisó en la consola que quedó la versión nueva) **Jonathan: publicar las reglas nuevas** (`plataforma/firestore.rules`, 17/10) en Firebase → Firestore → Reglas → pegar → Publicar.
       Luego agregar un cliente en la app y ver que sincroniza. Si algo falla: pegar la versión anterior (Firebase guarda el historial de reglas).
-- [ ] Jonathan: verificación en dos pasos en GitHub y en el correo admin, proteger `main`, App Check y DMARC (lista completa en el informe).
+- [ ] Jonathan: ✅ 27/10 verificación en dos pasos en GitHub (app autenticadora + GitHub Mobile, códigos guardados). Falta: correo admin, proteger `main`, App Check y DMARC (lista completa en el informe).
       ⚠️ Si se activa App Check con reCAPTCHA, avisar a Emma: hay que permitir los dominios de reCAPTCHA en la política de la app.
 - [x] ✅ 15/10 Test drive de Tere hecho (68 pruebas OK; lo de hoy funciona). GRAVE corregido el mismo día (79ce75f): el
       registro trae «Colombia» marcado por defecto → asesores de México con país CO; ahora CO se trata como México.
