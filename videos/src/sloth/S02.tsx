@@ -444,9 +444,17 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
       {/* GANCHO: clip real (Pexels, ver clips/CREDITOS.md), corte seco al segundo 1,5 */}
       {t < T_CLIP ? (
         <AbsoluteFill style={{ background: "#000", overflow: "hidden" }}>
-          <Sequence from={0} durationInFrames={Math.round(T_CLIP * fps)} layout="none">
-            <Video src={staticFile("clips/oficina-grito-laptop.mp4")} muted objectFit="cover" style={{ width: 1080, height: 1920 }} />
-          </Sequence>
+          {(() => {
+            const zoom = 1.04 + 0.1 * (t / T_CLIP); // zoom lento hacia su cara
+            const tiembla = t > T_CLIP - 0.18 ? Math.sin(t * 120) * 9 : 0; // temblor en el golpe
+            return (
+              <div style={{ position: "absolute", inset: 0, transformOrigin: "50% 38%", scale: zoom, translate: `${tiembla}px ${45 + tiembla * 0.6}px` }}>
+                <Sequence from={0} durationInFrames={Math.round(T_CLIP * fps)} layout="none">
+                  <Video src={staticFile("clips/oficina-mujer-laptop.mp4")} muted objectFit="cover" style={{ width: 1080, height: 1920 }} />
+                </Sequence>
+              </div>
+            );
+          })()}
           <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 420, background: "#0B2A6F", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 40 }}>
             {(() => {
               const p = ease(frame, 0, 6, Easing.out(Easing.back(1.8)));
