@@ -1,10 +1,10 @@
 import type React from "react";
-import { AbsoluteFill, Easing, Img, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { Video } from "@remotion/media";
+import { AbsoluteFill, Easing, Img, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CalculateMetadataFunction } from "remotion";
 import { C, textos, titulos } from "../brand";
 import { ease } from "../anim";
 import { Background } from "../components/Background";
-import { CaidaGancho, T_IMPACTO, T_RESBALA } from "./CaidaGancho";
 import { Burbuja, Sfx, VozEn, cargarFrases } from "../semana22/Comun";
 
 import type { VozFrase } from "../voz";
@@ -329,10 +329,9 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
   const add = (src: string, en: number, vol = 0.45, dur = 1.2) => s.push(<Sfx key={`${src}${en}`} src={src} en={en} vol={vol} dur={dur} />);
   add("pixabay/pop-a.mp3", 0, 0.5, 0.7); // cuadro 0
   add("pixabay/whoosh-a.mp3", 0.02, 0.35, 0.8);
-  add("pixabay/whoosh-b.mp3", T_RESBALA - 0.05, 0.4, 0.7); // resbala
-  add("pixabay/boing.mp3", T_RESBALA, 0.4, 1);
-  add("kenney/impactPunch_medium_000.ogg", T_IMPACTO, 0.8, 0.9); // el golpe de la caída
-  add("pixabay/pop-burbuja.mp3", T_IMPACTO + 0.12, 0.35, 1);
+  add("pixabay/whoosh-b.mp3", 0.55, 0.3, 0.8); // los papeles caen
+  add("pixabay/boing.mp3", 0.9, 0.3, 1);
+  add("kenney/impactPunch_medium_000.ogg", T_CLIP - 0.04, 0.7, 0.9); // golpe en el corte seco
   add("pixabay/disco-rayado.mp3", T_CLIP - 0.12, 0.45, 1.3); // corte seco al mundo
   add("pixabay/pop-b.mp3", T_CLIP + 0.05, 0.45, 0.8);
   add("pixabay/whoosh-b.mp3", T_CLIP, 0.3, 0.8);
@@ -443,11 +442,13 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
       <Sticker frameInicio={Math.round(FRASES[fr].s * fps)} cara={CARAS[fr]} frame={frame} />
       {(t >= 12.4 && t < 15.5) || (t >= 5.4 && t < 8.1) || (t >= 23.3 && t < 25.8) || t < T_CLIP ? null : <Burbuja key={`b${fr}`} left={350} top={1300} width={470} desde={Math.round(FRASES[fr].s * fps) + 4} size={52} flecha="ninguna">{REACCION[fr]}</Burbuja>}
 
-      {/* GANCHO: caída recreada por nosotros (animación propia), corte seco al segundo 1,5 */}
+      {/* GANCHO: clip real (Pexels, ver clips/CREDITOS.md), corte seco al segundo 1,5 */}
       {t < T_CLIP ? (
-        <AbsoluteFill style={{ background: "#F5F8FF", overflow: "hidden" }}>
-          <CaidaGancho t={t} />
-          <div style={{ position: "absolute", left: 0, top: 170, width: 1080, height: 330, background: "#0B2A6F", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <AbsoluteFill style={{ background: "#000", overflow: "hidden" }}>
+          <Sequence from={0} durationInFrames={Math.round(T_CLIP * fps)} layout="none">
+            <Video src={staticFile("clips/oficina-papeles-al-aire.mp4")} muted objectFit="cover" style={{ width: 1080, height: 1920 }} />
+          </Sequence>
+          <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 480, background: "#0B2A6F", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 70 }}>
             {(() => {
               const p = ease(frame, 0, 6, Easing.out(Easing.back(1.8)));
               return (
