@@ -329,8 +329,7 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
   const add = (src: string, en: number, vol = 0.45, dur = 1.2) => s.push(<Sfx key={`${src}${en}`} src={src} en={en} vol={vol} dur={dur} />);
   add("pixabay/pop-a.mp3", 0, 0.5, 0.7); // cuadro 0
   add("pixabay/whoosh-a.mp3", 0.02, 0.35, 0.8);
-  add("pixabay/whoosh-b.mp3", 0.55, 0.3, 0.8); // los papeles caen
-  add("pixabay/boing.mp3", 0.9, 0.3, 1);
+  add("pixabay/buzzer-error.mp3", 0.35, 0.22, 0.9); // se desespera frente a la compu
   add("kenney/impactPunch_medium_000.ogg", T_CLIP - 0.04, 0.7, 0.9); // golpe en el corte seco
   add("pixabay/disco-rayado.mp3", T_CLIP - 0.12, 0.45, 1.3); // corte seco al mundo
   add("pixabay/pop-b.mp3", T_CLIP + 0.05, 0.45, 0.8);
@@ -446,9 +445,9 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
       {t < T_CLIP ? (
         <AbsoluteFill style={{ background: "#000", overflow: "hidden" }}>
           <Sequence from={0} durationInFrames={Math.round(T_CLIP * fps)} layout="none">
-            <Video src={staticFile("clips/oficina-papeles-al-aire.mp4")} muted objectFit="cover" style={{ width: 1080, height: 1920 }} />
+            <Video src={staticFile("clips/oficina-grito-laptop.mp4")} muted objectFit="cover" style={{ width: 1080, height: 1920 }} />
           </Sequence>
-          <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 480, background: "#0B2A6F", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 70 }}>
+          <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 420, background: "#0B2A6F", display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 40 }}>
             {(() => {
               const p = ease(frame, 0, 6, Easing.out(Easing.back(1.8)));
               return (
