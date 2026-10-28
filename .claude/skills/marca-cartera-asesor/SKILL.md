@@ -96,6 +96,10 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
   la función **Dueto o Pegar (Stitch)** de TikTok al publicar (eso lo hace Jonathan). Sin hablar de «precios bajos»
   mientras la app sea gratis: el chiste se ata a un dolor del asesor (cobros, clientes que se olvidan, libreta).
   La cuenta regresiva queda solo como momento interactivo de mitad de video, no como gancho.
+  **Nada de caricaturas ni humor de payaso** (Jonathan, 28/10: el asesor animado que pisa una cáscara de plátano en S02 le
+  pareció «muy ridículo»). Lo disruptivo tiene que verse **real y creíble**: personas reales (clip libre o grabado por
+  Jonathan), situaciones que un asesor reconoce (pantalla llena de papeles, un WhatsApp de «ya te deposité», el Excel que
+  se traba), sorpresa por el corte y el sonido, no por un chiste exagerado.
 - **Efectos de sonido que mantengan la atención** a lo largo de todo el video, en `videos/public/sfx/` (gratis y con uso
   comercial; catálogo y licencias en `videos/public/sfx/CREDITOS.md`). **Usar primero `pixabay/`** (suenan a TikTok), luego
   `kenney/`; `propios/` solo de respaldo (Jonathan los encontró genéricos):
