@@ -3,7 +3,14 @@
 Nota corta para que una conversación NUEVA arranque donde quedó la anterior sin releer historiales. Emma la reescribe
 al cerrar cada bloque de trabajo (no es un diario: para eso está `BITACORA.md`).
 
-## Dónde quedamos (26/10/2026)
+## Dónde quedamos (27/10/2026)
+- ✅ 2FA en GitHub y en el correo admin. ✅ Aviso de privacidad con «Si te escribimos primero» (ley de datos: `investigacion/captacion-ley-datos-2026-10-27.md`, Fernanda).
+- ✅ 4 imágenes de Facebook (`videos/out/facebook/FB1–FB4`, textos de grupo/perfil dados en el chat). ✅ Video de prueba S01 «estilo Sloth» (inspirado en github.com/Vancci-sloth/Sloth, sin instalarlo): usarlo 1 de cada 4–5 videos.
+- Victoria: seguimiento de captación en `videos/resultados.md` §2b y guion del **video con la cara de Jonathan** (`videos/propuesta-video-con-cara-2026-10-27.md`), por grabar.
+- Herramientas vistas y no instaladas: Harvey (correos en frío), Lessie/Vibe Prospecting (de pago). Si acaso, «prospecting» de coreyhaines31.
+- Falta: plan de videos del resto de la semana; capturas de retención de TikTok; mensaje a Yamileth; hoja privada «no contactar».
+
+## Antes (26/10/2026)
 - ✅ T07 (lun 26, 8 p. m.) y H08 (mar 27, 7:30) hechos y enviados; P13 y M11 a reserva. Falta el plan de videos de esta semana (Victoria, con capturas de analíticas).
 - Semana 1 de captación arranca hoy: mensaje A a Yamileth (`investigacion/captacion-investigacion-2026-10-23.md`, «Mensajes listos»).
 
