@@ -149,3 +149,40 @@ export const FB4: React.FC = () => (
     </div>
   </Marco>
 );
+
+// ------------------------------------------------------------------ Portada de la pagina (1640x624)
+// En celular Facebook recorta los lados y en compu la foto de perfil tapa abajo a la izquierda:
+// todo lo importante va en el centro (x 300–1340).
+export const PORTADA_W = 1640;
+export const PORTADA_H = 624;
+
+const Punto: React.FC<{ color: string; texto: string }> = ({ color, texto }) => (
+  <div style={{ display: "flex", alignItems: "center", gap: 12, background: "rgba(255,255,255,0.12)", borderRadius: 999, padding: "10px 22px", fontWeight: 800, fontSize: 30 }}>
+    <div style={{ width: 22, height: 22, borderRadius: "50%", background: color }} />
+    {texto}
+  </div>
+);
+
+export const FBPortada: React.FC = () => (
+  <AbsoluteFill style={{ background: `radial-gradient(700px 420px at 30% 0%, rgba(26,163,245,0.45), rgba(26,163,245,0) 70%), linear-gradient(160deg, ${C.azulNoche}, ${C.azulCartera})`, fontFamily: textos, color: C.blanco }}>
+    <div style={{ position: "absolute", left: 330, top: 92, width: 720 }}>
+      <div style={{ fontFamily: titulos, fontWeight: 800, fontSize: 78, lineHeight: 1.02, letterSpacing: -2 }}>
+        Tu cartera de clientes, <span style={{ color: C.oro }}>en orden</span>
+      </div>
+      <div style={{ marginTop: 22, fontSize: 32, fontWeight: 600, color: C.secundario, lineHeight: 1.3 }}>
+        La app para asesores: quién está al día, quién vence y quién debe, y el recordatorio por WhatsApp en 1 toque.
+      </div>
+      <div style={{ display: "flex", gap: 14, marginTop: 30 }}>
+        <Punto color={C.verde} texto="Al día" />
+        <Punto color={C.ambar} texto="Por vencer" />
+        <Punto color={C.rojo} texto="Debe" />
+      </div>
+      <div style={{ marginTop: 30, fontFamily: titulos, fontWeight: 800, fontSize: 38 }}>
+        carteraasesor.com <span style={{ color: C.oro }}>· Beta gratuita</span>
+      </div>
+    </div>
+    <div style={{ position: "absolute", left: 1080, top: 60, width: 260, height: 540, borderRadius: 36, background: "#0a1633", padding: 8, boxShadow: "0 22px 50px rgba(5,20,60,0.55)", transform: "rotate(4deg)" }}>
+      <Recorte src="capturas/sem-inicio.png" ancho={244} y0={0} alto={2318} style={{ borderRadius: 30, boxShadow: "none" }} />
+    </div>
+  </AbsoluteFill>
+);
