@@ -1,10 +1,10 @@
 import type React from "react";
-import { Video } from "@remotion/media";
-import { AbsoluteFill, Easing, Img, Sequence, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
+import { AbsoluteFill, Easing, Img, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import type { CalculateMetadataFunction } from "remotion";
 import { C, textos, titulos } from "../brand";
 import { ease } from "../anim";
 import { Background } from "../components/Background";
+import { CaidaGancho, T_IMPACTO, T_RESBALA } from "./CaidaGancho";
 import { Burbuja, Sfx, VozEn, cargarFrases } from "../semana22/Comun";
 
 import type { VozFrase } from "../voz";
@@ -329,8 +329,10 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
   const add = (src: string, en: number, vol = 0.45, dur = 1.2) => s.push(<Sfx key={`${src}${en}`} src={src} en={en} vol={vol} dur={dur} />);
   add("pixabay/pop-a.mp3", 0, 0.5, 0.7); // cuadro 0
   add("pixabay/whoosh-a.mp3", 0.02, 0.35, 0.8);
-  add("kenney/impactPunch_medium_000.ogg", 0.5, 0.75, 0.9); // el golpe de la caída
-  add("pixabay/boing.mp3", 0.62, 0.35, 1);
+  add("pixabay/whoosh-b.mp3", T_RESBALA - 0.05, 0.4, 0.7); // resbala
+  add("pixabay/boing.mp3", T_RESBALA, 0.4, 1);
+  add("kenney/impactPunch_medium_000.ogg", T_IMPACTO, 0.8, 0.9); // el golpe de la caída
+  add("pixabay/pop-burbuja.mp3", T_IMPACTO + 0.12, 0.35, 1);
   add("pixabay/disco-rayado.mp3", T_CLIP - 0.12, 0.45, 1.3); // corte seco al mundo
   add("pixabay/pop-b.mp3", T_CLIP + 0.05, 0.45, 0.8);
   add("pixabay/whoosh-b.mp3", T_CLIP, 0.3, 0.8);
@@ -377,8 +379,6 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
   const caja = { position: "absolute" as const, left: 140, width: 800, display: "flex", justifyContent: "center" as const };
   const pop = (a: number, b: number) => ease(t * FPS, a * FPS, b * FPS, Easing.out(Easing.back(1.4)));
 
-  // el golpe de la caída: pequeño temblor y zoom del clip
-  const golpe = t > 0.5 && t < 0.85 ? Math.sin((t - 0.5) * 70) * 14 * (1 - (t - 0.5) / 0.35) : 0;
 
   return (
     <AbsoluteFill>
@@ -443,23 +443,20 @@ export const S02: React.FC<S02Props> = ({ frases }) => {
       <Sticker frameInicio={Math.round(FRASES[fr].s * fps)} cara={CARAS[fr]} frame={frame} />
       {(t >= 12.4 && t < 15.5) || (t >= 5.4 && t < 8.1) || (t >= 23.3 && t < 25.8) || t < T_CLIP ? null : <Burbuja key={`b${fr}`} left={350} top={1300} width={470} desde={Math.round(FRASES[fr].s * fps) + 4} size={52} flecha="ninguna">{REACCION[fr]}</Burbuja>}
 
-      {/* GANCHO: clip real de una caída, corte seco al segundo 1,5 */}
+      {/* GANCHO: caída recreada por nosotros (animación propia), corte seco al segundo 1,5 */}
       {t < T_CLIP ? (
-        <AbsoluteFill style={{ background: "#000", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, translate: `${golpe}px ${golpe * 0.6}px`, scale: 1.04 + (t > 0.5 && t < 0.7 ? 0.05 : 0) }}>
-            <Sequence from={0} durationInFrames={Math.round(T_CLIP * fps)} layout="none">
-              <Video src={staticFile("clips/caida-pista-hielo.mp4")} muted objectFit="cover" style={{ width: 1080, height: 1920 }} />
-            </Sequence>
+        <AbsoluteFill style={{ background: "#F5F8FF", overflow: "hidden" }}>
+          <CaidaGancho t={t} />
+          <div style={{ position: "absolute", left: 0, top: 170, width: 1080, height: 330, background: "#0B2A6F", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            {(() => {
+              const p = ease(frame, 0, 6, Easing.out(Easing.back(1.8)));
+              return (
+                <div style={{ width: 800, textAlign: "center", fontFamily: titulos, fontWeight: 800, fontSize: 102, lineHeight: 1.04, letterSpacing: -3, color: C.blanco, scale: 0.92 + p * 0.08 }}>
+                  Yo con mi Excel de <span style={{ color: C.oro }}>80</span> clientes:
+                </div>
+              );
+            })()}
           </div>
-          <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 620, background: "linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0))" }} />
-          {(() => {
-            const p = ease(frame, 0, 7, Easing.out(Easing.back(1.8)));
-            return (
-              <div style={{ position: "absolute", left: 140, width: 800, top: 200, textAlign: "center", fontFamily: titulos, fontWeight: 800, fontSize: 102, lineHeight: 1.04, letterSpacing: -3, color: C.blanco, textShadow: "0 8px 30px rgba(0,0,0,0.7)", opacity: p, scale: 0.85 + p * 0.15 }}>
-                Yo con mi Excel de <span style={{ color: C.oro }}>80</span> clientes:
-              </div>
-            );
-          })()}
         </AbsoluteFill>
       ) : null}
       {s}
