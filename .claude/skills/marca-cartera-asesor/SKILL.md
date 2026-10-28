@@ -87,6 +87,15 @@ Si algo no está aquí, se decide siguiendo el espíritu de estas reglas y se le
 - **Los primeros 3 segundos enganchan sí o sí:** el gancho ya está en pantalla en el cuadro 0, la voz arranca en 0,0 s,
   algo se mueve antes del segundo 1 y en los 3 primeros segundos hay una pregunta, un número que pica o un conflicto
   («¿cuántos están activos?», «Sospechoso #1»). Nada de logo, saludo ni fondo vacío al inicio.
+- **Gancho disruptivo (Jonathan, 28/10) en vez de la cuenta regresiva:** abrir con una **micro escena tipo meme** de
+  1–2 s (alguien que se cae, un susto, un choque, una cara de sorpresa), corte seco con sonido («pum», disco rayado) y
+  empalmar con la frase que la conecta con la app («Así se cae tu cobranza cuando todo va en la libreta»).
+  **Solo clips con licencia libre para uso comercial** (Pexels, Pixabay videos, Mixkit; anotar fuente y licencia en
+  `videos/public/clips/CREDITOS.md`) o recreados por nosotros. **Nunca** memes, películas, series ni videos virales de
+  otras personas bajados de redes: TikTok los baja por derechos de autor y castiga la cuenta. Para un meme famoso, usar
+  la función **Dueto o Pegar (Stitch)** de TikTok al publicar (eso lo hace Jonathan). Sin hablar de «precios bajos»
+  mientras la app sea gratis: el chiste se ata a un dolor del asesor (cobros, clientes que se olvidan, libreta).
+  La cuenta regresiva queda solo como momento interactivo de mitad de video, no como gancho.
 - **Efectos de sonido que mantengan la atención** a lo largo de todo el video, en `videos/public/sfx/` (gratis y con uso
   comercial; catálogo y licencias en `videos/public/sfx/CREDITOS.md`). **Usar primero `pixabay/`** (suenan a TikTok), luego
   `kenney/`; `propios/` solo de respaldo (Jonathan los encontró genéricos):

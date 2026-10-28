@@ -98,3 +98,12 @@ Cosas que un asesor debería dejar en visto 👻 La libreta que se moja, cobrar 
 #cobranza #asesorimss #clientes #carteraasesor
 ```
 (Activar «Contenido generado por IA»: Citlali es una persona creada con IA y la voz es artificial.)
+
+## PRUEBA S02 · gancho disruptivo (caída) + «del Excel a la app» · `S02_excel_a_la_app_con_voz.mp4`
+
+### S02 «Así terminé yo pasando 80 clientes a mano»
+```
+Yo con mi Excel de 80 clientes… 😬 Si tienes tu lista en Excel, no la pases a mano: en Cartera Asesor la cargas tú, la app reconoce tus columnas, revisas, confirmas y cada cliente queda ordenado con su color. ¿Cuántos clientes tienes en tu Excel? Comenta el número 👇 Beta gratuita: carteraasesor.com
+#cobranza #asesorimss #excel #carteraasesor
+```
+(Activar «Contenido generado por IA»: Citlali es una persona creada con IA y la voz es artificial. El clip de la caída es de Pexels, autor cottonbro studio, licencia libre; créditos en `videos/public/clips/CREDITOS.md`.)

@@ -1,0 +1,15 @@
+{
+  "id": "s02-excel-a-la-app",
+  "voz": "es-MX-Valeria:MAI-Voice-2",
+  "velocidad": "+12%",
+  "frases": [
+    { "texto": "Así terminé yo pasando ochenta clientes a mano." },
+    { "texto": "Pausa y cuenta: ¿cuántas versiones final tiene tu Excel?" },
+    { "texto": "En Cartera Asesor lo cargas tú, y reconoce tus columnas." },
+    { "texto": "¿Cuántos clientes tienes en tu Excel? Comenta tu número." },
+    { "texto": "Toca Traer mis clientes de Excel y elige tu archivo." },
+    { "texto": "Revisas, confirmas, y listo: cada uno con su color." },
+    { "texto": "¿Tu Excel también es un caos? Escribe YO." },
+    { "texto": "Beta gratuita: carteraasesor punto com." }
+  ]
+}
